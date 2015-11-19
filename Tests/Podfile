@@ -1,0 +1,26 @@
+source 'https://github.com/CocoaPods/Specs'
+source 'https://github.com/deltaDNA/CocoaPods'
+
+xcodeproj 'DeltaDNA SmartAds Tests'
+workspace '../DeltaDNAAds'
+#inhibit_all_warnings!
+
+target 'iOS SmartAds Tests', :exclusive => true do
+    pod 'DeltaDNAAds', :path => '../'
+
+    pod 'Specta', '~> 1.0'
+    pod 'Expecta', '~> 1.0'
+    pod 'OCMockito', '~> 1.0'
+end
+
+# Enable extra logging
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == 'DeltaDNAAds'
+            target.build_configurations.each do |config|
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'DDNA_DEBUG=1'
+            end
+        end
+    end
+end

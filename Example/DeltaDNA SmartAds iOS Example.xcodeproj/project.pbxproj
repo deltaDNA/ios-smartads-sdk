@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04292ECD9ED1E84CC4C06F50 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9B495B20C9CFF53EF4D22E5 /* libPods.a */; };
+		63B381EE1BFE16FF0049CE28 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381ED1BFE16FF0049CE28 /* main.m */; };
+		63B381F11BFE16FF0049CE28 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381F01BFE16FF0049CE28 /* AppDelegate.m */; };
+		63B381F41BFE16FF0049CE28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381F31BFE16FF0049CE28 /* ViewController.m */; };
+		63B381F71BFE16FF0049CE28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B381F51BFE16FF0049CE28 /* Main.storyboard */; };
+		63B381F91BFE16FF0049CE28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B381F81BFE16FF0049CE28 /* Assets.xcassets */; };
+		63B381FC1BFE16FF0049CE28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B381FA1BFE16FF0049CE28 /* LaunchScreen.storyboard */; };
+		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		63B381E91BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DeltaDNA SmartAds iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B381ED1BFE16FF0049CE28 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		63B381EF1BFE16FF0049CE28 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		63B381F01BFE16FF0049CE28 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		63B381F21BFE16FF0049CE28 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		63B381F31BFE16FF0049CE28 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		63B381F61BFE16FF0049CE28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		63B381F81BFE16FF0049CE28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		63B381FB1BFE16FF0049CE28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		63B381FD1BFE16FF0049CE28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		B9B495B20C9CFF53EF4D22E5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE5C38EF1754D00BB25426A4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E7178230EC503099D4AEA3EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		63B381E61BFE16FF0049CE28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04292ECD9ED1E84CC4C06F50 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		63B381E01BFE16FF0049CE28 = {
+			isa = PBXGroup;
+			children = (
+				63B382891BFF67010049CE28 /* Podfile */,
+				63B381EB1BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example */,
+				63B381EA1BFE16FF0049CE28 /* Products */,
+				D1FA90A14136E0817FDFECE8 /* Pods */,
+				FD3E9A96C8C7D2474B5F5009 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		63B381EA1BFE16FF0049CE28 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				63B381E91BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		63B381EB1BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example */ = {
+			isa = PBXGroup;
+			children = (
+				63B381EF1BFE16FF0049CE28 /* AppDelegate.h */,
+				63B381F01BFE16FF0049CE28 /* AppDelegate.m */,
+				63B381F21BFE16FF0049CE28 /* ViewController.h */,
+				63B381F31BFE16FF0049CE28 /* ViewController.m */,
+				63B381F51BFE16FF0049CE28 /* Main.storyboard */,
+				63B381F81BFE16FF0049CE28 /* Assets.xcassets */,
+				63B381FA1BFE16FF0049CE28 /* LaunchScreen.storyboard */,
+				63B381FD1BFE16FF0049CE28 /* Info.plist */,
+				63B381EC1BFE16FF0049CE28 /* Supporting Files */,
+			);
+			path = "DeltaDNA SmartAds iOS Example";
+			sourceTree = "<group>";
+		};
+		63B381EC1BFE16FF0049CE28 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				63B381ED1BFE16FF0049CE28 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1FA90A14136E0817FDFECE8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DE5C38EF1754D00BB25426A4 /* Pods.debug.xcconfig */,
+				E7178230EC503099D4AEA3EC /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FD3E9A96C8C7D2474B5F5009 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B9B495B20C9CFF53EF4D22E5 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		63B381E81BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "DeltaDNA SmartAds iOS Example" */;
+			buildPhases = (
+				36886DC1B4426F773093C6DF /* Check Pods Manifest.lock */,
+				63B381E51BFE16FF0049CE28 /* Sources */,
+				63B381E61BFE16FF0049CE28 /* Frameworks */,
+				63B381E71BFE16FF0049CE28 /* Resources */,
+				73641F799D241BD284BDF974 /* Embed Pods Frameworks */,
+				A976DFA87A1FDF4F0A520847 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DeltaDNA SmartAds iOS Example";
+			productName = "DeltaDNA SmartAds iOS Example";
+			productReference = 63B381E91BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		63B381E11BFE16FF0049CE28 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = deltaDNA;
+				TargetAttributes = {
+					63B381E81BFE16FF0049CE28 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 63B381E41BFE16FF0049CE28 /* Build configuration list for PBXProject "DeltaDNA SmartAds iOS Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 63B381E01BFE16FF0049CE28;
+			productRefGroup = 63B381EA1BFE16FF0049CE28 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63B381E81BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		63B381E71BFE16FF0049CE28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63B381FC1BFE16FF0049CE28 /* LaunchScreen.storyboard in Resources */,
+				63B381F91BFE16FF0049CE28 /* Assets.xcassets in Resources */,
+				63B3828A1BFF67010049CE28 /* Podfile in Resources */,
+				63B381F71BFE16FF0049CE28 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		36886DC1B4426F773093C6DF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		73641F799D241BD284BDF974 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A976DFA87A1FDF4F0A520847 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		63B381E51BFE16FF0049CE28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63B381F41BFE16FF0049CE28 /* ViewController.m in Sources */,
+				63B381F11BFE16FF0049CE28 /* AppDelegate.m in Sources */,
+				63B381EE1BFE16FF0049CE28 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		63B381F51BFE16FF0049CE28 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63B381F61BFE16FF0049CE28 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		63B381FA1BFE16FF0049CE28 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63B381FB1BFE16FF0049CE28 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		63B381FE1BFE16FF0049CE28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		63B381FF1BFE16FF0049CE28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		63B382011BFE16FF0049CE28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE5C38EF1754D00BB25426A4 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		63B382021BFE16FF0049CE28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E7178230EC503099D4AEA3EC /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63B381E41BFE16FF0049CE28 /* Build configuration list for PBXProject "DeltaDNA SmartAds iOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B381FE1BFE16FF0049CE28 /* Debug */,
+				63B381FF1BFE16FF0049CE28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "DeltaDNA SmartAds iOS Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63B382011BFE16FF0049CE28 /* Debug */,
+				63B382021BFE16FF0049CE28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 63B381E11BFE16FF0049CE28 /* Project object */;
+}

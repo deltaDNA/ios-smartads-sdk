@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:DeltaDNAAds"
+      name = "DeltaDNAAds">
+      <FileRef
+         location = "group:DDNASmartAdAdapter.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdAdapter.m">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdAgent.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdAgent.m">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdFactory.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdFactory.m">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAds.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAds.m">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdService.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdService.m">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdStatus.h">
+      </FileRef>
+      <FileRef
+         location = "group:DDNASmartAdStatus.m">
+      </FileRef>
+      <Group
+         location = "group:Networks"
+         name = "Networks">
+         <Group
+            location = "group:AdMob"
+            name = "AdMob">
+            <FileRef
+               location = "group:DDNASmartAdAdMobAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdAdMobAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Amazon"
+            name = "Amazon">
+            <FileRef
+               location = "group:DDNASmartAdAmazonAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdAmazonAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Dummy"
+            name = "Dummy">
+            <FileRef
+               location = "group:DDNASmartAdDummyAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdDummyAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Flurry"
+            name = "Flurry">
+            <FileRef
+               location = "group:DDNASmartAdFlurryAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdFlurryAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:InMobi"
+            name = "InMobi">
+            <FileRef
+               location = "group:DDNASmartAdInMobiAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdInMobiAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:MobFox"
+            name = "MobFox">
+            <FileRef
+               location = "group:DDNASmartAdMobFoxAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdMobFoxAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:MoPub"
+            name = "MoPub">
+            <FileRef
+               location = "group:DDNASmartAdMoPubAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdMoPubAdapter.m">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:Example/DeltaDNA SmartAds iOS Example.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Tests/DeltaDNA SmartAds Tests.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:DeltaDNAAds.podspec">
+   </FileRef>
+   <Group
+      location = "group:PodSpecs"
+      name = "PodSpecs">
+      <FileRef
+         location = "group:AmazonAds.podspec">
+      </FileRef>
+      <FileRef
+         location = "group:InMobi.podspec">
+      </FileRef>
+      <FileRef
+         location = "group:MobFox.podspec">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:Tests/Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Example/Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>
