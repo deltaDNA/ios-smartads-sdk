@@ -176,7 +176,7 @@ static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
                 }
             }
             else {
-                DDNALogDebug(@"Skipping %@ - eCPM %ld below %ld.", adProvider, ecpm, floorPrice);
+                DDNALogDebug(@"Skipping %@ - eCPM %ld below %ld.", adProvider, (long)ecpm, (long)floorPrice);
             }
         }
         @catch (NSException *exception) {

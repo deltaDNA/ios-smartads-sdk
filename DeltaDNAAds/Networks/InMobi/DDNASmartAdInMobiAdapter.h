@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "../../DDNASmartAdAdapter.h"
+#import <DeltaDNAAds/DDNASmartAdAdapter.h>
 
 @interface DDNASmartAdInMobiAdapter : DDNASmartAdAdapter
 
