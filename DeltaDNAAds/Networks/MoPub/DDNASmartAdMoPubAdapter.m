@@ -143,7 +143,7 @@
  */
 - (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
 {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 /** @name Detecting When an Interstitial Ad Expires */

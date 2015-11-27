@@ -44,6 +44,16 @@
          location = "group:Networks"
          name = "Networks">
          <Group
+            location = "container:"
+            name = "AdColony">
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
             location = "group:AdMob"
             name = "AdMob">
             <FileRef

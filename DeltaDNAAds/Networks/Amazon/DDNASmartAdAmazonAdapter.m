@@ -140,7 +140,7 @@
 
 // Sent when the user has dismissed interstitial and it has left the screen.
 - (void)interstitialDidDismiss:(AmazonAdInterstitial *)interstitial {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 @end

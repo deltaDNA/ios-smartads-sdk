@@ -105,7 +105,7 @@
 //called when ad is closed/skipped
 - (void)MobFoxInterstitialAdClosed
 {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 //called w mobfoxInterAd.delegate = self;hen ad is clicked

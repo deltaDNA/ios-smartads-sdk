@@ -13,7 +13,7 @@
 
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter;
 - (void)adapterIsShowingAd: (DDNASmartAdAdapter *)adapter;
-- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter;
+- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward;
 
 @end
 
@@ -49,7 +49,7 @@
 
 - (void)closeAd
 {
-    [self adapterDidCloseAd:self.dummyAdapter];
+    [self adapterDidCloseAd:self.dummyAdapter canReward:YES];
 }
 
 @end

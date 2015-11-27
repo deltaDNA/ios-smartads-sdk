@@ -145,9 +145,9 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     self.adLeftApplication = YES;
 }
 
-- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter
+- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
-    [self.delegate adAgent:self didCloseAdWithAdapter:adapter];
+    [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
     self.state = DDNASmartAdAgentStateReady;
     self.currentAdapter = [self getFirstAdapter];
     [self requestNextAd];

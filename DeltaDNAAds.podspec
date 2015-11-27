@@ -71,4 +71,11 @@ Pod::Spec.new do |s|
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
 
+    s.subspec 'AdColony' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'AdColony', '~>2.6'
+        ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
+    end
+
 end

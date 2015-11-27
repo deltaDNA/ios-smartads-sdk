@@ -189,7 +189,7 @@
 /// Called just after dismissing an interstitial and it has animated off the screen.
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad
 {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 /// Called just before the application will background or terminate because the user clicked on an

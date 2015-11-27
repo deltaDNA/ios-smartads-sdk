@@ -160,7 +160,7 @@
 /* Indicates that the interstitial has dismissed itself. */
 - (void)interstitialDidDismiss:(IMInterstitial *)interstitial
 {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 /* Indicates that the user will leave the app. */

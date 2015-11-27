@@ -43,6 +43,6 @@
 - (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult: (DDNASmartAdClosedResult *)result;
 - (void)adapterWasClicked:(DDNASmartAdAdapter *)adapter;
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter;
-- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter;
+- (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward: (BOOL)canReward;
 
 @end

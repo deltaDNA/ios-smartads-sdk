@@ -50,25 +50,10 @@
 - (void)closeAd
 {
     self.showing = false;
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 #pragma mark - DDNASmartAdAdapter
-
-//- (NSString *)name
-//{
-//    return self.adapterName;
-//}
-//
-//- (NSString *)version
-//{
-//    return @"1.0.0";
-//}
-//
-//- (NSInteger)eCPM
-//{
-//    return 100;
-//}
 
 - (void)requestAd
 {

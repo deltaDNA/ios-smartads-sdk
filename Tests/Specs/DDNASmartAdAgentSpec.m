@@ -108,7 +108,7 @@ describe(@"ad agent", ^{
         expect([agent adPoint]).to.equal(@"testAdPoint");
         
         [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
-        [verifyCount(delegate, times(1)) adAgent:agent didCloseAdWithAdapter:adapters[0]];
+        [verifyCount(delegate, times(1)) adAgent:agent didCloseAdWithAdapter:adapters[0] canReward:YES];
     });
     
     it(@"fails with one adapter", ^{

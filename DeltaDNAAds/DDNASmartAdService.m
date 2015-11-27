@@ -296,7 +296,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     }
 }
 
-- (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter
+- (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
     if (adAgent == self.interstitialAgent) {
         DDNALogDebug(@"Interstitial ad closed.");

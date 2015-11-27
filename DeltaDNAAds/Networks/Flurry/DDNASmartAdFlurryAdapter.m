@@ -159,7 +159,7 @@
  */
 - (void) adInterstitialDidDismiss:(FlurryAdInterstitial*)interstitialAd
 {
-    [self.delegate adapterDidCloseAd:self];
+    [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 /*!
