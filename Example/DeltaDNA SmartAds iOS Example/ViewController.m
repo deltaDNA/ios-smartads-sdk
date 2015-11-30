@@ -10,7 +10,7 @@
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNAAds/DDNASmartAds.h>
 
-@interface ViewController () <DDNASmartAdsDelegate>
+@interface ViewController () <DDNASmartAdsInterstitialDelegate, DDNASmartAdsRewardedDelegate>
 
 @end
 
@@ -21,6 +21,7 @@
     
     self.sdkVersion.text = [DDNASmartAds sdkVersion];
     self.smartAdsStatus.text = @"Registering...";
+    self.smartAdsRewardedStatus.text = @"Registering...";
     
     [DDNASDK sharedInstance].clientVersion = @"0.1.0";
     [DDNASDK sharedInstance].hashSecret = @"KmMBBcNwStLJaq6KsEBxXc6HY3A4bhGw";
@@ -29,7 +30,8 @@
                                            collectURL:@"http://collect2010stst.deltadna.net/collect/api"
                                             engageURL:@"http://engage2010stst.deltadna.net"];
     
-    [DDNASmartAds sharedInstance].delegate = self;
+    [DDNASmartAds sharedInstance].interstitialDelegate = self;
+    [DDNASmartAds sharedInstance].rewardedDelegate = self;
     [[DDNASmartAds sharedInstance] registerForAds];
 }
 
@@ -48,32 +50,70 @@
     [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self adPoint:@"testAdPoint"];
 }
 
-
-#pragma mark - DDNASmartAdsDelegate
-
-- (void)didRegisterForAds
+- (IBAction)showRewardedAd:(id)sender
 {
-    self.smartAdsStatus.text = @"Registered for ads.";
+    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self];
 }
 
-- (void)didFailToRegisterForAdsWithReason:(NSString *)reason
+- (IBAction)showRewardedAdWithAdPoint:(id)sender
 {
-    self.smartAdsStatus.text = @"Failed to register for ads.";
+    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self adPoint:@"testRewardedAdPoint"];
 }
 
-- (void)didOpenAd
+
+#pragma mark - DDNASmartAdsInterstitialDelegate
+
+- (void)didRegisterForInterstitialAds
+{
+    self.smartAdsStatus.text = @"Registered for interstitial ads.";
+}
+
+- (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason
+{
+    self.smartAdsStatus.text = @"Failed to register for interstitial ads.";
+}
+
+- (void)didOpenInterstitialAd
 {
     
 }
 
-- (void)didFailToOpenAd
+- (void)didFailToOpenInterstitialAd
 {
     
 }
 
-- (void)didCloseAd
+- (void)didCloseInterstitialAd
 {
     
 }
+
+#pragma mark - DDNASmartAdsRewardedDelegate
+
+- (void)didRegisterForRewardedAds
+{
+    self.smartAdsRewardedStatus.text = @"Registered for rewarded ads.";
+}
+
+- (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason
+{
+    self.smartAdsRewardedStatus.text = @"Failed to register for rewarded ads.";
+}
+
+- (void)didOpenRewardedAd
+{
+    
+}
+
+- (void)didFailToOpenRewardedAd
+{
+    
+}
+
+- (void)didCloseRewardedAdWithReward:(BOOL)reward
+{
+    
+}
+
 
 @end

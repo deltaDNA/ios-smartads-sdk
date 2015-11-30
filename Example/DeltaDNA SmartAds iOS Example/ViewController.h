@@ -12,9 +12,12 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *sdkVersion;
 @property (weak, nonatomic) IBOutlet UILabel *smartAdsStatus;
+@property (weak, nonatomic) IBOutlet UILabel *smartAdsRewardedStatus;
 
 - (IBAction)showInterstitialAd:(id)sender;
 - (IBAction)showInterstitialAdWithAdPoint:(id)sender;
+- (IBAction)showRewardedAd:(id)sender;
+- (IBAction)showRewardedAdWithAdPoint:(id)sender;
 
 @end
 
