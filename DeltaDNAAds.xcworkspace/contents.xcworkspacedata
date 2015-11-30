@@ -45,6 +45,28 @@
          name = "Networks">
          <Group
             location = "container:"
+            name = "Chartboost">
+            <FileRef
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.h">
+            </FileRef>
+            <FileRef
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.m">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostInterstitialAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostRewardedAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "container:"
             name = "AdColony">
             <FileRef
                location = "group:DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h">

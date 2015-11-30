@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '0.9.0-beta.2'
+    s.version = '0.10.0-beta.1'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
@@ -76,6 +76,13 @@ Pod::Spec.new do |s|
         ss.dependency 'AdColony', '~>2.6'
         ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
+    end
+
+    s.subspec 'Chartboost' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'ChartboostSDK', '~>6.0'
+        ss.source_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.h'
     end
 
 end

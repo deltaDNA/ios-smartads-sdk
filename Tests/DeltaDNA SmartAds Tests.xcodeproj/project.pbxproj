@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6354E25C1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */; };
 		63B382321BFE1A500049CE28 /* iOS_SmartAds_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */; };
 		63B382471BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382391BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m */; };
 		63B382481BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B3823B1BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdChartboostAdapterSpec.m; sourceTree = "<group>"; };
 		63B3822E1BFE1A500049CE28 /* iOS SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOS_SmartAds_Tests.m; sourceTree = "<group>"; };
 		63B382331BFE1A500049CE28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				63B382451BFE1B770049CE28 /* DDNASmartAdMoPubAdapterSpec.m */,
 				63B382461BFE1B770049CE28 /* DDNASmartAdServiceSpec.m */,
 				63CB9F2A1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m */,
+				6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				63B382321BFE1A500049CE28 /* iOS_SmartAds_Tests.m in Sources */,
 				63B3824A1BFE1B770049CE28 /* DDNASmartAdAdMobAdapterSpec.m in Sources */,
 				63B382511BFE1B770049CE28 /* DDNASmartAdMoPubAdapterSpec.m in Sources */,
+				6354E25C1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m in Sources */,
 				63B3824E1BFE1B770049CE28 /* DDNASmartAdFlurryAdapterSpec.m in Sources */,
 				63B382481BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m in Sources */,
 				63B3824D1BFE1B770049CE28 /* DDNASmartAdFactorySpec.m in Sources */,

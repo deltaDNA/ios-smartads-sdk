@@ -22,24 +22,22 @@
 // over the wire
 static NSString *const AD_NETWORK_DUMMY = @"DUMMY";
 static NSString *const AD_NETWORK_DUMMY_CLASS = @"DDNASmartAdDummyAdapter";
-
 static NSString *const AD_NETWORK_ADMOB = @"ADMOB";
 static NSString *const AD_NETWORK_ADMOB_CLASS = @"DDNASmartAdAdMobAdapter";
-
 static NSString *const AD_NETWORK_AMAZON = @"AMAZON";
 static NSString *const AD_NETWORK_AMAZON_CLASS = @"DDNASmartAdAmazonAdapter";
-
 static NSString *const AD_NETWORK_MOPUB = @"MOPUB";
 static NSString *const AD_NETWORK_MOPUB_CLASS = @"DDNASmartAdMoPubAdapter";
-
 static NSString *const AD_NETWORK_FLURRY = @"FLURRY";
 static NSString *const AD_NETWORK_FLURRY_CLASS = @"DDNASmartAdFlurryAdapter";
-
 static NSString *const AD_NETWORK_INMOBI = @"INMOBI";
 static NSString *const AD_NETWORK_INMOBI_CLASS = @"DDNASmartAdInMobiAdapter";
-
 static NSString *const AD_NETWORK_MOBFOX = @"MOBFOX";
 static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
+static NSString *const AD_NETWORK_CHARTBOOST = @"CHARTBOOST";
+static NSString *const AD_NETWORK_CHARTBOOST_CLASS = @"DDNASmartAdChartboostInterstitialAdapter";
+static NSString *const AD_NETWORK_CHARTBOOST_REWARDED = @"CHARTBOOST-REWARDED";
+static NSString *const AD_NETWORK_CHARTBOOST_REWARDED_CLASS = @"DDNASmartAdChartboostRewardedAdapter";
 
 @implementation DDNASmartAdFactory
 
@@ -166,6 +164,16 @@ static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
                 }
                 else if ([adProvider isEqualToString:AD_NETWORK_MOBFOX]) {
                     adapter = [self instantiateAdapterForKlass:AD_NETWORK_MOBFOX_CLASS
+                                                 configuration:configuration
+                                                waterfallIndex:i];
+                }
+                else if ([adProvider isEqualToString:AD_NETWORK_CHARTBOOST]) {
+                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_CHARTBOOST_CLASS
+                                                 configuration:configuration
+                                                waterfallIndex:i];
+                }
+                else if ([adProvider isEqualToString:AD_NETWORK_CHARTBOOST_REWARDED]) {
+                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_CHARTBOOST_REWARDED_CLASS
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
