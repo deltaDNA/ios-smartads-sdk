@@ -39,6 +39,6 @@
 - (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall: (NSArray *)waterfall
                                             delegate: (id<DDNASmartAdAgentDelegate>)delegate;
 
-- (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice;
+- (NSArray *)buildAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice;
 
 @end

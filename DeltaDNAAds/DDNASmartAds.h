@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol DDNASmartAdsDelegate;
+@protocol DDNASmartAdsInterstitialDelegate;
+@protocol DDNASmartAdsRewardedDelegate;
 
 @interface DDNASmartAds : NSObject
 
-@property (nonatomic, weak) id<DDNASmartAdsDelegate> delegate;
+@property (nonatomic, weak) id<DDNASmartAdsInterstitialDelegate> interstitialDelegate;
+@property (nonatomic, weak) id<DDNASmartAdsRewardedDelegate> rewardedDelegate;
 
 + (instancetype)sharedInstance;
 
@@ -20,26 +22,49 @@
 
 - (void)registerForAds;
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController;
+- (BOOL)isInterstitialAdAvailable;
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController adPoint: (NSString *)adPoint;
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
+
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
+
+- (BOOL)isRewardedAdAvailable;
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController;
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
 
 @end
 
 
-@protocol DDNASmartAdsDelegate <NSObject>
+@protocol DDNASmartAdsInterstitialDelegate <NSObject>
 
 @optional
 
-- (void)didRegisterForAds;
+- (void)didRegisterForInterstitialAds;
 
-- (void)didFailToRegisterForAdsWithReason: (NSString *) reason;
+- (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason;
 
-- (void)didOpenAd;
+- (void)didOpenInterstitialAd;
 
-- (void)didFailToOpenAd;
+- (void)didFailToOpenInterstitialAd;
 
-- (void)didCloseAd;
+- (void)didCloseInterstitialAd;
 
 @end
 
+@protocol DDNASmartAdsRewardedDelegate <NSObject>
+
+@optional
+
+- (void)didRegisterForRewardedAds;
+
+- (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason;
+
+- (void)didOpenRewardedAd;
+
+- (void)didFailToOpenRewardedAd;
+
+- (void)didCloseRewardedAdWithReward:(BOOL)reward;
+
+@end

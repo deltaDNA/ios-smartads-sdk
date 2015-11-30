@@ -16,16 +16,26 @@
 
 @property (nonatomic, weak) id<DDNASmartAdServiceDelegate> delegate;
 @property (nonatomic, strong) DDNASmartAdFactory *factory;
-@property (nonatomic, assign, readonly, getter=isAdAvailable) BOOL adAvailable;
-@property (nonatomic, assign, readonly, getter=isShowingAd) BOOL showingAd;
 
 - (instancetype)init;
 
-- (void)beginSessionWithDecisionPoint: (NSString *)decisionPoint;
+- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint;
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController;
+- (BOOL)isInterstitialAdAvailable;
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController adPoint: (NSString *)adPoint ;
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
+
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
+
+- (BOOL)isShowingInterstitialAd;
+
+- (BOOL)isRewardedAdAvailable;
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController;
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
+
+- (BOOL)isShowingRewardedAd;
 
 @end
 
@@ -34,16 +44,26 @@
 
 @required
 
-- (void)didRegisterForAds;
+- (void)didRegisterForInterstitialAds;
 
-- (void)didFailToRegisterForAdsWithReason: (NSString *)reason;
+- (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason;
 
-- (void)didOpenAd;
+- (void)didOpenInterstitialAd;
 
-- (void)didFailToOpenAd;
+- (void)didFailToOpenInterstitialAd;
 
-- (void)didCloseAd;
+- (void)didCloseInterstitialAd;
 
-- (void)recordEventWithName: (NSString *)eventName andParamJson: (NSString *)paramJson;
+- (void)didRegisterForRewardedAds;
+
+- (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason;
+
+- (void)didOpenRewardedAd;
+
+- (void)didFailToOpenRewardedAd;
+
+- (void)didCloseRewardedAdWithReward:(BOOL)reward;
+
+- (void)recordEventWithName:(NSString *)eventName andParamJson:(NSString *)paramJson;
 
 @end

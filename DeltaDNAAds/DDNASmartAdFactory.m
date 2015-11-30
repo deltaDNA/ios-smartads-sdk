@@ -111,7 +111,7 @@ static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
     return adapter;
 }
 
-- (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice
+- (NSArray *)buildAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice
 {
     if (![adProviders isKindOfClass:[NSArray class]]) return nil;
     
@@ -119,9 +119,14 @@ static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
     
     for (int i = 0; i < adProviders.count; i++) {
         NSDictionary *configuration = adProviders[i];
+        if (![configuration isKindOfClass:[NSDictionary class]]) {
+            DDNALogWarn(@"Failed to build adapter for ad provider at index %d - invalid format.", i);
+            continue;
+        }
         NSString *adProvider = configuration[@"adProvider"];
         if ([NSString stringIsNilOrEmpty:adProvider]) {
             DDNALogWarn(@"Failed to build adapter for ad provider at index %d - missing adProvider key.", i);
+            continue;
         }
         
         @try {

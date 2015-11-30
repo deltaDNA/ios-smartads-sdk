@@ -50,7 +50,8 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
         
     });
     
@@ -60,7 +61,8 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
         
     });
     
@@ -78,7 +80,8 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
     });
     
     it(@"fails when 'adShowSession' is false", ^{
@@ -95,7 +98,8 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
         
     });
     
@@ -113,7 +117,8 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:@"Invalid Engage response, missing 'adProviders' key."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
         
     });
     
@@ -122,7 +127,8 @@ describe(@"registering for ads", ^{
         NSDictionary *response = @{
             @"parameters": @{
                 @"adShowSession": @YES,
-                @"adProviders": @"UNKNOWN"
+                @"adProviders": @[@"UNKNOW"],
+                @"adRewardedProviders": @[@"UNKNOWN"]
             }
         };
         
@@ -133,7 +139,8 @@ describe(@"registering for ads", ^{
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
         NSString *responseJSON = [NSString stringWithContentsOfDictionary:response];
-        [verify(mockDelegate) didFailToRegisterForAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", responseJSON]];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", responseJSON]];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", responseJSON]];
         
     });
     
@@ -163,13 +170,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        [verify(mockDelegate) didRegisterForAds];
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
     });
     
 });
 
-describe(@"registered for ads", ^{
+describe(@"interstitial ads", ^{
    
     __block DDNASmartAdService *adService;
     __block id<DDNASmartAdServiceDelegate> mockDelegate;
@@ -213,18 +220,18 @@ describe(@"registered for ads", ^{
         mockViewController = mock([UIViewController class]);
     });
     
-    it(@"shows an ad without adpoint", ^{
+    it(@"shows an interstitial ad without adpoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
 
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verifyCount(mockDelegate, times(1)) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verifyCount(mockDelegate, times(1)) didRegisterForInterstitialAds];
         
-        [adService showAdFromRootViewController:mockViewController];
+        [adService showInterstitialAdFromRootViewController:mockViewController];
         
-        expect([adService isShowingAd]).to.beTruthy();
-        expect([adService isAdAvailable]).to.beFalsy();
-        [verifyCount(mockDelegate, times(1)) didOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        [verifyCount(mockDelegate, times(1)) didOpenInterstitialAd];
         
         
         NSDictionary *adShowParams = @{
@@ -243,8 +250,8 @@ describe(@"registered for ads", ^{
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingAd]).to.beFalsy();
-        [verify(mockDelegate) didCloseAd];
+        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        [verify(mockDelegate) didCloseInterstitialAd];
         
         NSDictionary *adClosedParams = @{
             @"adProvider": @"DUMMY",
@@ -278,18 +285,18 @@ describe(@"registered for ads", ^{
         
     });
     
-    it(@"shows an ad with an adpoint", ^{
+    it(@"shows an interstitial ad with an adpoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
         
-        expect([adService isShowingAd]).to.beTruthy();
-        expect([adService isAdAvailable]).to.beFalsy();
-        [verify(mockDelegate) didOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenInterstitialAd];
         
         
         // TODO: Bit fragile testing the parameters coming back since the key order changes
@@ -312,8 +319,8 @@ describe(@"registered for ads", ^{
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingAd]).to.beFalsy();
-        [verify(mockDelegate) didCloseAd];
+        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        [verify(mockDelegate) didCloseInterstitialAd];
         
         //        NSDictionary *adClosedParams = @{
         //            @"adProvider": @"DUMMY",
@@ -329,12 +336,12 @@ describe(@"registered for ads", ^{
         
     });
     
-    it(@"does not show an ad when adShowPoint is false", ^{
+    it(@"does not show an interstitial ad when adShowPoint is false", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = [NSString stringWithContentsOfDictionary:@{
             @"parameters": @{
@@ -342,93 +349,381 @@ describe(@"registered for ads", ^{
             }
         }];
         
-        [adService showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
         
-        expect([adService isShowingAd]).to.beFalsy();
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didFailToOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didFailToOpenInterstitialAd];
         
     });
     
-    it(@"shows an ad when engage returns empty response", ^{
+    it(@"shows an interstitial ad when engage returns empty response", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = [NSString stringWithContentsOfDictionary:@{}];
         
-        [adService showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
         
-        expect([adService isShowingAd]).to.beTruthy();
-        expect([adService isAdAvailable]).to.beFalsy();
-        [verify(mockDelegate) didOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenInterstitialAd];
         
     });
     
-    it(@"shows an ad when engage returns invalid json", ^{
+    it(@"shows an interstitial ad when engage returns invalid json", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = @"not valid json";
         
-        [adService showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
         
-        expect([adService isShowingAd]).to.beTruthy();
-        expect([adService isAdAvailable]).to.beFalsy();
-        [verify(mockDelegate) didOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenInterstitialAd];
         
     });
     
-    it(@"shows an ad when engage connection fails", ^{
+    it(@"shows an interstitial ad when engage connection fails", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didRegisterForAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForInterstitialAds];
         
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = @"";
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).statusCode = -1;
         ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).error = [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil];
         
-        [adService showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
         
-        expect([adService isShowingAd]).to.beTruthy();
-        expect([adService isAdAvailable]).to.beFalsy();
-        [verify(mockDelegate) didOpenAd];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenInterstitialAd];
         
     });
-
+    
     it(@"stops showing ads once max ads per session is reached", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         // session limit should be reached
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        [verifyCount(mockDelegate, times(3)) didOpenAd];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        [verifyCount(mockDelegate, times(3)) didOpenInterstitialAd];
 
     });
     
+});
+
+describe(@"rewarded ads", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        NSDictionary *response = @{
+            @"parameters": @{
+                @"adShowSession": @YES,
+                @"adRewardedProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @3
+            }
+        };
+        
+        fakeFactory.fakeEngageService = [[DDNAFakeEngageService alloc] initWithResponse:[NSString stringWithContentsOfDictionary:response]
+                                                                             statusCode:200
+                                                                                  error:nil];
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+    });
+    
+    it(@"shows a rewarded ad without adpoint", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verifyCount(mockDelegate, times(1)) didRegisterForRewardedAds];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verifyCount(mockDelegate, times(1)) didOpenRewardedAd];
+        
+        
+        NSDictionary *adShowParams = @{
+                                       @"adProvider": @"DUMMY",
+                                       @"adProviderVersion": @"1.0.0",
+                                       @"adType": @"REWARDED",
+                                       @"adStatus": @"Fulfilled",
+                                       @"adSdkVersion": [DDNASmartAds sdkVersion]
+                                       };
+        
+        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
+        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
+        
+        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isShowingRewardedAd]).to.beFalsy();
+        [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
+        
+        NSDictionary *adClosedParams = @{
+                                         @"adProvider": @"DUMMY",
+                                         @"adProviderVersion": @"1.0.0",
+                                         @"adType": @"REWARDED",
+                                         @"adClicked": [NSNumber numberWithBool:NO],
+                                         @"adLeftApplication": [NSNumber numberWithBool:NO],
+                                         @"adEcpm": [NSNumber numberWithLong:100],
+                                         @"adSdkVersion": [DDNASmartAds sdkVersion]
+                                         };
+        
+        HCArgumentCaptor *adClosedJSONArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:(id)adClosedJSONArg];
+        jsonDict = [NSDictionary dictionaryWithJSONString:adClosedJSONArg.value];
+        
+        // TODO: dictionaries don't equal although they contain same values.  Test is fragile.
+        //expect([jsonDict isEqualToDictionary:adClosedParams]).to.beTruthy();
+        
+        //        HCArgumentCaptor *adRequestJSONArg = [[HCArgumentCaptor alloc] init];
+        //        [verify(mockDelegate) recordEventWithName:@"adRequest" andParamJson:(id)adRequestJSONArg];
+        //        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[0]];
+        //
+        //        NSLog(@"adRequest: %@", jsonDict);
+        //
+        //        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[1]];
+        //
+        //        NSLog(@"adRequest: %@", jsonDict);
+        
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" andParamJson:anything()];
+        
+        
+    });
+    
+    it(@"shows a rewarded ad with an adpoint", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenRewardedAd];
+        
+        
+        // TODO: Bit fragile testing the parameters coming back since the key order changes
+        NSDictionary *adShowParams = @{
+                                       @"adProvider": @"DUMMY",
+                                       @"adProviderVersion": @"1.0.0",
+                                       @"adType": @"REWARDED",
+                                       @"adStatus": @"Fulfilled",
+                                       @"adSdkVersion": [DDNASmartAds sdkVersion],
+                                       @"adPoint": @"testAdPoint"
+                                       };
+        //
+        //        NSString *adShowParamsJSON = [NSString stringWithContentsOfDictionary:adShowParams];
+        
+        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
+        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
+        
+        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isShowingRewardedAd]).to.beFalsy();
+        [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
+        
+        //        NSDictionary *adClosedParams = @{
+        //            @"adProvider": @"DUMMY",
+        //            @"adProviderVersion": @"1.0.0",
+        //            @"adType": @"INTERSTITIAL",
+        //            @"adClicked": @NO,
+        //            @"adLeftApplication": @NO,
+        //            @"adEcpm": @100,
+        //            @"adSdkVersion": @"1.0.0"
+        //        };
+        
+        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:anything()];
+        
+    });
+    
+    it(@"shows a rewarded ad with an adpoint that wasn't rewarded", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenRewardedAd];
+        
+        
+        // TODO: Bit fragile testing the parameters coming back since the key order changes
+        NSDictionary *adShowParams = @{
+                                       @"adProvider": @"DUMMY",
+                                       @"adProviderVersion": @"1.0.0",
+                                       @"adType": @"REWARDED",
+                                       @"adStatus": @"Fulfilled",
+                                       @"adSdkVersion": [DDNASmartAds sdkVersion],
+                                       @"adPoint": @"testAdPoint"
+                                       };
+        //
+        //        NSString *adShowParamsJSON = [NSString stringWithContentsOfDictionary:adShowParams];
+        
+        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
+        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
+        
+        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAdWithReward:NO];
+        
+        expect([adService isShowingRewardedAd]).to.beFalsy();
+        [verify(mockDelegate) didCloseRewardedAdWithReward:NO];
+        
+        //        NSDictionary *adClosedParams = @{
+        //            @"adProvider": @"DUMMY",
+        //            @"adProviderVersion": @"1.0.0",
+        //            @"adType": @"INTERSTITIAL",
+        //            @"adClicked": @NO,
+        //            @"adLeftApplication": @NO,
+        //            @"adEcpm": @100,
+        //            @"adSdkVersion": @"1.0.0"
+        //        };
+        
+        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:anything()];
+        
+    });
+    
+    
+    it(@"does not show a rewarded ad when adShowPoint is false", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = [NSString stringWithContentsOfDictionary:@{
+                                                                                                                       @"parameters": @{
+                                                                                                                               @"adShowPoint": @NO
+                                                                                                                               }
+                                                                                                                       }];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didFailToOpenRewardedAd];
+        
+    });
+    
+    it(@"shows a rewarded ad when engage returns empty response", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = [NSString stringWithContentsOfDictionary:@{}];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenRewardedAd];
+        
+    });
+    
+    it(@"shows a rewarded ad when engage returns invalid json", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = @"not valid json";
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenRewardedAd];
+        
+    });
+    
+    it(@"shows a rewarded ad when engage connection fails", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        expect([adService isRewardedAdAvailable]).to.beTruthy();
+        [verify(mockDelegate) didRegisterForRewardedAds];
+        
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).response = @"";
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).statusCode = -1;
+        ((DDNAFakeEngageService *)fakeFactory.fakeEngageService).error = [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil];
+        
+        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
+        [verify(mockDelegate) didOpenRewardedAd];
+        
+    });
+
 });
 
 describe(@"respects minimum ad interval", ^{
@@ -481,16 +776,16 @@ describe(@"respects minimum ad interval", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         // too soon so fail
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beFalsy();
-        [verifyCount(mockDelegate, times(1)) didFailToOpenAd];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        [verifyCount(mockDelegate, times(1)) didFailToOpenInterstitialAd];
 
     });
     
@@ -498,18 +793,18 @@ describe(@"respects minimum ad interval", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
-        expect([adService isAdAvailable]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
         
         [NSThread sleepForTimeInterval:0.2f];
         
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
-        [verifyCount(mockDelegate, times(2)) didOpenAd];
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        [verifyCount(mockDelegate, times(2)) didOpenInterstitialAd];
         
     });
     
@@ -566,9 +861,9 @@ describe(@"respects minimum ad interval", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        expect([adService isAdAvailable]).to.beTruthy();
-        [adService showAdFromRootViewController:mockViewController];
-        expect([adService isShowingAd]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         [verifyCount(mockDelegate, never()) recordEventWithName:@"adRequest" andParamJson:anything()];

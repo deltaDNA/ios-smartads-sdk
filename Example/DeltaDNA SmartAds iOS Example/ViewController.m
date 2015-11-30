@@ -40,12 +40,12 @@
 
 - (IBAction)showInterstitialAd:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showAdFromRootViewController:self];
+    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self];
 }
 
 - (IBAction)showInterstitialAdWithAdPoint:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showAdFromRootViewController:self adPoint:@"testAdPoint"];
+    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self adPoint:@"testAdPoint"];
 }
 
 

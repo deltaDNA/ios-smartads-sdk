@@ -43,7 +43,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v0.9.0-beta.2";
+    return @"SmartAds v0.10.0-beta.1";
 }
 
 - (void)registerForAds
@@ -60,79 +60,173 @@
         @finally {
             if (!self.adService) {
                 DDNALogWarn(@"Failed to register for ads.");
+                [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:@"Couldn't create ad service."];
+                [self.rewardedDelegate didFailToRegisterForRewardedAdsWithReason:@"Couldn't create ad service."];
             }
         }
     }
 }
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController
+- (BOOL)isInterstitialAdAvailable
+{
+    @synchronized(self) {
+        if (self.adService) {
+            return [self.adService isInterstitialAdAvailable];
+        }
+        return NO;
+    }
+}
+
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showAdFromRootViewController:viewController];
+                [self.adService showInterstitialAdFromRootViewController:viewController];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
+                [self.interstitialDelegate didFailToOpenInterstitialAd];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
+            [self.interstitialDelegate didFailToOpenInterstitialAd];
         }
     }
 }
 
-- (void)showAdFromRootViewController: (UIViewController *)viewController adPoint: (NSString *)adPoint
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showAdFromRootViewController:viewController adPoint:adPoint];
+                [self.adService showInterstitialAdFromRootViewController:viewController adPoint:adPoint];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
+                [self.interstitialDelegate didFailToOpenInterstitialAd];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
+            [self.interstitialDelegate didFailToOpenInterstitialAd];
         }
     }
 }
+
+- (BOOL)isRewardedAdAvailable
+{
+    @synchronized(self) {
+        if (self.adService) {
+            return [self.adService isRewardedAdAvailable];
+        }
+        return NO;
+    }
+}
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController
+{
+    @synchronized(self) {
+        @try {
+            if (self.adService) {
+                [self.adService showRewardedAdFromRootViewController:viewController];
+            } else {
+                DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
+                [self.rewardedDelegate didFailToOpenRewardedAd];
+            }
+        }
+        @catch (NSException *exception) {
+            DDNALogWarn(@"Error showing ad: %@", exception);
+            [self.rewardedDelegate didFailToOpenRewardedAd];
+        }
+    }
+}
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+{
+    @synchronized(self) {
+        @try {
+            if (self.adService) {
+                [self.adService showRewardedAdFromRootViewController:viewController adPoint:adPoint];
+            } else {
+                DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
+                [self.rewardedDelegate didFailToOpenRewardedAd];
+            }
+        }
+        @catch (NSException *exception) {
+            DDNALogWarn(@"Error showing ad: %@", exception);
+            [self.rewardedDelegate didFailToOpenRewardedAd];
+        }
+    }
+}
+
 
 #pragma mark - DDNASmartAdServiceDelegate
 
-- (void)didRegisterForAds
+- (void)didRegisterForInterstitialAds
 {
-    DDNALogDebug(@"Registered for ads.");
-    [self.delegate didRegisterForAds];
+    DDNALogDebug(@"Registered for interstitial ads.");
+    [self.interstitialDelegate didRegisterForInterstitialAds];
 }
 
-- (void)didFailToRegisterForAdsWithReason:(NSString *)reason
+- (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason
 {
-    DDNALogWarn(@"Failed to register for ads: %@.", reason);
-    [self.delegate didFailToRegisterForAdsWithReason:reason];
-}
-
-- (void)didFailToOpenAd
-{
-    DDNALogWarn(@"Failed to open ad.");
-    [self.delegate didFailToOpenAd];
-}
-
-- (void)didOpenAd
-{
-    DDNALogDebug(@"Opened ad.");
-    [self.delegate didOpenAd];
-}
-
-- (void)didCloseAd
-{
-    DDNALogDebug(@"Closed ad.");
-    [self.delegate didCloseAd];
+    DDNALogWarn(@"Failed to register for interstitial ads: %@.", reason);
+    [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:reason];
 }
 
 - (void)recordEventWithName:(NSString *)eventName andParamJson:(NSString *)paramJson
 {
     // TODO - This is clunky converting back and forth from dictionary to json.
     [[DDNASDK sharedInstance] recordEvent:eventName withEventDictionary:[NSDictionary dictionaryWithJSONString:paramJson]];
+}
+
+- (void)didFailToOpenInterstitialAd
+{
+    DDNALogWarn(@"Failed to open interstitial ad.");
+    [self.interstitialDelegate didFailToOpenInterstitialAd];
+}
+
+- (void)didOpenInterstitialAd
+{
+    DDNALogDebug(@"Opened interstitial ad.");
+    [self.interstitialDelegate didOpenInterstitialAd];
+}
+
+- (void)didCloseInterstitialAd
+{
+    DDNALogDebug(@"Closed interstitial ad.");
+    [self.interstitialDelegate didCloseInterstitialAd];
+}
+
+- (void)didRegisterForRewardedAds
+{
+    DDNALogDebug(@"Registered for rewarded ads.");
+    [self.rewardedDelegate didRegisterForRewardedAds];
+}
+
+- (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason
+{
+    DDNALogWarn(@"Failed to register for rewarded ads: %@.", reason);
+    [self.rewardedDelegate didFailToRegisterForRewardedAdsWithReason:reason];
+}
+
+
+- (void)didFailToOpenRewardedAd
+{
+    DDNALogWarn(@"Failed to open rewarded ad.");
+    [self.rewardedDelegate didFailToOpenRewardedAd];
+}
+
+- (void)didOpenRewardedAd
+{
+    DDNALogDebug(@"Opened rewarded ad.");
+    [self.rewardedDelegate didOpenRewardedAd];
+}
+
+- (void)didCloseRewardedAdWithReward:(BOOL)reward
+{
+    DDNALogDebug(@"Closed rewarded ad with reward %@", reward ? @"YES" : @"NO");
+    [self.rewardedDelegate didCloseRewardedAdWithReward:reward];
 }
 
 @end

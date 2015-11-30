@@ -52,4 +52,9 @@
     [self adapterDidCloseAd:self.dummyAdapter canReward:YES];
 }
 
+- (void)closeAdWithReward:(BOOL)reward
+{
+    [self adapterDidCloseAd:self.dummyAdapter canReward:reward];
+}
+
 @end

@@ -13,4 +13,6 @@
 
 - (void)closeAd;
 
+- (void)closeAdWithReward:(BOOL)reward;
+
 @end

@@ -18,6 +18,7 @@
 
 static NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
 static NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
+static NSString * const AD_TYPE_REWARDED = @"REWARDED";
 
 static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
@@ -26,11 +27,11 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 @property (nonatomic, strong) DDNAEngageService *engageService;
 @property (nonatomic, strong) NSDictionary *adConfiguration;
 @property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
-@property (nonatomic, assign) BOOL adAvailable;
-@property (nonatomic, assign) BOOL showingAd;
+@property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
 @property (nonatomic, assign) NSInteger maxAdsPerSession;
 @property (nonatomic, assign) NSInteger adMinimumIntervalMs;
 @property (nonatomic, assign) BOOL recordAdRequests;
+@property (nonatomic, assign) BOOL requestAdPoints;
 
 @end
 
@@ -38,9 +39,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (instancetype)init
 {
-    // TODO: should this be logged here or the level up?
-    //DDNALogDebug(@"Building SmartAds %@", )
-    
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
     }
@@ -60,7 +58,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             if (response == nil) {
                 response = [connectionError localizedDescription];
             }
-            [self.delegate didFailToRegisterForAdsWithReason:[NSString stringWithFormat:@"Engage returned: %@", response]];
+            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %@", response]];
+            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %@", response]];
             // TODO - schedule a retry?
             
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
@@ -73,247 +72,266 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
             
             if (!responseDict[@"parameters"]) {
-                [self.delegate didFailToRegisterForAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
                 return;
             }
             
             self.adConfiguration = responseDict[@"parameters"];
             
             if (!self.adConfiguration[@"adShowSession"] || (![self.adConfiguration[@"adShowSession"] boolValue])) {
-                [self.delegate didFailToRegisterForAdsWithReason:@"Ads disabled for this session."];
-                return;
-            }
-            
-            if (!self.adConfiguration[@"adProviders"]) {
-                [self.delegate didFailToRegisterForAdsWithReason:@"Invalid Engage response, missing 'adProviders' key."];
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
                 return;
             }
             
             self.maxAdsPerSession = [self.adConfiguration[@"adMaxPerSession"] integerValue];
             self.adMinimumIntervalMs = [self.adConfiguration[@"adMinimumInterval"] integerValue];
             self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
+            self.requestAdPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
             
             NSInteger floorPrice = [self.adConfiguration[@"adFloorPrice"] integerValue];
             NSArray *adProviders = self.adConfiguration[@"adProviders"];
             
-            NSArray *adapterWaterfall = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
-            if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
-                [self.delegate didFailToRegisterForAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
-                return;
+            if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
+                NSArray *adapterWaterfall = [self.factory buildAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
+                if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
+                    [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
+                } else {
+                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:adapterWaterfall delegate:self];
+                    [self.interstitialAgent requestAd];
+                    
+                    [self.delegate didRegisterForInterstitialAds];
+                }
+            }
+            else {
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
             }
             
-            self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:adapterWaterfall delegate:self];
-            [self.interstitialAgent requestAd];
+            NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
             
-            [self.delegate didRegisterForAds];
+            if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
+                NSArray *adapterWaterfall = [self.factory buildAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
+                if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
+                    [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
+                } else {
+                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:adapterWaterfall delegate:self];
+                    [self.rewardedAgent requestAd];
+                    
+                    [self.delegate didRegisterForRewardedAds];
+                }
+            }
+            else {
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
+            }
         }
                                    
     }];
 }
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController
+- (BOOL)isInterstitialAdAvailable
 {
-    @try {
-        
-        self.interstitialAgent.adPoint = nil;
-        
-        if ([[NSDate date] timeIntervalSinceDate:self.interstitialAgent.lastAdShownTime] * 1000 < self.adMinimumIntervalMs) {
-            // TODO: Post ad show event with didn't show etc.
-            DDNALogDebug(@"showAd called before minimum interval %ld ms between ads elasped", (long)self.adMinimumIntervalMs);
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
-            
-            [self.delegate didFailToOpenAd];
-            
-            return;
-        }
-        
-        if (self.interstitialAgent.adsShown >= self.maxAdsPerSession) {
-            // TODO: Post ad show event with didn't show etc.
-            DDNALogDebug(@"Max ad per session count od %ld reached", (long)self.maxAdsPerSession);
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
-            
-            [self.delegate didFailToOpenAd];
-            return;
-        }
-        
-        if (self.interstitialAgent.hasLoadedAd) {
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
-            
-            [self.interstitialAgent showAdFromRootViewController:viewController adPoint:nil];
-        }
-        else {
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
-        }
-        
-    }
-    @catch (NSException *exception) {
-        DDNALogWarn(@"ShowAd raised exception: %@", exception);
-        [self.delegate didFailToOpenAd];
-    }
+    return self.interstitialAgent.hasLoadedAd;
 }
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController
 {
-    @try {
-        
-        // FIXME: Agent doesn't want to know about adPoint anymore, it's reported at the service level
-        self.interstitialAgent.adPoint = adPoint;
-        
-        if ([[NSDate date] timeIntervalSinceDate:self.interstitialAgent.lastAdShownTime] * 1000 < self.adMinimumIntervalMs) {
-            // TODO: Post ad show event with didn't show etc.
-            DDNALogDebug(@"showAd called before minimum interval %ld ms between ads elasped", (long)self.adMinimumIntervalMs);
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
-            
-            [self.delegate didFailToOpenAd];
-            return;
-        }
-        
-        if (self.interstitialAgent.adsShown >= self.maxAdsPerSession) {
-            // TODO: Post ad show event with didn't show etc.
-            DDNALogDebug(@"Max ad per session count od %ld reached", (long)self.maxAdsPerSession);
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
-            
-            [self.delegate didFailToOpenAd];
-            return;
-        }
-        
-        if (!self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue]) {
-            
-            [self.engageService requestWithDecisionPoint:adPoint
-                                                 flavour:DDNADecisionPointFlavourAdvertising
-                                              parameters:nil
-                                       completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
-                                           
-                if (connectionError != nil || statusCode >= 400) {
-                    // Couldn't get a response from Engage, show ad anyway
-                    // TODO - maybe change the default timeout so this is faster?
-                    DDNALogDebug(@"Engage request failed: %@: showing ad anyway at %@", response, adPoint);
-                    if (self.interstitialAgent.hasLoadedAd) {
-                        [self postAdShowEvent:self.interstitialAgent
-                                      adapter:self.interstitialAgent.currentAdapter
-                                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeEngageFailed]];
-                        
-                        [self.interstitialAgent showAdFromRootViewController:viewController adPoint:nil];
-                    }
-                    else {
-                        [self postAdShowEvent:self.interstitialAgent
-                                      adapter:self.interstitialAgent.currentAdapter
-                                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
-                    }
-                }
-                else {
-                    NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response][@"parameters"];
-                    if (!responseDict[@"adShowPoint"] || [responseDict[@"adShowPoint"] boolValue]) {
-                        DDNALogDebug(@"Engage allowing interstitial ad at %@", adPoint);
-                        if (self.interstitialAgent.hasLoadedAd) {
-                            [self postAdShowEvent:self.interstitialAgent
-                                          adapter:self.interstitialAgent.currentAdapter
-                                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
-                            
-                            [self.interstitialAgent showAdFromRootViewController:viewController adPoint:adPoint];
-                        }
-                        else {
-                            [self postAdShowEvent:self.interstitialAgent
-                                          adapter:self.interstitialAgent.currentAdapter
-                                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
-                        }
-                    }
-                    else {
-                        DDNALogDebug(@"Engage prevented interstitial ad from opening at %@", adPoint);
-                        self.interstitialAgent.adPoint = adPoint;
-                        [self postAdShowEvent:self.interstitialAgent
-                                      adapter:self.interstitialAgent.currentAdapter
-                                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
-                        
-                        [self.delegate didFailToOpenAd];
-                    }
-                }
-                                           
-            }];
-            
-        }
-        else {
-            self.interstitialAgent.adPoint = adPoint;
-            [self postAdShowEvent:self.interstitialAgent
-                          adapter:self.interstitialAgent.currentAdapter
-                           result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
-        }
-    }
-    @catch (NSException *exception) {
-        DDNALogWarn(@"ShowAdWithAdPoint:%@ raised exception: %@", adPoint, exception);
-        [self.delegate didFailToOpenAd];
-    }
+    [self showInterstitialAdFromRootViewController:viewController adPoint:nil];
+}
+
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+{
+    self.interstitialAgent.adPoint = adPoint;
+    [self showAdFromRootViewController:viewController adAgent:self.interstitialAgent];
+}
+
+- (BOOL)isShowingInterstitialAd
+{
+    return self.interstitialAgent.isShowingAd;
+}
+
+- (BOOL)isRewardedAdAvailable
+{
+    return self.rewardedAgent.hasLoadedAd;
+}
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController
+{
+    [self showRewardedAdFromRootViewController:viewController adPoint:nil];
+}
+
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+{
+    self.rewardedAgent.adPoint = adPoint;
+    [self showAdFromRootViewController:viewController adAgent:self.rewardedAgent];
+}
+
+- (BOOL)isShowingRewardedAd
+{
+    return self.rewardedAgent.isShowingAd;
 }
 
 #pragma mark - DDNASmartAdAgent
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime
 {
-    if (adAgent == self.interstitialAgent) {
-        DDNALogDebug(@"Interstitial ad loaded.");
-        self.adAvailable = YES;
-        [self postAdRequestEvent:adAgent
-                         adapter:adapter
-                 requestDuration:requestTime
-                          result:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeLoaded]];
-    }
+    DDNALogDebug(@"Loaded ad from %@.", adapter.name);
+    [self postAdRequestEvent:adAgent
+                     adapter:adapter
+             requestDuration:requestTime
+                      result:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeLoaded]];
 }
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime requestResult:(DDNASmartAdRequestResult *)result
 {
-    if (adAgent == self.interstitialAgent ) {
-        [self postAdRequestEvent:adAgent adapter:adapter requestDuration:requestTime result:result];
-    }
+    DDNALogDebug(@"Failed to load ad from %@.", adapter.name);
+    
+    [self postAdRequestEvent:adAgent adapter:adapter requestDuration:requestTime result:result];
 }
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter
 {
     if (adAgent == self.interstitialAgent) {
-        DDNALogDebug(@"Interstitial ad opened.");
-        self.showingAd = YES;
-        self.adAvailable = NO;
-        [self.delegate didOpenAd];
+        [self.delegate didOpenInterstitialAd];
+    }
+    else if (adAgent == self.rewardedAgent) {
+        [self.delegate didOpenRewardedAd];
     }
 }
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter closedResult:(DDNASmartAdClosedResult *)result
 {
+    [self postAdClosedEvent:adAgent adapter:adapter result:result];
+    
     if (adAgent == self.interstitialAgent) {
-        self.adAvailable = NO;
-        [self postAdClosedEvent:adAgent adapter:adapter result:result];
+        [self.delegate didFailToOpenInterstitialAd];
+    }
+    else if (adAgent == self.rewardedAgent) {
+        [self.delegate didFailToOpenRewardedAd];
     }
 }
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
+    [self postAdClosedEvent:adAgent adapter:adapter result:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeSuccess]];
+    
     if (adAgent == self.interstitialAgent) {
-        DDNALogDebug(@"Interstitial ad closed.");
-        self.showingAd = NO;
-        [self postAdClosedEvent:adAgent adapter:adapter result:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeSuccess]];
-        [self.delegate didCloseAd];
+        [self.delegate didCloseInterstitialAd];
+    }
+    else if (adAgent == self.rewardedAgent) {
+        [self.delegate didCloseRewardedAdWithReward:canReward];
     }
     
 }
 
 #pragma mark - Private
 
+- (void)showAdFromRootViewController:(UIViewController *)viewController adAgent:(DDNASmartAdAgent *)adAgent
+{
+    if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] * 1000 < self.adMinimumIntervalMs) {
+        DDNALogDebug(@"showAd called before minimum interval %ld ms between ads elasped", (long)self.adMinimumIntervalMs);
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
+        
+        [self didFailToOpenAdWithAdAgent:adAgent];
+        return;
+    }
+    
+    if (adAgent.adsShown >= self.maxAdsPerSession) {
+        DDNALogDebug(@"Max ad per session count od %ld reached", (long)self.maxAdsPerSession);
+        [self postAdShowEvent:self.interstitialAgent
+                      adapter:self.interstitialAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
+        
+        [self didFailToOpenAdWithAdAgent:adAgent];
+        return;
+    }
+    
+    if (!adAgent.hasLoadedAd) {
+        DDNALogDebug(@"No ad available");
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
+        
+        [self didFailToOpenAdWithAdAgent:adAgent];
+        return;
+    }
+    
+    if (!adAgent.adPoint) {
+        // show ad immediately
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
+        
+        [adAgent showAdFromRootViewController:viewController adPoint:nil];
+    }
+    else if (self.requestAdPoints) {
+        // check with engage first
+        [self.engageService requestWithDecisionPoint:adAgent.adPoint
+                                             flavour:DDNADecisionPointFlavourAdvertising
+                                          parameters:nil
+                                   completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
+                                       
+            if (connectionError != nil || statusCode >= 400) {
+                // Couldn't get a response from Engage, show ad anyway
+                // TODO - maybe change the default timeout so this is faster?
+                DDNALogDebug(@"Engage request failed: %@: showing ad anyway at %@", response, adAgent.adPoint);
+                [self postAdShowEvent:adAgent
+                              adapter:adAgent.currentAdapter
+                               result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeEngageFailed]];
+               
+                [adAgent showAdFromRootViewController:viewController adPoint:adAgent.adPoint];
+            }
+            else {
+                NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response][@"parameters"];
+                if (!responseDict[@"adShowPoint"] || [responseDict[@"adShowPoint"] boolValue]) {
+                    DDNALogDebug(@"Engage allowing ad at %@", adAgent.adPoint);
+                    [self postAdShowEvent:adAgent
+                                  adapter:adAgent.currentAdapter
+                                   result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
+                   
+                    [adAgent showAdFromRootViewController:viewController adPoint:adAgent.adPoint];
+                }
+                else {
+                    DDNALogDebug(@"Engage prevented ad from opening at %@", adAgent.adPoint);
+                    [self postAdShowEvent:adAgent
+                                  adapter:adAgent.currentAdapter
+                                   result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
+                   
+                    [self didFailToOpenAdWithAdAgent:adAgent];
+                }
+            }
+           
+        }];
+    }
+    else {
+        // ad points explicitly disabled
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
+        
+        [self didFailToOpenAdWithAdAgent:adAgent];
+    }
+}
+
+- (void)didFailToOpenAdWithAdAgent:(DDNASmartAdAgent *)adAgent
+{
+    if (adAgent == self.interstitialAgent) {
+        [self.delegate didFailToOpenInterstitialAd];
+    }
+    else if (adAgent == self.rewardedAgent) {
+        [self.delegate didFailToOpenRewardedAd];
+    }
+}
+
 - (void)postAdShowEvent:(DDNASmartAdAgent *)agent adapter:(DDNASmartAdAdapter *)adapter result:(DDNASmartAdShowResult *)result
 {
     NSString *adType = AD_TYPE_UNKNOWN;
     if (agent == self.interstitialAgent) {
         adType = AD_TYPE_INTERSTITIAL;
+    } else if (agent == self.rewardedAgent) {
+        adType = AD_TYPE_REWARDED;
     }
         
     NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:10];
@@ -336,7 +354,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     NSString *adType = AD_TYPE_UNKNOWN;
     if (agent == self.interstitialAgent) {
         adType = AD_TYPE_INTERSTITIAL;
+    } else if (agent == self.rewardedAgent) {
+        adType = AD_TYPE_REWARDED;
     }
+
     
     NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:7];
     eventParams[@"adProvider"] = adapter.name;
@@ -360,6 +381,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         NSString *adType = AD_TYPE_UNKNOWN;
         if (agent == self.interstitialAgent) {
             adType = AD_TYPE_INTERSTITIAL;
+        } else if (agent == self.rewardedAgent) {
+            adType = AD_TYPE_REWARDED;
         }
         
         NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:8];
