@@ -29,7 +29,9 @@ static NSString *const AD_NETWORK_AMAZON_CLASS = @"DDNASmartAdAmazonAdapter";
 static NSString *const AD_NETWORK_MOPUB = @"MOPUB";
 static NSString *const AD_NETWORK_MOPUB_CLASS = @"DDNASmartAdMoPubAdapter";
 static NSString *const AD_NETWORK_FLURRY = @"FLURRY";
-static NSString *const AD_NETWORK_FLURRY_CLASS = @"DDNASmartAdFlurryAdapter";
+static NSString *const AD_NETWORK_FLURRY_CLASS = @"DDNASmartAdFlurryInterstitialAdapter";
+static NSString *const AD_NETWORK_FLURRY_REWARDED = @"FLURRY-REWARDED";
+static NSString *const AD_NETWORK_FLURRY_REWARDED_CLASS = @"DDNASmartAdFlurryRewardedAdapter";
 static NSString *const AD_NETWORK_INMOBI = @"INMOBI";
 static NSString *const AD_NETWORK_INMOBI_CLASS = @"DDNASmartAdInMobiAdapter";
 static NSString *const AD_NETWORK_MOBFOX = @"MOBFOX";
@@ -154,6 +156,11 @@ static NSString *const AD_NETWORK_CHARTBOOST_REWARDED_CLASS = @"DDNASmartAdChart
                 }
                 else if ([adProvider isEqualToString:AD_NETWORK_FLURRY]) {
                     adapter = [self instantiateAdapterForKlass:AD_NETWORK_FLURRY_CLASS
+                                                 configuration:configuration
+                                                waterfallIndex:i];
+                }
+                else if ([adProvider isEqualToString:AD_NETWORK_FLURRY_REWARDED]) {
+                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_FLURRY_REWARDED_CLASS
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }

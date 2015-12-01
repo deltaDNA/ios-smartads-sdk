@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <DeltaDNAAds/DDNASmartAdAdapter.h>
 
-@interface DDNASmartAdFlurryAdapter : DDNASmartAdAdapter
+@interface DDNASmartAdFlurryInterstitialAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *apiKey;
 @property (nonatomic, copy, readonly) NSString *adSpace;

@@ -109,10 +109,22 @@
             location = "group:Flurry"
             name = "Flurry">
             <FileRef
-               location = "group:DDNASmartAdFlurryAdapter.h">
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DDNASmartAdFlurryAdapter.m">
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdFlurryHelper.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdFlurryHelper.m">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdFlurryRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdFlurryRewardedAdapter.m">
             </FileRef>
          </Group>
          <Group
