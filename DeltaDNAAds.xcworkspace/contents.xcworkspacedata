@@ -213,6 +213,9 @@
    <FileRef
       location = "group:CHANGELOG.md">
    </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
    <Group
       location = "group:PodSpecs"
       name = "PodSpecs">
