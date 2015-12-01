@@ -45,6 +45,16 @@
          name = "Networks">
          <Group
             location = "container:"
+            name = "UnityAds">
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "container:"
             name = "Vungle">
             <FileRef
                location = "group:DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h">

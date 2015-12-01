@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6354E25C1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */; };
 		6354E25E1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25D1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m */; };
+		6354E2601C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25F1C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m */; };
 		63B382321BFE1A500049CE28 /* iOS_SmartAds_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */; };
 		63B382471BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382391BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m */; };
 		63B382481BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B3823B1BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdChartboostAdapterSpec.m; sourceTree = "<group>"; };
 		6354E25D1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdVungleAdapterSpec.m; sourceTree = "<group>"; };
+		6354E25F1C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdUnityAdsAdapterSpec.m; sourceTree = "<group>"; };
 		63B3822E1BFE1A500049CE28 /* iOS SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOS_SmartAds_Tests.m; sourceTree = "<group>"; };
 		63B382331BFE1A500049CE28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				63CB9F2A1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m */,
 				6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */,
 				6354E25D1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m */,
+				6354E25F1C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			files = (
 				63B382851BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m in Sources */,
 				63CB9F2B1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m in Sources */,
+				6354E2601C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
 				63B3824C1BFE1B770049CE28 /* DDNASmartAdAmazonAdapterSpec.m in Sources */,
 				63B382881BFE301D0049CE28 /* DDNAFakeEngageService.m in Sources */,
 				63B382501BFE1B770049CE28 /* DDNASmartAdMobFoxAdapterSpec.m in Sources */,
