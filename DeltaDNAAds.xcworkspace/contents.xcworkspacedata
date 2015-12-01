@@ -210,6 +210,9 @@
    <FileRef
       location = "group:DeltaDNAAds.podspec">
    </FileRef>
+   <FileRef
+      location = "group:CHANGELOG.md">
+   </FileRef>
    <Group
       location = "group:PodSpecs"
       name = "PodSpecs">
