@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '0.10.0-beta.1'
+    s.version = '0.10.0'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
