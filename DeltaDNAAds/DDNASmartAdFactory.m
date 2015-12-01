@@ -44,6 +44,8 @@ static NSString *const AD_NETWORK_CHARTBOOST_REWARDED = @"CHARTBOOST-REWARDED";
 static NSString *const AD_NETWORK_CHARTBOOST_REWARDED_CLASS = @"DDNASmartAdChartboostRewardedAdapter";
 static NSString *const AD_NETWORK_ADCOLONY = @"ADCOLONY";
 static NSString *const AD_NETWORK_ADCOLONY_CLASS = @"DDNASmartAdAdColonyAdapter";
+static NSString *const AD_NETWORK_VUNGLE = @"VUNGLE";
+static NSString *const AD_NETWORK_VUNGLE_CLASS = @"DDNASmartAdVungleAdapter";
 
 @implementation DDNASmartAdFactory
 
@@ -196,6 +198,11 @@ static NSString *const AD_NETWORK_ADCOLONY_CLASS = @"DDNASmartAdAdColonyAdapter"
                 }
                 else if ([adProvider isEqualToString:AD_NETWORK_ADCOLONY]) {
                     adapter = [self instantiateAdapterForKlass:AD_NETWORK_ADCOLONY_CLASS
+                                                 configuration:configuration
+                                                waterfallIndex:i];
+                }
+                else if ([adProvider isEqualToString:AD_NETWORK_VUNGLE]) {
+                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_VUNGLE_CLASS
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }

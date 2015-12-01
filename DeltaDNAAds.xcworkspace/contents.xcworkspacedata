@@ -45,6 +45,16 @@
          name = "Networks">
          <Group
             location = "container:"
+            name = "Vungle">
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "container:"
             name = "Chartboost">
             <FileRef
                location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.h">
