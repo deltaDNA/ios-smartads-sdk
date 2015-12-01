@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <DeltaDNAAds/DDNASmartAds.h>
+#import <DeltaDNAAds/DeltaDNAAds.h>
 
 @interface AppDelegate ()
 

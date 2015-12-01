@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <DeltaDNA/DeltaDNA.h>
-#import <DeltaDNAAds/DDNASmartAds.h>
+#import <DeltaDNAAds/DeltaDNAAds.h>
 
 @interface ViewController () <DDNASmartAdsInterstitialDelegate, DDNASmartAdsRewardedDelegate>
 

@@ -5,41 +5,48 @@
       location = "group:DeltaDNAAds"
       name = "DeltaDNAAds">
       <FileRef
-         location = "group:DDNASmartAdAdapter.h">
+         location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/DeltaDNAAds.h">
       </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdAdapter.m">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdAgent.h">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdAgent.m">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdFactory.h">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdFactory.m">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAds.h">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAds.m">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdService.h">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdService.m">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdStatus.h">
-      </FileRef>
-      <FileRef
-         location = "group:DDNASmartAdStatus.m">
-      </FileRef>
+      <Group
+         location = "group:SmartAds"
+         name = "SmartAds">
+         <FileRef
+            location = "group:DDNASmartAdAdapter.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdAdapter.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdAgent.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdAgent.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdFactory.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdFactory.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAds.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAds.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdService.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdService.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdStatus.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdStatus.m">
+         </FileRef>
+      </Group>
       <Group
          location = "group:Networks"
          name = "Networks">

@@ -9,17 +9,13 @@ Pod::Spec.new do |s|
     s.platform = :ios, '7.0'
     s.requires_arc = true
 
-#    s.public_header_files = 'DeltaDNAAds/*.h'
-#    s.source_files = 'DeltaDNAAds/*.{h,m}'
-
-#s.header_dir = 'DeltaDNAAds'
     s.header_mappings_dir = 'DeltaDNAAds'
 
     s.dependency 'DeltaDNA', '~> 4.0.0-beta.1'
     
     s.subspec 'SmartAds' do |ss|
-        ss.source_files = 'DeltaDNAAds/*.{h,m}'
-        ss.public_header_files = 'DeltaDNAAds/*.h'
+        ss.source_files = 'DeltaDNAAds/DeltaDNAAds.{h,m}', 'DeltaDNAAds/SmartAds/**/*.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/DeltaDNAAds.h', 'DeltaDNAAds/SmartAds/**/*.h'
     end
     
     s.subspec 'Dummy' do |ss|
