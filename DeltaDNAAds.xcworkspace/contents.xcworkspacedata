@@ -131,10 +131,22 @@
             location = "group:InMobi"
             name = "InMobi">
             <FileRef
-               location = "group:DDNASmartAdInMobiAdapter.h">
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DDNASmartAdInMobiAdapter.m">
+               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdInMobiHelper.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdInMobiHelper.m">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdInMobiRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DDNASmartAdInMobiRewardedAdapter.m">
             </FileRef>
          </Group>
          <Group

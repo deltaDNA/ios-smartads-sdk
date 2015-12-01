@@ -1,42 +1,37 @@
 //
-//  DDNASmartAdInMobiAdapter.m
+//  DDNASmartAdInMobiRewardedAdapter.m
 //  
 //
-//  Created by David White on 09/11/2015.
+//  Created by David White on 01/12/2015.
 //
 //
 
-#import "DDNASmartAdInMobiAdapter.h"
-#import <InMobi/IMSdk.h>
-#import <InMobi/IMCommonConstants.h>
-#import <InMobi/IMInterstitial.h>
-#import <InMobi/IMInterstitialDelegate.h>
-#import <InMobi/IMRequestStatus.h>
+#import "DDNASmartAdInMobiRewardedAdapter.h"
+#import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
+#import <InMobi/IMInterstitial.h>
 
-@interface DDNASmartAdInMobiAdapter () <IMInterstitialDelegate>
+@interface DDNASmartAdInMobiRewardedAdapter () <IMInterstitialDelegate>
 
 @property (nonatomic, strong) IMInterstitial *interstitial;
 
 @property (nonatomic, copy) NSString *accountId;
 @property (nonatomic, assign) NSInteger placementId;
+@property (nonatomic, assign) BOOL reward;
 
 @end
 
-@implementation DDNASmartAdInMobiAdapter
+@implementation DDNASmartAdInMobiRewardedAdapter
 
 - (instancetype)initWithAccountId:(NSString *)accountId placementId:(NSInteger)placementId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"InMobi"
-                            version:[IMSdk getVersion]
+    if ((self = [super initWithName:@"INMOBI-REWARDED"
+                            version:[[DDNASmartAdInMobiHelper sharedInstance] getVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
         
         self.accountId = accountId;
         self.placementId = placementId;
-        
-        //        [IMSdk setLogLevel:kIMSDKLogLevelDebug];
-        [IMSdk initWithAccountID:self.accountId];
     }
     return self;
 }
@@ -65,6 +60,8 @@
 
 - (void)requestAd
 {
+    [[DDNASmartAdInMobiHelper sharedInstance] startWithAccountID:self.accountId];
+    
     self.interstitial = [self createAndLoadInterstitial];
 }
 
@@ -135,7 +132,7 @@
 - (void)interstitial:(IMInterstitial *)interstitial didFailToPresentWithError:(IMRequestStatus *)error
 {
     DDNALogDebug(@"Interstitial didFailToPresentWithError: %@", error.description);
-
+    
     [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
 }
 
@@ -160,7 +157,7 @@
 /* Indicates that the interstitial has dismissed itself. */
 - (void)interstitialDidDismiss:(IMInterstitial *)interstitial
 {
-    [self.delegate adapterDidCloseAd:self canReward:YES];
+    [self.delegate adapterDidCloseAd:self canReward:self.reward];
 }
 
 /* Indicates that the user will leave the app. */
@@ -173,6 +170,7 @@
 - (void)interstitial:(IMInterstitial *)interstitial rewardActionCompletedWithRewards:(NSDictionary *)rewards
 {
     DDNALogDebug(@"IncentActionCompleted Publisher Callback successfully received: %@", rewards);
+    self.reward = YES;
 }
 
 /* interstitial:didInteractWithParams: Indicates that the interstitial was interacted with. */

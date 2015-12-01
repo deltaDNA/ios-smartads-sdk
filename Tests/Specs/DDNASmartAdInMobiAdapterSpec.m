@@ -15,12 +15,13 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiAdapter.h>
+#import <DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.h>
+#import <DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiRewardedAdapter.h>
 
 
 SpecBegin(DDNASmartAdInMobiAdapter)
 
-describe(@"InMobi adapter", ^{
+describe(@"InMobi interstitial adapter", ^{
     
     it(@"builds from valid configuration", ^{
         
@@ -31,8 +32,8 @@ describe(@"InMobi adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdInMobiAdapter *adapter = [[DDNASmartAdInMobiAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                             waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.accountId).to.equal(@"test-account-id");
@@ -48,12 +49,49 @@ describe(@"InMobi adapter", ^{
             @"adProvider": @"INMOBI"
         };
         
-        DDNASmartAdInMobiAdapter *adapter = [[DDNASmartAdInMobiAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                             waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
     
 });
+
+describe(@"InMobi rewarded adapter", ^{
+    
+    it(@"builds from valid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"INMOBI-REWARDED",
+            @"accountId": @"test-account-id",
+            @"placementId": @12345,
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                     waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.accountId).to.equal(@"test-account-id");
+        expect(adapter.placementId).to.equal(@12345);
+        expect(adapter.eCPM).to.equal(150);
+        expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+    it(@"returns nil from invalid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"INMOBI-REWARDED"
+        };
+        
+        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                     waterfallIndex:1];
+        
+        expect(adapter).to.beNil();
+    });
+    
+});
+
 
 SpecEnd

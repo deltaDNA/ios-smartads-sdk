@@ -1,5 +1,5 @@
 //
-//  DDNASmartAdInMobiAdapter.h
+//  DDNASmartAdInMobiInterstitialAdapter.h
 //  
 //
 //  Created by David White on 09/11/2015.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <DeltaDNAAds/DDNASmartAdAdapter.h>
 
-@interface DDNASmartAdInMobiAdapter : DDNASmartAdAdapter
+@interface DDNASmartAdInMobiInterstitialAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *accountId;
 @property (nonatomic, assign, readonly) NSInteger placementId;
