@@ -43,6 +43,10 @@
         [[VungleSDK sharedSDK] startWithAppId:self.appId];
         self.started = YES;
     }
+    
+    if ([[VungleSDK sharedSDK] isAdPlayable]) {
+        [self.delegate adapterDidLoadAd:self];
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController

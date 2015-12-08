@@ -52,6 +52,10 @@
         [AdColony configureWithAppID:self.appId zoneIDs:@[self.zoneId] delegate:self logging:NO];
         self.configured = YES;
     }
+    
+    if (self.videoAvailable) {
+        [self.delegate adapterDidLoadAd:self];
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController

@@ -54,6 +54,10 @@
         [[UnityAds sharedInstance] startWithGameId:self.gameId];
         self.started = YES;
     }
+    
+    if ([[UnityAds sharedInstance] canShow]) {
+        [self.delegate adapterDidLoadAd:self];
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
