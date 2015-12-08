@@ -81,76 +81,90 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 {
     DDNALogDebug(@"Agent loaded ad from %@", adapter.name);
     
-    self.state = DDNASmartAdAgentStateLoaded;
-    [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
+    if (adapter == self.currentAdapter) {
+        self.state = DDNASmartAdAgentStateLoaded;
+        [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
+    }
 }
 
 - (void)adapterDidFailToLoadAd:(DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdRequestResult *)result
 {
     DDNALogDebug(@"Agent failed to load ad from %@: %@ (%@)", adapter.name, result.desc, result.error);
     
-    if (self.state != DDNASmartadAgentStateLoading) return; // Prevent adapters calling this multiple times.
-    
-    [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
-    
-    self.state = DDNASmartAdAgentStateReady;
-    
-    if (result.code == DDNASmartAdRequestResultCodeConfiguration) {
-        self.currentAdapter = [self disableAdapter:adapter];
-    }
-    else {
-        self.currentAdapter = [self getNextAdapter];
-    }
-    
-    // FIXME: This is not good, if all networks fails we keep cycling, no back off.
-    // Think the waterfall is wrong anyway, we should give other networks a chance
-    // to give us an ad.
-    if (self.currentAdapter) {
-        [self requestNextAd];
-    }
-    else {
-        self.currentAdapter = [self getFirstAdapter];
-        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
-                                              AD_WATERFALL_RESTART_DELAY_SECONDS*NSEC_PER_SEC);
-        dispatch_after(delay, dispatch_get_main_queue(), ^{
+    if (adapter == self.currentAdapter) {
+        if (self.state != DDNASmartadAgentStateLoading) return; // Prevent adapters calling this multiple times.
+        
+        [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
+        
+        self.state = DDNASmartAdAgentStateReady;
+        
+        if (result.code == DDNASmartAdRequestResultCodeConfiguration) {
+            self.currentAdapter = [self disableAdapter:adapter];
+        }
+        else {
+            self.currentAdapter = [self getNextAdapter];
+        }
+        
+        // FIXME: This is not good, if all networks fails we keep cycling, no back off.
+        // Think the waterfall is wrong anyway, we should give other networks a chance
+        // to give us an ad.
+        if (self.currentAdapter) {
             [self requestNextAd];
-        });
+        }
+        else {
+            self.currentAdapter = [self getFirstAdapter];
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
+                                                  AD_WATERFALL_RESTART_DELAY_SECONDS*NSEC_PER_SEC);
+            dispatch_after(delay, dispatch_get_main_queue(), ^{
+                [self requestNextAd];
+            });
+        }
     }
 }
 
 - (void)adapterIsShowingAd: (DDNASmartAdAdapter *)adapter
 {
-    self.state = DDNASmartAdAgentStateShowing;
-    self.adsShown += 1;
-    self.lastAdShownTime = [NSDate date];
-    [self.delegate adAgent:self didOpenAdWithAdapter:adapter];
+    if (adapter == self.currentAdapter) {
+        self.state = DDNASmartAdAgentStateShowing;
+        self.adsShown += 1;
+        self.lastAdShownTime = [NSDate date];
+        [self.delegate adAgent:self didOpenAdWithAdapter:adapter];
+    }
 }
 
 - (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdClosedResult *)result
 {
     DDNALogDebug(@"Agent failed to show ad from %@: %@", adapter.name, result.desc);
     
-    [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
-    self.state = DDNASmartAdAgentStateReady;
-    [self requestNextAd];
+    if (adapter == self.currentAdapter) {
+        [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
+        self.state = DDNASmartAdAgentStateReady;
+        [self requestNextAd];
+    }
 }
 
 - (void)adapterWasClicked:(DDNASmartAdAdapter *)adapter
 {
-    self.adWasClicked = YES;
+    if (adapter == self.currentAdapter) {
+        self.adWasClicked = YES;
+    }
 }
 
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter
 {
-    self.adLeftApplication = YES;
+    if (adapter == self.currentAdapter) {
+        self.adLeftApplication = YES;
+    }
 }
 
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
-    [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
-    self.state = DDNASmartAdAgentStateReady;
-    self.currentAdapter = [self getFirstAdapter];
-    [self requestNextAd];
+    if (adapter == self.currentAdapter) {
+        [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
+        self.state = DDNASmartAdAgentStateReady;
+        self.currentAdapter = [self getFirstAdapter];
+        [self requestNextAd];
+    }
 }
 
 
