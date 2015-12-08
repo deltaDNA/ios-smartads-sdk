@@ -81,7 +81,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 {
     DDNALogDebug(@"Agent loaded ad from %@", adapter.name);
     
-    if (adapter == self.currentAdapter) {
+    if (adapter == self.currentAdapter && self.state == DDNASmartadAgentStateLoading) {
         self.state = DDNASmartAdAgentStateLoaded;
         [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
     }
