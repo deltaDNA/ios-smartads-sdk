@@ -65,6 +65,10 @@
 {
     [[DDNASmartAdFlurryHelper sharedInstance] startSessionWithApiKey:self.apiKey testMode:self.testMode];
     
+    if (self.interstitial) {
+        self.interstitial.adDelegate = nil;
+    }
+    
     self.interstitial = [self createAndLoadInterstitial];
 }
 
