@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.10.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/0.10.2) (10/12/15)
+### Fixed
+* Flurry releases delegate to avoid retain cycle.
+* Call failed to open callback when not registered for ads.
+
 ## [0.10.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/0.10.1) (08/12/15)
 ### Fixed
 * AdAgent only listens to running adapter.
