@@ -43,7 +43,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v0.10.1";
+    return @"SmartAds v0.10.2";
 }
 
 - (void)registerForAds
@@ -170,7 +170,7 @@
 
 - (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason
 {
-    DDNALogWarn(@"Failed to register for interstitial ads: %@.", reason);
+    DDNALogDebug(@"Failed to register for interstitial ads: %@.", reason);
     [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:reason];
 }
 
@@ -182,7 +182,7 @@
 
 - (void)didFailToOpenInterstitialAd
 {
-    DDNALogWarn(@"Failed to open interstitial ad.");
+    DDNALogDebug(@"Failed to open interstitial ad.");
     [self.interstitialDelegate didFailToOpenInterstitialAd];
 }
 
@@ -206,14 +206,14 @@
 
 - (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason
 {
-    DDNALogWarn(@"Failed to register for rewarded ads: %@.", reason);
+    DDNALogDebug(@"Failed to register for rewarded ads: %@.", reason);
     [self.rewardedDelegate didFailToRegisterForRewardedAdsWithReason:reason];
 }
 
 
 - (void)didFailToOpenRewardedAd
 {
-    DDNALogWarn(@"Failed to open rewarded ad.");
+    DDNALogDebug(@"Failed to open rewarded ad.");
     [self.rewardedDelegate didFailToOpenRewardedAd];
 }
 

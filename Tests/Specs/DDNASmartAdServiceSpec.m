@@ -52,6 +52,8 @@ describe(@"registering for ads", ^{
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
@@ -63,6 +65,8 @@ describe(@"registering for ads", ^{
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
@@ -82,6 +86,8 @@ describe(@"registering for ads", ^{
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
     });
     
     it(@"fails when 'adShowSession' is false", ^{
@@ -100,6 +106,8 @@ describe(@"registering for ads", ^{
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
@@ -119,6 +127,8 @@ describe(@"registering for ads", ^{
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
@@ -141,6 +151,8 @@ describe(@"registering for ads", ^{
         NSString *responseJSON = [NSString stringWithContentsOfDictionary:response];
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", responseJSON]];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", responseJSON]];
+        expect([adService isInterstitialAdAvailable]).to.beFalsy();
+        expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
@@ -167,10 +179,12 @@ describe(@"registering for ads", ^{
         fakeFactory.fakeEngageService = [[DDNAFakeEngageService alloc] initWithResponse:[NSString stringWithContentsOfDictionary:response]
                                                                              statusCode:200
                                                                                   error:nil];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
         [verify(mockDelegate) didRegisterForInterstitialAds];
+        expect([adService isInterstitialAdAvailable]).to.beTruthy();
         
     });
     

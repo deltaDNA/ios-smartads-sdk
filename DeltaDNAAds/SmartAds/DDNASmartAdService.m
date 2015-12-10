@@ -131,7 +131,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (BOOL)isInterstitialAdAvailable
 {
-    return self.interstitialAgent.hasLoadedAd;
+    return self.interstitialAgent && self.interstitialAgent.hasLoadedAd;
 }
 
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController
@@ -141,18 +141,23 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
 {
-    self.interstitialAgent.adPoint = adPoint;
-    [self showAdFromRootViewController:viewController adAgent:self.interstitialAgent];
+    if (self.interstitialAgent) {
+        self.interstitialAgent.adPoint = adPoint;
+        [self showAdFromRootViewController:viewController adAgent:self.interstitialAgent];
+
+    } else {
+        [self.delegate didFailToOpenInterstitialAd];
+    }
 }
 
 - (BOOL)isShowingInterstitialAd
 {
-    return self.interstitialAgent.isShowingAd;
+    return self.interstitialAgent && self.interstitialAgent.isShowingAd;
 }
 
 - (BOOL)isRewardedAdAvailable
 {
-    return self.rewardedAgent.hasLoadedAd;
+    return self.rewardedAgent && self.rewardedAgent.hasLoadedAd;
 }
 
 - (void)showRewardedAdFromRootViewController:(UIViewController *)viewController
@@ -162,13 +167,17 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
 {
-    self.rewardedAgent.adPoint = adPoint;
-    [self showAdFromRootViewController:viewController adAgent:self.rewardedAgent];
+    if (self.rewardedAgent) {
+        self.rewardedAgent.adPoint = adPoint;
+        [self showAdFromRootViewController:viewController adAgent:self.rewardedAgent];
+    } else {
+        [self.delegate didFailToOpenRewardedAd];
+    }
 }
 
 - (BOOL)isShowingRewardedAd
 {
-    return self.rewardedAgent.isShowingAd;
+    return self.rewardedAgent && self.rewardedAgent.isShowingAd;
 }
 
 #pragma mark - DDNASmartAdAgent
@@ -239,7 +248,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     }
     
     if (adAgent.adsShown >= self.maxAdsPerSession) {
-        DDNALogDebug(@"Max ad per session count od %ld reached", (long)self.maxAdsPerSession);
+        DDNALogDebug(@"Max ad per session count of %ld reached", (long)self.maxAdsPerSession);
         [self postAdShowEvent:self.interstitialAgent
                       adapter:self.interstitialAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
