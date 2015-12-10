@@ -5,7 +5,7 @@
       location = "group:DeltaDNAAds"
       name = "DeltaDNAAds">
       <FileRef
-         location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/DeltaDNAAds.h">
+         location = "group:DeltaDNAAds.h">
       </FileRef>
       <Group
          location = "group:SmartAds"
@@ -74,10 +74,10 @@
             location = "container:"
             name = "Chartboost">
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.h">
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.h">
             </FileRef>
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.m">
+               location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostHelper.m">
             </FileRef>
             <FileRef
                location = "group:DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboostInterstitialAdapter.h">
@@ -136,10 +136,10 @@
             location = "group:Flurry"
             name = "Flurry">
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.h">
+               location = "group:DDNASmartAdFlurryInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.m">
+               location = "group:DDNASmartAdFlurryInterstitialAdapter.m">
             </FileRef>
             <FileRef
                location = "group:DDNASmartAdFlurryHelper.h">
@@ -158,10 +158,10 @@
             location = "group:InMobi"
             name = "InMobi">
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.h">
+               location = "group:DDNASmartAdInMobiInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:/Users/david/Projects/github-ios-smartads-sdk/DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.m">
+               location = "group:DDNASmartAdInMobiInterstitialAdapter.m">
             </FileRef>
             <FileRef
                location = "group:DDNASmartAdInMobiHelper.h">
