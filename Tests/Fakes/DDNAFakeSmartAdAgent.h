@@ -7,7 +7,7 @@
 //
 
 #import <DeltaDNA/DeltaDNA.h>
-#import <DeltaDNAAds/DDNASmartAdAgent.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdAgent.h>
 
 @interface DDNAFakeSmartAdAgent : DDNASmartAdAgent
 

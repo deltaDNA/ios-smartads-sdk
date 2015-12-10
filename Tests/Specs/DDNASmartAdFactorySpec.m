@@ -15,7 +15,7 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/DDNASmartAdFactory.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdFactory.h>
 #import <DeltaDNAAds/Networks/Dummy/DDNASmartAdDummyAdapter.h>
 #import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h>
 #import <DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h>

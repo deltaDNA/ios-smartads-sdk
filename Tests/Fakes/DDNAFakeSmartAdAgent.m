@@ -35,18 +35,6 @@
     return self;
 }
 
-- (void)requestAd
-{
-    if ([self respondsToSelector:@selector(adapterDidLoadAd:)]) {
-        [self adapterDidLoadAd:self.dummyAdapter];
-    }
-}
-
-- (void)showAdWithAdPoint:(NSString *)adPoint
-{
-    [self adapterIsShowingAd:self.dummyAdapter];
-}
-
 - (void)closeAd
 {
     [self adapterDidCloseAd:self.dummyAdapter canReward:YES];

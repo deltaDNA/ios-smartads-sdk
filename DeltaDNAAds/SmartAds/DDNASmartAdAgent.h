@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <DeltaDNAAds/DDNASmartAdAdapter.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
 
 typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {

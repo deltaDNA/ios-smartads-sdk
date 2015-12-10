@@ -15,13 +15,13 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/DDNASmartAdService.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdService.h>
 #import "DDNAFakeSmartAdFactory.h"
 #import "DDNAFakeEngageService.h"
 #import "DDNAFakeSmartAdAgent.h"
 #import <DeltaDNA/NSString+DeltaDNA.h>
 #import <DeltaDNA/NSDictionary+DeltaDNA.h>
-#import <DeltaDNAAds/DDNASmartAds.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAds.h>
 
 
 SpecBegin(DDNASmartAdService)

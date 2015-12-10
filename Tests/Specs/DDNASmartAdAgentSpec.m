@@ -15,7 +15,7 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/DDNASmartAdAgent.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdAgent.h>
 #import "DDNASmartAdFakeAdapter.h"
 
 SpecBegin(DDNASmartAdAgent)

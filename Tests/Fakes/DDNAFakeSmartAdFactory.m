@@ -9,7 +9,7 @@
 #import "DDNAFakeSmartAdFactory.h"
 #import <DeltaDNA/DDNANetworkRequest.h>
 #import <DeltaDNA/DDNAEngageService.h>
-#import <DeltaDNAAds/DDNASmartAdAgent.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdAgent.h>
 
 
 @implementation DDNAFakeSmartAdFactory
