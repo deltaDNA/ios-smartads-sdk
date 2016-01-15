@@ -14,25 +14,6 @@
 
 @implementation DDNAFakeSmartAdFactory
 
-- (DDNANetworkRequest *)buildNetworkRequestWithURL:(NSURL *)URL jsonPayload:(NSString *)jsonPayload delegate:(id<DDNANetworkRequestDelegate>)delegate
-{
-    if (self.fakeNetworkRequest) {
-        self.fakeNetworkRequest.delegate = delegate;
-        return self.fakeNetworkRequest;
-    } else {
-        return [super buildNetworkRequestWithURL:URL jsonPayload:jsonPayload delegate:delegate];
-    }
-}
-
-- (DDNAEngageService *)buildEngageService
-{
-    if (self.fakeEngageService) {
-        return self.fakeEngageService;
-    } else {
-        return [super buildEngageService];
-    }
-}
-
 - (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(NSArray *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
     if (self.fakeSmartAdAgent) {

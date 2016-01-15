@@ -8,7 +8,6 @@
 
 #import "DDNASmartAdService.h"
 #import <DeltaDNA/DDNALog.h>
-#import <DeltaDNA/DDNAEngageService.h>
 #import "DDNASmartAdFactory.h"
 #import "DDNASmartAdAgent.h"
 #import "DDNASmartAds.h"
@@ -24,7 +23,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 @interface DDNASmartAdService () <DDNASmartAdAgentDelegate>
 
-@property (nonatomic, strong) DDNAEngageService *engageService;
 @property (nonatomic, strong) NSDictionary *adConfiguration;
 @property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
 @property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
@@ -47,12 +45,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint
 {
-    self.engageService = [self.factory buildEngageService];
-    
-    [self.engageService requestWithDecisionPoint:decisionPoint
-                                         flavour:DDNADecisionPointFlavourInternal
-                                      parameters:nil
-                               completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
+    [self.delegate requestEngagementWithDecisionPoint:decisionPoint
+                                              flavour:@"internal"
+                                           parameters:nil
+                                    completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
                                    
         if (connectionError != nil || statusCode >= 400) {
             if (response == nil) {
@@ -277,10 +273,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     }
     else if (self.requestAdPoints) {
         // check with engage first
-        [self.engageService requestWithDecisionPoint:adAgent.adPoint
-                                             flavour:DDNADecisionPointFlavourAdvertising
-                                          parameters:nil
-                                   completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
+        [self.delegate requestEngagementWithDecisionPoint:adAgent.adPoint
+                                                  flavour:@"advertising"
+                                               parameters:nil
+                                        completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
                                        
             if (connectionError != nil || statusCode >= 400) {
                 // Couldn't get a response from Engage, show ad anyway

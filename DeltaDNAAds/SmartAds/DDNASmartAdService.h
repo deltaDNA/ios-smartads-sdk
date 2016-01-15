@@ -66,4 +66,9 @@
 
 - (void)recordEventWithName:(NSString *)eventName andParamJson:(NSString *)paramJson;
 
+- (void)requestEngagementWithDecisionPoint:(NSString *)decisionPoint
+                                   flavour:(NSString *)flavour
+                                parameters:(NSDictionary *)parameters
+                         completionHandler:(void (^)(NSString *response, NSInteger statusCode, NSError *connectionError))completionHandler;
+
 @end

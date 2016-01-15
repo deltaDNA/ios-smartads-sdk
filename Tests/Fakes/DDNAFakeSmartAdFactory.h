@@ -12,10 +12,6 @@
 
 @interface DDNAFakeSmartAdFactory : DDNASmartAdFactory
 
-@property (nonatomic, strong) DDNANetworkRequest *fakeNetworkRequest;   // override, else returns default
-
-@property (nonatomic, strong) DDNAEngageService *fakeEngageService;
-
 @property (nonatomic, strong) DDNASmartAdAgent *fakeSmartAdAgent;
 
 @end

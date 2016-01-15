@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class DDNANetworkRequest;
-@protocol DDNANetworkRequestDelegate;
-
-@class DDNAEngageService;
-
 @class DDNASmartAdService;
 @protocol DDNASmartAdServiceDelegate;
 
@@ -27,12 +22,6 @@
 @interface DDNASmartAdFactory : NSObject
 
 + (instancetype)sharedInstance;
-
-- (DDNANetworkRequest *)buildNetworkRequestWithURL: (NSURL *)URL
-                                       jsonPayload: (NSString *)jsonPayload
-                                          delegate: (id<DDNANetworkRequestDelegate>)delegate;
-
-- (DDNAEngageService *)buildEngageService;
 
 - (DDNASmartAdService *)buildSmartAdServiceWithDelegate: (id<DDNASmartAdServiceDelegate>)delegate;
 

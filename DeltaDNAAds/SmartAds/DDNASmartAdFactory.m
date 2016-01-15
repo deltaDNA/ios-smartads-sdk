@@ -11,8 +11,6 @@
 #import "DDNASmartAdService.h"
 #import "DDNASmartAdAgent.h"
 #import <DeltaDNA/DDNALog.h>
-#import <DeltaDNA/DDNANetworkRequest.h>
-#import <DeltaDNA/DDNAEngageService.h>
 #import "DDNASDK.h"
 #import "DDNASettings.h"
 #import "DDNAClientInfo.h"
@@ -61,34 +59,6 @@ static NSString *const AD_NETWORK_UNITYADS_CLASS = @"DDNASmartAdUnityAdsAdapter"
     });
     
     return sharedInstance;
-}
-
-- (DDNANetworkRequest *)buildNetworkRequestWithURL: (NSURL *)URL jsonPayload: (NSString *)jsonPayload delegate:(id<DDNANetworkRequestDelegate>)delegate
-{
-    DDNANetworkRequest *networkRequest = [[DDNANetworkRequest alloc] initWithURL:URL jsonPayload:jsonPayload];
-    networkRequest.delegate = delegate;
-    
-    return networkRequest;
-}
-
-- (DDNAEngageService *)buildEngageService
-{
-    DDNASDK *ddnasdk = [DDNASDK sharedInstance];
-    DDNAClientInfo *ddnaci = [DDNAClientInfo sharedInstance];
-    
-    DDNAEngageService *engageService = [[DDNAEngageService alloc] initWithEndpoint:ddnasdk.engageURL
-                                                                    environmentKey:ddnasdk.environmentKey
-                                                                        hashSecret:ddnasdk.hashSecret
-                                                                            userID:ddnasdk.userID
-                                                                         sessionID:ddnasdk.sessionID
-                                                                           version:DDNA_ENGAGE_API_VERSION
-                                                                        sdkVersion:DDNA_SDK_VERSION
-                                                                          platform:ddnaci.platform
-                                                                    timezoneOffset:ddnaci.timezoneOffset
-                                                                      manufacturer:ddnaci.manufacturer
-                                                            operatingSystemVersion:ddnaci.operatingSystemVersion];
-    
-    return engageService;
 }
 
 - (DDNASmartAdService *)buildSmartAdServiceWithDelegate:(id<DDNASmartAdServiceDelegate>)delegate
