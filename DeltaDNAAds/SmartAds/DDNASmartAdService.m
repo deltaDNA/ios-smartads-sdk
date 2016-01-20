@@ -137,6 +137,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
 {
+    if (adPoint != nil && adPoint.length == 0) adPoint = nil;
+    
     if (self.interstitialAgent) {
         self.interstitialAgent.adPoint = adPoint;
         [self showAdFromRootViewController:viewController adAgent:self.interstitialAgent];
@@ -163,6 +165,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
 {
+    if (adPoint != nil && adPoint.length == 0) adPoint = nil;
+    
     if (self.rewardedAgent) {
         self.rewardedAgent.adPoint = adPoint;
         [self showAdFromRootViewController:viewController adAgent:self.rewardedAgent];
