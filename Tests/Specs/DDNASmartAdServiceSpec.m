@@ -278,11 +278,9 @@ describe(@"interstitial ads", ^{
             @"adSdkVersion": [DDNASmartAds sdkVersion]
         };
         
-        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
-        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
-        
-        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
@@ -296,27 +294,15 @@ describe(@"interstitial ads", ^{
             @"adClicked": [NSNumber numberWithBool:NO],
             @"adLeftApplication": [NSNumber numberWithBool:NO],
             @"adEcpm": [NSNumber numberWithLong:100],
-            @"adSdkVersion": [DDNASmartAds sdkVersion]
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adStatus": @"Success"
         };
         
-        HCArgumentCaptor *adClosedJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:(id)adClosedJSONArg];
-        jsonDict = [NSDictionary dictionaryWithJSONString:adClosedJSONArg.value];
+        HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
+        expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
         
-        // TODO: dictionaries don't equal although they contain same values.  Test is fragile.
-        //expect([jsonDict isEqualToDictionary:adClosedParams]).to.beTruthy();
-        
-//        HCArgumentCaptor *adRequestJSONArg = [[HCArgumentCaptor alloc] init];
-//        [verify(mockDelegate) recordEventWithName:@"adRequest" andParamJson:(id)adRequestJSONArg];
-//        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[0]];
-//        
-//        NSLog(@"adRequest: %@", jsonDict);
-//        
-//        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[1]];
-//        
-//        NSLog(@"adRequest: %@", jsonDict);
-        
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" andParamJson:anything()];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" parameters:anything()];
 
         
     });
@@ -345,41 +331,38 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
         
-        
-        // TODO: Bit fragile testing the parameters coming back since the key order changes
-                NSDictionary *adShowParams = @{
-                    @"adProvider": @"DUMMY",
-                    @"adProviderVersion": @"1.0.0",
-                    @"adType": @"INTERSTITIAL",
-                    @"adStatus": @"Fulfilled",
-                    @"adSdkVersion": [DDNASmartAds sdkVersion],
-                    @"adPoint": @"testAdPoint"
-                };
-        //
-        //        NSString *adShowParamsJSON = [NSString stringWithContentsOfDictionary:adShowParams];
-        
-        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
-        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
-        
-        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testAdPoint"
+        };
+
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingInterstitialAd]).to.beFalsy();
         [verify(mockDelegate) didCloseInterstitialAd];
         
-        //        NSDictionary *adClosedParams = @{
-        //            @"adProvider": @"DUMMY",
-        //            @"adProviderVersion": @"1.0.0",
-        //            @"adType": @"INTERSTITIAL",
-        //            @"adClicked": @NO,
-        //            @"adLeftApplication": @NO,
-        //            @"adEcpm": @100,
-        //            @"adSdkVersion": @"1.0.0"
-        //        };
+        NSDictionary *adClosedParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adClicked": @NO,
+            @"adLeftApplication": @NO,
+            @"adEcpm": @100,
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adStatus": @"Success"
+        };
         
-        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:anything()];
+        HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
+        expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
         
     });
     
@@ -583,18 +566,16 @@ describe(@"rewarded ads", ^{
         
         
         NSDictionary *adShowParams = @{
-                                       @"adProvider": @"DUMMY",
-                                       @"adProviderVersion": @"1.0.0",
-                                       @"adType": @"REWARDED",
-                                       @"adStatus": @"Fulfilled",
-                                       @"adSdkVersion": [DDNASmartAds sdkVersion]
-                                       };
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
         
-        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
-        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
-        
-        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
@@ -602,33 +583,21 @@ describe(@"rewarded ads", ^{
         [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
         
         NSDictionary *adClosedParams = @{
-                                         @"adProvider": @"DUMMY",
-                                         @"adProviderVersion": @"1.0.0",
-                                         @"adType": @"REWARDED",
-                                         @"adClicked": [NSNumber numberWithBool:NO],
-                                         @"adLeftApplication": [NSNumber numberWithBool:NO],
-                                         @"adEcpm": [NSNumber numberWithLong:100],
-                                         @"adSdkVersion": [DDNASmartAds sdkVersion]
-                                         };
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adClicked": [NSNumber numberWithBool:NO],
+            @"adLeftApplication": [NSNumber numberWithBool:NO],
+            @"adEcpm": [NSNumber numberWithLong:100],
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adStatus": @"Success"
+        };
         
-        HCArgumentCaptor *adClosedJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:(id)adClosedJSONArg];
-        jsonDict = [NSDictionary dictionaryWithJSONString:adClosedJSONArg.value];
+        HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
+        expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
         
-        // TODO: dictionaries don't equal although they contain same values.  Test is fragile.
-        //expect([jsonDict isEqualToDictionary:adClosedParams]).to.beTruthy();
-        
-        //        HCArgumentCaptor *adRequestJSONArg = [[HCArgumentCaptor alloc] init];
-        //        [verify(mockDelegate) recordEventWithName:@"adRequest" andParamJson:(id)adRequestJSONArg];
-        //        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[0]];
-        //
-        //        NSLog(@"adRequest: %@", jsonDict);
-        //
-        //        jsonDict = [NSDictionary dictionaryWithJSONString:adRequestJSONArg.allValues[1]];
-        //
-        //        NSLog(@"adRequest: %@", jsonDict);
-        
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" andParamJson:anything()];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" parameters:anything()];
         
         
     });
@@ -660,38 +629,37 @@ describe(@"rewarded ads", ^{
         
         // TODO: Bit fragile testing the parameters coming back since the key order changes
         NSDictionary *adShowParams = @{
-                                       @"adProvider": @"DUMMY",
-                                       @"adProviderVersion": @"1.0.0",
-                                       @"adType": @"REWARDED",
-                                       @"adStatus": @"Fulfilled",
-                                       @"adSdkVersion": [DDNASmartAds sdkVersion],
-                                       @"adPoint": @"testAdPoint"
-                                       };
-        //
-        //        NSString *adShowParamsJSON = [NSString stringWithContentsOfDictionary:adShowParams];
-        
-        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
-        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
-        
-        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testAdPoint"
+        };
+
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingRewardedAd]).to.beFalsy();
         [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
         
-        //        NSDictionary *adClosedParams = @{
-        //            @"adProvider": @"DUMMY",
-        //            @"adProviderVersion": @"1.0.0",
-        //            @"adType": @"INTERSTITIAL",
-        //            @"adClicked": @NO,
-        //            @"adLeftApplication": @NO,
-        //            @"adEcpm": @100,
-        //            @"adSdkVersion": @"1.0.0"
-        //        };
+        NSDictionary *adClosedParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adClicked": @NO,
+            @"adLeftApplication": @NO,
+            @"adEcpm": @100,
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adStatus": @"Success"
+        };
         
-        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:anything()];
+        HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
+        expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
         
     });
     
@@ -719,41 +687,38 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
-        
-        // TODO: Bit fragile testing the parameters coming back since the key order changes
         NSDictionary *adShowParams = @{
-                                       @"adProvider": @"DUMMY",
-                                       @"adProviderVersion": @"1.0.0",
-                                       @"adType": @"REWARDED",
-                                       @"adStatus": @"Fulfilled",
-                                       @"adSdkVersion": [DDNASmartAds sdkVersion],
-                                       @"adPoint": @"testAdPoint"
-                                       };
-        //
-        //        NSString *adShowParamsJSON = [NSString stringWithContentsOfDictionary:adShowParams];
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testAdPoint"
+        };
         
-        HCArgumentCaptor *adShowJSONArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" andParamJson:(id)adShowJSONArg];
-        NSDictionary *jsonDict = [NSDictionary dictionaryWithJSONString:adShowJSONArg.value];
-        
-        expect([jsonDict isEqualToDictionary:adShowParams]).to.beTruthy();
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAdWithReward:NO];
         
         expect([adService isShowingRewardedAd]).to.beFalsy();
         [verify(mockDelegate) didCloseRewardedAdWithReward:NO];
         
-        //        NSDictionary *adClosedParams = @{
-        //            @"adProvider": @"DUMMY",
-        //            @"adProviderVersion": @"1.0.0",
-        //            @"adType": @"INTERSTITIAL",
-        //            @"adClicked": @NO,
-        //            @"adLeftApplication": @NO,
-        //            @"adEcpm": @100,
-        //            @"adSdkVersion": @"1.0.0"
-        //        };
+        NSDictionary *adClosedParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adClicked": @NO,
+            @"adLeftApplication": @NO,
+            @"adEcpm": @100,
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adStatus": @"Success"
+        };
         
-        [verify(mockDelegate) recordEventWithName:@"adClosed" andParamJson:anything()];
+        HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
+        expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
         
     });
     
@@ -1016,7 +981,7 @@ describe(@"respects minimum ad interval", ^{
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        [verifyCount(mockDelegate, never()) recordEventWithName:@"adRequest" andParamJson:anything()];
+        [verifyCount(mockDelegate, never()) recordEventWithName:@"adRequest" parameters:anything()];
         
     });
     

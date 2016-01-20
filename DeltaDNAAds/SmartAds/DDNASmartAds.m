@@ -174,10 +174,9 @@
     [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:reason];
 }
 
-- (void)recordEventWithName:(NSString *)eventName andParamJson:(NSString *)paramJson
+- (void)recordEventWithName:(NSString *)eventName parameters:(NSDictionary *)parameters
 {
-    // TODO - This is clunky converting back and forth from dictionary to json.
-    [[DDNASDK sharedInstance] recordEvent:eventName withEventDictionary:[NSDictionary dictionaryWithJSONString:paramJson]];
+    [[DDNASDK sharedInstance] recordEvent:eventName withEventDictionary:parameters];
 }
 
 - (void)didFailToOpenInterstitialAd

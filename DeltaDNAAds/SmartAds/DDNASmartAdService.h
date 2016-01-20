@@ -64,7 +64,7 @@
 
 - (void)didCloseRewardedAdWithReward:(BOOL)reward;
 
-- (void)recordEventWithName:(NSString *)eventName andParamJson:(NSString *)paramJson;
+- (void)recordEventWithName:(NSString *)eventName parameters:(NSDictionary *)parameters;
 
 - (void)requestEngagementWithDecisionPoint:(NSString *)decisionPoint
                                    flavour:(NSString *)flavour

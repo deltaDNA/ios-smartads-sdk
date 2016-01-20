@@ -353,9 +353,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         eventParams[@"adPoint"] = [agent adPoint];
     }
     
-    NSString *eventParamsJSON = [NSString stringWithContentsOfDictionary:eventParams];
-    DDNALogDebug(@"Posting adShow event: %@", eventParamsJSON);
-    [self.delegate recordEventWithName:@"adShow" andParamJson:eventParamsJSON];
+    DDNALogDebug(@"Posting adShow event: %@", eventParams);
+    [self.delegate recordEventWithName:@"adShow" parameters:eventParams];
 }
 
 - (void)postAdClosedEvent:(DDNASmartAdAgent *)agent adapter:(DDNASmartAdAdapter *)adapter result:(DDNASmartAdClosedResult *)result
@@ -370,7 +369,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     
     NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:7];
     eventParams[@"adProvider"] = adapter.name;
-    eventParams[@"adProvderVersion"] = adapter.version;
+    eventParams[@"adProviderVersion"] = adapter.version;
     eventParams[@"adType"] = adType;
     eventParams[@"adClicked"] = [NSNumber numberWithBool:[agent adWasClicked]];
     eventParams[@"adLeftApplication"] = [NSNumber numberWithBool:[agent adLeftApplication]];
@@ -378,9 +377,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     eventParams[@"adSdkVersion"] = [DDNASmartAds sdkVersion];
     eventParams[@"adStatus"] = result.desc;
     
-    NSString *eventParamsJSON = [NSString stringWithContentsOfDictionary:eventParams];
-    DDNALogDebug(@"Posting adClosed event: %@", eventParamsJSON);
-    [self.delegate recordEventWithName:@"adClosed" andParamJson:eventParamsJSON];
+    DDNALogDebug(@"Posting adClosed event: %@", eventParams);
+    [self.delegate recordEventWithName:@"adClosed" parameters:eventParams];
 }
 
 - (void)postAdRequestEvent:(DDNASmartAdAgent *)agent adapter:(DDNASmartAdAdapter *)adapter requestDuration:(NSTimeInterval)requestDuration result:(DDNASmartAdRequestResult *)result
@@ -406,9 +404,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             eventParams[@"adProviderError"] = result.error;
         }
         
-        NSString *eventParamsJSON = [NSString stringWithContentsOfDictionary:eventParams];
-        DDNALogDebug(@"Posting adRequest event: %@", eventParamsJSON);
-        [self.delegate recordEventWithName:@"adRequest" andParamJson:eventParamsJSON];
+        DDNALogDebug(@"Posting adRequest event: %@", eventParams);
+        [self.delegate recordEventWithName:@"adRequest" parameters:eventParams];
     }
 }
 
