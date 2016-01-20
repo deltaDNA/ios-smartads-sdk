@@ -190,9 +190,6 @@ static NSString *const AD_NETWORK_UNITYADS_CLASS = @"DDNASmartAdUnityAdsAdapter"
                 if (adapter) {
                     [adapters addObject:adapter];
                 }
-                else {
-                    DDNALogWarn(@"Failed to build adapter for %@ - missing configuration.", adProvider);
-                }
             }
             else {
                 DDNALogDebug(@"Skipping %@ - eCPM %ld below %ld.", adProvider, (long)ecpm, (long)floorPrice);
