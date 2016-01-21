@@ -10,6 +10,7 @@
 #import "DeltaDNAAds/DDNASmartAdFactory.h"
 #import "DeltaDNAAds/DDNASmartAdService.h"
 #import <DeltaDNA/DeltaDNA.h>
+#import <DeltaDNA/DDNAEngageService.h>
 
 @interface DDNASmartAds () <DDNASmartAdServiceDelegate>
 {
@@ -18,6 +19,7 @@
 
 @property (nonatomic, strong) DDNASmartAdFactory *factory;
 @property (nonatomic, strong) DDNASmartAdService *adService;
+@property (nonatomic, strong) DDNAEngageService *engageService;
 
 @end
 
@@ -43,7 +45,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v0.10.2";
+    return @"SmartAds v0.10.3";
 }
 
 - (void)registerForAds
@@ -51,6 +53,20 @@
     @synchronized(self) {
         @try{
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
+            
+            DDNASDK *ddnasdk = [DDNASDK sharedInstance];
+            DDNAClientInfo *ddnaci = [DDNAClientInfo sharedInstance];
+            self.engageService = [[DDNAEngageService alloc] initWithEndpoint:ddnasdk.engageURL
+                                                              environmentKey:ddnasdk.environmentKey
+                                                                  hashSecret:ddnasdk.hashSecret
+                                                                      userID:ddnasdk.userID
+                                                                   sessionID:ddnasdk.sessionID
+                                                                     version:DDNA_ENGAGE_API_VERSION
+                                                                  sdkVersion:DDNA_SDK_VERSION
+                                                                    platform:ddnaci.platform
+                                                              timezoneOffset:ddnaci.timezoneOffset
+                                                                manufacturer:ddnaci.manufacturer
+                                                      operatingSystemVersion:ddnaci.operatingSystemVersion];
         
             [self.adService beginSessionWithDecisionPoint:@"advertising"];
         }
@@ -177,6 +193,24 @@
 - (void)recordEventWithName:(NSString *)eventName parameters:(NSDictionary *)parameters
 {
     [[DDNASDK sharedInstance] recordEvent:eventName withEventDictionary:parameters];
+}
+
+- (void)requestEngagementWithDecisionPoint:(NSString *)decisionPoint flavour:(NSString *)flavour parameters:(NSDictionary *)parameters completionHandler:(void (^)(NSString *, NSInteger, NSError *))completionHandler
+{
+    DDNADecisionPointFlavour enumFlavour = DDNADecisionPointFlavourEngagement;
+    if ([flavour isEqualToString:@"advertising"]) {
+        enumFlavour = DDNADecisionPointFlavourAdvertising;
+    }
+    else if ([flavour isEqualToString:@"internal"]) {
+        enumFlavour = DDNADecisionPointFlavourInternal;
+    }
+    
+    [self.engageService requestWithDecisionPoint:decisionPoint
+                                         flavour:enumFlavour
+                                      parameters:parameters
+                               completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
+                                   completionHandler(response, statusCode, connectionError);
+                               }];
 }
 
 - (void)didFailToOpenInterstitialAd
