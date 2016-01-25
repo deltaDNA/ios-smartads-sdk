@@ -34,6 +34,10 @@
 
 - (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
 
+- (void)pause;
+
+- (void)resume;
+
 @end
 
 

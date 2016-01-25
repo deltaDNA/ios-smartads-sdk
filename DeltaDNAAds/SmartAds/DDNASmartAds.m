@@ -45,7 +45,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v0.10.3";
+    return @"SmartAds v0.10.4";
 }
 
 - (void)registerForAds
@@ -173,6 +173,16 @@
             [self.rewardedDelegate didFailToOpenRewardedAd];
         }
     }
+}
+
+- (void)pause
+{
+    [self.adService pause];
+}
+
+- (void)resume
+{
+    [self.adService resume];
 }
 
 

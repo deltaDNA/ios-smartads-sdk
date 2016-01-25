@@ -59,4 +59,6 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward;
 
+- (dispatch_queue_t)getDispatchQueue;
+
 @end

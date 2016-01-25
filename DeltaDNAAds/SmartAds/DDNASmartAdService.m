@@ -30,6 +30,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 @property (nonatomic, assign) NSInteger adMinimumIntervalMs;
 @property (nonatomic, assign) BOOL recordAdRequests;
 @property (nonatomic, assign) BOOL requestAdPoints;
+@property (nonatomic, strong) dispatch_queue_t dispatchQueue;
+@property (nonatomic, assign) BOOL dispatchQueueSuspended;
 
 @end
 
@@ -39,6 +41,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 {
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
+        self.dispatchQueue = dispatch_queue_create("com.deltadna.ios.sdk.adService", DISPATCH_QUEUE_CONCURRENT);
+        self.dispatchQueueSuspended = NO;
     }
     return self;
 }
@@ -180,6 +184,24 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     return self.rewardedAgent && self.rewardedAgent.isShowingAd;
 }
 
+- (void)pause
+{
+    if (!self.dispatchQueueSuspended) {
+        DDNALogDebug(@"Pausing SmartAds");
+        dispatch_suspend(self.dispatchQueue);
+        self.dispatchQueueSuspended = YES;
+    }
+}
+
+- (void)resume
+{
+    if (self.dispatchQueueSuspended) {
+        dispatch_resume(self.dispatchQueue);
+        DDNALogDebug(@"Resuming SmartAds");
+        self.dispatchQueueSuspended = NO;
+    }
+}
+
 #pragma mark - DDNASmartAdAgent
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime
@@ -231,6 +253,11 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         [self.delegate didCloseRewardedAdWithReward:canReward];
     }
     
+}
+
+- (dispatch_queue_t)getDispatchQueue
+{
+    return self.dispatchQueue;
 }
 
 #pragma mark - Private
