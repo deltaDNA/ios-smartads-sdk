@@ -24,9 +24,12 @@ describe(@"ad agent", ^{
     
     __block id <DDNASmartAdAgentDelegate> delegate;
     __block UIViewController *mockViewController;
+    __block dispatch_queue_t dispatchQueue;
     
     beforeEach(^{
         delegate = mockProtocol(@protocol(DDNASmartAdAgentDelegate));
+        dispatchQueue = dispatch_get_main_queue(); 
+        [given([delegate getDispatchQueue]) willReturn:dispatchQueue];
         mockViewController = mock([UIViewController class]);
     });
     
@@ -46,6 +49,8 @@ describe(@"ad agent", ^{
         expect([agent hasLoadedAd]).to.beFalsy();
         
         [agent requestAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
         expect([agent hasLoadedAd]).to.beTruthy();
@@ -70,6 +75,8 @@ describe(@"ad agent", ^{
         expect([agent hasLoadedAd]).to.beFalsy();
         
         [agent requestAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
 
         [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
         expect([agent hasLoadedAd]).to.beTruthy();
@@ -80,6 +87,8 @@ describe(@"ad agent", ^{
         // After closing the ad, the waterfall is reset to the beginning again.
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter showAdFromViewController:nil];
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter closeAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
         [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
         expect(agent.currentAdapter).toNot.beNil();
@@ -97,6 +106,8 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        
         expect([agent hasLoadedAd]).to.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
@@ -104,6 +115,8 @@ describe(@"ad agent", ^{
         expect([agent isShowingAd]).to.beTruthy();
         
         [adapters[0] closeAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
         expect([agent adPoint]).to.equal(@"testAdPoint");
         
@@ -121,6 +134,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
 
         expect([agent hasLoadedAd]).to.beFalsy();
     });
@@ -136,9 +151,13 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        
         expect([agent hasLoadedAd]).to.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
         expect([agent isShowingAd]).to.beFalsy();
         expect(agent.currentAdapter).to.equal(adapters[0]);
@@ -157,6 +176,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
@@ -181,6 +202,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
+        
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         

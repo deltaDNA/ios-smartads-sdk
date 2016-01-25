@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.10.4](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/0.10.4) (26/01/16)
+### Added
+* Support for pausing background ad requests.
+
 ## [0.10.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/0.10.3) (21/01/16)
 ### Fixed
 * No longer uses internal engage code.

@@ -37,6 +37,10 @@
 
 - (BOOL)isShowingRewardedAd;
 
+- (void)pause;
+
+- (void)resume;
+
 @end
 
 

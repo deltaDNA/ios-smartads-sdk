@@ -49,7 +49,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     self.adWasClicked = NO;
     self.adLeftApplication = NO;
     
-    [self requestNextAd];
+    [self requestNextAdWithDelaySeconds:0];
 }
 
 - (BOOL)hasLoadedAd
@@ -109,15 +109,11 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
         // Think the waterfall is wrong anyway, we should give other networks a chance
         // to give us an ad.
         if (self.currentAdapter) {
-            [self requestNextAd];
+            [self requestNextAdWithDelaySeconds:0];
         }
         else {
             self.currentAdapter = [self getFirstAdapter];
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
-                                                  AD_WATERFALL_RESTART_DELAY_SECONDS*NSEC_PER_SEC);
-            dispatch_after(delay, dispatch_get_main_queue(), ^{
-                [self requestNextAd];
-            });
+            [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
         }
     }
 }
@@ -139,7 +135,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     if (adapter == self.currentAdapter) {
         [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
         self.state = DDNASmartAdAgentStateReady;
-        [self requestNextAd];
+        [self requestNextAdWithDelaySeconds:0];
     }
 }
 
@@ -163,19 +159,29 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
         self.state = DDNASmartAdAgentStateReady;
         self.currentAdapter = [self getFirstAdapter];
-        [self requestNextAd];
+        [self requestNextAdWithDelaySeconds:0];
     }
 }
 
 
 #pragma mark - Private Methods
 
-- (void)requestNextAd
+- (void)requestNextAdWithDelaySeconds:(NSUInteger)delaySeconds
 {
     if (self.state == DDNASmartAdAgentStateReady) {
         self.state = DDNASmartadAgentStateLoading;
         self.lastRequestTime = [NSDate date];
-        [self.currentAdapter requestAd];
+        
+        // Dispatching to our own queue allows the requests to
+        // be easily suspended/resumed.  The ad networks must
+        // request ads from the main thread.
+        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
+                                              delaySeconds*NSEC_PER_SEC);
+        dispatch_after(delay, self.delegate.getDispatchQueue, ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.currentAdapter requestAd];
+            });
+        });
     }
 }
 
