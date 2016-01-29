@@ -21,7 +21,7 @@
 
 - (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"MoPub"
+    if ((self = [super initWithName:@"MOPUB"
                             version:[MoPub sharedInstance].version
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {

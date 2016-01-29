@@ -79,8 +79,6 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter
 {
-    DDNALogDebug(@"Agent loaded ad from %@", adapter.name);
-    
     if (adapter == self.currentAdapter && self.state == DDNASmartadAgentStateLoading) {
         self.state = DDNASmartAdAgentStateLoaded;
         [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
@@ -89,8 +87,6 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 
 - (void)adapterDidFailToLoadAd:(DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdRequestResult *)result
 {
-    DDNALogDebug(@"Agent failed to load ad from %@: %@ (%@)", adapter.name, result.desc, result.error);
-    
     if (adapter == self.currentAdapter) {
         if (self.state != DDNASmartadAgentStateLoading) return; // Prevent adapters calling this multiple times.
         
@@ -130,8 +126,6 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 
 - (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdClosedResult *)result
 {
-    DDNALogDebug(@"Agent failed to show ad from %@: %@", adapter.name, result.desc);
-    
     if (adapter == self.currentAdapter) {
         [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
         self.state = DDNASmartAdAgentStateReady;

@@ -16,6 +16,7 @@
 
 @protocol DDNASmartAdAdapter;
 
+
 /**
  *  Factory creates components for smart ad library.
  */
@@ -23,11 +24,15 @@
 
 + (instancetype)sharedInstance;
 
-- (DDNASmartAdService *)buildSmartAdServiceWithDelegate: (id<DDNASmartAdServiceDelegate>)delegate;
+- (DDNASmartAdService *)buildSmartAdServiceWithDelegate:(id<DDNASmartAdServiceDelegate>)delegate;
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall: (NSArray *)waterfall
-                                            delegate: (id<DDNASmartAdAgentDelegate>)delegate;
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(NSArray *)waterfall
+                                            delegate:(id<DDNASmartAdAgentDelegate>)delegate;
 
-- (NSArray *)buildAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice;
+- (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders:(NSArray *)adProviders
+                                                   floorPrice:(NSInteger)floorPrice;
+
+- (NSArray *)buildRewardedAdapterWaterfallWithAdProviders:(NSArray *)adProviders
+                                               floorPrice:(NSInteger)floorPrice;
 
 @end

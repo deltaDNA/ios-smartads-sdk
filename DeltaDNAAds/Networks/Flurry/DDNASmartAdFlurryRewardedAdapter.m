@@ -26,7 +26,7 @@
 
 - (instancetype)initWithApiKey:(NSString *)apiKey adSpace:(NSString *)adSpace testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"FLURRY-REWARDED"
+    if ((self = [super initWithName:@"FLURRY"
                             version:[[DDNASmartAdFlurryHelper sharedInstance] getFlurryAgentVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {

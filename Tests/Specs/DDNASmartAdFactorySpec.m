@@ -44,7 +44,7 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(3);
@@ -74,7 +74,7 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildAdapterWaterfallWithAdProviders:adProviders floorPrice:250];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:250];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(1);
@@ -100,7 +100,7 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(2);
@@ -114,7 +114,7 @@ describe(@"factory waterfall", ^{
         
         NSArray *adProviders = @[];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(0);

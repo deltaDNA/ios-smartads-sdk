@@ -16,36 +16,22 @@
 #import "DDNAClientInfo.h"
 #import "NSString+DeltaDNA.h"
 
-// TODO: This would be better to derive the class name from the tag sent
-// over the wire
-static NSString *const AD_NETWORK_DUMMY = @"DUMMY";
-static NSString *const AD_NETWORK_DUMMY_CLASS = @"DDNASmartAdDummyAdapter";
-static NSString *const AD_NETWORK_ADMOB = @"ADMOB";
-static NSString *const AD_NETWORK_ADMOB_CLASS = @"DDNASmartAdAdMobAdapter";
-static NSString *const AD_NETWORK_AMAZON = @"AMAZON";
-static NSString *const AD_NETWORK_AMAZON_CLASS = @"DDNASmartAdAmazonAdapter";
-static NSString *const AD_NETWORK_MOPUB = @"MOPUB";
-static NSString *const AD_NETWORK_MOPUB_CLASS = @"DDNASmartAdMoPubAdapter";
-static NSString *const AD_NETWORK_FLURRY = @"FLURRY";
-static NSString *const AD_NETWORK_FLURRY_CLASS = @"DDNASmartAdFlurryInterstitialAdapter";
-static NSString *const AD_NETWORK_FLURRY_REWARDED = @"FLURRY-REWARDED";
-static NSString *const AD_NETWORK_FLURRY_REWARDED_CLASS = @"DDNASmartAdFlurryRewardedAdapter";
-static NSString *const AD_NETWORK_INMOBI = @"INMOBI";
-static NSString *const AD_NETWORK_INMOBI_CLASS = @"DDNASmartAdInMobiInterstitialAdapter";
-static NSString *const AD_NETWORK_INMOBI_REWARDED = @"INMOBI-REWARDED";
-static NSString *const AD_NETWORK_INMOBI_REWARDED_CLASS = @"DDNASmartAdInMobiRewardedAdapter";
-static NSString *const AD_NETWORK_MOBFOX = @"MOBFOX";
-static NSString *const AD_NETWORK_MOBFOX_CLASS = @"DDNASmartAdMobFoxAdapter";
-static NSString *const AD_NETWORK_CHARTBOOST = @"CHARTBOOST";
-static NSString *const AD_NETWORK_CHARTBOOST_CLASS = @"DDNASmartAdChartboostInterstitialAdapter";
-static NSString *const AD_NETWORK_CHARTBOOST_REWARDED = @"CHARTBOOST-REWARDED";
-static NSString *const AD_NETWORK_CHARTBOOST_REWARDED_CLASS = @"DDNASmartAdChartboostRewardedAdapter";
-static NSString *const AD_NETWORK_ADCOLONY = @"ADCOLONY";
-static NSString *const AD_NETWORK_ADCOLONY_CLASS = @"DDNASmartAdAdColonyAdapter";
-static NSString *const AD_NETWORK_VUNGLE = @"VUNGLE";
-static NSString *const AD_NETWORK_VUNGLE_CLASS = @"DDNASmartAdVungleAdapter";
-static NSString *const AD_NETWORK_UNITYADS = @"UNITY";
-static NSString *const AD_NETWORK_UNITYADS_CLASS = @"DDNASmartAdUnityAdsAdapter";
+
+typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
+    DDNASmartAdAdapterTypeInterstitial,
+    DDNASmartAdAdapterTypeRewarded
+};
+
+@implementation NSString (DeltaDNAAds)
+
+- (BOOL)caseInsensitiveContains:(NSString *)string
+{
+    return ([self rangeOfString:string
+                      options:NSRegularExpressionSearch|NSCaseInsensitiveSearch].location
+            != NSNotFound);
+}
+
+@end
 
 @implementation DDNASmartAdFactory
 
@@ -89,7 +75,17 @@ static NSString *const AD_NETWORK_UNITYADS_CLASS = @"DDNASmartAdUnityAdsAdapter"
     return adapter;
 }
 
-- (NSArray *)buildAdapterWaterfallWithAdProviders: (NSArray *)adProviders floorPrice: (NSInteger)floorPrice
+- (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders:(NSArray *)adProviders floorPrice:(NSInteger)floorPrice
+{
+    return [self buildAdapterWaterfallWithAdProviders:adProviders type:DDNASmartAdAdapterTypeInterstitial floorPrice:floorPrice];
+}
+
+- (NSArray *)buildRewardedAdapterWaterfallWithAdProviders:(NSArray *)adProviders floorPrice:(NSInteger)floorPrice
+{
+    return [self buildAdapterWaterfallWithAdProviders:adProviders type:DDNASmartAdAdapterTypeRewarded floorPrice:floorPrice];
+}
+
+- (NSArray *)buildAdapterWaterfallWithAdProviders:(NSArray *)adProviders type:(DDNASmartAdAdapterType)type floorPrice:(NSInteger)floorPrice
 {
     if (![adProviders isKindOfClass:[NSArray class]]) return nil;
     
@@ -112,79 +108,84 @@ static NSString *const AD_NETWORK_UNITYADS_CLASS = @"DDNASmartAdUnityAdsAdapter"
             NSInteger ecpm = [configuration[@"eCPM"] integerValue];
             
             if (ecpm > floorPrice) {
-                if ([adProvider isEqualToString:AD_NETWORK_ADMOB]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_ADMOB_CLASS
+                
+                if ([adProvider caseInsensitiveContains:@"ADMOB"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdMobAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_AMAZON]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_AMAZON_CLASS
+                else if ([adProvider caseInsensitiveContains:@"AMAZON"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAmazonAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_DUMMY]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_DUMMY_CLASS
+                else if ([adProvider caseInsensitiveContains:@"DUMMY"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdDummyAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_MOPUB]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_MOPUB_CLASS
+                else if ([adProvider caseInsensitiveContains:@"MOPUB"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdMoPubAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_FLURRY]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_FLURRY_CLASS
+                else if ([adProvider caseInsensitiveContains:@"FLURRY"]) {
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFlurryInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFlurryRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
+                }
+                else if ([adProvider caseInsensitiveContains:@"INMOBI"]) {
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdInMobiInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdInMobiRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
+                }
+                else if ([adProvider caseInsensitiveContains:@"MOBFOX"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdMobFoxAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_FLURRY_REWARDED]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_FLURRY_REWARDED_CLASS
+                else if ([adProvider caseInsensitiveContains:@"CHARTBOOST"]) {
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdChartboostInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdChartboostRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
+                }
+                else if ([adProvider caseInsensitiveContains:@"ADCOLONY"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdColonyAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_INMOBI]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_INMOBI_CLASS
+                else if ([adProvider caseInsensitiveContains:@"VUNGLE"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdVungleAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
-                else if ([adProvider isEqualToString:AD_NETWORK_INMOBI_REWARDED]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_INMOBI_REWARDED_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-
-                else if ([adProvider isEqualToString:AD_NETWORK_MOBFOX]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_MOBFOX_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-                else if ([adProvider isEqualToString:AD_NETWORK_CHARTBOOST]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_CHARTBOOST_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-                else if ([adProvider isEqualToString:AD_NETWORK_CHARTBOOST_REWARDED]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_CHARTBOOST_REWARDED_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-                else if ([adProvider isEqualToString:AD_NETWORK_ADCOLONY]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_ADCOLONY_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-                else if ([adProvider isEqualToString:AD_NETWORK_VUNGLE]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_VUNGLE_CLASS
-                                                 configuration:configuration
-                                                waterfallIndex:i];
-                }
-                else if ([adProvider isEqualToString:AD_NETWORK_UNITYADS]) {
-                    adapter = [self instantiateAdapterForKlass:AD_NETWORK_UNITYADS_CLASS
+                else if ([adProvider caseInsensitiveContains:@"UNITY"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdUnityAdsAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
                 else {
-                    DDNALogWarn(@"Ad network %@ is unknown.", adProvider);
+                    DDNALogWarn(@"Ad network %@ for %@ ads is not supported.",
+                                adProvider,
+                                type == DDNASmartAdAdapterTypeInterstitial ? @"interstitial" : @"rewarded");
                 }
                 
                 if (adapter) {

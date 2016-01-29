@@ -24,7 +24,7 @@
 
 - (instancetype)initWithAppKey:(NSString *)appKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"Amazon"
+    if ((self = [super initWithName:@"AMAZON"
                             version:[AmazonAdRegistration sharedRegistration].sdkVersion
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {

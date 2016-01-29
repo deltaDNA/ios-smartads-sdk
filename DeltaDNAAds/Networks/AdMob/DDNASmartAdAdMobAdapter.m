@@ -21,7 +21,7 @@
 
 - (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"AdMob"
+    if ((self = [super initWithName:@"ADMOB"
                             version:[GADRequest sdkVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {

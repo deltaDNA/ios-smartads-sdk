@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "AmazonAds"
-    s.version      = "2.2.11"
+    s.version      = "2.2.13"
     s.summary      = "Amazon Ads iOS SDK"
 
     s.description  = <<-DESC
@@ -13,18 +13,18 @@ Pod::Spec.new do |s|
     s.license      = { :type => 'Commercial', :file => 'NOTICE.txt' }
     s.author       = { "Amazon.com, Inc." => "https://developer.amazon.com/public/support/contact/contact-us" }
 
-    s.platform     = :ios
+    s.platform     = :ios, "7.0"
 
-    s.source       = { :http => "https://s3.amazonaws.com/dd-smartads-3rd-party-sdks/AmazonAds/2.2.11/AmazonAds.zip" }
+    s.source       = { :http => "https://s3.amazonaws.com/dd-smartads-3rd-party-sdks/AmazonAds/2.2.13/AmazonAds.zip" }
     s.vendored_frameworks = "AmazonAd.framework"
 
     s.frameworks = "AdSupport",
                    "CoreLocation",
                    "SystemConfiguration",
                    "CoreTelephony",
-                   "CoreGraphics",
                    "MediaPlayer",
                    "EventKit",
-                   "EventKitUI"
+                   "EventKitUI",
+                   "StoreKit"
 
 end

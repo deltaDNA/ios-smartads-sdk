@@ -27,7 +27,7 @@
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"AdColony" version:@"2.6.x" eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"ADCOLONY" version:@"2.6+" eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.appId = appId;
         self.zoneId = zoneId;
     }

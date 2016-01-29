@@ -26,7 +26,7 @@
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"CHARTBOOST" version:@"6.x" eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"CHARTBOOST" version:@"6.1+" eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdChartboostHelper sharedInstance] setInterstitialDelegate:self];
         self.appId = appId;
         self.appSignature = appSignature;
@@ -69,21 +69,17 @@
 
 - (void)didDisplayInterstitial:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did display interstitial at %@", location);
     [self.delegate adapterIsShowingAd:self];
 }
 
 - (void)didCacheInterstitial:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did cache interstitial at %@", location);
     [self.delegate adapterDidLoadAd:self];
 }
 
 - (void)didFailToLoadInterstitial:(CBLocation)location
                         withError:(CBLoadError)error
 {
-    NSLog(@"Chartboost did fail to load interstitial at %@ with error %lu", location, (unsigned long)error);
-    
     DDNASmartAdRequestResult *result;
     
     switch (error) {
@@ -157,23 +153,21 @@
 
 - (void)didFailToRecordClick:(CBLocation)location withError:(CBClickError)error
 {
-    DDNALogDebug(@"Chartboost did fail to record click at %@ with error %lu", location, (unsigned long)error);
+
 }
 
 - (void)didDismissInterstitial:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did dismiss interstitial at %@", location);
+
 }
 
 - (void)didCloseInterstitial:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did close interstitial at %@", location);
     [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 
 - (void)didClickInterstitial:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did click interstitial at %@", location);
     [self.delegate adapterWasClicked:self];
 }
 

@@ -27,7 +27,7 @@
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"CHARTBOOST-REWARDED" version:@"6.x" eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"CHARTBOOST" version:@"6.1+" eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdChartboostHelper sharedInstance] setRewardedDelegate:self];
         self.appId = appId;
         self.appSignature = appSignature;
@@ -70,20 +70,16 @@
 
 - (void)didDisplayRewardedVideo:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did display rewarded video at %@", location);
     [self.delegate adapterIsShowingAd:self];
 }
 
 - (void)didCacheRewardedVideo:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did cache rewarded video at %@", location);
     [self.delegate adapterDidLoadAd:self];
 }
 
 - (void)didFailToLoadRewardedVideo:(CBLocation)location withError:(CBLoadError)error
 {
-    NSLog(@"Chartboost did fail to load rewarded video at %@ with error %lu", location, (unsigned long)error);
-    
     DDNASmartAdRequestResult *result;
     
     switch (error) {
@@ -157,24 +153,21 @@
 
 - (void)didDismissRewardedVideo:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did dismiss rewarded video at %@", location);
+
 }
 
 - (void)didCloseRewardedVideo:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did close rewarded video at %@", location);
     [self.delegate adapterDidCloseAd:self canReward:self.reward];
 }
 
 - (void)didClickRewardedVideo:(CBLocation)location
 {
-    DDNALogDebug(@"Chartboost did click rewarded video at %@", location);
     [self.delegate adapterWasClicked:self];
 }
 
 - (void)didCompleteRewardedVideo:(CBLocation)location withReward:(int)reward
 {
-    DDNALogDebug(@"Chartboost did complete rewarded video %@ with reward %d", location, reward);
     self.reward = YES;
 }
 

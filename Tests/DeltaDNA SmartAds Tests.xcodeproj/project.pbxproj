@@ -24,7 +24,6 @@
 		63B382511BFE1B770049CE28 /* DDNASmartAdMoPubAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382451BFE1B770049CE28 /* DDNASmartAdMoPubAdapterSpec.m */; };
 		63B382521BFE1B770049CE28 /* DDNASmartAdServiceSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382461BFE1B770049CE28 /* DDNASmartAdServiceSpec.m */; };
 		63B382851BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382841BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m */; };
-		63B382881BFE301D0049CE28 /* DDNAFakeEngageService.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382871BFE301D0049CE28 /* DDNAFakeEngageService.m */; };
 		63CB9F2B1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CB9F2A1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m */; };
 		8AA5D0DD96FC58E943B6205B /* libPods-iOS SmartAds Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A08DAE6590AC428F333AED /* libPods-iOS SmartAds Tests.a */; };
 /* End PBXBuildFile section */
@@ -52,8 +51,6 @@
 		63B382461BFE1B770049CE28 /* DDNASmartAdServiceSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdServiceSpec.m; sourceTree = "<group>"; };
 		63B382831BFE2F450049CE28 /* DDNASmartAdFakeAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = DDNASmartAdFakeAdapter.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		63B382841BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFakeAdapter.m; sourceTree = "<group>"; };
-		63B382861BFE301D0049CE28 /* DDNAFakeEngageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeEngageService.h; sourceTree = "<group>"; };
-		63B382871BFE301D0049CE28 /* DDNAFakeEngageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeEngageService.m; sourceTree = "<group>"; };
 		63CB9F2A1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdAdColonyAdapterSpec.m; sourceTree = "<group>"; };
 		6A3C69F66342BD139D194353 /* Pods-iOS SmartAds Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS SmartAds Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS SmartAds Tests/Pods-iOS SmartAds Tests.release.xcconfig"; sourceTree = "<group>"; };
 		75A08DAE6590AC428F333AED /* libPods-iOS SmartAds Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOS SmartAds Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,8 +102,6 @@
 		63B382371BFE1B770049CE28 /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
-				63B382861BFE301D0049CE28 /* DDNAFakeEngageService.h */,
-				63B382871BFE301D0049CE28 /* DDNAFakeEngageService.m */,
 				63B382831BFE2F450049CE28 /* DDNASmartAdFakeAdapter.h */,
 				63B382841BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m */,
 				63B382381BFE1B770049CE28 /* DDNAFakeSmartAdAgent.h */,
@@ -275,7 +270,6 @@
 				63CB9F2B1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m in Sources */,
 				6354E2601C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
 				63B3824C1BFE1B770049CE28 /* DDNASmartAdAmazonAdapterSpec.m in Sources */,
-				63B382881BFE301D0049CE28 /* DDNAFakeEngageService.m in Sources */,
 				63B382501BFE1B770049CE28 /* DDNASmartAdMobFoxAdapterSpec.m in Sources */,
 				63B382471BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m in Sources */,
 				63B382321BFE1A500049CE28 /* iOS_SmartAds_Tests.m in Sources */,

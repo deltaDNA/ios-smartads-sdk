@@ -223,9 +223,6 @@
          location = "group:AmazonAds.podspec">
       </FileRef>
       <FileRef
-         location = "group:InMobi.podspec">
-      </FileRef>
-      <FileRef
          location = "group:MobFox.podspec">
       </FileRef>
    </Group>

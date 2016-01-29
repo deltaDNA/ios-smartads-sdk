@@ -53,8 +53,8 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler(nil, -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: -1 The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: -1 The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         

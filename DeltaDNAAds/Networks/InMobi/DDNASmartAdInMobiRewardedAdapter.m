@@ -9,7 +9,7 @@
 #import "DDNASmartAdInMobiRewardedAdapter.h"
 #import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
-#import <InMobi/IMInterstitial.h>
+#import <InMobiSDK/IMInterstitial.h>
 
 @interface DDNASmartAdInMobiRewardedAdapter () <IMInterstitialDelegate>
 
@@ -25,7 +25,7 @@
 
 - (instancetype)initWithAccountId:(NSString *)accountId placementId:(NSInteger)placementId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"INMOBI-REWARDED"
+    if ((self = [super initWithName:@"INMOBI"
                             version:[[DDNASmartAdInMobiHelper sharedInstance] getVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {

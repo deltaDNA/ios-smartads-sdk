@@ -90,7 +90,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             NSArray *adProviders = self.adConfiguration[@"adProviders"];
             
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
-                NSArray *adapterWaterfall = [self.factory buildAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
+                NSArray *adapterWaterfall = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
                 if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
                     [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
                 } else {
@@ -107,7 +107,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
             
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
-                NSArray *adapterWaterfall = [self.factory buildAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
+                NSArray *adapterWaterfall = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
                 if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
                     [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
                 } else {
@@ -202,7 +202,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime
 {
-    DDNALogDebug(@"Loaded ad from %@.", adapter.name);
+    DDNALogDebug(@"Loaded %@ ad from %@.",
+                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
+                 adapter.name);
+    
     [self postAdRequestEvent:adAgent
                      adapter:adapter
              requestDuration:requestTime
@@ -211,7 +214,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime requestResult:(DDNASmartAdRequestResult *)result
 {
-    DDNALogDebug(@"Failed to load ad from %@.", adapter.name);
+    DDNALogDebug(@"Failed to load %@ ad from %@. %@",
+                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
+                 adapter.name,
+                 result.desc);
     
     [self postAdRequestEvent:adAgent adapter:adapter requestDuration:requestTime result:result];
 }
