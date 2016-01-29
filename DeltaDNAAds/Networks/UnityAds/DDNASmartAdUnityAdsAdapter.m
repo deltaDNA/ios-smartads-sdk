@@ -104,6 +104,7 @@
 
 - (void)unityAdsWillLeaveApplication
 {
+    [self.delegate adapterWasClicked:self];
     [self.delegate adapterLeftApplication:self];
 }
 

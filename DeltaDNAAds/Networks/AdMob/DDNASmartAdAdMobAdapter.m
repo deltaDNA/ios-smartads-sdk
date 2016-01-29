@@ -198,6 +198,7 @@
 /// before this.
 - (void)interstitialWillLeaveApplication:(GADInterstitial *)ad
 {
+    [self.delegate adapterWasClicked:self];
     [self.delegate adapterLeftApplication:self];
 }
 
