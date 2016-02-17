@@ -54,14 +54,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                                            parameters:nil
                                     completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
                                    
-        if (connectionError != nil || statusCode >= 400) {
-            if (response == nil) {
-                response = [connectionError localizedDescription];
-            }
-            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %@", response]];
-            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %@", response]];
-            // TODO - schedule a retry?
-            
+        if (!response) {
+            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, [connectionError localizedDescription]]];
+            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, [connectionError localizedDescription]]];
+
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{

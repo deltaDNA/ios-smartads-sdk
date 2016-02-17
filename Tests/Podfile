@@ -5,7 +5,7 @@ xcodeproj 'DeltaDNA SmartAds Tests'
 workspace '../DeltaDNAAds'
 #inhibit_all_warnings!
 
-target 'iOS SmartAds Tests', :exclusive => true do
+target 'iOS SmartAds Tests' do
     pod 'DeltaDNAAds', :path => '../'
 
     pod 'Specta', '~> 1.0'

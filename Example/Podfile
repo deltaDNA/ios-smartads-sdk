@@ -4,7 +4,9 @@ source 'https://github.com/deltaDNA/CocoaPods'
 xcodeproj 'DeltaDNA SmartAds iOS Example'
 workspace '../DeltaDNAAds'
 
-pod 'DeltaDNAAds', :path => '../'
+target 'DeltaDNA SmartAds iOS Example' do
+    pod 'DeltaDNAAds', :path => '../'
+end
 
 # Enable extra logging
 post_install do |installer|
