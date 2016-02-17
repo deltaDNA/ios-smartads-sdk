@@ -10,7 +10,16 @@
 #import "DeltaDNAAds/DDNASmartAdFactory.h"
 #import "DeltaDNAAds/DDNASmartAdService.h"
 #import <DeltaDNA/DeltaDNA.h>
-#import <DeltaDNA/DDNAEngageService.h>
+#import <DeltaDNA/DDNALog.h>
+#import <DeltaDNA/NSString+DeltaDNA.h>
+
+
+
+@interface DDNAEngagement(DeltaDNAAds)
+
+@property (nonatomic, copy) NSString *flavour;
+
+@end
 
 @interface DDNASmartAds () <DDNASmartAdServiceDelegate>
 {
@@ -19,7 +28,6 @@
 
 @property (nonatomic, strong) DDNASmartAdFactory *factory;
 @property (nonatomic, strong) DDNASmartAdService *adService;
-@property (nonatomic, strong) DDNAEngageService *engageService;
 
 @end
 
@@ -45,7 +53,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v0.10.4";
+    return @"SmartAds v0.10.5";
 }
 
 - (void)registerForAds
@@ -53,21 +61,6 @@
     @synchronized(self) {
         @try{
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
-            
-            DDNASDK *ddnasdk = [DDNASDK sharedInstance];
-            DDNAClientInfo *ddnaci = [DDNAClientInfo sharedInstance];
-            self.engageService = [[DDNAEngageService alloc] initWithEndpoint:ddnasdk.engageURL
-                                                              environmentKey:ddnasdk.environmentKey
-                                                                  hashSecret:ddnasdk.hashSecret
-                                                                      userID:ddnasdk.userID
-                                                                   sessionID:ddnasdk.sessionID
-                                                                     version:DDNA_ENGAGE_API_VERSION
-                                                                  sdkVersion:DDNA_SDK_VERSION
-                                                                    platform:ddnaci.platform
-                                                              timezoneOffset:ddnaci.timezoneOffset
-                                                                manufacturer:ddnaci.manufacturer
-                                                      operatingSystemVersion:ddnaci.operatingSystemVersion];
-        
             [self.adService beginSessionWithDecisionPoint:@"advertising"];
         }
         @catch (NSException *exception) {
@@ -202,25 +195,20 @@
 
 - (void)recordEventWithName:(NSString *)eventName parameters:(NSDictionary *)parameters
 {
-    [[DDNASDK sharedInstance] recordEvent:eventName withEventDictionary:parameters];
+    [[DDNASDK sharedInstance] recordEventWithName:eventName eventParams:parameters];
 }
 
 - (void)requestEngagementWithDecisionPoint:(NSString *)decisionPoint flavour:(NSString *)flavour parameters:(NSDictionary *)parameters completionHandler:(void (^)(NSString *, NSInteger, NSError *))completionHandler
 {
-    DDNADecisionPointFlavour enumFlavour = DDNADecisionPointFlavourEngagement;
-    if ([flavour isEqualToString:@"advertising"]) {
-        enumFlavour = DDNADecisionPointFlavourAdvertising;
-    }
-    else if ([flavour isEqualToString:@"internal"]) {
-        enumFlavour = DDNADecisionPointFlavourInternal;
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:decisionPoint];
+    engagement.flavour = flavour;
+    for (NSString *key in parameters) {
+        [engagement setParam:parameters[key] forKey:key];
     }
     
-    [self.engageService requestWithDecisionPoint:decisionPoint
-                                         flavour:enumFlavour
-                                      parameters:parameters
-                               completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
-                                   completionHandler(response, statusCode, connectionError);
-                               }];
+    [[DDNASDK sharedInstance] requestEngagement:engagement completionHandler:^(NSDictionary *parameters, NSInteger statusCode, NSError *error) {
+        completionHandler([NSString stringWithContentsOfDictionary:parameters], statusCode, error);
+    }];
 }
 
 - (void)didFailToOpenInterstitialAd
