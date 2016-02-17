@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author         = { "Matomy/MobFox" => "itamar.n@matomy.com" }
   s.platform     = :ios, "7.0"
 
-  s.source       = { :git => "https://github.com/mobfox/MobFox-iOS-SDK-Core-Lib.git", :tag => "v1.1.1" }
+  s.source       = { :git => "https://github.com/mobfox/MobFox-iOS-SDK-Core-Lib.git", :tag => "v#{s.version}" }
 
   s.preserve_paths = "MobFoxSDKCore.embeddedframework/MobFoxSDKCore.framework"
   s.public_header_files = "MobFoxSDKCore.embeddedframework/MobFoxSDKCore.framework/Headers/*.h"
