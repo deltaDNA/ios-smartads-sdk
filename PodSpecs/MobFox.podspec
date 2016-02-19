@@ -17,9 +17,12 @@ Pod::Spec.new do |s|
   s.public_header_files = "MobFoxSDKCore.embeddedframework/MobFoxSDKCore.framework/Headers/*.h"
   s.resources = "MobFoxSDKCore.embeddedframework/MobFoxSDKCore.bundle"
   s.vendored_frameworks = "MobFoxSDKCore.embeddedframework/MobFoxSDKCore.framework"
+  s.frameworks = "AdSupport"
 
   s.requires_arc = true
 
-  s.xcconfig = { "FRAMEWORK_SEARCH_PATHS" => "\"$(PODS_ROOT)/MobFox/**\"" }
+  # Silence Clang warnings: https://forums.developer.apple.com/thread/17921
+  s.xcconfig = { "FRAMEWORK_SEARCH_PATHS" => "\"$(PODS_ROOT)/MobFox/**\"",
+                 "GCC_GENERATE_DEBUGGING_SYMBOLS" => "NO" }
 
 end

@@ -9,7 +9,7 @@
 #import "DDNASmartAdInMobiRewardedAdapter.h"
 #import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
-#import <InMobiSDK/IMInterstitial.h>
+#import <InMobi/IMInterstitial.h>
 
 @interface DDNASmartAdInMobiRewardedAdapter () <IMInterstitialDelegate>
 
