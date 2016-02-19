@@ -27,4 +27,7 @@ Pod::Spec.new do |s|
                    "EventKitUI",
                    "StoreKit"
 
+    # Silence Clang warnings: https://forums.developer.apple.com/thread/17921
+    s.xcconfig = { 'GCC_GENERATE_DEBUGGING_SYMBOLS' => 'NO' }
+
 end

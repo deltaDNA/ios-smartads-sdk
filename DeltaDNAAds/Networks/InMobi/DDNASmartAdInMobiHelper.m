@@ -8,8 +8,8 @@
 
 #import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
-#import <InMobiSDK/IMSdk.h>
-#import <InMobiSDK/IMCommonConstants.h>
+#import <InMobi/IMSdk.h>
+#import <InMobi/IMCommonConstants.h>
 
 @interface DDNASmartAdInMobiHelper ()
 

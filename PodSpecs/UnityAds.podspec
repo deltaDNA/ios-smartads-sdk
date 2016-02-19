@@ -19,7 +19,13 @@ Pod::Spec.new do |s|
     s.vendored_frameworks = 'UnityAds.framework'
     s.resources = 'UnityAds.bundle'
     s.frameworks = 'AdSupport',
+                   'AVFoundation',
+                   'CoreMedia',
                    'CoreTelephony',
+                   'SystemConfiguration',
                    'StoreKit'
+
+    # Silence Clang warnings: https://forums.developer.apple.com/thread/17921
+    s.xcconfig = { 'GCC_GENERATE_DEBUGGING_SYMBOLS' => 'NO' }
 
 end

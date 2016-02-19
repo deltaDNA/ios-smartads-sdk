@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
         ss.dependency 'GoogleMobileAds', '~>7.6'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
+        ss.frameworks = 'AdSupport'
     end
 
     s.subspec 'Amazon' do |ss|
@@ -54,10 +55,9 @@ Pod::Spec.new do |s|
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>5.2'
+        ss.dependency 'InMobi', '~>5.2'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
-        ss.vendored_library = '**/libInMobi*.a'
     end
 
     s.subspec 'MobFox' do |ss|
