@@ -16,6 +16,7 @@
 
 @protocol DDNASmartAdAdapter;
 
+@class DDNASmartAdWaterfall;
 
 /**
  *  Factory creates components for smart ad library.
@@ -26,7 +27,7 @@
 
 - (DDNASmartAdService *)buildSmartAdServiceWithDelegate:(id<DDNASmartAdServiceDelegate>)delegate;
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(NSArray *)waterfall
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall
                                             delegate:(id<DDNASmartAdAgentDelegate>)delegate;
 
 - (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders:(NSArray *)adProviders

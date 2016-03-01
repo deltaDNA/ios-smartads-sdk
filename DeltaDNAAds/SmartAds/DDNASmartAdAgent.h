@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 };
 
 @protocol DDNASmartAdAgentDelegate;
+@class DDNASmartAdWaterfall;
 
 @interface DDNASmartAdAgent : NSObject
 
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 @property (nonatomic, strong, readonly) NSDate *lastAdShownTime;
 
 
-- (instancetype)initWithAdapters: (NSArray *)mediationAdapters;
+- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall;
 
 - (void)requestAd;
 

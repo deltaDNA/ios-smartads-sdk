@@ -83,9 +83,9 @@
     DDNASmartAdRequestResult *result;
     
     switch (error) {
-            /*! Unknown internal error. */
-        case CBLoadErrorInternal: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+            /*!  No ad received. */
+        case CBLoadErrorNoAdFound: {
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
         }
             /*! Network is currently unavailable. */
@@ -93,54 +93,54 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
             break;
         }
-            /*! Too many requests are pending for that location.  */
-        case CBLoadErrorTooManyConnections: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
-        }
-            /*! Interstitial loaded with wrong orientation. */
-        case CBLoadErrorWrongOrientation: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
-        }
-            /*! Interstitial disabled, first session. */
-        case CBLoadErrorFirstSessionInterstitialsDisabled: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
-        }
             /*! Network request failed. */
         case CBLoadErrorNetworkFailure: {
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
             break;
         }
-            /*!  No ad received. */
-        case CBLoadErrorNoAdFound: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
+            /*! Unknown internal error. */
+        case CBLoadErrorInternal: {
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+            break;
+        }
+                       /*! Too many requests are pending for that location.  */
+        case CBLoadErrorTooManyConnections: {
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+            break;
+        }
+            /*! Interstitial loaded with wrong orientation. */
+        case CBLoadErrorWrongOrientation: {
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+            break;
+        }
+            /*! Interstitial disabled, first session. */
+        case CBLoadErrorFirstSessionInterstitialsDisabled: {
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
             /*! Session not started. */
         case CBLoadErrorSessionNotStarted: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
             /*! User manually cancelled the impression. */
         case CBLoadErrorUserCancellation: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
             /*! No location detected. */
         case CBLoadErrorNoLocationFound: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
             /*! Video Prefetching is not finished */
         case CBLoadErrorPrefetchingIncomplete: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
             /*! There is an impression already visible.*/
         case CBLoadErrorImpressionAlreadyVisible: {
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         }
         default:

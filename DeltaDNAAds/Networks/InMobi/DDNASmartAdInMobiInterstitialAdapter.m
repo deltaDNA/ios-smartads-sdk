@@ -97,26 +97,8 @@
         case kIMStatusCodeNoFill:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
-        case kIMStatusCodeRequestInvalid:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
-        case kIMStatusCodeRequestPending:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
         case kIMStatusCodeRequestTimedOut:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
-            break;
-        case kIMStatusCodeInternalError:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-            break;
-        case kIMStatusCodeServerError:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-            break;
-        case kIMStatusCodeAdActive:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
-            break;
-        case kIMStatusCodeEarlyRefreshRequest:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeTimeout];
             break;
         default:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];

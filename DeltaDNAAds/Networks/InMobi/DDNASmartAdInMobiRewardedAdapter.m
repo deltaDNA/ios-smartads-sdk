@@ -99,10 +99,10 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
         case kIMStatusCodeRequestInvalid:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         case kIMStatusCodeRequestPending:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         case kIMStatusCodeRequestTimedOut:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
@@ -114,10 +114,10 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         case kIMStatusCodeAdActive:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         case kIMStatusCodeEarlyRefreshRequest:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
         default:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];

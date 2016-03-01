@@ -8,6 +8,7 @@
 
 #import "DDNAFakeSmartAdAgent.h"
 #import <DeltaDNAAds/Networks/Dummy/DDNASmartAdDummyAdapter.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdWaterfall.h>
 
 @interface DDNASmartAdAgent (UnitTest)
 
@@ -29,7 +30,8 @@
 {
     self.dummyAdapter = [[DDNASmartAdDummyAdapter alloc] initWithName:@"DUMMY" version:@"1.0.0" eCPM:100 waterfallIndex:1];
     
-    if ((self = [super initWithAdapters:@[self.dummyAdapter]])) {
+    DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:@[self.dummyAdapter] demoteOnOptions:0 maxRequests:0];
+    if ((self = [super initWithWaterfall:waterfall])) {
         
     }
     return self;

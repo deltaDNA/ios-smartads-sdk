@@ -57,6 +57,8 @@
 
 - (void)requestAd
 {
+    NSLog(@"Fake adapter requesting ad");
+    
     if (self.failRequest) {
         [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError]];
     } else {

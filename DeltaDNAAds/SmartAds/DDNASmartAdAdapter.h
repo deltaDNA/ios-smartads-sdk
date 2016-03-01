@@ -20,7 +20,10 @@
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, copy, readonly) NSString *version;
 @property (nonatomic, assign, readonly) NSInteger eCPM;
-@property (nonatomic, assign, readonly) NSInteger waterfallIndex;
+
+@property (nonatomic, assign) NSInteger waterfallIndex;
+@property (nonatomic, assign) NSInteger score;
+@property (nonatomic, assign) NSInteger requestCount;
 
 - (instancetype)initWithName: (NSString *)name
                      version: (NSString *)version

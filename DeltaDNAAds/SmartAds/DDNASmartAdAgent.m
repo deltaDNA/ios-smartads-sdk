@@ -7,6 +7,7 @@
 //
 
 #import "DDNASmartAdAgent.h"
+#import "DDNASmartAdWaterfall.h"
 #import <DeltaDNA/DDNALog.h>
 
 static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
@@ -21,7 +22,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 @property (nonatomic, strong) NSDate *lastAdShownTime;
 @property (nonatomic, strong) NSDate *lastRequestTime;
 
-@property (nonatomic, strong) NSMutableArray *mediationAdapters;
+@property (nonatomic, strong) DDNASmartAdWaterfall *waterfall;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, assign) NSInteger adapterIndex;
 
@@ -29,11 +30,11 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 
 @implementation DDNASmartAdAgent
 
-- (instancetype)initWithAdapters:(NSArray *)mediationAdapters
+- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall
 {
     if ((self = [super self])) {
-        self.mediationAdapters = [NSMutableArray arrayWithArray:mediationAdapters];
-        self.currentAdapter = [self getFirstAdapter];
+        self.waterfall = waterfall;
+        [self getNextAdapterAndReset:YES];
         if (!self.currentAdapter) {
             DDNALogWarn(@"At least one ad provider must be defined, ads will not be available!");
         }
@@ -82,6 +83,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     if (adapter == self.currentAdapter && self.state == DDNASmartadAgentStateLoading) {
         self.state = DDNASmartAdAgentStateLoaded;
         [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
+        [self.waterfall scoreAdapter:adapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
     }
 }
 
@@ -94,22 +96,19 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
         
         self.state = DDNASmartAdAgentStateReady;
         
-        if (result.code == DDNASmartAdRequestResultCodeConfiguration) {
-            self.currentAdapter = [self disableAdapter:adapter];
-        }
-        else {
-            self.currentAdapter = [self getNextAdapter];
-        }
+        [self.waterfall scoreAdapter:adapter withRequestCode:result.code];
+        [self getNextAdapterAndReset:NO];
         
-        // FIXME: This is not good, if all networks fails we keep cycling, no back off.
-        // Think the waterfall is wrong anyway, we should give other networks a chance
-        // to give us an ad.
         if (self.currentAdapter) {
             [self requestNextAdWithDelaySeconds:0];
         }
         else {
-            self.currentAdapter = [self getFirstAdapter];
-            [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
+            [self getNextAdapterAndReset:YES];
+            if (self.currentAdapter) {
+                [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
+            } else {
+                DDNALogWarn(@"No more ad networks available for ads.");
+            }
         }
     }
 }
@@ -152,8 +151,12 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     if (adapter == self.currentAdapter) {
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
         self.state = DDNASmartAdAgentStateReady;
-        self.currentAdapter = [self getFirstAdapter];
-        [self requestNextAdWithDelaySeconds:0];
+        [self getNextAdapterAndReset:YES];
+        if (self.currentAdapter) {
+            [self requestNextAdWithDelaySeconds:0];
+        } else {
+            DDNALogWarn(@"No more ad networks available for ads.");
+        }
     }
 }
 
@@ -179,39 +182,15 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
     }
 }
 
-- (DDNASmartAdAdapter *)getFirstAdapter
+- (void)getNextAdapterAndReset:(BOOL)reset
 {
-    self.adapterIndex = 0;
-    if (self.mediationAdapters.count > 0) {
-        DDNASmartAdAdapter * adapter = self.mediationAdapters[0];
-        adapter.delegate = self;
-        return adapter;
+    if (self.currentAdapter) {
+        self.currentAdapter.delegate = nil;
     }
-    return nil;
-}
-
-- (DDNASmartAdAdapter *)getNextAdapter
-{
-    self.adapterIndex++;
-    
-    if (self.mediationAdapters.count > self.adapterIndex) {
-        DDNASmartAdAdapter * adapter = self.mediationAdapters[self.adapterIndex];
-        adapter.delegate = self;
-        return adapter;
+    self.currentAdapter = reset ? [self.waterfall resetWaterfall] : [self.waterfall getNextAdapter];
+    if (self.currentAdapter) {
+        self.currentAdapter.delegate = self;
     }
-    return nil;
-}
-
-- (DDNASmartAdAdapter *)disableAdapter: (DDNASmartAdAdapter *)adapter
-{
-    adapter.delegate = nil;
-    [self.mediationAdapters removeObject:adapter];
-    if (self.mediationAdapters.count > self.adapterIndex) {
-        DDNASmartAdAdapter * adapter = self.mediationAdapters[self.adapterIndex];
-        adapter.delegate = self;
-        return adapter;
-    }
-    return nil;
 }
 
 - (NSTimeInterval)lastRequestTimeMs

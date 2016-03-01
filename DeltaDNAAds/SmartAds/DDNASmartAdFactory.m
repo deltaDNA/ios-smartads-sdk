@@ -10,6 +10,7 @@
 #import "DDNASmartAdAdapter.h"
 #import "DDNASmartAdService.h"
 #import "DDNASmartAdAgent.h"
+#import "DDNASmartAdWaterfall.h"
 #import <DeltaDNA/DDNALog.h>
 #import "DDNASDK.h"
 #import "DDNASettings.h"
@@ -54,9 +55,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
     return adService;
 }
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(NSArray *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
-    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithAdapters:waterfall];
+    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall];
     adAgent.delegate = delegate;
     return adAgent;
 }

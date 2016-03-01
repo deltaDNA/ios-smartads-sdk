@@ -14,6 +14,7 @@
 #import <DeltaDNA/NSString+DeltaDNA.h>
 #import <DeltaDNA/NSDictionary+DeltaDNA.h>
 #import "DDNASmartAdStatus.h"
+#import "DDNASmartAdWaterfall.h"
 
 static NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
 static NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
@@ -87,14 +88,18 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             self.requestAdPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
             
             NSInteger floorPrice = [self.adConfiguration[@"adFloorPrice"] integerValue];
+            NSInteger maxRequests = [self.adConfiguration[@"adMaxPerNetwork"] integerValue];
+            NSUInteger demoteCode = [self.adConfiguration[@"adDemoteOnRequestCode"] unsignedIntegerValue];
+            
             NSArray *adProviders = self.adConfiguration[@"adProviders"];
             
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
-                NSArray *adapterWaterfall = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
-                if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
+                NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
+                if (adapters == nil || adapters.count == 0) {
                     [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
                 } else {
-                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:adapterWaterfall delegate:self];
+                    DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
+                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
                     [self.interstitialAgent requestAd];
                     
                     [self.delegate didRegisterForInterstitialAds];
@@ -107,11 +112,12 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
             
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
-                NSArray *adapterWaterfall = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
-                if (adapterWaterfall == nil || adapterWaterfall.count == 0) {
+                NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
+                if (adapters == nil || adapters.count == 0) {
                     [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
                 } else {
-                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:adapterWaterfall delegate:self];
+                    DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
+                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
                     [self.rewardedAgent requestAd];
                     
                     [self.delegate didRegisterForRewardedAds];

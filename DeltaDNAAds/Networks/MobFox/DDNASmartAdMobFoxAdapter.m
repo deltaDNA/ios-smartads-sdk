@@ -87,7 +87,7 @@
 //called when an ad cannot be displayed
 - (void)MobFoxInterstitialAdDidFailToReceiveAdWithError:(NSError *)error
 {
-    DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+    DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
     
     if ([error.description containsString:@"no ad returned"]) {
         result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];

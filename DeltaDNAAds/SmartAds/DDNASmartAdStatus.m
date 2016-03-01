@@ -32,23 +32,25 @@
     return result;
 }
 
-+ (NSString *)stringFromResultCode: (DDNASmartAdRequestResultCode)resultCode
++ (NSString *)stringFromResultCode:(DDNASmartAdRequestResultCode)resultCode
 {
     switch (resultCode) {
         case DDNASmartAdRequestResultCodeLoaded:
-            return @"Ad loaded successfully";
+            return @"Loaded";
         case DDNASmartAdRequestResultCodeNoFill:
-            return @"Network SDK reports no fill";
-        case DDNASmartAdRequestResultCodeError:
-            return @"Network SDK returned error result";
-        case DDNASmartAdRequestResultCodeInvalid:
-            return @"Network SDK reports invalid request";
+            return @"NoFill";
         case DDNASmartAdRequestResultCodeNetwork:
-            return @"Network SDK returned connection error";
+            return @"Network";
+        case DDNASmartAdRequestResultCodeTimeout:
+            return @"Timeout";
+        case DDNASmartAdRequestResultCodeMaxRequests:
+            return @"MaxRequests";
         case DDNASmartAdRequestResultCodeConfiguration:
-            return @"Network SDK reports invalid configuration";
+            return @"Configuration";
+        case DDNASmartAdRequestResultCodeError:
+            return @"Error";
         default:
-            return nil;
+            return @"Unknown";
     }
 }
 

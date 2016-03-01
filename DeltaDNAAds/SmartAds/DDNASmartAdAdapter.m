@@ -13,7 +13,6 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *version;
 @property (nonatomic, assign) NSInteger eCPM;
-@property (nonatomic, assign) NSInteger waterfallIndex;
 
 @end
 
@@ -26,6 +25,7 @@
         self.version = version;
         self.eCPM = eCPM;
         self.waterfallIndex = waterfallIndex;
+        self.score = 0;
     }
     return self;
 }
@@ -44,6 +44,11 @@
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     [self doesNotRecognizeSelector:_cmd];
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"SmartAdAdapter %@ %@", self.name, self.version];
 }
 
 @end

@@ -94,7 +94,7 @@
             /// The ad request is invalid. The localizedFailureReason error description will have more
             /// details. Typically this is because the ad did not have the ad unit ID or root view
             /// controller set.
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
             
         case kGADErrorNoFill:
@@ -154,12 +154,12 @@
             
         case kGADErrorInvalidArgument:
             /// Invalid argument error.
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
             
         case kGADErrorReceivedInvalidResponse:
             /// Received invalid response.
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
             
         default:

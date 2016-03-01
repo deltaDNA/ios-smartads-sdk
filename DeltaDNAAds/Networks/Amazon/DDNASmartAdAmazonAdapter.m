@@ -105,7 +105,7 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
         case AmazonAdErrorRequest:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeInvalid];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
             break;
         case AmazonAdErrorReserved:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];

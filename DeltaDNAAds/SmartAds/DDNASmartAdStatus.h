@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-
-typedef NS_ENUM(NSInteger, DDNASmartAdRequestResultCode) {
-    DDNASmartAdRequestResultCodeLoaded,
-    DDNASmartAdRequestResultCodeNoFill,
-    DDNASmartAdRequestResultCodeError,
-    DDNASmartAdRequestResultCodeInvalid,
-    DDNASmartAdRequestResultCodeNetwork,
-    DDNASmartAdRequestResultCodeConfiguration
+typedef NS_OPTIONS(NSUInteger, DDNASmartAdRequestResultCode) {
+    DDNASmartAdRequestResultCodeLoaded          = 0,
+    DDNASmartAdRequestResultCodeNoFill          = 1 << 0,
+    DDNASmartAdRequestResultCodeNetwork         = 1 << 1,
+    DDNASmartAdRequestResultCodeTimeout         = 1 << 2,
+    DDNASmartAdRequestResultCodeMaxRequests     = 1 << 3,
+    DDNASmartAdRequestResultCodeConfiguration   = 1 << 4,
+    DDNASmartAdRequestResultCodeError           = 1 << 5
 };
 
 @interface DDNASmartAdRequestResult : NSObject

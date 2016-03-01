@@ -46,6 +46,12 @@
          <FileRef
             location = "group:DDNASmartAdStatus.m">
          </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdWaterfall.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNASmartAdWaterfall.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Networks"
