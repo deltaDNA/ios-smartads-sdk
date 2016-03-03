@@ -11,6 +11,7 @@
 #import <DeltaDNA/DDNALog.h>
 
 static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
+static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 @interface DDNASmartAdAgent () <DDNASmartAdAdapterDelegate>
 
@@ -80,34 +81,40 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter && self.state == DDNASmartadAgentStateLoading) {
-        self.state = DDNASmartAdAgentStateLoaded;
-        [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
-        [self.waterfall scoreAdapter:adapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
+    @synchronized(self)
+    {
+        if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateLoading) {
+            self.state = DDNASmartAdAgentStateLoaded;
+            [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
+            [self.waterfall scoreAdapter:adapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
+        }
     }
 }
 
 - (void)adapterDidFailToLoadAd:(DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdRequestResult *)result
 {
-    if (adapter == self.currentAdapter) {
-        if (self.state != DDNASmartadAgentStateLoading) return; // Prevent adapters calling this multiple times.
-        
-        [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
-        
-        self.state = DDNASmartAdAgentStateReady;
-        
-        [self.waterfall scoreAdapter:adapter withRequestCode:result.code];
-        [self getNextAdapterAndReset:NO];
-        
-        if (self.currentAdapter) {
-            [self requestNextAdWithDelaySeconds:0];
-        }
-        else {
-            [self getNextAdapterAndReset:YES];
+    @synchronized(self)
+    {
+        if (adapter == self.currentAdapter) {
+            if (self.state != DDNASmartAdAgentStateLoading) return; // Prevent adapters calling this multiple times.
+            
+            [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
+            
+            self.state = DDNASmartAdAgentStateReady;
+            
+            [self.waterfall scoreAdapter:adapter withRequestCode:result.code];
+            [self getNextAdapterAndReset:NO];
+            
             if (self.currentAdapter) {
-                [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
-            } else {
-                DDNALogWarn(@"No more ad networks available for ads.");
+                [self requestNextAdWithDelaySeconds:0];
+            }
+            else {
+                [self getNextAdapterAndReset:YES];
+                if (self.currentAdapter) {
+                    [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
+                } else {
+                    DDNALogWarn(@"No more ad networks available for ads.");
+                }
             }
         }
     }
@@ -166,7 +173,7 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 - (void)requestNextAdWithDelaySeconds:(NSUInteger)delaySeconds
 {
     if (self.state == DDNASmartAdAgentStateReady) {
-        self.state = DDNASmartadAgentStateLoading;
+        self.state = DDNASmartAdAgentStateLoading;
         self.lastRequestTime = [NSDate date];
         
         // Dispatching to our own queue allows the requests to
@@ -177,6 +184,14 @@ static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
         dispatch_after(delay, self.delegate.getDispatchQueue, ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.currentAdapter requestAd];
+            });
+            // if after timeout no ad loaded yet, mark it as failed
+            dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, AD_NETWORK_TIMEOUT_SECONDS*NSEC_PER_SEC);
+            dispatch_after(timeout, self.delegate.getDispatchQueue, ^{
+                if (self.state == DDNASmartAdAgentStateLoading) {
+                    DDNASmartAdRequestResult * requestResult = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeTimeout];
+                    [self adapterDidFailToLoadAd:self.currentAdapter withResult:requestResult];
+                }
             });
         });
     }

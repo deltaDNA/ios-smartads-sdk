@@ -12,7 +12,7 @@
 
 typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
     DDNASmartAdAgentStateReady,
-    DDNASmartadAgentStateLoading,
+    DDNASmartAdAgentStateLoading,
     DDNASmartAdAgentStateLoaded,
     DDNASmartAdAgentStateShowing
 };
