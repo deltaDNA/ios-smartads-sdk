@@ -147,6 +147,7 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
     }
+    result.error = [NSString stringWithFormat:@"CBLoadError %lu", (unsigned long)error];
     
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
 }
