@@ -12,7 +12,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 
 platform :ios, '7.0'
 
-pod 'DeltaDNAAds', '~> 0.10'
+pod 'DeltaDNAAds', '~> 1.0'
 ```
 
 The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.
@@ -48,7 +48,7 @@ You can test if an interstitial ad is ready to be displayed with `isInterstitial
 
 Show an interstitial ad by calling `showInterstitialAdFromRootViewController:`.
 
-You can test if a rewarded ad is ready to be displayed with `isRewardedAdAvailable`. 
+You can test if a rewarded ad is ready to be displayed with `isRewardedAdAvailable`.
 
 Show a rewarded ad by calling `showRewardedAdFromRootViewController:`.
 
