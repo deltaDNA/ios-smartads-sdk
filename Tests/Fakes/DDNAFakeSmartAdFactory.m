@@ -14,7 +14,7 @@
 
 @implementation DDNAFakeSmartAdFactory
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(NSArray *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
     if (self.fakeSmartAdAgent) {
         self.fakeSmartAdAgent.delegate = delegate;

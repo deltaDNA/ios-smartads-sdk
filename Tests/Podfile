@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs'
 source 'https://github.com/deltaDNA/CocoaPods'
 
-xcodeproj 'DeltaDNA SmartAds Tests'
+project 'DeltaDNA SmartAds Tests'
 workspace '../DeltaDNAAds'
 #inhibit_all_warnings!
 

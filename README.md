@@ -1,8 +1,10 @@
-SmartAds from deltaDNA.
+![deltaDNA logo](https://deltadna.com/wp-content/uploads/2015/06/deltadna_www@1x.png)
+
+## deltaDNA SmartAds iOS SDK
 
 ### Installation with CocoaPods
 
-[CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplfies using 3rd party libraries.  This enables SmartAds to select which ad networks are supported in a straightforward way.
+[CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies using 3rd party libraries.  This enables SmartAds to select which ad networks are supported in a straightforward way.
 
 #### Podfile
 
@@ -15,7 +17,7 @@ platform :ios, '7.0'
 pod 'DeltaDNAAds', '~> 1.0'
 ```
 
-The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.
+The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.  The above example will install all the ad networks we support.  To install just a subset declare each subspec separately in your podfile.
 
 ### Usage
 

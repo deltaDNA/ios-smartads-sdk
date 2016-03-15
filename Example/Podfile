@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs'
 source 'https://github.com/deltaDNA/CocoaPods'
 
-xcodeproj 'DeltaDNA SmartAds iOS Example'
+project 'DeltaDNA SmartAds iOS Example'
 workspace '../DeltaDNAAds'
 
 target 'DeltaDNA SmartAds iOS Example' do
