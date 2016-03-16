@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 @interface DDNASmartAdAgent : NSObject
 
 @property (nonatomic, weak) id<DDNASmartAdAgentDelegate> delegate;
-@property (nonatomic, copy) NSString *adPoint;
+@property (nonatomic, copy) NSString *decisionPoint;
 
 @property (nonatomic, assign, readonly) DDNASmartAdAgentState state;
 @property (nonatomic, assign, readonly) BOOL adWasClicked;
@@ -49,7 +49,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 
 - (BOOL)isShowingAd;
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController adPoint: (NSString *)adPoint;
+- (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint: (NSString *)decisionPoint;
 
 @end
 

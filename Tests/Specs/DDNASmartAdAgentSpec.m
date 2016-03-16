@@ -115,7 +115,7 @@ describe(@"ad agent", ^{
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
-        [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
         expect([agent isShowingAd]).to.beTruthy();
         
@@ -123,7 +123,7 @@ describe(@"ad agent", ^{
         
         [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
-        expect([agent adPoint]).to.equal(@"testAdPoint");
+        expect([agent decisionPoint]).to.equal(@"testDecisionPoint");
         
         [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
         [verifyCount(delegate, times(1)) adAgent:agent didCloseAdWithAdapter:adapters[0] canReward:YES];
@@ -162,7 +162,7 @@ describe(@"ad agent", ^{
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
-        [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
         [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         
@@ -189,7 +189,7 @@ describe(@"ad agent", ^{
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
-        [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
         expect([agent isShowingAd]).to.beTruthy();
         
@@ -216,7 +216,7 @@ describe(@"ad agent", ^{
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
-        [agent showAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
         expect([agent isShowingAd]).to.beTruthy();
         

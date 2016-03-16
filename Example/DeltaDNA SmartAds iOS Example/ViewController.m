@@ -45,9 +45,9 @@
     [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self];
 }
 
-- (IBAction)showInterstitialAdWithAdPoint:(id)sender
+- (IBAction)showInterstitialAdWithDecisionPoint:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self adPoint:@"testAdPoint"];
+    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self decisionPoint:@"testDecisionPoint"];
 }
 
 - (IBAction)showRewardedAd:(id)sender
@@ -55,9 +55,9 @@
     [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self];
 }
 
-- (IBAction)showRewardedAdWithAdPoint:(id)sender
+- (IBAction)showRewardedAdWithDecisionPoint:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self adPoint:@"testRewardedAdPoint"];
+    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self decisionPoint:@"testRewardedDecisionPoint"];
 }
 
 

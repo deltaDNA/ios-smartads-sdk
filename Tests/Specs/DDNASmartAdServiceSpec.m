@@ -253,7 +253,7 @@ describe(@"interstitial ads", ^{
         mockViewController = mock([UIViewController class]);
     });
     
-    it(@"shows an interstitial ad without adpoint", ^{
+    it(@"shows an interstitial ad without DecisionPoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -314,7 +314,7 @@ describe(@"interstitial ads", ^{
         
     });
     
-    it(@"shows an interstitial ad with an adpoint", ^{
+    it(@"shows an interstitial ad with an DecisionPoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -329,9 +329,9 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
@@ -346,7 +346,7 @@ describe(@"interstitial ads", ^{
             @"adType": @"INTERSTITIAL",
             @"adStatus": @"Fulfilled",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testAdPoint"
+            @"adPoint": @"testDecisionPoint"
         };
 
         HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
@@ -390,9 +390,9 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
@@ -418,9 +418,9 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
@@ -446,9 +446,9 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters:{\"adShowPoint\":false}}", 200, nil);
@@ -474,9 +474,9 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
-        [adService showInterstitialAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
@@ -570,7 +570,7 @@ describe(@"rewarded ads", ^{
         mockViewController = mock([UIViewController class]);
     });
     
-    it(@"shows a rewarded ad without adpoint", ^{
+    it(@"shows a rewarded ad without DecisionPoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -631,7 +631,7 @@ describe(@"rewarded ads", ^{
         
     });
     
-    it(@"shows a rewarded ad with an adpoint", ^{
+    it(@"shows a rewarded ad with an DecisionPoint", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -646,9 +646,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{}}", 200, nil);
@@ -665,7 +665,7 @@ describe(@"rewarded ads", ^{
             @"adType": @"REWARDED",
             @"adStatus": @"Fulfilled",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testAdPoint"
+            @"adPoint": @"testDecisionPoint"
         };
 
         HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
@@ -694,7 +694,7 @@ describe(@"rewarded ads", ^{
         
     });
     
-    it(@"shows a rewarded ad with an adpoint that wasn't rewarded", ^{
+    it(@"shows a rewarded ad with an DecisionPoint that wasn't rewarded", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -709,9 +709,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{}}", 200, nil);
@@ -726,7 +726,7 @@ describe(@"rewarded ads", ^{
             @"adType": @"REWARDED",
             @"adStatus": @"Fulfilled",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testAdPoint"
+            @"adPoint": @"testDecisionPoint"
         };
         
         HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
@@ -771,9 +771,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
@@ -799,9 +799,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
@@ -827,9 +827,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}", 200, nil);
@@ -855,9 +855,9 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
-        [adService showRewardedAdFromRootViewController:mockViewController adPoint:@"testAdPoint"];
+        [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testAdPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
         
         completionHandler = [captor value];
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);

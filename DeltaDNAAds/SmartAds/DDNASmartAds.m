@@ -112,12 +112,12 @@
     }
 }
 
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showInterstitialAdFromRootViewController:viewController adPoint:adPoint];
+                [self.adService showInterstitialAdFromRootViewController:viewController decisionPoint:decisionPoint];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
                 [self.interstitialDelegate didFailToOpenInterstitialAd];
@@ -158,12 +158,12 @@
     }
 }
 
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showRewardedAdFromRootViewController:viewController adPoint:adPoint];
+                [self.adService showRewardedAdFromRootViewController:viewController decisionPoint:decisionPoint];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
                 [self.rewardedDelegate didFailToOpenRewardedAd];

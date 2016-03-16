@@ -33,7 +33,7 @@
 
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
 
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
 
 - (BOOL)isShowingInterstitialAd;
 
@@ -41,7 +41,7 @@
 
 - (void)showRewardedAdFromRootViewController:(UIViewController *)viewController;
 
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint;
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
 
 - (BOOL)isShowingRewardedAd;
 

@@ -72,9 +72,9 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     return self.state == DDNASmartAdAgentStateShowing;
 }
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController adPoint:(NSString *)adPoint
+- (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
 {
-    self.adPoint = adPoint;
+    self.decisionPoint = decisionPoint;
     self.viewController = viewController;
     
     if (self.state == DDNASmartAdAgentStateLoaded) {

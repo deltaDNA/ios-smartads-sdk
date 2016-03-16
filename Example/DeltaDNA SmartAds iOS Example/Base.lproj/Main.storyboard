@@ -42,9 +42,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkc-4e-h00">
                                 <rect key="frame" x="186" y="182" width="229" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Show Interstitial Ad @testAdPoint"/>
+                                <state key="normal" title="Show Interstitial Ad @testDecisionPoint"/>
                                 <connections>
-                                    <action selector="showInterstitialAdWithAdPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rid-3E-Nft"/>
+                                    <action selector="showInterstitialAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rid-3E-Nft"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P8-1s-NMq">
@@ -65,9 +65,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Vc-Zqq">
                                 <rect key="frame" x="150" y="336" width="299" height="30"/>
                                 <animations/>
-                                <state key="normal" title="Show Rewarded Ad @testRewardedAdPoint"/>
+                                <state key="normal" title="Show Rewarded Ad @testRewardedDecisionPoint"/>
                                 <connections>
-                                    <action selector="showRewardedAdWithAdPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9F-8z-gbo"/>
+                                    <action selector="showRewardedAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9F-8z-gbo"/>
                                 </connections>
                             </button>
                         </subviews>
