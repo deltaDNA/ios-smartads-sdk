@@ -2,6 +2,10 @@
 
 ## deltaDNA SmartAds iOS SDK
 
+The deltaDNA SmartAds SDK provides your iOS game with access to our intelligent ad mediation platform.  It supports both interstitial and rewarded type ads.
+
+SmartAds is currently an Enterprise only feature.  SmartAds On Demand will be available soon, meanwhile once you've completed the integration steps below, contact <louise.cameron@deltadna.com> to enable the service.
+
 ### Installation with CocoaPods
 
 [CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies using 3rd party libraries.  This enables SmartAds to select which ad networks are supported in a straightforward way.
@@ -17,7 +21,17 @@ platform :ios, '7.0'
 pod 'DeltaDNAAds', '~> 1.0'
 ```
 
-The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.  The above example will install all the ad networks we support.  To install just a subset declare each subspec separately in your podfile.
+The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.  
+
+The above example will install all the ad networks we support.  To install just a subset declare each subspec separately in your podfile, for example:
+
+```ruby
+
+pod 'DeltaDNAAds/AdMob'
+pod 'DeltaDNAAds/AdColony'
+
+```
+The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.
 
 ### Usage
 
@@ -62,3 +76,7 @@ You will likely want to set the delegates for the DDNASmartAds object, so the SD
 ```
 
 See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/DeltaDNAAds/SmartAds/DDNASmartAds.h) for more details.
+
+## License
+
+The sources are available under the Apache 2.0 license.
