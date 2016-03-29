@@ -4,8 +4,6 @@
 
 The deltaDNA SmartAds SDK provides your iOS game with access to our intelligent ad mediation platform.  It supports both interstitial and rewarded type ads.
 
-SmartAds is currently an Enterprise only feature.  SmartAds On Demand will be available soon, meanwhile once you've completed the integration steps below, contact <louise.cameron@deltadna.com> to enable the service.
-
 ### Installation with CocoaPods
 
 [CocoaPods](https://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies using 3rd party libraries.  This enables SmartAds to select which ad networks are supported in a straightforward way.
