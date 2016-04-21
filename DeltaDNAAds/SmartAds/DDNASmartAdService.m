@@ -28,7 +28,7 @@ static NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
 static NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
 static NSString * const AD_TYPE_REWARDED = @"REWARDED";
 
-static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
+static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 
 @interface DDNASmartAdService () <DDNASmartAdAgentDelegate>
 
@@ -63,15 +63,17 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                                            parameters:nil
                                     completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
 
-        if (!response) {
-            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, [connectionError localizedDescription]]];
-            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, [connectionError localizedDescription]]];
-
+        if (connectionError) {
+            // Assume it's a temporary network glitch and try again
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self beginSessionWithDecisionPoint:decisionPoint];
             });
+        }
+        else if (statusCode != 200) {
+            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, response]];
+            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, response]];
         }
         else {
             NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
