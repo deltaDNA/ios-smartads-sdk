@@ -333,7 +333,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
                 DDNALogDebug(@"Engage request failed: %@: showing ad anyway at %@", response, adAgent.decisionPoint);
                 [self postAdShowEvent:adAgent
                               adapter:adAgent.currentAdapter
-                               result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeEngageFailed]];
+                               result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
 
                 [adAgent showAdFromRootViewController:viewController decisionPoint:adAgent.decisionPoint];
             }
