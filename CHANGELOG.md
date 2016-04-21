@@ -9,6 +9,7 @@
 - `DDNASmartAdsInterstitialDelegate` `-didFailToOpenInterstitialAd` now returns the reason for the ad failing.  Similarly so does `-didFailToOpenRewardedAd` on `DDNASmartAdsRewardedDelegate`.
 - Registering for ads will automatically try again in the background on if a connection error occurs.
 - If Engage can't be reached and we show the ad anyway, the status is logged as 'fulfilled' instead of 'engage error'.
+- Updated Amazon, MobFox and InMobi SDKs to latest version. 
 
 ## [1.0.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.0.0) (2016-03-15)
 Initial version 1.0 release.
