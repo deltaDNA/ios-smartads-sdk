@@ -31,10 +31,10 @@
 - (instancetype)initWithPublicationId:(NSString *)publicationId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"MOBFOX"
-                            version:@"1.1.1"
+                            version:@"2.1.1"
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
-        
+
         self.publicationId = publicationId;
     }
     return self;
@@ -44,9 +44,9 @@
 {
     MobFoxInterstitialAd *interstitial = [[MobFoxInterstitialAd alloc] init:self.publicationId];
     interstitial.delegate = self;
-    
+
     [interstitial loadAd];
-    
+
     return interstitial;
 }
 
@@ -55,7 +55,7 @@
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"publicationId"]) return nil;
-    
+
     return [self initWithPublicationId:configuration[@"publicationId"]
                                   eCPM:[configuration[@"eCPM"] integerValue]
                         waterfallIndex:waterfallIndex];
@@ -96,12 +96,12 @@
 - (void)MobFoxInterstitialAdDidFailToReceiveAdWithError:(NSError *)error
 {
     DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-    
+
     if ([error.description containsString:@"no ad returned"]) {
         result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
     }
     result.error = error.description;
-    
+
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
 }
 
@@ -125,7 +125,7 @@
 //called when if the ad is a video ad and it has finished playing
 - (void)MobFoxInterstitialAdFinished
 {
-    
+
 }
 
 @end

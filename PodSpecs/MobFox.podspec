@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MobFox"
-  s.version      = "1.1.8"
+  s.version      = "2.1.1"
   s.summary      = "The MobFox iOS SDK."
   s.description  = <<-DESC
                    MobFox's iOS SDK Core.
