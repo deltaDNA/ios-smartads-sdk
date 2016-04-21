@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -19,29 +19,25 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-BW-757">
                                 <rect key="frame" x="279" y="28" width="42" height="20.5"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNV-He-Fbo">
                                 <rect key="frame" x="279" y="115" width="42" height="20.5"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBG-To-rMD">
                                 <rect key="frame" x="234" y="144" width="132" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Show Interstitial Ad"/>
                                 <connections>
                                     <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AeQ-jM-SXj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkc-4e-h00">
-                                <rect key="frame" x="186" y="182" width="229" height="30"/>
-                                <animations/>
+                                <rect key="frame" x="165" y="182" width="270" height="30"/>
                                 <state key="normal" title="Show Interstitial Ad @testDecisionPoint"/>
                                 <connections>
                                     <action selector="showInterstitialAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rid-3E-Nft"/>
@@ -49,29 +45,38 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P8-1s-NMq">
                                 <rect key="frame" x="279" y="269" width="42" height="21"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0d-ho-KDs">
                                 <rect key="frame" x="233" y="298" width="133" height="30"/>
-                                <animations/>
                                 <state key="normal" title="Show Rewarded Ad"/>
                                 <connections>
                                     <action selector="showRewardedAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dvt-ST-LIl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Vc-Zqq">
-                                <rect key="frame" x="150" y="336" width="299" height="30"/>
-                                <animations/>
+                                <rect key="frame" x="130" y="336" width="339" height="30"/>
                                 <state key="normal" title="Show Rewarded Ad @testRewardedDecisionPoint"/>
                                 <connections>
                                     <action selector="showRewardedAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9F-8z-gbo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlC-x0-J9a">
+                                <rect key="frame" x="168.5" y="434" width="263" height="30"/>
+                                <state key="normal" title="Show Rewarded Ad or Image Message"/>
+                                <connections>
+                                    <action selector="showRewardedAdOrImageMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OAp-0o-5o9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zef-VW-GZI">
+                                <rect key="frame" x="271" y="472" width="58" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="2gv-a7-WbX"/>
@@ -79,18 +84,23 @@
                             <constraint firstItem="8P8-1s-NMq" firstAttribute="top" secondItem="pkc-4e-h00" secondAttribute="bottom" constant="57" id="9Bn-3v-GQ9"/>
                             <constraint firstItem="8P8-1s-NMq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q9s-71-xlR"/>
                             <constraint firstItem="BBG-To-rMD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SYL-V5-U1a"/>
+                            <constraint firstItem="Zef-VW-GZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U4A-gb-Paj"/>
                             <constraint firstItem="E0d-ho-KDs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VgU-pf-R38"/>
                             <constraint firstItem="BBG-To-rMD" firstAttribute="top" secondItem="LNV-He-Fbo" secondAttribute="bottom" constant="8.5" id="Vkr-rh-d8X"/>
+                            <constraint firstItem="XlC-x0-J9a" firstAttribute="top" secondItem="fMi-Vc-Zqq" secondAttribute="bottom" constant="68" id="bMR-if-wSH"/>
                             <constraint firstItem="LNV-He-Fbo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eNh-it-05M"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gX9-Ld-rWP"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="top" secondItem="BBG-To-rMD" secondAttribute="bottom" constant="8" id="hSQ-4B-yg0"/>
+                            <constraint firstItem="XlC-x0-J9a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qVJ-U8-5S9"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
                             <constraint firstItem="E0d-ho-KDs" firstAttribute="top" secondItem="8P8-1s-NMq" secondAttribute="bottom" constant="8" id="uVH-Jg-cCW"/>
+                            <constraint firstItem="Zef-VW-GZI" firstAttribute="top" secondItem="XlC-x0-J9a" secondAttribute="bottom" constant="8" id="y7B-0V-S6r"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yOn-IV-aX7"/>
                             <constraint firstItem="LNV-He-Fbo" firstAttribute="top" secondItem="bMb-BW-757" secondAttribute="bottom" constant="66.5" id="zQ5-nJ-Rvm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="rewardAmount" destination="Zef-VW-GZI" id="otj-7D-bo8"/>
                         <outlet property="sdkVersion" destination="bMb-BW-757" id="0OL-Ms-Hn9"/>
                         <outlet property="smartAdsRewardedStatus" destination="8P8-1s-NMq" id="dbS-cg-grQ"/>
                         <outlet property="smartAdsStatus" destination="LNV-He-Fbo" id="kzM-sA-jXB"/>

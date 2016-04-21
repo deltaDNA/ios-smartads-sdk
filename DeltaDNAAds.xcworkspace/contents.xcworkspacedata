@@ -11,6 +11,18 @@
          location = "group:SmartAds"
          name = "SmartAds">
          <FileRef
+            location = "group:DDNARewardedAd.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNARewardedAd.m">
+         </FileRef>
+         <FileRef
+            location = "group:DDNAInterstitialAd.h">
+         </FileRef>
+         <FileRef
+            location = "group:DDNAInterstitialAd.m">
+         </FileRef>
+         <FileRef
             location = "group:DDNASmartAdAdapter.h">
          </FileRef>
          <FileRef

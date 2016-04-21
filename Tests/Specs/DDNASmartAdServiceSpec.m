@@ -399,7 +399,7 @@ describe(@"interstitial ads", ^{
         
         expect([adService isShowingInterstitialAd]).to.beFalsy();
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didFailToOpenInterstitialAd];
+        [verify(mockDelegate) didFailToOpenInterstitialAdWithReason:@"Engage disallowed the ad"];
         
     });
     
@@ -780,7 +780,7 @@ describe(@"rewarded ads", ^{
         
         expect([adService isShowingRewardedAd]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beTruthy();
-        [verify(mockDelegate) didFailToOpenRewardedAd];
+        [verify(mockDelegate) didFailToOpenRewardedAdWithReason:@"Engage disallowed the ad"];
         
     });
     
@@ -936,7 +936,7 @@ describe(@"respects minimum ad interval", ^{
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beFalsy();
-        [verifyCount(mockDelegate, times(1)) didFailToOpenInterstitialAd];
+        [verifyCount(mockDelegate, times(1)) didFailToOpenInterstitialAdWithReason:@"Too soon"];
 
     });
     

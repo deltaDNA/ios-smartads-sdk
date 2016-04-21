@@ -77,8 +77,8 @@
         @finally {
             if (!self.adService) {
                 DDNALogWarn(@"Failed to register for ads.");
-                [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:@"Couldn't create ad service."];
-                [self.rewardedDelegate didFailToRegisterForRewardedAdsWithReason:@"Couldn't create ad service."];
+                [self.registrationDelegate didFailToRegisterForInterstitialAdsWithReason:@"Couldn't create ad service."];
+                [self.registrationDelegate didFailToRegisterForRewardedAdsWithReason:@"Couldn't create ad service."];
             }
         }
     }
@@ -102,12 +102,12 @@
                 [self.adService showInterstitialAdFromRootViewController:viewController];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.interstitialDelegate didFailToOpenInterstitialAd];
+                [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:@"Not registered"];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.interstitialDelegate didFailToOpenInterstitialAd];
+            [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:exception.reason];
         }
     }
 }
@@ -120,12 +120,12 @@
                 [self.adService showInterstitialAdFromRootViewController:viewController decisionPoint:decisionPoint];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.interstitialDelegate didFailToOpenInterstitialAd];
+                [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:@"Not registered"];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.interstitialDelegate didFailToOpenInterstitialAd];
+            [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:exception.reason];
         }
     }
 }
@@ -148,12 +148,12 @@
                 [self.adService showRewardedAdFromRootViewController:viewController];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.rewardedDelegate didFailToOpenRewardedAd];
+                [self.rewardedDelegate didFailToOpenRewardedAdWithReason:@"Not registered"];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.rewardedDelegate didFailToOpenRewardedAd];
+            [self.rewardedDelegate didFailToOpenRewardedAdWithReason:exception.reason];
         }
     }
 }
@@ -166,12 +166,12 @@
                 [self.adService showRewardedAdFromRootViewController:viewController decisionPoint:decisionPoint];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.rewardedDelegate didFailToOpenRewardedAd];
+                [self.rewardedDelegate didFailToOpenRewardedAdWithReason:@"Not registered"];
             }
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.rewardedDelegate didFailToOpenRewardedAd];
+            [self.rewardedDelegate didFailToOpenRewardedAdWithReason:exception.reason];
         }
     }
 }
@@ -192,13 +192,17 @@
 - (void)didRegisterForInterstitialAds
 {
     DDNALogDebug(@"Registered for interstitial ads.");
-    [self.interstitialDelegate didRegisterForInterstitialAds];
+    if ([self.registrationDelegate respondsToSelector:@selector(didRegisterForInterstitialAds)]) {
+        [self.registrationDelegate didRegisterForInterstitialAds];
+    }
 }
 
 - (void)didFailToRegisterForInterstitialAdsWithReason:(NSString *)reason
 {
     DDNALogDebug(@"Failed to register for interstitial ads: %@.", reason);
-    [self.interstitialDelegate didFailToRegisterForInterstitialAdsWithReason:reason];
+    if ([self.registrationDelegate respondsToSelector:@selector(didFailToRegisterForRewardedAdsWithReason:)]) {
+        [self.registrationDelegate didFailToRegisterForInterstitialAdsWithReason:reason];
+    }
 }
 
 - (void)recordEventWithName:(NSString *)eventName parameters:(NSDictionary *)parameters
@@ -219,53 +223,68 @@
     }];
 }
 
-- (void)didFailToOpenInterstitialAd
+- (void)didFailToOpenInterstitialAdWithReason:(NSString *)reason
 {
-    DDNALogDebug(@"Failed to open interstitial ad.");
-    [self.interstitialDelegate didFailToOpenInterstitialAd];
+    DDNALogDebug(@"Failed to open interstitial ad: %@", reason);
+    if ([self.interstitialDelegate respondsToSelector:@selector(didFailToOpenInterstitialAdWithReason:)]) {
+        [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:reason];
+    }
 }
 
 - (void)didOpenInterstitialAd
 {
     DDNALogDebug(@"Opened interstitial ad.");
-    [self.interstitialDelegate didOpenInterstitialAd];
+    if ([self.interstitialDelegate respondsToSelector:@selector(didOpenInterstitialAd)]) {
+        [self.interstitialDelegate didOpenInterstitialAd];
+    }
 }
 
 - (void)didCloseInterstitialAd
 {
     DDNALogDebug(@"Closed interstitial ad.");
-    [self.interstitialDelegate didCloseInterstitialAd];
+    if ([self.interstitialDelegate respondsToSelector:@selector(didCloseInterstitialAd)]) {
+        [self.interstitialDelegate didCloseInterstitialAd];
+    }
 }
 
 - (void)didRegisterForRewardedAds
 {
     DDNALogDebug(@"Registered for rewarded ads.");
-    [self.rewardedDelegate didRegisterForRewardedAds];
+    if ([self.registrationDelegate respondsToSelector:@selector(didRegisterForRewardedAds)]) {
+        [self.registrationDelegate didRegisterForRewardedAds];
+    }
 }
 
 - (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason
 {
     DDNALogDebug(@"Failed to register for rewarded ads: %@.", reason);
-    [self.rewardedDelegate didFailToRegisterForRewardedAdsWithReason:reason];
+    if ([self.registrationDelegate respondsToSelector:@selector(didFailToRegisterForRewardedAdsWithReason:)]) {
+        [self.registrationDelegate didFailToRegisterForRewardedAdsWithReason:reason];
+    }
 }
 
-
-- (void)didFailToOpenRewardedAd
+- (void)didFailToOpenRewardedAdWithReason:(NSString *)reason
 {
-    DDNALogDebug(@"Failed to open rewarded ad.");
-    [self.rewardedDelegate didFailToOpenRewardedAd];
+    DDNALogDebug(@"Failed to open rewarded ad: %@", reason);
+    if ([self.rewardedDelegate respondsToSelector:@selector(didFailToOpenRewardedAdWithReason:)]) {
+        [self.rewardedDelegate didFailToOpenRewardedAdWithReason:reason];
+    }
 }
 
 - (void)didOpenRewardedAd
 {
     DDNALogDebug(@"Opened rewarded ad.");
-    [self.rewardedDelegate didOpenRewardedAd];
+    if ([self.rewardedDelegate respondsToSelector:@selector(didOpenRewardedAd)]) {
+        [self.rewardedDelegate didOpenRewardedAd];
+    }
 }
 
 - (void)didCloseRewardedAdWithReward:(BOOL)reward
 {
     DDNALogDebug(@"Closed rewarded ad with reward %@", reward ? @"YES" : @"NO");
-    [self.rewardedDelegate didCloseRewardedAdWithReward:reward];
+    if ([self.rewardedDelegate respondsToSelector:@selector(didCloseRewardedAdWithReward:)]) {
+        [self.rewardedDelegate didCloseRewardedAdWithReward:reward];
+    }
 }
 
 @end

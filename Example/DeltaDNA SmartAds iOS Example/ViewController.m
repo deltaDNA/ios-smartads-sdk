@@ -10,7 +10,11 @@
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNAAds/DeltaDNAAds.h>
 
-@interface ViewController () <DDNASmartAdsInterstitialDelegate, DDNASmartAdsRewardedDelegate>
+@interface ViewController () <DDNASmartAdsRegistrationDelegate, DDNAInterstitialAdDelegate, DDNARewardedAdDelegate, DDNAImageMessageDelegate>
+
+@property (nonatomic, strong) DDNAInterstitialAd *interstitialAd;
+@property (nonatomic, strong) DDNARewardedAd *rewardedAd;
+@property (nonatomic, strong) DDNAImageMessage *imageMessage;
 
 @end
 
@@ -30,8 +34,7 @@
                                            collectURL:@"http://collect2010stst.deltadna.net/collect/api"
                                             engageURL:@"http://engage2010stst.deltadna.net"];
     
-    [DDNASmartAds sharedInstance].interstitialDelegate = self;
-    [DDNASmartAds sharedInstance].rewardedDelegate = self;
+    [DDNASmartAds sharedInstance].registrationDelegate = self;
     [[DDNASmartAds sharedInstance] registerForAds];
 }
 
@@ -42,26 +45,94 @@
 
 - (IBAction)showInterstitialAd:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self];
+    self.interstitialAd = [DDNAInterstitialAd interstitialAdWithDelegate:self];
+    [self.interstitialAd showFromRootViewController:self];
 }
 
 - (IBAction)showInterstitialAdWithDecisionPoint:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:self decisionPoint:@"testDecisionPoint"];
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testDecisionPoint"];
+    self.interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:engagement delegate:self];
+    if (self.interstitialAd != nil) {
+        [self.interstitialAd showFromRootViewController:self];
+    }
 }
 
 - (IBAction)showRewardedAd:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self];
+    self.rewardedAd = [DDNARewardedAd rewardedAdWithDelegate:self];
+    [self.rewardedAd showFromRootViewController:self];
 }
 
 - (IBAction)showRewardedAdWithDecisionPoint:(id)sender
 {
-    [[DDNASmartAds sharedInstance] showRewardedAdFromRootViewController:self decisionPoint:@"testRewardedDecisionPoint"];
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testRewardedDecisionPoint"];
+    self.rewardedAd = [DDNARewardedAd rewardedAdWithEngagement:engagement delegate:self];
+    if (self.rewardedAd != nil) {
+        [self.rewardedAd showFromRootViewController:self];
+    }
+}
+
+- (IBAction)showRewardedAdOrImageMessage:(id)sender
+{
+    NSLog(@"Show rewarded ad or image message.");
+    
+    // make request to engage
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"rewardOrImage"];
+    
+    [[DDNASDK sharedInstance] requestEngagement:engagement engagementHandler:^(DDNAEngagement *response) {
+        // get the response
+        if (response != nil) {
+            NSLog(@"Got a response from engage: %@", response.raw);
+        
+            // try and build a rewarded ad
+            DDNARewardedAd *rewardedAd = [DDNARewardedAd rewardedAdWithEngagement:response delegate:self];
+            
+            // try and build a popup
+            DDNAImageMessage *imageMessage = [DDNAImageMessage imageMessageWithEngagement:response delegate:self];
+            
+            // Ad will succeed if Engagement contains no ad related parameters, so see if ImageMessage
+            // is valid, else show the ad...
+            if (imageMessage != nil) {
+                NSLog(@"Got an image message!");
+                // we got an image message to show
+                [imageMessage fetchResources];
+            }
+            else if (rewardedAd != nil) {
+                NSLog(@"Got a rewarded ad!");
+                
+                if (rewardedAd.parameters[@"rewardAmount"]) {
+                    self.rewardAmount.text = [NSString stringWithFormat:@"Reward for watching %@", rewardedAd.parameters[@"rewardAmount"]];
+                } else {
+                    self.rewardAmount.text = @"No reward available";
+                }
+                
+                // make offer to player... they like it so show ad
+                
+                if (rewardedAd.isReady) {
+                    NSLog(@"Showing the rewarded ad.");
+                    [rewardedAd showFromRootViewController:self];
+                } else {
+                    NSLog(@"Rewarded ad not ready.");
+                }
+            }
+            else {
+                // didn't get a useful engage response, move on...
+                NSLog(@"Didn't get a useful response!");
+            }
+            
+            self.rewardedAd = rewardedAd;
+            self.imageMessage = imageMessage;
+            
+        } else {
+            NSLog(@"No engage response!");
+        }
+        
+    }];
 }
 
 
-#pragma mark - DDNASmartAdsInterstitialDelegate
+#pragma mark - DDNASmartAdsRegistrationDelegate
 
 - (void)didRegisterForInterstitialAds
 {
@@ -73,23 +144,6 @@
     self.smartAdsStatus.text = @"Failed to register for interstitial ads.";
 }
 
-- (void)didOpenInterstitialAd
-{
-    
-}
-
-- (void)didFailToOpenInterstitialAd
-{
-    
-}
-
-- (void)didCloseInterstitialAd
-{
-    
-}
-
-#pragma mark - DDNASmartAdsRewardedDelegate
-
 - (void)didRegisterForRewardedAds
 {
     self.smartAdsRewardedStatus.text = @"Registered for rewarded ads.";
@@ -100,20 +154,62 @@
     self.smartAdsRewardedStatus.text = @"Failed to register for rewarded ads.";
 }
 
-- (void)didOpenRewardedAd
+#pragma mark - DDNAInterstitialAdDelegate
+
+- (void)didOpenInterstitialAd:(DDNAInterstitialAd *)ad
 {
-    
+    NSLog(@"Did open interstitial ad.");
 }
 
-- (void)didFailToOpenRewardedAd
+- (void)didFailToOpenInterstitialAd:(DDNAInterstitialAd *)ad withReason:(NSString *)reason
 {
-    
+    NSLog(@"Did fail to open interstitial ad with reason %@.", reason);
 }
 
-- (void)didCloseRewardedAdWithReward:(BOOL)reward
+- (void)didCloseInterstitialAd:(DDNAInterstitialAd *)ad
 {
-    
+    NSLog(@"Did close interstitial ad.");
 }
 
+#pragma mark - DDNARewardedAdDelegate
+
+- (void)didOpenRewardedAd:(DDNARewardedAd *)ad
+{
+    NSLog(@"Did open rewarded ad.");
+}
+
+- (void)didFailToOpenRewardedAd:(DDNARewardedAd *)ad withReason:(NSString *)reason
+{
+    NSLog(@"Did fail to open rewarded ad with reason %@.", reason);
+}
+
+- (void)didCloseRewardedAd:(DDNARewardedAd *)ad withReward:(BOOL)reward
+{
+    NSLog(@"Did close rewarded ad with reward %@.", (reward ? @"YES" : @"NO"));
+}
+
+#pragma mark - DDNAImageMessageDelegate
+
+- (void)didReceiveResourcesForImageMessage:(DDNAImageMessage *)imageMessage
+{
+    if (imageMessage.isReady) {
+        [imageMessage showFromRootViewController:self];
+    }
+}
+
+- (void)didFailToReceiveResourcesForImageMessage:(DDNAImageMessage *)imageMessage withReason:(NSString *)reason
+{
+    NSLog(@"Failed to download resources for the image message: %@", reason);
+}
+
+- (void)onDismissImageMessage:(DDNAImageMessage *)imageMessage name:(NSString *)name
+{
+    NSLog(@"ImageMessage dismissed by %@", name);
+}
+
+- (void)onActionImageMessage:(DDNAImageMessage *)imageMessage name:(NSString *)name type:(NSString *)type value:(NSString *)value
+{
+    NSLog(@"ImageMessage action from %@ with type %@ value %@", name, type, value);
+}
 
 @end

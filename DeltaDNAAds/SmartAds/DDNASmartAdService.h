@@ -62,7 +62,7 @@
 
 - (void)didOpenInterstitialAd;
 
-- (void)didFailToOpenInterstitialAd;
+- (void)didFailToOpenInterstitialAdWithReason:(NSString *)reason;
 
 - (void)didCloseInterstitialAd;
 
@@ -72,7 +72,7 @@
 
 - (void)didOpenRewardedAd;
 
-- (void)didFailToOpenRewardedAd;
+- (void)didFailToOpenRewardedAdWithReason:(NSString *)reason;
 
 - (void)didCloseRewardedAdWithReward:(BOOL)reward;
 

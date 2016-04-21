@@ -158,7 +158,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         [self showAdFromRootViewController:viewController adAgent:self.interstitialAgent];
 
     } else {
-        [self.delegate didFailToOpenInterstitialAd];
+        [self.delegate didFailToOpenInterstitialAdWithReason:@"Not registered"];
     }
 }
 
@@ -185,7 +185,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         self.rewardedAgent.decisionPoint = decisionPoint;
         [self showAdFromRootViewController:viewController adAgent:self.rewardedAgent];
     } else {
-        [self.delegate didFailToOpenRewardedAd];
+        [self.delegate didFailToOpenRewardedAdWithReason:@"Not registered"];
     }
 }
 
@@ -251,10 +251,10 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     [self postAdClosedEvent:adAgent adapter:adapter result:result];
 
     if (adAgent == self.interstitialAgent) {
-        [self.delegate didFailToOpenInterstitialAd];
+        [self.delegate didFailToOpenInterstitialAdWithReason:result.desc];
     }
     else if (adAgent == self.rewardedAgent) {
-        [self.delegate didFailToOpenRewardedAd];
+        [self.delegate didFailToOpenRewardedAdWithReason:result.desc];
     }
 }
 
@@ -286,7 +286,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
 
-        [self didFailToOpenAdWithAdAgent:adAgent];
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Too soon"];
         return;
     }
 
@@ -296,7 +296,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                       adapter:self.interstitialAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
 
-        [self didFailToOpenAdWithAdAgent:adAgent];
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Session limit reached"];
         return;
     }
 
@@ -306,7 +306,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
 
-        [self didFailToOpenAdWithAdAgent:adAgent];
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Not ready"];
         return;
     }
 
@@ -351,7 +351,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                                   adapter:adAgent.currentAdapter
                                    result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
 
-                    [self didFailToOpenAdWithAdAgent:adAgent];
+                    [self didFailToOpenAdWithAdAgent:adAgent reason:@"Engage disallowed the ad"];
                 }
             }
 
@@ -363,17 +363,17 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
 
-        [self didFailToOpenAdWithAdAgent:adAgent];
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Engage disallowed all ads for this session"];
     }
 }
 
-- (void)didFailToOpenAdWithAdAgent:(DDNASmartAdAgent *)adAgent
+- (void)didFailToOpenAdWithAdAgent:(DDNASmartAdAgent *)adAgent reason:(NSString *)reason
 {
     if (adAgent == self.interstitialAgent) {
-        [self.delegate didFailToOpenInterstitialAd];
+        [self.delegate didFailToOpenInterstitialAdWithReason:reason];
     }
     else if (adAgent == self.rewardedAgent) {
-        [self.delegate didFailToOpenRewardedAd];
+        [self.delegate didFailToOpenRewardedAdWithReason:reason];
     }
 }
 
@@ -396,7 +396,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
         eventParams[@"adPoint"] = [agent decisionPoint];
     }
 
-    DDNALogDebug(@"Posting adShow event: %@", eventParams);
     [self.delegate recordEventWithName:@"adShow" parameters:eventParams];
 }
 
@@ -420,7 +419,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
     eventParams[@"adSdkVersion"] = [DDNASmartAds sdkVersion];
     eventParams[@"adStatus"] = result.desc;
 
-    DDNALogDebug(@"Posting adClosed event: %@", eventParams);
     [self.delegate recordEventWithName:@"adClosed" parameters:eventParams];
 }
 
@@ -447,7 +445,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60 * 15;
             eventParams[@"adProviderError"] = result.error;
         }
 
-        DDNALogDebug(@"Posting adRequest event: %@", eventParams);
         [self.delegate recordEventWithName:@"adRequest" parameters:eventParams];
     }
 }

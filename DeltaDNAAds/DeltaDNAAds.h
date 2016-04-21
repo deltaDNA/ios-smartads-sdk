@@ -20,5 +20,7 @@
 #define _DELTADNA_ADS_
 
 #import "SmartAds/DDNASmartAds.h"
+#import "SmartAds/DDNAInterstitialAd.h"
+#import "SmartAds/DDNARewardedAd.h"
 
 #endif /* _DELTADNA_ADS_ */
