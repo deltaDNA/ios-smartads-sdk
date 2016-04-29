@@ -221,10 +221,8 @@ describe(@"registering for ads", ^{
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         [verify(mockDelegate) didRegisterForInterstitialAds];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
     });
     
@@ -281,9 +279,7 @@ describe(@"interstitial ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verifyCount(mockDelegate, times(1)) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
@@ -324,8 +320,8 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
         expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
         [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" parameters:anything()];
 
@@ -341,10 +337,8 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -402,10 +396,8 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -430,10 +422,8 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -458,10 +448,8 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -486,10 +474,8 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -514,32 +500,24 @@ describe(@"interstitial ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
+
         // session limit should be reached
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         [verifyCount(mockDelegate, times(3)) didOpenInterstitialAd];
 
@@ -597,10 +575,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verifyCount(mockDelegate, times(1)) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController];
@@ -641,8 +617,8 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *adClosedArg = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) recordEventWithName:@"adClosed" parameters:(id)adClosedArg];
         expect([adClosedArg.value isEqualToDictionary:adClosedParams]).to.beTruthy();
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         
         [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adRequest" parameters:anything()];
         
@@ -658,10 +634,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -675,8 +649,6 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
-        
-        // TODO: Bit fragile testing the parameters coming back since the key order changes
         NSDictionary *adShowParams = @{
             @"adProvider": @"DUMMY",
             @"adProviderVersion": @"1.0.0",
@@ -721,10 +693,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -783,10 +753,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -811,10 +779,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -839,10 +805,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -867,10 +831,8 @@ describe(@"rewarded ads", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isRewardedAdAvailable]).to.beTruthy();
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
@@ -940,18 +902,14 @@ describe(@"respects minimum ad interval", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
+
         // too soon so fail
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beFalsy();
         [verifyCount(mockDelegate, times(1)) didFailToOpenInterstitialAdWithReason:@"Too soon"];
@@ -967,17 +925,13 @@ describe(@"respects minimum ad interval", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
         [NSThread sleepForTimeInterval:0.2f];
         
@@ -1042,10 +996,8 @@ describe(@"respects minimum ad interval", ^{
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([adService isInterstitialAdAvailable]).to.beTruthy();
+
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];

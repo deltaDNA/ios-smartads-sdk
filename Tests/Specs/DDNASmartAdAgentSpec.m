@@ -51,13 +51,12 @@ describe(@"ad agent", ^{
         expect([agent hasLoadedAd]).to.beFalsy();
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+
+        expect([agent hasLoadedAd]).will.beTruthy();
+        expect(agent.currentAdapter).willNot.beNil();
+        expect(agent.currentAdapter).will.equal(adapters[0]);
         
         [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
-        expect([agent hasLoadedAd]).to.beTruthy();
-        expect(agent.currentAdapter).toNot.beNil();
-        expect(agent.currentAdapter).to.equal(adapters[0]);
     });
     
     it(@"with failing adapters returns last one", ^{
@@ -78,25 +77,24 @@ describe(@"ad agent", ^{
         expect([agent hasLoadedAd]).to.beFalsy();
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
-        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
-        expect([agent hasLoadedAd]).to.beTruthy();
+        expect([agent hasLoadedAd]).will.beTruthy();
         // AdAgent should still use the same adapter after a successfull load.
-        expect(agent.currentAdapter).toNot.beNil();
-        expect(agent.currentAdapter).to.equal(adapters[2]);
+        expect(agent.currentAdapter).willNot.beNil();
+        expect(agent.currentAdapter).will.equal(adapters[2]);
+        
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
+        
         
         // After closing the ad, the waterfall is reset to the beginning again.
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter showAdFromViewController:nil];
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
+
         // This only works when not running in a thread!
-        //[[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
-        expect(agent.currentAdapter).toNot.beNil();
-        expect(agent.currentAdapter).to.equal(adapters[2]);
+        expect([agent hasLoadedAd]).will.beTruthy();
+        expect(agent.currentAdapter).willNot.beNil();
+        expect(agent.currentAdapter).will.equal(adapters[2]);
+        [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
     });
     
     it(@"shows ad",^{
@@ -110,19 +108,16 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([agent hasLoadedAd]).to.beTruthy();
+
+        expect([agent hasLoadedAd]).will.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
         expect([agent isShowingAd]).to.beTruthy();
         
         [adapters[0] closeAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
+
+        expect([agent hasLoadedAd]).will.beTruthy();
         expect([agent decisionPoint]).to.equal(@"testDecisionPoint");
         
         [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
@@ -140,10 +135,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
-        expect([agent hasLoadedAd]).to.beFalsy();
+        expect([agent hasLoadedAd]).will.beFalsy();
     });
     
     it(@"reports when an ad fails to open", ^{
@@ -157,16 +150,13 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([agent hasLoadedAd]).to.beTruthy();
+
+        expect([agent hasLoadedAd]).will.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([agent isShowingAd]).to.beFalsy();
+
+        expect([agent isShowingAd]).will.beFalsy();
+        expect([agent hasLoadedAd]).will.beTruthy();
         expect(agent.currentAdapter).to.equal(adapters[0]);
         
         [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
@@ -184,10 +174,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([agent hasLoadedAd]).to.beTruthy();
+
+        expect([agent hasLoadedAd]).will.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
@@ -211,10 +199,8 @@ describe(@"ad agent", ^{
         agent.delegate = delegate;
         
         [agent requestAd];
-        
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        
-        expect([agent hasLoadedAd]).to.beTruthy();
+
+        expect([agent hasLoadedAd]).will.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
