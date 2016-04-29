@@ -5,7 +5,6 @@ xcodeproj 'DeltaDNA SmartAds iOS Example'
 workspace '../DeltaDNAAds'
 
 target 'DeltaDNA SmartAds iOS Example' do
-    pod 'DeltaDNA', :path => '../../ios-sdk-v4'
     pod 'DeltaDNAAds', :path => '../'
 end
 
