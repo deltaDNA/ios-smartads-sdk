@@ -2,6 +2,8 @@
 
 ## deltaDNA SmartAds iOS SDK
 
+[![Build Status](https://travis-ci.org/deltaDNA/ios-smartads-sdk.svg)](https://travis-ci.org/deltaDNA/ios-smartads-sdk)
+
 The deltaDNA SmartAds SDK provides your iOS game with access to our intelligent ad mediation platform.  It supports both interstitial and rewarded type ads.
 
 ### Installation with CocoaPods
