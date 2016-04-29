@@ -79,7 +79,7 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
         [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
         expect([agent hasLoadedAd]).to.beTruthy();
@@ -91,7 +91,7 @@ describe(@"ad agent", ^{
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter showAdFromViewController:nil];
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter closeAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         // This only works when not running in a thread!
         //[[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
@@ -111,7 +111,7 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
@@ -121,7 +121,7 @@ describe(@"ad agent", ^{
         
         [adapters[0] closeAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent decisionPoint]).to.equal(@"testDecisionPoint");
         
@@ -141,7 +141,7 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
 
         expect([agent hasLoadedAd]).to.beFalsy();
     });
@@ -158,13 +158,13 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent isShowingAd]).to.beFalsy();
         expect(agent.currentAdapter).to.equal(adapters[0]);
@@ -185,7 +185,7 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
@@ -212,7 +212,7 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
         
-        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+        [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         
         expect([agent hasLoadedAd]).to.beTruthy();
         
