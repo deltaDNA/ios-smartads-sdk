@@ -17,6 +17,7 @@
 #import "DDNAInterstitialAd.h"
 #import <DeltaDNA/DDNAEngagement.h>
 #import "DDNASmartAds.h"
+#import <DeltaDNA/DDNALog.h>
 
 @interface DDNAInterstitialAd () <DDNASmartAdsInterstitialDelegate>
 
@@ -29,20 +30,26 @@
 + (instancetype)interstitialAdWithDelegate:(id<DDNAInterstitialAdDelegate>)delegate
 {
     DDNAInterstitialAd *interstitialAd = [[DDNAInterstitialAd alloc] init];
-    interstitialAd.delegate = delegate;
+    if (interstitialAd) {
+        interstitialAd.delegate = delegate;
+    }
     return interstitialAd;
 }
 
 + (instancetype)interstitialAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNAInterstitialAdDelegate>)delegate
 {
     DDNAInterstitialAd *interstitialAd = [[DDNAInterstitialAd alloc] initWithEngagement:engagement];
-    interstitialAd.delegate = delegate;
+    if (interstitialAd) {
+        interstitialAd.delegate = delegate;
+    }
     return interstitialAd;
 }
 
 - (instancetype)init
 {
     if ((self = [super init])) {
+        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:nil]) return nil;
+        
         self.parameters = [[NSDictionary alloc] init];
         [DDNASmartAds sharedInstance].interstitialDelegate = self;
     }
@@ -51,17 +58,9 @@
 
 - (instancetype)initWithEngagement:(DDNAEngagement *)engagement
 {
-    if (engagement == nil) {
-        @throw([NSException exceptionWithName:NSInvalidArgumentException reason:@"engagement cannot be nil" userInfo:nil]);
-    }
-    
-    NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:engagement.json[@"parameters"]];
-    
-    // Test if we're prevented from showing an ad for this decision point.
-    if (parameters && parameters[@"adShowPoint"] && ![parameters[@"adShowPoint"] boolValue]) return nil;
-    
-    if ((self = [super init])) {
-        self.parameters = parameters;
+    if ((self = [super init])) {        
+        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:engagement]) return nil;
+        self.parameters = [NSDictionary dictionaryWithDictionary:engagement.json[@"parameters"]];
         [DDNASmartAds sharedInstance].interstitialDelegate = self;
     }
     return self;

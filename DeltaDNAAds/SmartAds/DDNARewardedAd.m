@@ -17,6 +17,7 @@
 #import "DDNARewardedAd.h"
 #import <DeltaDNA/DDNAEngagement.h>
 #import "DDNASmartAds.h"
+#import <DeltaDNA/DDNALog.h>
 
 @interface DDNARewardedAd () <DDNASmartAdsRewardedDelegate>
 
@@ -29,20 +30,26 @@
 + (instancetype)rewardedAdWithDelegate:(id<DDNARewardedAdDelegate>)delegate
 {
     DDNARewardedAd *rewardedAd = [[DDNARewardedAd alloc] init];
-    rewardedAd.delegate = delegate;
+    if (rewardedAd) {
+        rewardedAd.delegate = delegate;
+    }
     return rewardedAd;
 }
 
 + (instancetype)rewardedAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNARewardedAdDelegate>)delegate
 {
     DDNARewardedAd *rewardedAd = [[DDNARewardedAd alloc] initWithEngagement:engagement];
-    rewardedAd.delegate = delegate;
+    if (rewardedAd) {
+        rewardedAd.delegate = delegate;
+    }
     return rewardedAd;
 }
 
 - (instancetype)init
 {
     if ((self = [super init])) {
+        if (![[DDNASmartAds sharedInstance] isRewardedAdAllowed:nil]) return nil;
+        
         self.parameters = [[NSDictionary alloc] init];
         [DDNASmartAds sharedInstance].rewardedDelegate = self;
     }
@@ -51,17 +58,10 @@
 
 - (instancetype)initWithEngagement:(DDNAEngagement *)engagement
 {
-    if (engagement == nil) {
-        @throw([NSException exceptionWithName:NSInvalidArgumentException reason:@"engagement cannot be nil" userInfo:nil]);
-    }
-    
-    NSDictionary *parameters = [NSDictionary dictionaryWithDictionary:engagement.json[@"parameters"]];
-    
-    // Test if we're prevented from showing an ad for this decision point.
-    if (parameters && parameters[@"adShowPoint"] && ![parameters[@"adShowPoint"] boolValue]) return nil;
-    
     if ((self = [super init])) {
-        self.parameters = parameters;
+        if (![[DDNASmartAds sharedInstance] isRewardedAdAllowed:engagement]) return nil;
+        
+        self.parameters = [NSDictionary dictionaryWithDictionary:engagement.json[@"parameters"]];
         [DDNASmartAds sharedInstance].rewardedDelegate = self;
     }
     return self;

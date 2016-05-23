@@ -70,14 +70,16 @@ If everything went well the SmartAds service will start fetching ads in the back
 
 #### Create an Interstitial Ad
 
-An interstitial ad is a fullscreen popup that the player can dismiss from a close button.  In order to show an interstitial ad, create a `DDNAInterstitialAd` and attempt to show it.  
+An interstitial ad is a fullscreen popup that the player can dismiss from a close button.  In order to show an interstitial ad, try to create a `DDNAInterstitialAd` and then show it.  
 
 ```objective-c
 DDNAInterstitialAd *interstitialAd = [DDNAInterstitialAd interstitialAdWithDelegate:self];
-[interstitialAd showFromRootViewController:self];
+if (interstitialAd != nil) {
+    [interstitialAd showFromRootViewController:self];
+}
 ```
 
-The example assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNAInterstitialAdDelegate`.  Notice how we don't bother to test if an ad is available, instead always try to show the ad where you want one and we will record *No Fill* if one wasn't available.  This helps us accurately report your fill rate.
+The example assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNAInterstitialAdDelegate`.  It's important to test the `interstitialAd` is not nil, you will only get a real object back if you are allowed to show an ad at this time.  The initialisation checks session limits, time limits and that an ad has loaded and is available to display.  An *adShow* event is recorded whenever you try to create an ad, this reports the reason for not creating an ad so the ad performance can be accurately tracked.  Don't repeatedly try to create an ad until you get one, you should try once and move on if none was available.
 
 The following callbacks are provided by `DDNAInterstitialAdDelegate`:
 
@@ -89,14 +91,16 @@ Make sure you keep a strong reference to the interstitial object else the delega
 
 #### Create a Rewarded Ad
 
-A rewarded ad is a short video, typically 30 seconds in length that the player must watch before being able to dismiss.  To show a rewarded ad, create a `DDNARewardedAd` object and attempt to show it.
+A rewarded ad is a short video, typically 30 seconds in length that the player must watch before being able to dismiss.  To show a rewarded ad, try to create a `DDNARewardedAd` object and then show it.
 
 ```objective-c
 DDNARewardedAd *rewardedAd = [DDNARewardedAd rewardedAdWithDelegate:self];
-[rewardedAd showFromRootViewController:self];
+if (rewardedAd != nil) {
+    [rewardedAd showFromRootViewController:self];
+}
 ```
 
-The example again assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNARewardedAdDelegate`.  This will show the video if one is available else no fill is reported.  If you'd rather only offer a rewarded ad to your player if one is available you can call `-isReady` to test if a video has loaded.
+The example again assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNARewardedAdDelegate`.  If a non nil object was returned you can call `-showFromRootViewController`.  Initialising the ad checks you have permission to show an ad at this point in time and that an ad has loaded.
 
 The following callbacks are provided by `DDNARewardedAdDelegate`:
 

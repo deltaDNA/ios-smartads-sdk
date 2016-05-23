@@ -119,12 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "DeltaDNA SmartAds iOS Example" */;
 			buildPhases = (
-				36886DC1B4426F773093C6DF /* Check Pods Manifest.lock */,
+				36886DC1B4426F773093C6DF /* 📦 Check Pods Manifest.lock */,
 				63B381E51BFE16FF0049CE28 /* Sources */,
 				63B381E61BFE16FF0049CE28 /* Frameworks */,
 				63B381E71BFE16FF0049CE28 /* Resources */,
-				73641F799D241BD284BDF974 /* Embed Pods Frameworks */,
-				A976DFA87A1FDF4F0A520847 /* Copy Pods Resources */,
+				73641F799D241BD284BDF974 /* 📦 Embed Pods Frameworks */,
+				A976DFA87A1FDF4F0A520847 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,14 +182,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36886DC1B4426F773093C6DF /* Check Pods Manifest.lock */ = {
+		36886DC1B4426F773093C6DF /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,14 +197,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		73641F799D241BD284BDF974 /* Embed Pods Frameworks */ = {
+		73641F799D241BD284BDF974 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,14 +212,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeltaDNA SmartAds iOS Example/Pods-DeltaDNA SmartAds iOS Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A976DFA87A1FDF4F0A520847 /* Copy Pods Resources */ = {
+		A976DFA87A1FDF4F0A520847 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

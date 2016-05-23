@@ -43,14 +43,14 @@
 @property (nonatomic, strong, readonly) NSDictionary *parameters;
 
 /**
- Creates and returns a @c DDNARewardedAd.
+ Creates and returns a @c DDNARewardedAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
 
  @param delegate The delegate to use with this @c DDNARewardedAd.
  */
 + (instancetype)rewardedAdWithDelegate:(id<DDNARewardedAdDelegate>)delegate;
 
 /**
- Creates and returns a @c DDNARewardedAd if the engagement doesn't disallow the ad for it's decision point, in which case nil is returned.
+ Creates and returns a @c DDNARewardedAd if the engagement doesn't disallow the ad for it's decision point, in which case nil is returned.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
 
  @param engagement The engagement returned from an engage request.
 
@@ -59,12 +59,12 @@
 + (instancetype)rewardedAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNARewardedAdDelegate>)delgate;
 
 /**
- Creates a @c DDNARewardedAd.
+ Creates a @c DDNARewardedAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
  */
 - (instancetype)init;
 
 /**
- Creates a @c DDNARewardedAd with an engagement.  If the engagement doesn't allow the ad for it's decision point nil is returned.
+ Creates a @c DDNARewardedAd with an engagement.  If the engagement doesn't allow the ad for it's decision point nil is returned.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
 
  @param engagement The engagement returned from an engage request.
  */

@@ -14,11 +14,23 @@
 // limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import "DDNAFakeSmartAdService.h"
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+@implementation DDNAFakeSmartAdService
+
+- (instancetype)init
+{
+    if ((self = [super init])) {
+        
     }
+    return self;
 }
+
+- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint
+{
+    [self.delegate didRegisterForInterstitialAds];
+    [self.delegate didRegisterForRewardedAds];
+}
+
+
+@end

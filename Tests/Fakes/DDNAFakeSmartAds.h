@@ -14,11 +14,11 @@
 // limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#include <DeltaDNAAds/SmartAds/DDNASmartAds.h>
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@interface DDNAFakeSmartAds : DDNASmartAds
+
+@property (nonatomic, assign) BOOL allowInterstitial;
+@property (nonatomic, assign) BOOL allowRewarded;
+
+@end

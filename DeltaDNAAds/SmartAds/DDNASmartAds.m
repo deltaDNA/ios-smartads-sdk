@@ -84,6 +84,20 @@
     }
 }
 
+- (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement
+{
+    @synchronized (self) {
+        if (!self.adService) return NO;
+        
+        if (engagement != nil && engagement.json != nil) {
+            return [self.adService isInterstitialAdAllowedForDecisionPoint:engagement.decisionPoint
+                                                      engagementParameters:engagement.json[@"parameters"]];
+        } else {
+            return [self.adService isInterstitialAdAllowed];
+        }
+    }
+}
+
 - (BOOL)isInterstitialAdAvailable
 {
     @synchronized(self) {
@@ -129,6 +143,21 @@
         }
     }
 }
+
+- (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement
+{
+    @synchronized (self) {
+        if (!self.adService) return NO;
+        
+        if (engagement != nil && engagement.json != nil) {
+            return [self.adService isRewardedAdAllowedForDecisionPoint:engagement.decisionPoint
+                                                  engagementParameters:engagement.json[@"parameters"]];
+        } else {
+            return [self.adService isRewardedAdAllowed];
+        }
+    }
+}
+
 
 - (BOOL)isRewardedAdAvailable
 {

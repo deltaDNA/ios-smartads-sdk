@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		6304587C1CAD7E3400875B71 /* DDNAInterstitialAdSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6304587B1CAD7E3400875B71 /* DDNAInterstitialAdSpec.m */; };
 		632D9EE01CBFDBCB00145331 /* DDNARewardedAdSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 632D9EDF1CBFDBCB00145331 /* DDNARewardedAdSpec.m */; };
+		63432CAB1CEB21F200C3C3AE /* DDNASmartAdsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63432CAA1CEB21F200C3C3AE /* DDNASmartAdsSpec.m */; };
 		6354E25C1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */; };
 		6354E25E1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25D1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m */; };
 		6354E2601C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354E25F1C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m */; };
+		6382D6051CEB359A00E2EC46 /* DDNAFakeSmartAdService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382D6041CEB359A00E2EC46 /* DDNAFakeSmartAdService.m */; };
+		6382D6081CEC5E1F00E2EC46 /* DDNAFakeSmartAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6382D6071CEC5E1F00E2EC46 /* DDNAFakeSmartAds.m */; };
 		63B382321BFE1A500049CE28 /* iOS_SmartAds_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */; };
 		63B382471BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B382391BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m */; };
 		63B382481BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B3823B1BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m */; };
@@ -34,9 +37,14 @@
 /* Begin PBXFileReference section */
 		6304587B1CAD7E3400875B71 /* DDNAInterstitialAdSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAInterstitialAdSpec.m; sourceTree = "<group>"; };
 		632D9EDF1CBFDBCB00145331 /* DDNARewardedAdSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNARewardedAdSpec.m; sourceTree = "<group>"; };
+		63432CAA1CEB21F200C3C3AE /* DDNASmartAdsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdsSpec.m; sourceTree = "<group>"; };
 		6354E25B1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DDNASmartAdChartboostAdapterSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6354E25D1C0DBF9100274E17 /* DDNASmartAdVungleAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DDNASmartAdVungleAdapterSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6354E25F1C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DDNASmartAdUnityAdsAdapterSpec.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6382D6031CEB359A00E2EC46 /* DDNAFakeSmartAdService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdService.h; sourceTree = "<group>"; };
+		6382D6041CEB359A00E2EC46 /* DDNAFakeSmartAdService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAdService.m; sourceTree = "<group>"; };
+		6382D6061CEC5E1F00E2EC46 /* DDNAFakeSmartAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAds.h; sourceTree = "<group>"; };
+		6382D6071CEC5E1F00E2EC46 /* DDNAFakeSmartAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAds.m; sourceTree = "<group>"; };
 		63B3822E1BFE1A500049CE28 /* iOS SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOS SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382311BFE1A500049CE28 /* iOS_SmartAds_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = iOS_SmartAds_Tests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		63B382331BFE1A500049CE28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,6 +122,10 @@
 				63B382391BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m */,
 				63B3823A1BFE1B770049CE28 /* DDNAFakeSmartAdFactory.h */,
 				63B3823B1BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m */,
+				6382D6031CEB359A00E2EC46 /* DDNAFakeSmartAdService.h */,
+				6382D6041CEB359A00E2EC46 /* DDNAFakeSmartAdService.m */,
+				6382D6061CEC5E1F00E2EC46 /* DDNAFakeSmartAds.h */,
+				6382D6071CEC5E1F00E2EC46 /* DDNAFakeSmartAds.m */,
 			);
 			path = Fakes;
 			sourceTree = "<group>";
@@ -137,6 +149,7 @@
 				63FC4E191C85C0D500F2444C /* DDNASmartAdWaterfallSpec.m */,
 				6304587B1CAD7E3400875B71 /* DDNAInterstitialAdSpec.m */,
 				632D9EDF1CBFDBCB00145331 /* DDNARewardedAdSpec.m */,
+				63432CAA1CEB21F200C3C3AE /* DDNASmartAdsSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -165,12 +178,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63B382361BFE1A500049CE28 /* Build configuration list for PBXNativeTarget "iOS SmartAds Tests" */;
 			buildPhases = (
-				3A59A2F7FF030EC25ADE919B /* Check Pods Manifest.lock */,
+				3A59A2F7FF030EC25ADE919B /* 📦 Check Pods Manifest.lock */,
 				63B3822A1BFE1A500049CE28 /* Sources */,
 				63B3822B1BFE1A500049CE28 /* Frameworks */,
 				63B3822C1BFE1A500049CE28 /* Resources */,
-				1849BD77AB8F9A0F99648A45 /* Embed Pods Frameworks */,
-				6EA520765906E498D69B6BB4 /* Copy Pods Resources */,
+				1849BD77AB8F9A0F99648A45 /* 📦 Embed Pods Frameworks */,
+				6EA520765906E498D69B6BB4 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -223,14 +236,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1849BD77AB8F9A0F99648A45 /* Embed Pods Frameworks */ = {
+		1849BD77AB8F9A0F99648A45 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,14 +251,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS SmartAds Tests/Pods-iOS SmartAds Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3A59A2F7FF030EC25ADE919B /* Check Pods Manifest.lock */ = {
+		3A59A2F7FF030EC25ADE919B /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,14 +266,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6EA520765906E498D69B6BB4 /* Copy Pods Resources */ = {
+		6EA520765906E498D69B6BB4 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,7 +292,9 @@
 				63B382851BFE2F450049CE28 /* DDNASmartAdFakeAdapter.m in Sources */,
 				63CB9F2B1C08776600A6EA24 /* DDNASmartAdAdColonyAdapterSpec.m in Sources */,
 				6354E2601C0DDD7A00274E17 /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
+				63432CAB1CEB21F200C3C3AE /* DDNASmartAdsSpec.m in Sources */,
 				6304587C1CAD7E3400875B71 /* DDNAInterstitialAdSpec.m in Sources */,
+				6382D6051CEB359A00E2EC46 /* DDNAFakeSmartAdService.m in Sources */,
 				63B3824C1BFE1B770049CE28 /* DDNASmartAdAmazonAdapterSpec.m in Sources */,
 				63B382501BFE1B770049CE28 /* DDNASmartAdMobFoxAdapterSpec.m in Sources */,
 				63B382471BFE1B770049CE28 /* DDNAFakeSmartAdAgent.m in Sources */,
@@ -287,6 +302,7 @@
 				63B3824A1BFE1B770049CE28 /* DDNASmartAdAdMobAdapterSpec.m in Sources */,
 				63B382511BFE1B770049CE28 /* DDNASmartAdMoPubAdapterSpec.m in Sources */,
 				6354E25C1C0CA58800274E17 /* DDNASmartAdChartboostAdapterSpec.m in Sources */,
+				6382D6081CEC5E1F00E2EC46 /* DDNAFakeSmartAds.m in Sources */,
 				63B3824E1BFE1B770049CE28 /* DDNASmartAdFlurryAdapterSpec.m in Sources */,
 				63B382481BFE1B770049CE28 /* DDNAFakeSmartAdFactory.m in Sources */,
 				63FC4E1A1C85C0D500F2444C /* DDNASmartAdWaterfallSpec.m in Sources */,

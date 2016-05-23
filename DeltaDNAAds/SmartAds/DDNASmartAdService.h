@@ -29,6 +29,10 @@
 
 - (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint;
 
+- (BOOL)isInterstitialAdAllowed;
+
+- (BOOL)isInterstitialAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters;
+
 - (BOOL)isInterstitialAdAvailable;
 
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
@@ -36,6 +40,10 @@
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
 
 - (BOOL)isShowingInterstitialAd;
+
+- (BOOL)isRewardedAdAllowed;
+
+- (BOOL)isRewardedAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters;
 
 - (BOOL)isRewardedAdAvailable;
 

@@ -14,11 +14,12 @@
 // limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import <DeltaDNA/DeltaDNA.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdService.h>
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
-}
+@interface DDNAFakeSmartAdService : DDNASmartAdService
+
+@property (nonatomic, assign) NSInteger maxAdsPerSession;
+@property (nonatomic, assign) NSInteger adMinimumInterval;
+
+@end

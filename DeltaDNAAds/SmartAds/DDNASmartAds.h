@@ -15,10 +15,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol DDNASmartAdsRegistrationDelegate;
 @protocol DDNASmartAdsInterstitialDelegate;
 @protocol DDNASmartAdsRewardedDelegate;
+
+@class DDNAEngagement;
 
 /**
  @c DDNASmartAds provides a service for fetching and showing ads.  It supports showing interstitial and rewarded ad types.
@@ -57,9 +60,17 @@
 - (void)registerForAds;
 
 /**
- Reports if an interstitial ad is available to display.
+ Checks if an interstitial ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the engagement if just checking session and time limits.
  
- @return If an interstitial ad is available.
+ @param If an interstitial ad is allowed to be shown.
+ */
+
+- (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement;
+
+/**
+ Reports if an interstitial ad has loaded and is available to display.
+ 
+ @return If an interstitial ad is ready to display.
  */
 - (BOOL)isInterstitialAdAvailable;
 
@@ -80,9 +91,17 @@
 - (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint DEPRECATED_ATTRIBUTE;
 
 /**
- Reports if a rewarded ad is available to display.
+ Checks if a rewarded ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the Engagement if just checking for session and time limits.
  
- @return If a rewarded ad is available.
+ @param If a rewarded ad is allowed to be shown.
+ */
+
+- (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement;
+
+/**
+ Reports if a rewarded ad has loaded and is available to display.
+ 
+ @return If a rewarded ad is ready to display.
  */
 - (BOOL)isRewardedAdAvailable;
 

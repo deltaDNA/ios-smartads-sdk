@@ -1,9 +1,17 @@
 //
-//  DDNASmartAdServiceSpec.m
-//  SmartAds
+// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
 //
-//  Created by David White on 23/10/2015.
-//  Copyright © 2015 deltadna. All rights reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 #import <Specta/Specta.h>
@@ -288,19 +296,6 @@ describe(@"interstitial ads", ^{
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verifyCount(mockDelegate, times(1)) didOpenInterstitialAd];
         
-        
-        NSDictionary *adShowParams = @{
-            @"adProvider": @"DUMMY",
-            @"adProviderVersion": @"1.0.0",
-            @"adType": @"INTERSTITIAL",
-            @"adStatus": @"Fulfilled",
-            @"adSdkVersion": [DDNASmartAds sdkVersion]
-        };
-        
-        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
-        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
-        
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingInterstitialAd]).to.beFalsy();
@@ -351,20 +346,7 @@ describe(@"interstitial ads", ^{
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
-        
-        NSDictionary *adShowParams = @{
-            @"adProvider": @"DUMMY",
-            @"adProviderVersion": @"1.0.0",
-            @"adType": @"INTERSTITIAL",
-            @"adStatus": @"Fulfilled",
-            @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testDecisionPoint"
-        };
 
-        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
-        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
-        
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingInterstitialAd]).to.beFalsy();
@@ -585,19 +567,6 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verifyCount(mockDelegate, times(1)) didOpenRewardedAd];
         
-        
-        NSDictionary *adShowParams = @{
-            @"adProvider": @"DUMMY",
-            @"adProviderVersion": @"1.0.0",
-            @"adType": @"REWARDED",
-            @"adStatus": @"Fulfilled",
-            @"adSdkVersion": [DDNASmartAds sdkVersion]
-        };
-        
-        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
-        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
-        
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingRewardedAd]).to.beFalsy();
@@ -649,19 +618,6 @@ describe(@"rewarded ads", ^{
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
-        NSDictionary *adShowParams = @{
-            @"adProvider": @"DUMMY",
-            @"adProviderVersion": @"1.0.0",
-            @"adType": @"REWARDED",
-            @"adStatus": @"Fulfilled",
-            @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testDecisionPoint"
-        };
-
-        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
-        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
-        
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isShowingRewardedAd]).to.beFalsy();
@@ -707,19 +663,6 @@ describe(@"rewarded ads", ^{
         expect([adService isShowingRewardedAd]).to.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
-        
-        NSDictionary *adShowParams = @{
-            @"adProvider": @"DUMMY",
-            @"adProviderVersion": @"1.0.0",
-            @"adType": @"REWARDED",
-            @"adStatus": @"Fulfilled",
-            @"adSdkVersion": [DDNASmartAds sdkVersion],
-            @"adPoint": @"testDecisionPoint"
-        };
-        
-        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
-        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAdWithReward:NO];
         
@@ -883,7 +826,7 @@ describe(@"respects minimum ad interval", ^{
                     }
                 ],
                 @"adMaxPerSession": @3,
-                @"adMinimumInterval": @200
+                @"adMinimumInterval": @2
             }
         };
         
@@ -933,7 +876,7 @@ describe(@"respects minimum ad interval", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
-        [NSThread sleepForTimeInterval:0.2f];
+        [NSThread sleepForTimeInterval:3.0f];
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).to.beTruthy();
@@ -943,7 +886,7 @@ describe(@"respects minimum ad interval", ^{
     
 });
 
-describe(@"respects minimum ad interval", ^{
+describe(@"respects adRequest flag", ^{
     
     __block DDNASmartAdService *adService;
     __block id<DDNASmartAdServiceDelegate> mockDelegate;
@@ -1007,5 +950,696 @@ describe(@"respects minimum ad interval", ^{
     });
     
 });
+
+describe(@"allowed to show interstitial", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        response = @{
+            @"parameters": @{
+                @"adShowSession": @YES,
+                @"adProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @2,
+                @"adMinimumInterval": @0,
+                @"adRecordAdRequests": @NO
+            }
+        };
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+    });
+    
+    it(@"doesn't allow interstitial if engagement disables", ^{
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        expect([adService isInterstitialAdAllowedForDecisionPoint:@"testDecisionPoint" engagementParameters:@{@"adShowPoint": @NO}]).to.beFalsy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adStatus": @"adShowPoint was false",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testDecisionPoint"
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+    });
+    
+    it(@"doesn't allow interstitial if shown more than max for session", ^{
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        expect([adService isInterstitialAdAllowed]).to.beTruthy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(1)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        expect([adService isInterstitialAdAllowed]).to.beTruthy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        expect([adService isInterstitialAdAllowed]).to.beFalsy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"INTERSTITIAL",
+            @"adStatus": @"Session limit reached",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+    });
+});
+
+describe(@"allowed to show interstitial minimal time", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        response = @{
+                     @"parameters": @{
+                             @"adShowSession": @YES,
+                             @"adProviders": @[
+                                     @{
+                                         @"adProvider": @"ADMOB",
+                                         @"adUnitId": @"test-ad-unit-id",
+                                         @"eCPM": @100
+                                         },
+                                     @{
+                                         @"adProvider": @"AMAZON",
+                                         @"appKey": @"test-app-key",
+                                         @"eCPM": @200
+                                         }
+                                     ],
+                             @"adMaxPerSession": @2,
+                             @"adMinimumInterval": @2,
+                             @"adRecordAdRequests": @NO
+                             }
+                     };
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+    });
+    
+    it(@"doesn't allow interstitial if shown quicker than minimum time", ^{
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        expect([adService isInterstitialAdAllowed]).to.beTruthy();
+        
+        NSDictionary *adShowParams = @{
+                                       @"adProvider": @"DUMMY",
+                                       @"adProviderVersion": @"1.0.0",
+                                       @"adType": @"INTERSTITIAL",
+                                       @"adStatus": @"Fulfilled",
+                                       @"adSdkVersion": [DDNASmartAds sdkVersion]
+                                       };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(1)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showInterstitialAdFromRootViewController:mockViewController];
+        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isInterstitialAdAllowed]).after(1.5).to.beFalsy();
+        
+        adShowParams = @{
+                         @"adProvider": @"DUMMY",
+                         @"adProviderVersion": @"1.0.0",
+                         @"adType": @"INTERSTITIAL",
+                         @"adStatus": @"adMinimumInterval not elapsed",
+                         @"adSdkVersion": [DDNASmartAds sdkVersion]
+                         };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        
+        [NSThread sleepForTimeInterval:3.0f];
+        
+        expect([adService isInterstitialAdAllowed]).to.beTruthy();
+        
+        adShowParams = @{
+                         @"adProvider": @"DUMMY",
+                         @"adProviderVersion": @"1.0.0",
+                         @"adType": @"INTERSTITIAL",
+                         @"adStatus": @"Fulfilled",
+                         @"adSdkVersion": [DDNASmartAds sdkVersion]
+                         };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+    });
+});
+
+
+describe(@"allowed to show rewarded", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        response = @{
+            @"parameters": @{
+                @"adShowSession": @YES,
+                @"adRewardedProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @2,
+                @"adMinimumInterval": @0,
+                @"adRecordAdRequests": @NO
+            }
+        };
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+    });
+
+    
+    it(@"doesn't allow rewarded if engagement disables", ^{
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowedForDecisionPoint:@"testDecisionPoint" engagementParameters:@{@"adShowPoint": @NO}]).to.beFalsy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"adShowPoint was false",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testDecisionPoint"
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        NSLog(@"%@", adShowArg.value);
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+    });
+    
+    it(@"doesn't allow rewarded if shown more than max for session", ^{
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(1)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showRewardedAdFromRootViewController:mockViewController];
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showRewardedAdFromRootViewController:mockViewController];
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).to.beFalsy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Session limit reached",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+    });
+    
+});
+
+describe(@"allowed to show rewarded minimal time", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        response = @{
+            @"parameters": @{
+                @"adShowSession": @YES,
+                @"adRewardedProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @2,
+                @"adMinimumInterval": @2,
+                @"adRecordAdRequests": @NO
+            }
+        };
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+    });
+    
+    it(@"doesn't allow rewarded if shown quicker than minimum time", ^{
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(1)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [adService showRewardedAdFromRootViewController:mockViewController];
+        expect([adService isShowingRewardedAd]).to.beTruthy();
+        [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).after(1.5).to.beFalsy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"adMinimumInterval not elapsed",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        [NSThread sleepForTimeInterval:3.0f];
+        
+        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        
+        adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+    });
+    
+});
+
+describe(@"respects adShowPoint and adShowSession for a session", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+        
+    });
+    
+    it(@"doesn't allow engagements if adShowPoint is false", ^{
+        
+        response = @{
+            @"parameters": @{
+                @"adShowSession": @YES,
+                @"adShowPoint": @NO,
+                @"adRewardedProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @2,
+                @"adMinimumInterval": @2,
+                @"adRecordAdRequests": @NO
+            }
+        };
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        
+        expect([adService isRewardedAdAllowedForDecisionPoint:@"testDecisionPoint" engagementParameters:@{}]).to.beFalsy();
+        
+        NSDictionary *adShowParams = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"adShowPoint was false",
+            @"adSdkVersion": [DDNASmartAds sdkVersion],
+            @"adPoint": @"testDecisionPoint"
+        };
+        
+        HCArgumentCaptor *adShowArg = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(1)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+        
+        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        
+        NSDictionary *adShowParams2 = @{
+            @"adProvider": @"DUMMY",
+            @"adProviderVersion": @"1.0.0",
+            @"adType": @"REWARDED",
+            @"adStatus": @"Fulfilled",
+            @"adSdkVersion": [DDNASmartAds sdkVersion]
+        };
+        
+        HCArgumentCaptor *adShowArg2 = [[HCArgumentCaptor alloc] init];
+        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg2];
+        expect([adShowArg2.value isEqualToDictionary:adShowParams2]).to.beTruthy();
+        
+    });
+    
+    it(@"doesn't allow adShowSession is false", ^{
+        
+        response = @{
+            @"parameters": @{
+                @"adShowSession": @NO,
+                @"adShowPoint": @YES,
+                @"adRewardedProviders": @[
+                    @{
+                        @"adProvider": @"ADMOB",
+                        @"adUnitId": @"test-ad-unit-id",
+                        @"eCPM": @100
+                    },
+                    @{
+                        @"adProvider": @"AMAZON",
+                        @"appKey": @"test-app-key",
+                        @"eCPM": @200
+                    }
+                ],
+                @"adMaxPerSession": @2,
+                @"adMinimumInterval": @2,
+                @"adRecordAdRequests": @NO
+            }
+        };
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+        // The session won't have started, so no ads are being fetched.  We don't log anything in that case.
+        
+        expect([adService isRewardedAdAvailable]).will.beFalsy();
+        
+        expect([adService isRewardedAdAllowedForDecisionPoint:@"testDecisionPoint" engagementParameters:@{}]).to.beFalsy();
+
+        [verifyCount(mockDelegate, never()) recordEventWithName:@"adShow" parameters:anything()];
+        
+        expect([adService isRewardedAdAllowed]).to.beFalsy();
+        
+        [verifyCount(mockDelegate, never()) recordEventWithName:@"adShow" parameters:anything()];
+        
+    });
+
+});
+
+describe(@"respect null session and time limits", ^{
+    
+    __block DDNASmartAdService *adService;
+    __block id<DDNASmartAdServiceDelegate> mockDelegate;
+    __block DDNAFakeSmartAdFactory *fakeFactory;
+    __block UIViewController *mockViewController;
+    __block NSDictionary *response;
+    
+    beforeEach(^{
+        
+        mockDelegate = mockProtocol(@protocol(DDNASmartAdServiceDelegate));
+        adService = [[DDNASmartAdService alloc] init];
+        adService.delegate = mockDelegate;
+        
+        fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
+        adService.factory = fakeFactory;
+        
+        response = @{
+                     @"parameters": @{
+                             @"adShowSession": @YES,
+                             @"adProviders": @[
+                                     @{
+                                         @"adProvider": @"ADMOB",
+                                         @"adUnitId": @"test-ad-unit-id",
+                                         @"eCPM": @100
+                                         },
+                                     @{
+                                         @"adProvider": @"AMAZON",
+                                         @"appKey": @"test-app-key",
+                                         @"eCPM": @200
+                                         }
+                                     ]
+                             }
+                     };
+        
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        
+        mockViewController = mock([UIViewController class]);
+    });
+    
+    it(@"doesn't stop showing ads when no session limit", ^{
+        
+        [adService beginSessionWithDecisionPoint:@"advertising"];
+        
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        
+        for (int i = 0; i < 100; ++i) {
+        
+            expect([adService isInterstitialAdAvailable]).will.beTruthy();
+            [adService showInterstitialAdFromRootViewController:mockViewController];
+            expect([adService isShowingInterstitialAd]).to.beTruthy();
+            [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
+        }
+        
+        // session limit should never be reached
+        [verifyCount(mockDelegate, times(100)) didOpenInterstitialAd];
+        
+    });
+    
+});
+
 
 SpecEnd

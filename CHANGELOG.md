@@ -1,5 +1,15 @@
 # Change Log
 
+## [Unreleased]() ()
+### Added
+- An `-isInterstitialAdAllowed:` and `-isRewardedAdAllowed:` methods let you test if you will be allowed to show the ad.  These calls take the session limit and time limits into accout, as well as an optional Engagement response.  They also test if an ad has loaded, so if YES is allowed you can call `-showInterstitialAdFromRootViewController:` and an ad will open, similarily for the rewarded methods.
+
+### Changed
+- `-showInterstitialAdFromRootViewController:` no longer posts the `adShow` events, they are handled by `-isInterstitialAdAllowed:` and the same for the rewarded methods.
+
+### Fixed
+- The minimal time interval between ads is now respected.
+
 ## [1.1.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.1.0) (2016-04-29)
 ### Added
 - `DDNAInterstitialAd` and `DDNARewardedAd` classes, which replace calling the `DDNASmartAds` class directly.  The idea is to decouple the call to Engage which currently takes place when you call `-showAdWithDecisionPoint:` from the `DDNASmartAds` object.  The caller attempts to construct an ad object from `DDNAEngagement`, so can test if Engage is allowing an ad for this player and handle the display appropriately.

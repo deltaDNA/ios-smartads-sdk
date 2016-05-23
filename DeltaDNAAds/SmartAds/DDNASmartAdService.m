@@ -35,8 +35,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 @property (nonatomic, strong) NSDictionary *adConfiguration;
 @property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
 @property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
-@property (nonatomic, assign) NSInteger maxAdsPerSession;
-@property (nonatomic, assign) NSInteger adMinimumIntervalMs;
+@property (nonatomic, strong) NSNumber *maxAdsPerSession;
+@property (nonatomic, assign) NSInteger adMinimumInterval;
 @property (nonatomic, assign) BOOL recordAdRequests;
 @property (nonatomic, assign) BOOL requestDecisionPoints;
 @property (nonatomic, strong) dispatch_queue_t dispatchQueue;
@@ -92,8 +92,8 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
                 return;
             }
 
-            self.maxAdsPerSession = [self.adConfiguration[@"adMaxPerSession"] integerValue];
-            self.adMinimumIntervalMs = [self.adConfiguration[@"adMinimumInterval"] integerValue];
+            self.maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
+            self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
             self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
             self.requestDecisionPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
 
@@ -141,6 +141,16 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
     }];
 }
 
+- (BOOL)isInterstitialAdAllowed
+{
+    return [self isAdAllowedForAdAgent:self.interstitialAgent decisionPoint:nil engagementParameters:nil];
+}
+
+- (BOOL)isInterstitialAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters
+{
+    return [self isAdAllowedForAdAgent:self.interstitialAgent decisionPoint:decisionPoint engagementParameters:engagementParameters];
+}
+
 - (BOOL)isInterstitialAdAvailable
 {
     return self.interstitialAgent && self.interstitialAgent.hasLoadedAd;
@@ -168,6 +178,17 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 {
     return self.interstitialAgent && self.interstitialAgent.isShowingAd;
 }
+
+- (BOOL)isRewardedAdAllowed
+{
+    return [self isAdAllowedForAdAgent:self.rewardedAgent decisionPoint:nil engagementParameters:nil];
+}
+
+- (BOOL)isRewardedAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters
+{
+    return [self isAdAllowedForAdAgent:self.rewardedAgent decisionPoint:decisionPoint engagementParameters:engagementParameters];
+}
+
 
 - (BOOL)isRewardedAdAvailable
 {
@@ -280,44 +301,79 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 
 #pragma mark - Private
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController adAgent:(DDNASmartAdAgent *)adAgent
+- (BOOL)isAdAllowedForAdAgent:(DDNASmartAdAgent *)adAgent decisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters
 {
-    if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] * 1000 < self.adMinimumIntervalMs) {
-        DDNALogDebug(@"showAd called before minimum interval %ld ms between ads elasped", (long)self.adMinimumIntervalMs);
+    if (adAgent == nil) {
+        DDNALogDebug(@"Ads disabled for this session");
+        return NO;
+    }
+    
+    if (![NSString stringIsNilOrEmpty:decisionPoint]) {
+        adAgent.decisionPoint = decisionPoint;
+    } else {
+        adAgent.decisionPoint = nil;
+    }
+    
+    if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] < self.adMinimumInterval) {
+        DDNALogDebug(@"showAd called before minimum interval %ld seconds between ads elasped", (long)self.adMinimumInterval);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
-
-        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Too soon"];
-        return;
+        return NO;
     }
-
-    if (adAgent.adsShown >= self.maxAdsPerSession) {
+    
+    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
         DDNALogDebug(@"Max ad per session count of %ld reached", (long)self.maxAdsPerSession);
-        [self postAdShowEvent:self.interstitialAgent
-                      adapter:self.interstitialAgent.currentAdapter
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
-
-        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Session limit reached"];
-        return;
+        return NO;
     }
-
+    
+    if ((adAgent.decisionPoint && !self.requestDecisionPoints) ||
+        (engagementParameters != nil && engagementParameters[@"adShowPoint"] != nil && ![engagementParameters[@"adShowPoint"] boolValue])) {
+        
+        DDNALogDebug(@"Engage prevented ad from opening at %@", decisionPoint);
+        [self postAdShowEvent:adAgent
+                      adapter:adAgent.currentAdapter
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
+        return NO;
+    }
+    
     if (!adAgent.hasLoadedAd) {
         DDNALogDebug(@"No ad available");
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
+        return NO;
+    }
+    
+    DDNALogDebug(@"Ad fulfilled");
+    [self postAdShowEvent:adAgent
+                  adapter:adAgent.currentAdapter
+                   result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
+    
+    return YES;
+}
 
+- (void)showAdFromRootViewController:(UIViewController *)viewController adAgent:(DDNASmartAdAgent *)adAgent
+{
+    if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] < self.adMinimumInterval) {
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Too soon"];
+        return;
+    }
+
+    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
+        [self didFailToOpenAdWithAdAgent:adAgent reason:@"Session limit reached"];
+        return;
+    }
+
+    if (!adAgent.hasLoadedAd) {
         [self didFailToOpenAdWithAdAgent:adAgent reason:@"Not ready"];
         return;
     }
 
     if (!adAgent.decisionPoint) {
-        // show ad immediately
-        [self postAdShowEvent:adAgent
-                      adapter:adAgent.currentAdapter
-                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
-
         [adAgent showAdFromRootViewController:viewController decisionPoint:nil];
     }
     else if (self.requestDecisionPoints) {
@@ -328,31 +384,14 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
                                         completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError) {
 
             if (connectionError != nil || statusCode >= 400) {
-                // Couldn't get a response from Engage, show ad anyway
-                // TODO - maybe change the default timeout so this is faster?
-                DDNALogDebug(@"Engage request failed: %@: showing ad anyway at %@", response, adAgent.decisionPoint);
-                [self postAdShowEvent:adAgent
-                              adapter:adAgent.currentAdapter
-                               result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
-
                 [adAgent showAdFromRootViewController:viewController decisionPoint:adAgent.decisionPoint];
             }
             else {
                 NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response][@"parameters"];
                 if (!responseDict[@"adShowPoint"] || [responseDict[@"adShowPoint"] boolValue]) {
-                    DDNALogDebug(@"Engage allowing ad at %@", adAgent.decisionPoint);
-                    [self postAdShowEvent:adAgent
-                                  adapter:adAgent.currentAdapter
-                                   result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
-
                     [adAgent showAdFromRootViewController:viewController decisionPoint:adAgent.decisionPoint];
                 }
                 else {
-                    DDNALogDebug(@"Engage prevented ad from opening at %@", adAgent.decisionPoint);
-                    [self postAdShowEvent:adAgent
-                                  adapter:adAgent.currentAdapter
-                                   result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
-
                     [self didFailToOpenAdWithAdAgent:adAgent reason:@"Engage disallowed the ad"];
                 }
             }
@@ -360,11 +399,6 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
         }];
     }
     else {
-        // ad points explicitly disabled
-        [self postAdShowEvent:adAgent
-                      adapter:adAgent.currentAdapter
-                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
-
         [self didFailToOpenAdWithAdAgent:adAgent reason:@"Engage disallowed all ads for this session"];
     }
 }
