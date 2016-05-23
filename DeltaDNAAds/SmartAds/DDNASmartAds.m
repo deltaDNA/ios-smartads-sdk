@@ -61,7 +61,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.1.0";
+    return @"SmartAds v1.2.0";
 }
 
 - (void)registerForAds
@@ -88,7 +88,7 @@
 {
     @synchronized (self) {
         if (!self.adService) return NO;
-        
+
         if (engagement != nil && engagement.json != nil) {
             return [self.adService isInterstitialAdAllowedForDecisionPoint:engagement.decisionPoint
                                                       engagementParameters:engagement.json[@"parameters"]];
@@ -148,7 +148,7 @@
 {
     @synchronized (self) {
         if (!self.adService) return NO;
-        
+
         if (engagement != nil && engagement.json != nil) {
             return [self.adService isRewardedAdAllowedForDecisionPoint:engagement.decisionPoint
                                                   engagementParameters:engagement.json[@"parameters"]];
