@@ -29,6 +29,7 @@
 - (IBAction)showRewardedAd:(id)sender;
 - (IBAction)showRewardedAdWithDecisionPoint:(id)sender;
 - (IBAction)showRewardedAdOrImageMessage:(id)sender;
+- (IBAction)newSession:(id)sender;
 
 @end
 

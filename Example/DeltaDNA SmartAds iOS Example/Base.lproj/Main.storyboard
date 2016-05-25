@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -73,9 +73,16 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zef-VW-GZI">
                                 <rect key="frame" x="271" y="472" width="58" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km9-bm-gSq">
+                                <rect key="frame" x="256" y="529" width="88" height="30"/>
+                                <state key="normal" title="New Session"/>
+                                <connections>
+                                    <action selector="newSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXR-fJ-nUK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -87,12 +94,14 @@
                             <constraint firstItem="Zef-VW-GZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U4A-gb-Paj"/>
                             <constraint firstItem="E0d-ho-KDs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VgU-pf-R38"/>
                             <constraint firstItem="BBG-To-rMD" firstAttribute="top" secondItem="LNV-He-Fbo" secondAttribute="bottom" constant="8.5" id="Vkr-rh-d8X"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XO6-6m-gkf"/>
                             <constraint firstItem="XlC-x0-J9a" firstAttribute="top" secondItem="fMi-Vc-Zqq" secondAttribute="bottom" constant="68" id="bMR-if-wSH"/>
                             <constraint firstItem="LNV-He-Fbo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eNh-it-05M"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gX9-Ld-rWP"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="top" secondItem="BBG-To-rMD" secondAttribute="bottom" constant="8" id="hSQ-4B-yg0"/>
                             <constraint firstItem="XlC-x0-J9a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qVJ-U8-5S9"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="Zef-VW-GZI" secondAttribute="bottom" constant="36" id="tCr-zs-WS3"/>
                             <constraint firstItem="E0d-ho-KDs" firstAttribute="top" secondItem="8P8-1s-NMq" secondAttribute="bottom" constant="8" id="uVH-Jg-cCW"/>
                             <constraint firstItem="Zef-VW-GZI" firstAttribute="top" secondItem="XlC-x0-J9a" secondAttribute="bottom" constant="8" id="y7B-0V-S6r"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yOn-IV-aX7"/>

@@ -139,6 +139,11 @@
     }];
 }
 
+- (IBAction)newSession:(id)sender
+{
+    [[DDNASDK sharedInstance] newSession];
+}
+
 
 #pragma mark - DDNASmartAdsRegistrationDelegate
 

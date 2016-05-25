@@ -59,6 +59,11 @@
     return _sharedObject;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 + (NSString *)sdkVersion
 {
     return @"SmartAds v1.2.0";
@@ -68,6 +73,11 @@
 {
     @synchronized(self) {
         @try{
+            if (!self.adService) {
+                [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAds) name:@"DDNASDKNewSession" object:nil];
+            }
+            
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
             [self.adService beginSessionWithDecisionPoint:@"advertising"];
         }

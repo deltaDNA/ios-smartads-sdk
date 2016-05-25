@@ -323,7 +323,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
     }
     
     if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
-        DDNALogDebug(@"Max ad per session count of %ld reached", (long)self.maxAdsPerSession);
+        DDNALogDebug(@"Max ad per session count of %ld reached", (long)[self.maxAdsPerSession integerValue]);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
