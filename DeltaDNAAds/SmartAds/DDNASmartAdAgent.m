@@ -133,7 +133,6 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     if (adapter == self.currentAdapter) {
         self.state = DDNASmartAdAgentStateShowing;
         self.adsShown += 1;
-        self.lastAdShownTime = [NSDate date];
         [self.delegate adAgent:self didOpenAdWithAdapter:adapter];
     }
 }
@@ -164,6 +163,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
     if (adapter == self.currentAdapter) {
+        self.lastAdShownTime = [NSDate date];
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
         self.state = DDNASmartAdAgentStateReady;
         [self getNextAdapterAndReset:YES];
