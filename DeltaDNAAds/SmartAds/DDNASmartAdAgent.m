@@ -142,7 +142,14 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     if (adapter == self.currentAdapter) {
         [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
         self.state = DDNASmartAdAgentStateReady;
-        [self requestNextAdWithDelaySeconds:0];
+        // remove adapter from waterfall since we can't trust it
+        [self.waterfall removeAdapter:self.currentAdapter];
+        [self getNextAdapterAndReset:YES];
+        if (self.currentAdapter) {
+            [self requestNextAdWithDelaySeconds:0];
+        } else {
+            DDNALogWarn(@"No more ad networks available for ads.");
+        }
     }
 }
 

@@ -150,7 +150,8 @@ describe(@"ad agent", ^{
     it(@"reports when an ad fails to open", ^{
        
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO failOpen:YES]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO failOpen:YES],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -161,13 +162,17 @@ describe(@"ad agent", ^{
 
         expect([agent hasLoadedAd]).will.beTruthy();
         
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
+        
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
 
+        // adapter should have been removed from waterfall.
+        expect(waterfall.getAdapters.count).to.equal(1);
         expect([agent isShowingAd]).will.beFalsy();
         expect([agent hasLoadedAd]).will.beTruthy();
-        expect(agent.currentAdapter).to.equal(adapters[0]);
+        expect(agent.currentAdapter).to.equal(adapters[1]);
         
-        [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
         [verifyCount(delegate, times(1)) adAgent:agent didFailToOpenAdWithAdapter:adapters[0] closedResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
     });
     
