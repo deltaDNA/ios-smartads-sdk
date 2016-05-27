@@ -26,10 +26,10 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'GoogleMobileAds', '~>7.6'
+        ss.dependency 'GoogleMobileAds', '~>7.8'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
-        ss.frameworks = 'AdSupport'
+        ss.frameworks = ['AdSupport','EventKit','EventKitUI','SafariServices','CoreBluetooth']
     end
 
     s.subspec 'Amazon' do |ss|
@@ -93,6 +93,7 @@ Pod::Spec.new do |s|
         ss.dependency 'UnityAds', '~>1.5'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
+        ss.frameworks = ['AdSupport','AVFoundation','CFNetwork','CoreFoundation','CoreMedia','CoreTelephony','StoreKit','SystemConfiguration']
     end
 
 end
