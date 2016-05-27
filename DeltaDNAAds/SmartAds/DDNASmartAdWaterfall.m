@@ -92,7 +92,9 @@
     
     if (requestCode == DDNASmartAdRequestResultCodeLoaded) {
         adapter.requestCount++;
-        if (self.maxRequests > 0 && adapter.requestCount >= self.maxRequests) {
+        if ((self.demoteOptions & DDNASmartAdRequestResultCodeMaxRequests) == DDNASmartAdRequestResultCodeMaxRequests &&
+            self.maxRequests > 0 &&
+            adapter.requestCount >= self.maxRequests) {
             adapter.score--;
         }
     }

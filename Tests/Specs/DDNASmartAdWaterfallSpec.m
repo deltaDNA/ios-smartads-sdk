@@ -152,7 +152,7 @@ describe(@"Waterfall", ^{
                               [[DDNASmartAdFakeAdapter alloc] initWithName:@"E" failRequest:NO]
                               ];
         
-        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:2];
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0b1000 maxRequests:2];
         
         DDNASmartAdAdapter *currentAdapter = [waterfall resetWaterfall];
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
