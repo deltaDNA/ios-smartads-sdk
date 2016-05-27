@@ -349,6 +349,7 @@
 			baseConfigurationReference = ED47E44D92E71D211F0329F6 /* Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
@@ -361,6 +362,7 @@
 			baseConfigurationReference = F7F3F11332F4BBC6D8EC4BE8 /* Pods-DeltaDNA SmartAds iOS Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
