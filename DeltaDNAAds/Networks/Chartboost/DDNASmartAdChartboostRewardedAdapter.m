@@ -35,7 +35,7 @@
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"CHARTBOOST" version:@"6.1+" eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"CHARTBOOST" version:[[DDNASmartAdChartboostHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdChartboostHelper sharedInstance] setRewardedDelegate:self];
         self.appId = appId;
         self.appSignature = appSignature;

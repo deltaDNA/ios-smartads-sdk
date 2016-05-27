@@ -27,6 +27,8 @@
 
 + (instancetype)sharedInstance;
 
+- (NSString *)getSDKVersion;
+
 - (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature;
 
 - (void)cacheInterstitial:(CBLocation)location;

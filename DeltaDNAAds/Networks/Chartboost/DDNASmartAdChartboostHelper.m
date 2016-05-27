@@ -39,6 +39,11 @@
     return _sharedObject;
 }
 
+- (NSString *)getSDKVersion
+{
+    return [Chartboost getSDKVersion];
+}
+
 - (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature
 {
     @synchronized(self) {
