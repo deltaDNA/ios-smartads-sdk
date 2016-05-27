@@ -174,6 +174,22 @@ describe(@"Waterfall", ^{
         
     });
     
+    it(@"removes the last adapter", ^{
+        
+        NSArray *adapters = @[[[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]];
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:DDNASmartAdRequestResultCodeNoFill | DDNASmartAdRequestResultCodeTimeout maxRequests:0];
+        
+        expect(waterfall.getAdapters).to.equal(@[adapters[0]]);
+        expect(((DDNASmartAdAdapter *)adapters[0]).waterfallIndex).to.equal(0);
+        
+        [waterfall removeAdapter:adapters[0]];
+        expect([waterfall getNextAdapter]).to.beNil();
+        [waterfall resetWaterfall];
+        expect([waterfall getNextAdapter]).to.beNil();
+    });
+
+    
 });
 
 SpecEnd
