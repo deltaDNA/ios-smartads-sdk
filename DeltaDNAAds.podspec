@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>5.2'
+        ss.dependency 'InMobiSDK', '~>5.3'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Chartboost' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'ChartboostSDK', '~>6.1'
+        ss.dependency 'ChartboostSDK', '~>6.4'
         ss.source_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.h'
     end
