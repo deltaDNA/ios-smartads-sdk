@@ -18,7 +18,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 
 platform :ios, '7.0'
 
-pod 'DeltaDNAAds', '~> 1.1'
+pod 'DeltaDNAAds', '~> 1.2'
 ```
 
 The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your Podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.  
