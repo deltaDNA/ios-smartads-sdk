@@ -59,11 +59,24 @@
 
 - (IBAction)showInterstitialAdWithDecisionPoint:(id)sender
 {
-    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testDecisionPoint"];
-    self.interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:engagement delegate:self];
-    if (self.interstitialAd != nil) {
-        [self.interstitialAd showFromRootViewController:self];
-    }
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"showInterstitial"];
+    
+    [[DDNASDK sharedInstance] requestEngagement:engagement engagementHandler:^(DDNAEngagement *response) {
+        // get the response
+        if (response != nil) {
+            NSLog(@"Got a response from engage: %@", response.raw);
+
+            self.interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:response delegate:self];
+            if (self.interstitialAd != nil) {
+                [self.interstitialAd showFromRootViewController:self];
+            } else {
+                NSLog(@"Not allowed to show an ad.");
+            }
+        } else {
+            // didn't get a useful engage response, move on...
+            NSLog(@"Didn't get a useful response!");
+        }
+    }];
 }
 
 - (IBAction)showRewardedAd:(id)sender
@@ -74,11 +87,22 @@
 
 - (IBAction)showRewardedAdWithDecisionPoint:(id)sender
 {
-    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testRewardedDecisionPoint"];
-    self.rewardedAd = [DDNARewardedAd rewardedAdWithEngagement:engagement delegate:self];
-    if (self.rewardedAd != nil) {
-        [self.rewardedAd showFromRootViewController:self];
-    }
+    DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"showRewarded"];
+    [[DDNASDK sharedInstance] requestEngagement:engagement engagementHandler:^(DDNAEngagement *response) {
+        // get the response
+        if (response != nil) {
+            NSLog(@"Got a response from engage: %@", response.raw);
+            self.rewardedAd = [DDNARewardedAd rewardedAdWithEngagement:engagement delegate:self];
+            if (self.rewardedAd != nil) {
+                [self.rewardedAd showFromRootViewController:self];
+            } else {
+                NSLog(@"Not allowed to show an ad.");
+            }
+        } else {
+            // didn't get a useful engage response, move on...
+            NSLog(@"Didn't get a useful response!");
+        }
+    }];
 }
 
 - (IBAction)showRewardedAdOrImageMessage:(id)sender
