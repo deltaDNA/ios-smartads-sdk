@@ -119,12 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "DeltaDNA SmartAds iOS Example" */;
 			buildPhases = (
-				36886DC1B4426F773093C6DF /* 📦 Check Pods Manifest.lock */,
+				36886DC1B4426F773093C6DF /* [CP] Check Pods Manifest.lock */,
 				63B381E51BFE16FF0049CE28 /* Sources */,
 				63B381E61BFE16FF0049CE28 /* Frameworks */,
 				63B381E71BFE16FF0049CE28 /* Resources */,
-				73641F799D241BD284BDF974 /* 📦 Embed Pods Frameworks */,
-				A976DFA87A1FDF4F0A520847 /* 📦 Copy Pods Resources */,
+				73641F799D241BD284BDF974 /* [CP] Embed Pods Frameworks */,
+				A976DFA87A1FDF4F0A520847 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -146,6 +146,7 @@
 				TargetAttributes = {
 					63B381E81BFE16FF0049CE28 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 846C8UZB42;
 					};
 				};
 			};
@@ -182,14 +183,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36886DC1B4426F773093C6DF /* 📦 Check Pods Manifest.lock */ = {
+		36886DC1B4426F773093C6DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,14 +198,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		73641F799D241BD284BDF974 /* 📦 Embed Pods Frameworks */ = {
+		73641F799D241BD284BDF974 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,14 +213,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeltaDNA SmartAds iOS Example/Pods-DeltaDNA SmartAds iOS Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A976DFA87A1FDF4F0A520847 /* 📦 Copy Pods Resources */ = {
+		A976DFA87A1FDF4F0A520847 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,6 +350,7 @@
 			baseConfigurationReference = ED47E44D92E71D211F0329F6 /* Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -362,6 +364,7 @@
 			baseConfigurationReference = F7F3F11332F4BBC6D8EC4BE8 /* Pods-DeltaDNA SmartAds iOS Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "DeltaDNA SmartAds iOS Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
