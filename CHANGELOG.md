@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.2.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.1) (2016-09-08)
+### Changed
+- Updated ad network dependencies.
+- Reports no ad available when not loaded an ad yet.
+
 ## [1.2.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.0) (2016-05-27)
 ### Added
 - An `-isInterstitialAdAllowed:` and `-isRewardedAdAllowed:` methods let you test if you will be allowed to show the ad.  These calls take the session limit and time limits into account, as well as an optional Engagement response.  They also test if an ad has loaded, so if YES is allowed you can call `-showInterstitialAdFromRootViewController:` and an ad will open, similarly for the rewarded methods.
