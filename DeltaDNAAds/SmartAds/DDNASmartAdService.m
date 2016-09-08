@@ -344,7 +344,7 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
         DDNALogDebug(@"No ad available");
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
-                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotReady]];
+                       result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNoAdAvailable]];
         return NO;
     }
     
