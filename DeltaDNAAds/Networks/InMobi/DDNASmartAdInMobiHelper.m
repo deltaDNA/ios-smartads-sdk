@@ -16,8 +16,8 @@
 
 #import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
-#import <InMobiSDK/IMSdk.h>
-#import <InMobiSDK/IMCommonConstants.h>
+#import <InMobiSDK/InMobiSDK.h>
+
 
 @interface DDNASmartAdInMobiHelper ()
 
@@ -47,7 +47,7 @@
         self.started = YES;
     } else {
         if (![self.accountID isEqualToString:accountID]) {
-            DDNALogWarn(@"Chartboost already started with appId='%@'", self.accountID);
+            DDNALogWarn(@"InMobi already started with appId='%@'", self.accountID);
         }
     }
 }

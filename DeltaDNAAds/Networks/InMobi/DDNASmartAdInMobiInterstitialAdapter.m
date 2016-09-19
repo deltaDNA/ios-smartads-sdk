@@ -17,7 +17,7 @@
 #import "DDNASmartAdInMobiInterstitialAdapter.h"
 #import "DDNASmartAdInMobiHelper.h"
 #import <DeltaDNA/DDNALog.h>
-#import <InMobiSDK/IMInterstitial.h>
+#import <InMobiSDK/InMobiSDK.h>
 
 @interface DDNASmartAdInMobiInterstitialAdapter () <IMInterstitialDelegate>
 
