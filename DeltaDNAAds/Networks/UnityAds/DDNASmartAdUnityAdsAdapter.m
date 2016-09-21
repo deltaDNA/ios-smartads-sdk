@@ -15,16 +15,19 @@
 //
 
 #import "DDNASmartAdUnityAdsAdapter.h"
+#import "DDNASmartAds.h"
 #import <UnityAds/UnityAds.h>
 
 @interface DDNASmartAdUnityAdsAdapter () <UnityAdsDelegate>
 
 @property (nonatomic, copy) NSString *gameId;
+
+// zoneId was renamed placementId in v2.0
 @property (nonatomic, copy) NSString *zoneId;
 @property (nonatomic, assign) BOOL testMode;
 
 @property (nonatomic, assign) BOOL started;
-@property (nonatomic, assign) BOOL reward;
+@property (nonatomic, assign) BOOL showing;
 
 @end
 
@@ -32,17 +35,11 @@
 
 - (instancetype)initWithGameId:(NSString *)gameId zoneId:(NSString *)zoneId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"UNITY" version:[UnityAds getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"UNITY" version:[UnityAds getVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.gameId = gameId;
-        self.zoneId = zoneId;
+        self.zoneId = !zoneId || [zoneId isEqualToString:@""] ? @"defaultZone" : zoneId;
         self.testMode = testMode;
-        
-        [[UnityAds sharedInstance] setDelegate:self];
-        [[UnityAds sharedInstance] setTestMode:testMode];
-        [[UnityAds sharedInstance] setDebugMode:testMode];
-        if (zoneId != nil && zoneId.length > 0) {
-            [[UnityAds sharedInstance] setZone:zoneId];
-        }
+        self.showing = NO;
     }
     return self;
 }
@@ -59,76 +56,128 @@
 - (void)requestAd
 {
     if (!self.started) {
-        [[UnityAds sharedInstance] startWithGameId:self.gameId];
+        
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"deltaDNA"];
+        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+        [mediationMetaData commit];
+        
+        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
         self.started = YES;
     }
     
-    if ([[UnityAds sharedInstance] canShow]) {
+    if ([UnityAds isSupported] && [self isReady]) {
         [self.delegate adapterDidLoadAd:self];
     }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    [[UnityAds sharedInstance] setViewController:viewController];
     
-    if ([[UnityAds sharedInstance] canShow]) {
-        [[UnityAds sharedInstance] show];
+    
+    if ([UnityAds isSupported] && [self isReady]) {
+        self.showing = YES;
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setOrdinal:self.delegate.sessionAdCount+1];
+        [mediationMetaData commit];
+        [UnityAds show:viewController placementId:self.zoneId];
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
 }
 
+- (BOOL)isReady
+{
+    return self.zoneId ? [UnityAds isReady:self.zoneId] : [UnityAds isReady];
+}
+
 #pragma mark - UnityAdsDelegate
 
-- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped
+/**
+ *  Called when `UnityAds` is ready to show an ad. After this callback you can call the `UnityAds` `show:` method for this placement.
+ *  Note that sometimes placement might no longer be ready due to exceptional reasons. These situations will give no new callbacks.
+ *
+ *  @warning To avoid error situations, it is always best to check `isReady` method status before calling show.
+ *  @param placementId The ID of the placement that is ready to show, as defined in Unity Ads admin tools.
+ */
+- (void)unityAdsReady:(NSString *)placementId
 {
-    self.reward = !skipped;
-}
-
-- (void)unityAdsWillShow
-{
-
-}
-
-- (void)unityAdsDidShow
-{
-    [self.delegate adapterIsShowingAd:self];
-}
-
-- (void)unityAdsWillHide
-{
-
-}
-
-- (void)unityAdsDidHide
-{
-    [self.delegate adapterDidCloseAd:self canReward:self.reward];
-    
-    if ([[UnityAds sharedInstance] canShow]) {
+    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
         [self.delegate adapterDidLoadAd:self];
     }
 }
 
-- (void)unityAdsWillLeaveApplication
+/**
+ *  Called when `UnityAds` encounters an error. All errors will be logged but this method can be used as an additional debugging aid. This callback can also be used for collecting statistics from different error scenarios.
+ *
+ *  @param error   A `UnityAdsError` error enum value indicating the type of error encountered.
+ *  @param message A human readable string indicating the type of error encountered.
+ */
+- (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
 {
-    [self.delegate adapterWasClicked:self];
-    [self.delegate adapterLeftApplication:self];
+    if (self.showing) {
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+        self.showing = NO;
+    } else {
+        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError error:message];
+        [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    }
 }
 
-- (void)unityAdsVideoStarted
+/**
+ *  Called on a successful start of advertisement after calling the `UnityAds` `show:` method.
+ *
+ * @warning If there are errors in starting the advertisement, this method may never be called. Unity Ads will directly call `unityAdsDidFinish:withFinishState:` with error status.
+ *
+ *  @param placementId The ID of the placement that has started, as defined in Unity Ads admin tools.
+ */
+- (void)unityAdsDidStart:(NSString *)placementId
 {
-
+    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
+        [self.delegate adapterIsShowingAd:self];
+    }
 }
 
-- (void)unityAdsFetchCompleted
+/**
+ *  Called after the ad has closed.
+ *
+ *  @param placementId The ID of the placement that has finished, as defined in Unity Ads admin tools.
+ *  @param state       An enum value indicating the finish state of the ad. Possible values are `Completed`, `Skipped`, and `Error`.
+ */
+- (void)unityAdsDidFinish:(NSString *)placementId
+          withFinishState:(UnityAdsFinishState)state
 {
-    [self.delegate adapterDidLoadAd:self];
-}
-
-- (void)unityAdsFetchFailed
-{
-    [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError]];
+    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
+        self.showing = NO;
+        
+        switch (state) {
+            /**
+             *  A state that indicates that the ad did not successfully display.
+             */
+            case kUnityAdsFinishStateError : {
+                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                break;
+            }
+            /**
+             *  A state that indicates that the user skipped the ad.
+             */
+            case kUnityAdsFinishStateSkipped : {
+                [self.delegate adapterDidCloseAd:self canReward:NO];
+                break;
+            }
+            /**
+             *  A state that indicates that the ad was played entirely.
+             */
+            case kUnityAdsFinishStateCompleted : {
+                [self.delegate adapterDidCloseAd:self canReward:YES];
+                break;
+            }
+            default : {
+                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                break;
+            }
+        }
+    }
 }
 
 @end

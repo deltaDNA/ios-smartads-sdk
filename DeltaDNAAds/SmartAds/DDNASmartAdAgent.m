@@ -182,6 +182,11 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     }
 }
 
+- (NSInteger)sessionAdCount
+{
+    return self.adsShown;
+}
+
 
 #pragma mark - Private Methods
 

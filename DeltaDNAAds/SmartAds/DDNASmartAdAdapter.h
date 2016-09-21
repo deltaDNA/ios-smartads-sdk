@@ -56,4 +56,6 @@
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter;
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward: (BOOL)canReward;
 
+- (NSInteger)sessionAdCount;
+
 @end
