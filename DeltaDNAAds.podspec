@@ -26,10 +26,10 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.10'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.11'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
-        ss.frameworks = ['AdSupport','EventKit','EventKitUI','SafariServices','CoreBluetooth']
+        ss.frameworks = ['AdSupport','SafariServices']
     end
 
     s.subspec 'Amazon' do |ss|
@@ -55,14 +55,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>5.3'
+        ss.dependency 'InMobiSDK', '~>6.0'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFox', '2.3.1'
+        ss.dependency 'MobFox', '2.3.4'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -83,17 +83,16 @@ Pod::Spec.new do |s|
 
     s.subspec 'Vungle' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'VungleSDK-iOS', '~>3.2'
+        ss.dependency 'VungleSDK-iOS', '~>4.0'
         ss.source_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h'
     end
 
     s.subspec 'UnityAds' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'UnityAds', '~>1.5'
+        ss.dependency 'UnityAds', '~>2.0'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
-        ss.frameworks = ['AdSupport','AVFoundation','CFNetwork','CoreFoundation','CoreMedia','CoreTelephony','StoreKit','SystemConfiguration']
     end
 
 end

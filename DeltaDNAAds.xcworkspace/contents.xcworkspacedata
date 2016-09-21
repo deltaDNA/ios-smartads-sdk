@@ -238,6 +238,9 @@
       location = "group:PodSpecs"
       name = "PodSpecs">
       <FileRef
+         location = "group:UnityAds.podspec">
+      </FileRef>
+      <FileRef
          location = "group:AmazonAds.podspec">
       </FileRef>
       <FileRef
