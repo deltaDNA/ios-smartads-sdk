@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4AC870E04A41FD87176DA3A0 /* libPods-DeltaDNA SmartAds iOS Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EB800F92DB5501E076DC06 /* libPods-DeltaDNA SmartAds iOS Example.a */; };
 		63B381EE1BFE16FF0049CE28 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381ED1BFE16FF0049CE28 /* main.m */; };
 		63B381F11BFE16FF0049CE28 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381F01BFE16FF0049CE28 /* AppDelegate.m */; };
 		63B381F41BFE16FF0049CE28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B381F31BFE16FF0049CE28 /* ViewController.m */; };
@@ -15,10 +14,11 @@
 		63B381F91BFE16FF0049CE28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63B381F81BFE16FF0049CE28 /* Assets.xcassets */; };
 		63B381FC1BFE16FF0049CE28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63B381FA1BFE16FF0049CE28 /* LaunchScreen.storyboard */; };
 		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
+		7AE9B6525901F55D9355061D /* libPods-DeltaDNA SmartAds iOS Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07EB800F92DB5501E076DC06 /* libPods-DeltaDNA SmartAds iOS Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeltaDNA SmartAds iOS Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeltaDNA SmartAds iOS Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B381E91BFE16FF0049CE28 /* DeltaDNA SmartAds iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DeltaDNA SmartAds iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B381ED1BFE16FF0049CE28 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		63B381EF1BFE16FF0049CE28 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,7 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AC870E04A41FD87176DA3A0 /* libPods-DeltaDNA SmartAds iOS Example.a in Frameworks */,
+				7AE9B6525901F55D9355061D /* libPods-DeltaDNA SmartAds iOS Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B495B20C9CFF53EF4D22E5 /* libPods.a */,
-				07EB800F92DB5501E076DC06 /* libPods-DeltaDNA SmartAds iOS Example.a */,
+				36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,7 +141,7 @@
 		63B381E11BFE16FF0049CE28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = deltaDNA;
 				TargetAttributes = {
 					63B381E81BFE16FF0049CE28 = {
@@ -276,8 +276,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -320,8 +322,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

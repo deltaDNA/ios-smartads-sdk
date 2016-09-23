@@ -156,6 +156,23 @@ You can also set the delegates for the DDNASmartAds object, so the SDK behaviour
 
 See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/DeltaDNAAds/SmartAds/DDNASmartAds.h) for more details.
 
+### iOS 10
+
+The following table is a list of considerations when integrating our library.  None of the ad networks are fully ATS compliant, they mostly [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.
+
+| Ad Network | iOS 10 Support | ATS Support | Bitcode | Frameworks | Notes |
+|------------|----------------|-------------|---------|------------|-------|
+| AdMob      | YES (v7.11)    | NO          | YES     | NO         |       |
+| Amazon     | YES (v2.15)    | NO          | YES     | NO         |       |
+| MoPub      | YES (v4.9.1)   | NO          | YES     | YES        |       |
+| Flurry     | NO (v7.6.6)    | NO          | YES     | YES        |       |
+| InMobi     | YES (v6.0.0)   | NO          | YES     | NO         | Enterprise only |
+| MobFox     | YES (v2.3.3)   | NO          | NO      | NO         |       |
+| AdColony   | NO (v2.6.2)    | NO          | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
+| Chartboost | YES (v6.5.1)   | NO          | YES     | NO         |       |
+| Vungle     | YES (v4.0.5)   | NO          | YES     | NO         |       |
+| UnityAds   | YES (v2.0)     | NO          | NO      | NO         |       |
+
 ## License
 
 The sources are available under the Apache 2.0 license.

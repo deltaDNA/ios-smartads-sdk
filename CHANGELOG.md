@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.2.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.2) (2016-09-23)
+### Changed
+- Review and updated networks for iOS 10 support.  See README for details.
+- Use UnityAds 2.0.
+
 ## [1.2.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.1) (2016-09-08)
 ### Changed
 - Updated ad network dependencies.
