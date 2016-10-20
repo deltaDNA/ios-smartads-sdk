@@ -162,16 +162,16 @@ The following table is a list of considerations when integrating our library.  N
 
 | Ad Network | iOS 10 Support | ATS Support | Bitcode | Frameworks | Notes |
 |------------|----------------|-------------|---------|------------|-------|
-| AdMob      | YES (v7.11)    | NO          | YES     | NO         |       |
-| Amazon     | YES (v2.15)    | NO          | YES     | NO         |       |
-| MoPub      | YES (v4.9.1)   | NO          | YES     | YES        |       |
+| AdMob      | YES (v7.11)    | YES (v7.13) | YES     | NO         |       |
+| Amazon     | YES (v2.15)    | NO          | YES     | NO         | see [iOS 10 integration](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
+| MoPub      | YES (v4.9.1)   | YES (v4.10) | YES     | YES        |       |
 | Flurry     | NO (v7.6.6)    | NO          | YES     | YES        |       |
-| InMobi     | YES (v6.0.0)   | NO          | YES     | NO         | Enterprise only |
+| InMobi     | YES (v6.0.0)   | YES (v6.0.0)| YES     | NO         | Enterprise only |
 | MobFox     | YES (v2.3.3)   | NO          | NO      | NO         |       |
 | AdColony   | NO (v2.6.2)    | NO          | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
-| Chartboost | YES (v6.5.1)   | NO          | YES     | NO         |       |
+| Chartboost | YES (v6.5.1)   | YES (v6.5.1)| YES     | NO         |       |
 | Vungle     | YES (v4.0.5)   | NO          | YES     | NO         |       |
-| UnityAds   | YES (v2.0)     | NO          | NO      | NO         |       |
+| UnityAds   | YES (v2.0)     | YES (v2.0.5)| NO      | NO         |       |
 
 ## License
 
