@@ -40,6 +40,14 @@
         self.zoneId = !zoneId || [zoneId isEqualToString:@""] ? @"defaultZone" : zoneId;
         self.testMode = testMode;
         self.showing = NO;
+        
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"deltaDNA"];
+        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+        [mediationMetaData commit];
+        
+        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
+        self.started = YES;
     }
     return self;
 }
@@ -56,14 +64,7 @@
 - (void)requestAd
 {
     if (!self.started) {
-        
-        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setName:@"deltaDNA"];
-        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
-        [mediationMetaData commit];
-        
-        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
-        self.started = YES;
+        return;
     }
     
     if ([UnityAds isSupported] && [self isReady]) {
@@ -73,8 +74,6 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    
-    
     if ([UnityAds isSupported] && [self isReady]) {
         self.showing = YES;
         id mediationMetaData = [[UADSMediationMetaData alloc] init];
@@ -118,9 +117,11 @@
     if (self.showing) {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
         self.showing = NO;
-    } else {
+    } else if (self.started) {
         DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError error:message];
         [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    } else {
+        NSLog(@"UnityAds initialise error: %@ %@", error, message);
     }
 }
 
