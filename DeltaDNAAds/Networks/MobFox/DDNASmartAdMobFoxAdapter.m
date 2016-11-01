@@ -31,7 +31,7 @@
 - (instancetype)initWithPublicationId:(NSString *)publicationId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"MOBFOX"
-                            version:@"2.1.1"
+                            version:SDK_VERSION
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
 
