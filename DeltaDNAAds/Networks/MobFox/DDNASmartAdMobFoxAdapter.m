@@ -97,7 +97,7 @@
 {
     DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
 
-    if ([error.description containsString:@"no ad returned"]) {
+    if ([error.description containsString:@"no fill"]) {
         result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
     }
     result.error = error.description;

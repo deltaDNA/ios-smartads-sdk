@@ -29,6 +29,7 @@ static NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
 static NSString * const AD_TYPE_REWARDED = @"REWARDED";
 
 static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
+static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 @interface DDNASmartAdService () <DDNASmartAdAgentDelegate>
 
@@ -478,7 +479,11 @@ static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
         eventParams[@"adWaterfallIndex"] = [NSNumber numberWithInteger:adapter.waterfallIndex];
         eventParams[@"adStatus"] = result.desc;
         if (result.error) {
-            eventParams[@"adProviderError"] = result.error;
+            NSString *errorStr = result.error;
+            if (errorStr.length > MAX_ERROR_STRING_LENGTH) {
+                errorStr = [NSString stringWithFormat:@"%@...", [errorStr substringToIndex:MAX_ERROR_STRING_LENGTH-3]];
+            }
+            eventParams[@"adProviderError"] = errorStr;
         }
 
         [self.delegate recordEventWithName:@"adRequest" parameters:eventParams];
