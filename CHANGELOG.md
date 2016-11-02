@@ -1,5 +1,14 @@
 # Change Log
 
+## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.2) (unreleased)
+### Changed
+- Use AdColony Aurora SDK for iOS 10 support.
+- Updated Mobfox to v2.3.9.
+
+### Fixed
+- Truncate error message to 512 characters.
+- Crash on UnityAds initialisation.
+
 ## [1.2.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.2) (2016-09-23)
 ### Changed
 - Review and updated networks for iOS 10 support.  See README for details.
