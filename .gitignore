@@ -18,10 +18,8 @@ DerivedData
 *.xcuserstate
 
 # CocoaPods
-Example/Pods
-Example/Podfile.lock
-Tests/Pods
-Tests/Podfile.lock
+Pods
+Podfile.lock
 
 .DS_Store
 

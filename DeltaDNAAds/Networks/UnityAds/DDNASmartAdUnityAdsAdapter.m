@@ -121,7 +121,7 @@
         DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError error:message];
         [self.delegate adapterDidFailToLoadAd:self withResult:result];
     } else {
-        NSLog(@"UnityAds initialise error: %@ %@", error, message);
+        //NSLog(@"UnityAds initialise error: %@ %@", error, message);
     }
 }
 

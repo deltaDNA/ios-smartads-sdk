@@ -25,12 +25,6 @@
 
 #import <DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h>
 
-// The UnityAds library looks for this symbol to do some jailbreak testing.
-// But main isn't defined for unity test builds!
-int main(int argc, char *argv[])
-{
-    return 0;
-}
 
 SpecBegin(DDNASmartAdUnityAdsAdapter)
 

@@ -4,6 +4,7 @@
 ### Changed
 - Use AdColony Aurora SDK for iOS 10 support.
 - Updated Mobfox to v2.3.9.
+- Simplified project layout.
 
 ### Fixed
 - Truncate error message to 512 characters.

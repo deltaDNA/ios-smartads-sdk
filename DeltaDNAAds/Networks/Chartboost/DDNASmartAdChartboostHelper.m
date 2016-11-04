@@ -17,7 +17,6 @@
 #import "DDNASmartAdChartboostHelper.h"
 #import <Chartboost/Chartboost.h>
 #import <DeltaDNA/DDNALog.h>
-#import <DeltaDNAAds/DDNASmartAdStatus.h>
 
 @interface DDNASmartAdChartboostHelper () <ChartboostDelegate>
 

@@ -15,8 +15,8 @@
 //
 
 #import "DDNASmartAds.h"
-#import "DeltaDNAAds/DDNASmartAdFactory.h"
-#import "DeltaDNAAds/DDNASmartAdService.h"
+#import "DDNASmartAdFactory.h"
+#import "DDNASmartAdService.h"
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNA/DDNALog.h>
 #import <DeltaDNA/NSString+DeltaDNA.h>
@@ -40,6 +40,11 @@
 @end
 
 @implementation DDNASmartAds
+
++ (void)load
+{
+    NSLog(@"Loaded DDNASmartAds class");
+}
 
 - (id)init
 {

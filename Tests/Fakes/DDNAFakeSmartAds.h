@@ -18,6 +18,8 @@
 
 @interface DDNAFakeSmartAds : DDNASmartAds
 
++(instancetype)mockSharedInstance;
+
 @property (nonatomic, assign) BOOL allowInterstitial;
 @property (nonatomic, assign) BOOL allowRewarded;
 

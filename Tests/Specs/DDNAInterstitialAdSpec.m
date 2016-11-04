@@ -28,7 +28,6 @@
 #import <DeltaDNAAds/SmartAds/DDNASmartAdService.h>
 #import "DDNAFakeSmartAdFactory.h"
 #import <DeltaDNA/NSString+DeltaDNA.h>
-#import <DeltaDNAAds/SmartAds/DDNASmartAds.h>
 #import "DDNAFakeSmartAds.h"
 
 
