@@ -124,94 +124,94 @@
             location = "group:DeltaDNAAds/Networks/AdMob"
             name = "AdMob">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h">
+               location = "group:DDNASmartAdAdMobAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.m">
+               location = "group:DDNASmartAdAdMobAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/Amazon"
             name = "Amazon">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h">
+               location = "group:DDNASmartAdAmazonAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.m">
+               location = "group:DDNASmartAdAmazonAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/Dummy"
             name = "Dummy">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Dummy/DDNASmartAdDummyAdapter.h">
+               location = "group:DDNASmartAdDummyAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Dummy/DDNASmartAdDummyAdapter.m">
+               location = "group:DDNASmartAdDummyAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/Flurry"
             name = "Flurry">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.h">
+               location = "group:DDNASmartAdFlurryHelper.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryInterstitialAdapter.m">
+               location = "group:DDNASmartAdFlurryHelper.m">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryHelper.h">
+               location = "group:DDNASmartAdFlurryInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryHelper.m">
+               location = "group:DDNASmartAdFlurryInterstitialAdapter.m">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryRewardedAdapter.h">
+               location = "group:DDNASmartAdFlurryRewardedAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurryRewardedAdapter.m">
+               location = "group:DDNASmartAdFlurryRewardedAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/InMobi"
             name = "InMobi">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.h">
+               location = "group:DDNASmartAdInMobiHelper.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiInterstitialAdapter.m">
+               location = "group:DDNASmartAdInMobiHelper.m">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiHelper.h">
+               location = "group:DDNASmartAdInMobiInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiHelper.m">
+               location = "group:DDNASmartAdInMobiInterstitialAdapter.m">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiRewardedAdapter.h">
+               location = "group:DDNASmartAdInMobiRewardedAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobiRewardedAdapter.m">
+               location = "group:DDNASmartAdInMobiRewardedAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/MobFox"
             name = "MobFox">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h">
+               location = "group:DDNASmartAdMobFoxAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.m">
+               location = "group:DDNASmartAdMobFoxAdapter.m">
             </FileRef>
          </Group>
          <Group
             location = "group:DeltaDNAAds/Networks/MoPub"
             name = "MoPub">
             <FileRef
-               location = "group:DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h">
+               location = "group:DDNASmartAdMoPubAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.m">
+               location = "group:DDNASmartAdMoPubAdapter.m">
             </FileRef>
          </Group>
       </Group>
