@@ -9,6 +9,7 @@
 ### Fixed
 - Truncate error message to 512 characters.
 - Crash on UnityAds initialisation.
+- Disable Mobfox requesting location services.
 
 ## [1.2.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.2) (2016-09-23)
 ### Changed

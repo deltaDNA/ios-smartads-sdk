@@ -84,10 +84,9 @@
                                     <action selector="newSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXR-fJ-nUK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THM-ZQ-Jgw">
-                                <frame key="frameInset" minX="16" minY="601" width="117" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Get GPS Position"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THM-ZQ-Jgw">
+                                <frame key="frameInset" minX="200" minY="599" width="198" height="30"/>
+                                <state key="normal" title="Request Location Permission"/>
                                 <connections>
                                     <action selector="getGpsPosition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xf8-c5-JMZ"/>
                                 </connections>
@@ -98,6 +97,7 @@
                             <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="2gv-a7-WbX"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="top" secondItem="E0d-ho-KDs" secondAttribute="bottom" constant="8" id="6ON-Xa-f4i"/>
                             <constraint firstItem="8P8-1s-NMq" firstAttribute="top" secondItem="pkc-4e-h00" secondAttribute="bottom" constant="57" id="9Bn-3v-GQ9"/>
+                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PgL-Qk-vnb"/>
                             <constraint firstItem="8P8-1s-NMq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q9s-71-xlR"/>
                             <constraint firstItem="BBG-To-rMD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SYL-V5-U1a"/>
                             <constraint firstItem="Zef-VW-GZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U4A-gb-Paj"/>
@@ -108,6 +108,7 @@
                             <constraint firstItem="LNV-He-Fbo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eNh-it-05M"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gX9-Ld-rWP"/>
                             <constraint firstItem="pkc-4e-h00" firstAttribute="top" secondItem="BBG-To-rMD" secondAttribute="bottom" constant="8" id="hSQ-4B-yg0"/>
+                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="top" secondItem="Km9-bm-gSq" secondAttribute="bottom" constant="40" id="l5C-Ji-dDO"/>
                             <constraint firstItem="XlC-x0-J9a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qVJ-U8-5S9"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="Zef-VW-GZI" secondAttribute="bottom" constant="36" id="tCr-zs-WS3"/>

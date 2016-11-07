@@ -36,6 +36,10 @@
                      waterfallIndex:waterfallIndex])) {
 
         self.publicationId = publicationId;
+        
+        [MobFoxInterstitialAd locationServicesDisabled:YES];
+        [MobFoxNativeAd locationServicesDisabled:YES];
+        [MobFoxAd locationServicesDisabled:YES];
     }
     return self;
 }
