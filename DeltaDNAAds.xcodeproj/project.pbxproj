@@ -29,6 +29,7 @@
 		6342F74C1DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7361DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m */; };
 		6342F74D1DCCCB7C0058BABC /* DDNASmartAdVungleAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7371DCCCB7C0058BABC /* DDNASmartAdVungleAdapterSpec.m */; };
 		6342F74E1DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7381DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m */; };
+		63540B341DCCEFB9005E7EE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63540B331DCCEFB9005E7EE1 /* CoreLocation.framework */; };
 		636B79C61DCCAD4A00D96B71 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79BC1DCCAD4A00D96B71 /* AppDelegate.m */; };
 		636B79C71DCCAD4A00D96B71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 636B79BD1DCCAD4A00D96B71 /* Assets.xcassets */; };
 		636B79C81DCCAD4A00D96B71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636B79BE1DCCAD4A00D96B71 /* LaunchScreen.storyboard */; };
@@ -81,6 +82,7 @@
 		6342F7361DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdUnityAdsAdapterSpec.m; sourceTree = "<group>"; };
 		6342F7371DCCCB7C0058BABC /* DDNASmartAdVungleAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdVungleAdapterSpec.m; sourceTree = "<group>"; };
 		6342F7381DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdWaterfallSpec.m; sourceTree = "<group>"; };
+		63540B331DCCEFB9005E7EE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		636B79BB1DCCAD4A00D96B71 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		636B79BC1DCCAD4A00D96B71 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		636B79BD1DCCAD4A00D96B71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63540B341DCCEFB9005E7EE1 /* CoreLocation.framework in Frameworks */,
 				C29FFE188A5FEA0E465F0326 /* libPods-SmartAds iOS Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +236,7 @@
 		FD3E9A96C8C7D2474B5F5009 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63540B331DCCEFB9005E7EE1 /* CoreLocation.framework */,
 				B9B495B20C9CFF53EF4D22E5 /* libPods.a */,
 				36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */,
 				8E3A1FD0491EF930BF72EC25 /* libPods-SmartAds iOS Example.a */,
@@ -640,7 +644,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.SmartAds-iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -654,7 +658,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.SmartAds-iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -17,12 +17,14 @@
 #import "ViewController.h"
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNAAds/DeltaDNAAds.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface ViewController () <DDNASmartAdsRegistrationDelegate, DDNAInterstitialAdDelegate, DDNARewardedAdDelegate, DDNAImageMessageDelegate>
+@interface ViewController () <DDNASmartAdsRegistrationDelegate, DDNAInterstitialAdDelegate, DDNARewardedAdDelegate, DDNAImageMessageDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) DDNAInterstitialAd *interstitialAd;
 @property (nonatomic, strong) DDNARewardedAd *rewardedAd;
 @property (nonatomic, strong) DDNAImageMessage *imageMessage;
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @end
 
@@ -44,6 +46,11 @@
     
     [DDNASmartAds sharedInstance].registrationDelegate = self;
     [[DDNASmartAds sharedInstance] registerForAds];
+    
+    // Prepare CoreLocation
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,6 +173,44 @@
 - (IBAction)newSession:(id)sender
 {
     [[DDNASDK sharedInstance] newSession];
+}
+
+- (IBAction)getGpsPosition:(id)sender
+{
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager
+didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    NSLog(@"GPS authorisation %d", status);
+    if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (fabs(howRecent) < 15.0) {
+        // If the event is recent, do something with it.
+        NSLog(@"latitude %+.6f, longitude %+.6f\n",
+              location.coordinate.latitude,
+              location.coordinate.longitude);
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    NSLog(@"Location manager failed: %@", error);
 }
 
 

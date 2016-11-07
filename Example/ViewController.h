@@ -30,6 +30,7 @@
 - (IBAction)showRewardedAdWithDecisionPoint:(id)sender;
 - (IBAction)showRewardedAdOrImageMessage:(id)sender;
 - (IBAction)newSession:(id)sender;
+- (IBAction)getGpsPosition:(id)sender;
 
 @end
 
