@@ -53,7 +53,6 @@
 /* Begin PBXFileReference section */
 		18C599368F77C42C0E1DC082 /* Pods-SmartAds iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		339BF7E6F7A560D459F93050 /* libPods-SmartAds iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeltaDNA SmartAds iOS Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6342F71D1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdAgent.h; sourceTree = "<group>"; };
 		6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAdAgent.m; sourceTree = "<group>"; };
 		6342F71F1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdFactory.h; sourceTree = "<group>"; };
@@ -96,13 +95,8 @@
 		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8A7614D206796A25F6DE0FC6 /* Pods-SmartAds iOS Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8E3A1FD0491EF930BF72EC25 /* libPods-SmartAds iOS Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9B495B20C9CFF53EF4D22E5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27ADE56B6893DD2A6FF6B53 /* Pods-SmartAds iOS Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example.release.xcconfig"; sourceTree = "<group>"; };
-		DE5C38EF1754D00BB25426A4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E7178230EC503099D4AEA3EC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EA2CF8DB6065E6B3678D1003 /* Pods-SmartAds iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
-		ED47E44D92E71D211F0329F6 /* Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeltaDNA SmartAds iOS Example/Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig"; sourceTree = "<group>"; };
-		F7F3F11332F4BBC6D8EC4BE8 /* Pods-DeltaDNA SmartAds iOS Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeltaDNA SmartAds iOS Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeltaDNA SmartAds iOS Example/Pods-DeltaDNA SmartAds iOS Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,10 +212,6 @@
 		D1FA90A14136E0817FDFECE8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DE5C38EF1754D00BB25426A4 /* Pods.debug.xcconfig */,
-				E7178230EC503099D4AEA3EC /* Pods.release.xcconfig */,
-				ED47E44D92E71D211F0329F6 /* Pods-DeltaDNA SmartAds iOS Example.debug.xcconfig */,
-				F7F3F11332F4BBC6D8EC4BE8 /* Pods-DeltaDNA SmartAds iOS Example.release.xcconfig */,
 				8A7614D206796A25F6DE0FC6 /* Pods-SmartAds iOS Example.debug.xcconfig */,
 				C27ADE56B6893DD2A6FF6B53 /* Pods-SmartAds iOS Example.release.xcconfig */,
 				18C599368F77C42C0E1DC082 /* Pods-SmartAds iOS Tests.debug.xcconfig */,
@@ -233,8 +223,6 @@
 		FD3E9A96C8C7D2474B5F5009 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B9B495B20C9CFF53EF4D22E5 /* libPods.a */,
-				36A6AC9E292529E28131876C /* libPods-DeltaDNA SmartAds iOS Example.a */,
 				8E3A1FD0491EF930BF72EC25 /* libPods-SmartAds iOS Example.a */,
 				339BF7E6F7A560D459F93050 /* libPods-SmartAds iOS Tests.a */,
 			);
