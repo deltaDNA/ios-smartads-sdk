@@ -104,7 +104,7 @@
     if ([error.description containsString:@"no fill"]) {
         result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
     }
-    result.error = error.description;
+    result.errorDescription = [error localizedDescription];
 
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
 }

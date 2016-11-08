@@ -478,8 +478,8 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         eventParams[@"adRequestTimeMs"] = [NSNumber numberWithInteger:(int)requestDuration];
         eventParams[@"adWaterfallIndex"] = [NSNumber numberWithInteger:adapter.waterfallIndex];
         eventParams[@"adStatus"] = result.desc;
-        if (result.error) {
-            NSString *errorStr = result.error;
+        if (result.errorDescription) {
+            NSString *errorStr = result.errorDescription;
             if (errorStr.length > MAX_ERROR_STRING_LENGTH) {
                 errorStr = [NSString stringWithFormat:@"%@...", [errorStr substringToIndex:MAX_ERROR_STRING_LENGTH-3]];
             }

@@ -30,10 +30,10 @@ typedef NS_OPTIONS(NSUInteger, DDNASmartAdRequestResultCode) {
 
 @property (nonatomic, assign, readonly) DDNASmartAdRequestResultCode code;
 @property (nonatomic, copy, readonly) NSString *desc;
-@property (nonatomic, copy) NSString *error;
+@property (nonatomic, copy) NSString *errorDescription;
 
 + (instancetype)resultWith:(DDNASmartAdRequestResultCode)code;
-+ (instancetype)resultWith:(DDNASmartAdRequestResultCode)code error:(NSString *)error;
++ (instancetype)resultWith:(DDNASmartAdRequestResultCode)code errorDescription:(NSString *)errorDescription;
 
 @end
 

@@ -131,7 +131,7 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
     }
-    result.error = error.description;
+    result.errorDescription = [error localizedDescription];
     
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
 }
@@ -139,7 +139,7 @@
 /* Indicates that the interstitial has failed to present itself. */
 - (void)interstitial:(IMInterstitial *)interstitial didFailToPresentWithError:(IMRequestStatus *)error
 {
-    DDNALogDebug(@"Interstitial didFailToPresentWithError: %@", error.description);
+    DDNALogDebug(@"Interstitial didFailToPresentWithError: %@", [error localizedDescription]);
     
     [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
 }

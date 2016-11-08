@@ -118,7 +118,7 @@
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
         self.showing = NO;
     } else if (self.started) {
-        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError error:message];
+        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:message];
         [self.delegate adapterDidFailToLoadAd:self withResult:result];
     } else {
         //NSLog(@"UnityAds initialise error: %@ %@", error, message);

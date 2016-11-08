@@ -143,7 +143,7 @@
             break;
         }
         case FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD: {
-            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill error:errorDescription.description]];
+            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill errorDescription:[errorDescription localizedDescription]]];
             break;
         }
         case FLURRY_AD_ERROR_CLICK_ACTION_FAILED:

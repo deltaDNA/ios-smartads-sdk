@@ -95,7 +95,7 @@
                 NSLog(@"Vungle request failed with error: %@", [error localizedDescription]);
                 self.ad = nil;
                    
-                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError error:[error localizedDescription]];
+                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:[error localizedDescription]];
                 [self.delegate adapterDidFailToLoadAd:self withResult:result];
             }
         ];

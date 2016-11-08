@@ -174,7 +174,7 @@
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
     }
-    result.error = error.description;
+    result.errorDescription = [error localizedDescription];
     
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
 }

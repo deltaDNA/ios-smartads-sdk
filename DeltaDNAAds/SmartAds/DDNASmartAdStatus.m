@@ -28,15 +28,15 @@
 
 + (instancetype)resultWith:(DDNASmartAdRequestResultCode)code
 {
-    return [DDNASmartAdRequestResult resultWith:code error:nil];
+    return [DDNASmartAdRequestResult resultWith:code errorDescription:nil];
 }
 
-+ (instancetype)resultWith:(DDNASmartAdRequestResultCode)code error:(NSString *)error
++ (instancetype)resultWith:(DDNASmartAdRequestResultCode)code errorDescription:(NSString *)errorDescription
 {
     DDNASmartAdRequestResult *result = [[DDNASmartAdRequestResult alloc] init];
     result.code = code;
     result.desc = [DDNASmartAdRequestResult stringFromResultCode:code];
-    result.error = error;
+    result.errorDescription = errorDescription;
     return result;
 }
 
