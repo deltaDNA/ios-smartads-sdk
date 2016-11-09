@@ -34,6 +34,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 @property (nonatomic, strong) DDNASmartAdWaterfall *waterfall;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, assign) NSInteger adapterIndex;
+@property (nonatomic, weak) NSTimer *timeoutTimer;
 
 @end
 
@@ -92,6 +93,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     @synchronized(self)
     {
         if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateLoading) {
+            [self cancelTimeoutTimer];
             self.state = DDNASmartAdAgentStateLoaded;
             [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
             [self.waterfall scoreAdapter:adapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
@@ -106,6 +108,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         if (adapter == self.currentAdapter) {
             if (self.state != DDNASmartAdAgentStateLoading) return; // Prevent adapters calling this multiple times.
             
+            [self cancelTimeoutTimer];
             [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
             
             self.state = DDNASmartAdAgentStateReady;
@@ -203,15 +206,21 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
                                               delaySeconds*NSEC_PER_SEC);
         dispatch_after(delay, self.delegate.getDispatchQueue, ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.currentAdapter requestAd];
-            });
-            // if after timeout no ad loaded yet, mark it as failed
-            dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, AD_NETWORK_TIMEOUT_SECONDS*NSEC_PER_SEC);
-            dispatch_after(timeout, self.delegate.getDispatchQueue, ^{
-                if (self.state == DDNASmartAdAgentStateLoading) {
+                
+                // if after timeout no ad loaded yet, mark it as failed
+                if (self.timeoutTimer) {
+                    [self.timeoutTimer invalidate];
+                }
+                self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:AD_NETWORK_TIMEOUT_SECONDS
+                                                                     target:[NSBlockOperation blockOperationWithBlock:^{
                     DDNASmartAdRequestResult * requestResult = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeTimeout];
                     [self adapterDidFailToLoadAd:self.currentAdapter withResult:requestResult];
-                }
+                }]
+                                                                   selector: @selector(main)
+                                                                   userInfo: nil
+                                                                    repeats: NO];
+                
+                [self.currentAdapter requestAd];
             });
         });
     }
@@ -231,6 +240,15 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 - (NSTimeInterval)lastRequestTimeMs
 {
     return [[NSDate date] timeIntervalSinceDate:self.lastRequestTime] * 1000;
+}
+
+- (void)cancelTimeoutTimer
+{
+    if (self.timeoutTimer) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.timeoutTimer invalidate];     // ensure called from thread that created timer
+        });
+    }
 }
 
 @end

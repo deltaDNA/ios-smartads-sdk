@@ -252,10 +252,11 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime requestResult:(DDNASmartAdRequestResult *)result
 {
-    DDNALogDebug(@"Failed to load %@ ad from %@. %@",
+    DDNALogDebug(@"Failed to load %@ ad from %@. %@ - %@",
                  adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
                  adapter.name,
-                 result.desc);
+                 result.desc,
+                 result.errorDescription);
 
     [self postAdRequestEvent:adAgent adapter:adapter requestDuration:requestTime result:result];
 }
