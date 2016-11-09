@@ -76,6 +76,10 @@
 
 - (void)requestAd
 {
+    if (self.interstitial) {
+        self.interstitial.delegate = nil;
+        self.interstitial = nil;
+    }
     self.interstitial = [self createAndLoadInterstitial];
 }
 
@@ -103,24 +107,20 @@
 {
     DDNASmartAdRequestResult *result;
     switch (error.errorCode) {
-        case AmazonAdErrorInternalServer:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+        case AmazonAdErrorNoFill:
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
             break;
         case AmazonAdErrorNetworkConnection:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
             break;
-        case AmazonAdErrorNoFill:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
-            break;
         case AmazonAdErrorRequest:
             result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
             break;
-        case AmazonAdErrorReserved:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+        case AmazonAdErrorRequestTimeout:
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeTimeout];
             break;
-            
         default:
-            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
+            result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
             break;
     }
     result.errorDescription = error.errorDescription;
