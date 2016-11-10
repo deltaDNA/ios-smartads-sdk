@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Amazon' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AmazonAds', '~>2.2'
+        ss.dependency 'AmazonAd', '~>2.2'
         ss.source_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h'
     end
