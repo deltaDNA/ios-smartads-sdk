@@ -158,7 +158,7 @@ See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/De
 
 ### iOS 10
 
-The following table is a list of considerations when integrating our library.  None of the ad networks are fully ATS compliant, they mostly [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.
+The following table is a list of considerations when integrating our library.  Only half of the ad networks are fully ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.
 
 | Ad Network | iOS 10 Support | ATS Support | Bitcode | Frameworks | Notes |
 |------------|----------------|-------------|---------|------------|-------|
@@ -168,7 +168,7 @@ The following table is a list of considerations when integrating our library.  N
 | Flurry     | NO (v7.6.6)    | NO          | YES     | YES        |       |
 | InMobi     | YES (v6.0.0)   | YES (v6.0.0)| YES     | NO         | Enterprise only |
 | MobFox     | YES (v2.3.3)   | NO          | NO      | NO         |       |
-| AdColony   | NO (v2.6.2)    | NO          | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
+| AdColony   | NO (v3.0)      | YES         | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
 | Chartboost | YES (v6.5.1)   | YES (v6.5.1)| YES     | NO         |       |
 | Vungle     | YES (v4.0.5)   | NO          | YES     | NO         |       |
 | UnityAds   | YES (v2.0)     | YES (v2.0.5)| NO      | NO         |       |
