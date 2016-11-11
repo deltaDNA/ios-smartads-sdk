@@ -87,12 +87,18 @@
                 ad.close = ^{
                     [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                 };
+                ad.leftApplication = ^{
+                    [self.delegate adapterLeftApplication:self];
+                };
+                ad.click = ^{
+                    [self.delegate adapterWasClicked:self];
+                };
 
                 self.ad = ad;
                 [self.delegate adapterDidLoadAd:self];
             }
             failure:^(AdColonyAdRequestError* error) {
-                NSLog(@"Vungle request failed with error: %@", [error localizedDescription]);
+                NSLog(@"AdColony request failed with error: %@", [error localizedDescription]);
                 self.ad = nil;
                    
                 DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:[error localizedDescription]];
@@ -104,8 +110,13 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if (self.ad != nil && !self.ad.expired) {
-        [self.ad showWithPresentingViewController:viewController];
+    if (self.ad != nil) {
+        if (!self.ad.expired) {
+            [self.ad showWithPresentingViewController:viewController];
+        } else {
+            [self.delegate adapterDidFailToShowAd:self
+                                       withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeExpired]];
+        }
     } else {
         [self.delegate adapterDidFailToShowAd:self
                                    withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
