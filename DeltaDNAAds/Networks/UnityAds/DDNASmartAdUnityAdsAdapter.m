@@ -77,7 +77,7 @@
     if ([UnityAds isSupported] && [self isReady]) {
         self.showing = YES;
         id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setOrdinal:self.delegate.sessionAdCount+1];
+        [mediationMetaData setOrdinal:(int)(self.delegate.sessionAdCount+1)];
         [mediationMetaData commit];
         [UnityAds show:viewController placementId:self.zoneId];
     } else {
