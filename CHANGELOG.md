@@ -2,6 +2,7 @@
 
 ## [1.2.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (2016-11-11)
 ### Changed
+- iOS 8 minimum version.
 - Use AdColony Aurora SDK for iOS 10 support.
 - Updated Mobfox to v2.3.9.
 - Simplified project layout.

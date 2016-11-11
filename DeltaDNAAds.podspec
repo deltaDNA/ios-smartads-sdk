@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
     s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
-    s.platform = :ios, '7.0'
+    s.platform = :ios, '8.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
