@@ -1,8 +1,10 @@
 before_install:
     - gem install cocoapods
-    - pod repo update
+    - pod repo update > /dev/null
 language: objective-c
 osx_image: xcode8
-podfile: Tests/Podfile
-script:
-    - xcodebuild test -workspace DeltaDNAAds.xcworkspace -scheme 'SmartAds iOS Example' -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 7'
+podfile: Podfile
+xcode_workspace: DeltaDNAAds.xcworkspace
+xcode_scheme: SmartAds iOS Example
+xcode_sdk: iphonesimulator
+script: set -o pipefail && xcodebuild -workspace $TRAVIS_XCODE_WORKSPACE -scheme "$TRAVIS_XCODE_SCHEME" -sdk $TRAVIS_XCODE_SDK -destination 'name=iPhone 6' build test | xcpretty
