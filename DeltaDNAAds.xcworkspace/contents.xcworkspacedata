@@ -69,6 +69,16 @@
          location = "group:DeltaDNAAds/Networks"
          name = "Networks">
          <Group
+            location = "group:../../Networks/ThirdPresence"
+            name = "ThirdPresence">
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/ThirdPresence/DDNASmartAdThirdPresenceAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/ThirdPresence/DDNASmartAdThirdPresenceAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
             location = "group:DeltaDNAAds/Networks/../.."
             name = "UnityAds">
             <FileRef
