@@ -10,10 +10,10 @@ project 'DeltaDNAAds'
 target 'SmartAds iOS Example' do
     # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
     # use_frameworks!
-    
+
     # Pods for SmartAds iOS Example
-    pod 'DeltaDNAAds', :path => './'
-    
+    pod 'DeltaDNAAds', :path => './', :subspecs => ['ThirdPresence']
+
     target 'SmartAds iOS Tests' do
         inherit! :search_paths
         # Pods for testing
@@ -21,7 +21,7 @@ target 'SmartAds iOS Example' do
         pod 'Expecta', '~> 1.0'
         pod 'OCMockito', '~> 1.0'
     end
-    
+
 end
 
 # Enable extra logging

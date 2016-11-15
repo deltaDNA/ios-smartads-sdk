@@ -26,6 +26,9 @@
 
 @property (nonatomic, strong) TPRVideoInterstitial *interstitial;
 @property (nonatomic, assign) BOOL started;
+@property (nonatomic, assign) BOOL requestWhenReady;
+@property (nonatomic, assign) BOOL loaded;
+@property (nonatomic, assign) BOOL reward;
 
 @end
 
@@ -67,7 +70,9 @@
         return;
     }
     
-    if (self.interstitial.ready) {
+    if (!self.interstitial.ready) {
+        self.requestWhenReady = YES;
+    } else if (!self.loaded) {
         [self.interstitial loadAd];
     }
 }
@@ -84,15 +89,67 @@
 //        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
 //    }
 
-    [self.interstitial displayAd];
+    if (self.loaded) {
+        [self.interstitial displayAd];
+    } else {
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+    }
 }
 
 - (BOOL)isReady
 {
     //return self.zoneId ? [UnityAds isReady:self.zoneId] : [UnityAds isReady];
-    return NO;
+    return self.loaded;
 }
 
 #pragma mark - TPRVideoAdDelegate
+
+- (void)videoAd:(TPRVideoAd*)videoAd failed:(NSError*)error
+{
+    if (videoAd == self.interstitial) {
+        NSLog(@"ThirdPresence failed: %@", error.localizedDescription);
+        // Handle the error
+    }
+}
+
+- (void)videoAd:(TPRVideoAd*)videoAd eventOccured:(TPRPlayerEvent*)event
+{
+    if (videoAd == self.interstitial) {
+        NSLog(@"ThirdPresence event: %@", event);
+        
+        NSString* eventName = [event objectForKey:TPR_EVENT_KEY_NAME];
+        if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_READY]) {
+            // The player is ready for loading ads
+            self.loaded = NO;
+            if (self.requestWhenReady) {
+                self.requestWhenReady = NO;
+                [self requestAd];
+            }
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LOADED]) {
+            // An ad is loaded
+            self.loaded = YES;
+            [self.delegate adapterDidLoadAd:self];
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_STARTED]) {
+            [self.delegate adapterIsShowingAd:self];
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_ERROR]) {
+            // Failed displaying the loaded ad
+            self.loaded = NO;
+            [self.interstitial reset];
+            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_CLICKTHRU]) {
+            [self.delegate adapterWasClicked:self];
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LEFT_APPLICATION]) {
+            [self.delegate adapterLeftApplication:self];
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_VIDEO_COMPLETE]) {
+            self.reward = YES;
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_STOPPED]) {
+            // Displaying ad stopped
+            // Close and reset the interstitial
+            self.loaded = NO;
+            [self.interstitial reset];
+            [self.delegate adapterDidCloseAd:self canReward:self.reward];
+        }
+    }
+}
 
 @end
