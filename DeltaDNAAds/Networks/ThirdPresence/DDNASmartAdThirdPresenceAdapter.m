@@ -125,6 +125,10 @@
                 self.requestWhenReady = NO;
                 [self requestAd];
             }
+        } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_ERROR]) {
+            DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
+            result.errorDescription = event[@"arg1"];
+            [self.delegate adapterDidFailToLoadAd:self withResult:result];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LOADED]) {
             // An ad is loaded
             self.loaded = YES;

@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (????-??-??)
+### Added 
+- Support for ThirdPresence.
+
 ## [1.2.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (2016-11-11)
 ### Changed
 - iOS 8 minimum version.
