@@ -158,21 +158,21 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (void)adapterWasClicked:(DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter) {
+    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
         self.adWasClicked = YES;
     }
 }
 
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter) {
+    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
         self.adLeftApplication = YES;
     }
 }
 
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
-    if (adapter == self.currentAdapter) {
+    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
         self.lastAdShownTime = [NSDate date];
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
         self.state = DDNASmartAdAgentStateReady;
