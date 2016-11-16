@@ -126,7 +126,16 @@
                 [self requestAd];
             }
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_ERROR]) {
-            DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
+            DDNASmartAdRequestResultCode code = DDNASmartAdRequestResultCodeError;
+            NSString *reason = event[@"arg1"];
+            if ([@"No fill" isEqualToString:reason]) {
+                code = DDNASmartAdRequestResultCodeNoFill;
+            }
+            else if ([@"Timeout during ad request" isEqualToString:reason]) {
+                code = DDNASmartAdRequestResultCodeTimeout;
+            }
+            
+            DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:code];
             result.errorDescription = event[@"arg1"];
             [self.delegate adapterDidFailToLoadAd:self withResult:result];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LOADED]) {
