@@ -425,8 +425,8 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     }
 
     NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:10];
-    eventParams[@"adProvider"] = [adapter name];
-    eventParams[@"adProviderVersion"] = [adapter version];
+    eventParams[@"adProvider"] = adapter ? [adapter name] : @"N/A";
+    eventParams[@"adProviderVersion"] = adapter ? [adapter version] : @"N/A";
     eventParams[@"adType"] = adType;
     eventParams[@"adStatus"] = result.desc;
     eventParams[@"adSdkVersion"] = [DDNASmartAds sdkVersion];
