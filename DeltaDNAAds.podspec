@@ -95,4 +95,11 @@ Pod::Spec.new do |s|
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
     end
 
+    s.subspec 'AppLovin' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'AppLovin', '~>3.4'
+        ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
+    end
+
 end
