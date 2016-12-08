@@ -1,6 +1,6 @@
 # Change Log
 
-## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/unreleased) (2016-12-08)
+## [1.2.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.5) (2016-12-08)
 ### Fixed
 - Use cached Engage ad network configuration.
 
