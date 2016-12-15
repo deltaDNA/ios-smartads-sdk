@@ -83,7 +83,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Vungle' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'VungleSDK-iOS', '~>4.0'
+        ss.dependency 'VungleSDK-iOS', '~>4.0.9'
         ss.source_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h'
     end
