@@ -1,8 +1,22 @@
 # Change Log
 
 ## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (????-??-??)
-### Added 
+### Added
 - Support for ThirdPresence.
+
+## [1.2.6](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6) (2016-12-19)
+### Fixed
+- Minor fixes to adapters.
+- Updated ad networks.
+
+## [1.2.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.5) (2016-12-08)
+### Fixed
+- Use cached Engage ad network configuration.
+
+## [1.2.4](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.4) (2016-11-25)
+### Fixed
+- Prevent callbacks happening from wrong state.
+- Record when no adProvider is available.
 
 ## [1.2.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (2016-11-11)
 ### Changed

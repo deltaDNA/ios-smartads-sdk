@@ -130,7 +130,7 @@ DDNAEngagement* engagement = [DDNAEngagement engagementWithDecisionPoint:@"showR
 
             // Present offer to player...
 
-            // If they choose to watch the add
+            // If they choose to watch the ad
             [rewardedAd showFromRootViewController:self];
         }
     }

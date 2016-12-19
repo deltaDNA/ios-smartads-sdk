@@ -69,7 +69,7 @@ describe(@"registering for ads", ^{
         
     });
     
-    it(@"fails with engage non 200 response", ^{
+    it(@"no ad available with engage non 200 response", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -79,14 +79,12 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler(@"Unknown decision point", 400, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: 400 Unknown decision point"];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: 400 Unknown decision point"];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
-    it(@"fails with empty engage response", ^{
+    it(@"no ad available with empty engage response", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -96,8 +94,6 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler(@"{}", 200, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         

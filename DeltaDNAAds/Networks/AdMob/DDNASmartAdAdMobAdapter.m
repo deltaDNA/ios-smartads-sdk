@@ -73,7 +73,7 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if ([self.interstitial isReady]) {
+    if (self.interstitial && [self.interstitial isReady]) {
         [self.interstitial presentFromRootViewController:viewController];
     }
     else {
@@ -197,6 +197,7 @@
 /// Called just after dismissing an interstitial and it has animated off the screen.
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad
 {
+    self.interstitial = nil;
     [self.delegate adapterDidCloseAd:self canReward:YES];
 }
 

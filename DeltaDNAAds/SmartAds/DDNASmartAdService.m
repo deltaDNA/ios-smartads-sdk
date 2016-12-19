@@ -63,47 +63,43 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                                               flavour:@"internal"
                                            parameters:nil
                                     completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
-
-        if (connectionError) {
-            // Assume it's a temporary network glitch and try again
+                                        
+        NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
+        if (!responseDict || !responseDict[@"parameters"]) {
+            DDNALogDebug(@"No valid SmartAds configuration received, trying again in %d seconds.", REGISTER_FOR_ADS_RETRY_SECONDS);
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self beginSessionWithDecisionPoint:decisionPoint];
             });
         }
-        else if (statusCode != 200) {
-            [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, response]];
-            [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Engage returned: %ld %@", (long)statusCode, response]];
-        }
         else {
-            NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
-
-            if (!responseDict[@"parameters"]) {
-                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
-                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
-                return;
+            if (responseDict[@"isCachedResponse"] && [responseDict[@"isCachedResponse"] boolValue]) {
+                DDNALogDebug(@"Using cached SmartAds configuration");
+            } else {
+                DDNALogDebug(@"Using live SmartAds configuration");
             }
-
+            
             self.adConfiguration = responseDict[@"parameters"];
-
+            
             if (!self.adConfiguration[@"adShowSession"] || (![self.adConfiguration[@"adShowSession"] boolValue])) {
+                DDNALogDebug(@"SmartAds disabled by Engage for this session");
                 [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
                 [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
                 return;
             }
-
+            
             self.maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
             self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
             self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
             self.requestDecisionPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
-
+            
             NSInteger floorPrice = [self.adConfiguration[@"adFloorPrice"] integerValue];
             NSInteger maxRequests = [self.adConfiguration[@"adMaxPerNetwork"] integerValue];
             NSUInteger demoteCode = [self.adConfiguration[@"adDemoteOnRequestCode"] unsignedIntegerValue];
-
+            
             NSArray *adProviders = self.adConfiguration[@"adProviders"];
-
+            
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
                 NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
@@ -112,16 +108,16 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
                     self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
                     [self.interstitialAgent requestAd];
-
+                    
                     [self.delegate didRegisterForInterstitialAds];
                 }
             }
             else {
                 [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
             }
-
+            
             NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
-
+            
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
                 NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
@@ -130,7 +126,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
                     self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
                     [self.rewardedAgent requestAd];
-
+                    
                     [self.delegate didRegisterForRewardedAds];
                 }
             }
@@ -138,7 +134,6 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                 [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
             }
         }
-
     }];
 }
 
@@ -425,8 +420,8 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     }
 
     NSMutableDictionary *eventParams = [[NSMutableDictionary alloc] initWithCapacity:10];
-    eventParams[@"adProvider"] = [adapter name];
-    eventParams[@"adProviderVersion"] = [adapter version];
+    eventParams[@"adProvider"] = adapter ? [adapter name] : @"N/A";
+    eventParams[@"adProviderVersion"] = adapter ? [adapter version] : @"N/A";
     eventParams[@"adType"] = adType;
     eventParams[@"adStatus"] = result.desc;
     eventParams[@"adSdkVersion"] = [DDNASmartAds sdkVersion];

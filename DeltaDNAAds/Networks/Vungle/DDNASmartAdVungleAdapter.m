@@ -91,21 +91,7 @@
         [self.delegate adapterWasClicked:self];
     }
     
-    if (!willPresentProductSheet) {
-        [self.delegate adapterDidCloseAd:self canReward:self.reward];
-        if ([[VungleSDK sharedSDK] isAdPlayable]) {
-            [self.delegate adapterDidLoadAd:self];
-        }
-    }
-}
-
-- (void)vungleSDKwillCloseProductSheet:(id)productSheet
-{
     [self.delegate adapterDidCloseAd:self canReward:self.reward];
-    if ([[VungleSDK sharedSDK] isAdPlayable]) {
-        [self.delegate adapterDidLoadAd:self];
-    }
 }
-
 
 @end
