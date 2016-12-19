@@ -71,7 +71,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.2.5";
+    return @"SmartAds v1.2.6";
 }
 
 - (void)registerForAds
@@ -82,7 +82,7 @@
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAds) name:@"DDNASDKNewSession" object:nil];
             }
-            
+
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
             [self.adService beginSessionWithDecisionPoint:@"advertising"];
         }

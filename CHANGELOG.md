@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6) (2016-12-15)
+## [1.2.6](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6) (2016-12-19)
 ### Fixed
 - Minor fixes to adapters.
 - Updated ad networks.
