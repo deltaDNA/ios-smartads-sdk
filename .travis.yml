@@ -7,4 +7,7 @@ podfile: Podfile
 xcode_workspace: DeltaDNAAds.xcworkspace
 xcode_scheme: SmartAds iOS Example
 xcode_sdk: iphonesimulator
-script: set -o pipefail && xcodebuild -workspace $TRAVIS_XCODE_WORKSPACE -scheme "$TRAVIS_XCODE_SCHEME" -sdk $TRAVIS_XCODE_SDK -destination 'name=iPhone 6' build test | xcpretty
+script:
+    - set -o pipefail
+    - xcodebuild -workspace $TRAVIS_XCODE_WORKSPACE -scheme "$TRAVIS_XCODE_SCHEME" -sdk $TRAVIS_XCODE_SDK -destination 'name=iPhone 6' clean build-for-testing | xcpretty
+    - xcodebuild -workspace $TRAVIS_XCODE_WORKSPACE -scheme "$TRAVIS_XCODE_SCHEME" -sdk $TRAVIS_XCODE_SDK -destination 'name=iPhone 6' test-without-building | xcpretty
