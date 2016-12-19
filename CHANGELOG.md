@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.6.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6.1) (2016-12-19)
+### Fixed
+- Fix UnityAds and CocoaPods.
+
 ## [1.2.6](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6) (2016-12-19)
 ### Fixed
 - Minor fixes to adapters.

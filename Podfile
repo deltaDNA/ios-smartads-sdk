@@ -1,5 +1,5 @@
-source 'https://github.com/CocoaPods/Specs'
 source 'https://github.com/deltaDNA/CocoaPods'
+source 'https://github.com/CocoaPods/Specs'
 
 workspace 'DeltaDNAAds'
 project 'DeltaDNAAds'
