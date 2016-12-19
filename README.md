@@ -13,8 +13,8 @@ The deltaDNA SmartAds SDK provides your iOS game with access to our intelligent 
 #### Podfile
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/deltaDNA/CocoaPods.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
     pod 'DeltaDNAAds', '~> 1.2'
@@ -26,8 +26,8 @@ The deltaDNA SDKs are available from our private spec repository, its url must b
 The above example will install all the ad networks we support.  To install just a subset declare each subspec separately in your Podfile, for example:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/deltaDNA/CocoaPods.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
     pod 'DeltaDNAAds', '~> 1.2', :subspecs => ['AdMob','MoPub']

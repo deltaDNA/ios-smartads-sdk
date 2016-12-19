@@ -13,8 +13,8 @@ deltaDNA智能广告SDK用于将你的iOS游戏接入我们的智能广告中间
 #### Podfile
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/deltaDNA/CocoaPods.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
     pod 'DeltaDNAAds', '~> 1.2'
@@ -26,8 +26,8 @@ deltaDNA的SDK可以直接从我们的私有项目库中找到，其URL必须作
 上面的例子将安装我们支持的所有广告网络。如若只安装一个子集，那么需要在你的podfile中分别声明每一个子项。例如：
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/deltaDNA/CocoaPods.git'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
     pod 'DeltaDNAAds', '~> 1.2', :subspecs => ['AdMob','MoPub']

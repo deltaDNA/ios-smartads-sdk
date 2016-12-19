@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
     s.name         = 'UnityAds'
-    s.version      = '2.0.6'
-    s.license      = 'UNKNOWN'
+    s.version      = '2.0.7'
+    s.license      = 'Apache License, Version 2.0'
     s.summary      = 'Unity Ads SDK for iOS.'
 
     s.description  = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.homepage     = 'https://unity3d.com/services/ads'
     s.authors      = { 'Unity Technologies' => 'unityads-support@unity3d.com' }
     s.platform     = :ios, "7.0"
-    s.source       = { :http => 'https://github.com/Unity-Technologies/unity-ads-ios/releases/download/2.0.6/UnityAds.framework.zip' }
+    s.source       = { :http => 'https://github.com/Unity-Technologies/unity-ads-ios/releases/download/2.0.7/UnityAds.framework.zip' }
 
     s.vendored_frameworks = 'UnityAds.framework'
 
