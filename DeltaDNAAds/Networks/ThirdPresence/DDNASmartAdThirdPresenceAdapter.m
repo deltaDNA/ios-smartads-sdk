@@ -36,7 +36,7 @@
 
 - (instancetype)initWithAccountName:(NSString *)accountName placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"THIRDPRESENCE" version:@"1.3.3" eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"THIRDPRESENCE" version:[DDNASmartAdThirdPresenceAdapter getSdkVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.accountName = testMode ? @"sdk-demo" : accountName;
         self.placementId = testMode ? @"sa7nvltbrn" : placementId;
         self.testMode = testMode;
@@ -79,16 +79,6 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-//    if ([UnityAds isSupported] && [self isReady]) {
-//        self.showing = YES;
-//        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-//        [mediationMetaData setOrdinal:self.delegate.sessionAdCount+1];
-//        [mediationMetaData commit];
-//        [UnityAds show:viewController placementId:self.zoneId];
-//    } else {
-//        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
-//    }
-
     if (self.loaded) {
         [self.interstitial displayAd];
     } else {
@@ -163,6 +153,15 @@
             [self.delegate adapterDidCloseAd:self canReward:self.reward];
         }
     }
+}
+
++ (NSString *)getSdkVersion
+{
+    NSString *versionString = @"1.0+";
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ThirdpresenceAdSDK-Info" ofType:@"plist"]];
+    
+    versionString = [dictionary objectForKey:@"CFBundleShortVersionString"];
+    return versionString;
 }
 
 @end
