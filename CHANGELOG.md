@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/) (2017-01-26)
+### Fixed
+- Check dispatch queue isn't nil.
+
 ## [1.2.6.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6.1) (2016-12-19)
 ### Fixed
 - Fix UnityAds and CocoaPods.

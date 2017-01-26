@@ -51,7 +51,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 {
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
-        self.dispatchQueue = dispatch_queue_create("com.deltadna.ios.sdk.adService", DISPATCH_QUEUE_CONCURRENT);
+        self.dispatchQueue = dispatch_queue_create("com.deltadna.ios.sdk.adService", DISPATCH_QUEUE_SERIAL);
         self.dispatchQueueSuspended = NO;
     }
     return self;
