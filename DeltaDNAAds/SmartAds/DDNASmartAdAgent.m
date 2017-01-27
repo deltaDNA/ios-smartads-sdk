@@ -32,6 +32,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 @property (nonatomic, strong) NSDate *lastRequestTime;
 
 @property (nonatomic, strong) DDNASmartAdWaterfall *waterfall;
+@property (nonatomic, assign) NSNumber *adLimit;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, assign) NSInteger adapterIndex;
 @property (nonatomic, weak) NSTimer *timeoutTimer;
@@ -42,8 +43,14 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall
 {
+    return [self initWithWaterfall:waterfall adLimit:nil];
+}
+
+- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit
+{
     if ((self = [super self])) {
         self.waterfall = waterfall;
+        self.adLimit = adLimit;
         [self getNextAdapterAndReset:YES];
         if (!self.currentAdapter) {
             DDNALogWarn(@"At least one ad provider must be defined, ads will not be available!");
@@ -55,7 +62,14 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (void)requestAd
 {
-    if (!self.currentAdapter) return;
+    if (!self.currentAdapter) {
+        DDNALogDebug(@"No ad networks available, ignoring ad request");
+        return;
+    }
+    if (self.hasReachedAdLimit) {
+        DDNALogDebug(@"Ad limit of %ld ads reached, ignoring ad request", self.adsShown);
+        return;
+    }
     
     self.adWasClicked = NO;
     self.adLeftApplication = NO;
@@ -71,6 +85,11 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 - (BOOL)isShowingAd
 {
     return self.state == DDNASmartAdAgentStateShowing;
+}
+
+- (BOOL)hasReachedAdLimit
+{
+    return self.adLimit && self.adsShown >= [self.adLimit integerValue];
 }
 
 - (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
@@ -177,10 +196,12 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
         self.state = DDNASmartAdAgentStateReady;
         [self getNextAdapterAndReset:YES];
-        if (self.currentAdapter) {
-            [self requestNextAdWithDelaySeconds:0];
-        } else {
+        if (!self.currentAdapter) {
             DDNALogWarn(@"No more ad networks available for ads.");
+        } else if (self.hasReachedAdLimit) {
+            DDNALogWarn(@"Ad limit of %ld reached, stopping ad requests", self.adsShown);
+        } else {
+            [self requestNextAdWithDelaySeconds:0];
         }
     }
 }
