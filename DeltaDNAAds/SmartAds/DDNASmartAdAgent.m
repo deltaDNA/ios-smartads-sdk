@@ -199,7 +199,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         if (!self.currentAdapter) {
             DDNALogWarn(@"No more ad networks available for ads.");
         } else if (self.hasReachedAdLimit) {
-            DDNALogWarn(@"Ad limit of %ld reached, stopping ad requests", self.adsShown);
+            DDNALogDebug(@"Ad limit of %ld reached, stopping ad requests.", self.adsShown);
         } else {
             [self requestNextAdWithDelaySeconds:0];
         }

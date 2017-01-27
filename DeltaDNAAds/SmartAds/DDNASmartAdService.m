@@ -310,8 +310,10 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         adAgent.decisionPoint = nil;
     }
     
+    NSString *adTypeLabel = adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded";
+    
     if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] < self.adMinimumInterval) {
-        DDNALogDebug(@"showAd called before minimum interval %ld seconds between ads elasped", (long)self.adMinimumInterval);
+        DDNALogDebug(@"Attempting to show %@ ad before minimum interval of %ld seconds has elasped.", adTypeLabel, (long)self.adMinimumInterval);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
@@ -319,7 +321,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     }
     
     if (adAgent.hasReachedAdLimit) {
-        DDNALogDebug(@"Max ad per session count of %ld reached", adAgent.adsShown);
+        DDNALogDebug(@"Maximum %@ ads per session of %ld reached.", adTypeLabel, adAgent.adsShown);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
@@ -329,7 +331,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     if ((adAgent.decisionPoint && !self.requestDecisionPoints) ||
         (engagementParameters != nil && engagementParameters[@"adShowPoint"] != nil && ![engagementParameters[@"adShowPoint"] boolValue])) {
         
-        DDNALogDebug(@"Engage prevented ad from opening at %@", decisionPoint);
+        DDNALogDebug(@"Engage preventing %@ ad from opening at %@.", adTypeLabel, decisionPoint);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
@@ -337,14 +339,14 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     }
     
     if (!adAgent.hasLoadedAd) {
-        DDNALogDebug(@"No ad available");
+        DDNALogDebug(@"No %@ ad available to show.", adTypeLabel);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNoAdAvailable]];
         return NO;
     }
     
-    DDNALogDebug(@"Ad fulfilled");
+    DDNALogDebug(@"Allowed to show %@ ad.", adTypeLabel);
     [self postAdShowEvent:adAgent
                   adapter:adAgent.currentAdapter
                    result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
