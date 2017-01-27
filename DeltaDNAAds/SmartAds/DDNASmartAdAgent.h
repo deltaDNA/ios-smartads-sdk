@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall;
 
-- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit;
+- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit NS_DESIGNATED_INITIALIZER;
 
 - (void)requestAd;
 

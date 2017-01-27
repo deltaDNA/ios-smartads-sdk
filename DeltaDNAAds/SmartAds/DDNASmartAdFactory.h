@@ -36,6 +36,7 @@
 - (DDNASmartAdService *)buildSmartAdServiceWithDelegate:(id<DDNASmartAdServiceDelegate>)delegate;
 
 - (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall
+                                             adLimit:(NSNumber *)adLimit
                                             delegate:(id<DDNASmartAdAgentDelegate>)delegate;
 
 - (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders:(NSArray *)adProviders

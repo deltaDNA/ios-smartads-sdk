@@ -36,7 +36,6 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 @property (nonatomic, strong) NSDictionary *adConfiguration;
 @property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
 @property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
-@property (nonatomic, strong) NSNumber *maxAdsPerSession;
 @property (nonatomic, assign) NSInteger adMinimumInterval;
 @property (nonatomic, assign) BOOL recordAdRequests;
 @property (nonatomic, assign) BOOL requestDecisionPoints;
@@ -89,7 +88,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                 return;
             }
             
-            self.maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
+            NSNumber *maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
             self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
             self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
             self.requestDecisionPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
@@ -106,7 +105,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
+                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
                     [self.interstitialAgent requestAd];
                     
                     [self.delegate didRegisterForInterstitialAds];
@@ -124,7 +123,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
+                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
                     [self.rewardedAgent requestAd];
                     
                     [self.delegate didRegisterForRewardedAds];
@@ -319,8 +318,8 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         return NO;
     }
     
-    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
-        DDNALogDebug(@"Max ad per session count of %ld reached", (long)[self.maxAdsPerSession integerValue]);
+    if (adAgent.hasReachedAdLimit) {
+        DDNALogDebug(@"Max ad per session count of %ld reached", adAgent.adsShown);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
@@ -360,7 +359,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         return;
     }
 
-    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
+    if (adAgent.hasReachedAdLimit) {
         [self didFailToOpenAdWithAdAgent:adAgent reason:@"Session limit reached"];
         return;
     }

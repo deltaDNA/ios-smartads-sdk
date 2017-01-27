@@ -23,13 +23,13 @@
 
 @implementation DDNAFakeSmartAdFactory
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
     if (self.fakeSmartAdAgent) {
         self.fakeSmartAdAgent.delegate = delegate;
         return self.fakeSmartAdAgent;
     } else {
-        return [super buildSmartAdAgentWithWaterfall:waterfall delegate:delegate];
+        return [super buildSmartAdAgentWithWaterfall:waterfall adLimit:nil delegate:delegate];
     }
 }
 

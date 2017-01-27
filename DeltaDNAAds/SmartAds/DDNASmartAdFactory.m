@@ -63,9 +63,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
     return adService;
 }
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
-    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall];
+    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:adLimit];
     adAgent.delegate = delegate;
     return adAgent;
 }

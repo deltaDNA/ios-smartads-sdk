@@ -32,7 +32,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 @property (nonatomic, strong) NSDate *lastRequestTime;
 
 @property (nonatomic, strong) DDNASmartAdWaterfall *waterfall;
-@property (nonatomic, assign) NSNumber *adLimit;
+@property (nonatomic, strong) NSNumber *adLimit;
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, assign) NSInteger adapterIndex;
 @property (nonatomic, weak) NSTimer *timeoutTimer;
