@@ -1,6 +1,10 @@
 # Change Log
 
-## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/) (2017-01-26)
+## [1.2.7](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.7) (2017-01-30)
+### Changed
+- Updated MobFox to v3.1.5.
+- Updated UnityAds to v2.0.8.
+
 ### Fixed
 - Check dispatch queue isn't nil.
 - Don't request more ads after session limit reached.
