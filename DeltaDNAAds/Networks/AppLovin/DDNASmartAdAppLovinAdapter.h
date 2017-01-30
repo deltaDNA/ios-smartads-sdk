@@ -19,12 +19,10 @@
 
 @interface DDNASmartAdAppLovinAdapter : DDNASmartAdAdapter
 
-@property (nonatomic, copy, readonly) NSString *gameId;
-@property (nonatomic, copy, readonly) NSString *zoneId;
+@property (nonatomic, copy, readonly) NSString *sdkKey;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
-- (instancetype)initWithGameId:(NSString *)gameId
-                        zoneId:(NSString *)zoneId
+- (instancetype)initWithSdkKey:(NSString *)sdkKey
                       testMode:(BOOL)testMode
                           eCPM:(NSInteger)eCPM
                 waterfallIndex:(NSInteger)waterfallIndex;

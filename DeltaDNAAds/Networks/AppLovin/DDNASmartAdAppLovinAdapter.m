@@ -16,9 +16,12 @@
 
 #import "DDNASmartAdAppLovinAdapter.h"
 #import "DDNASmartAds.h"
-#import <AppLovin/ALInterstitialAd.h>
+#import <AppLovinSDK/ALInterstitialAd.h>
 
 @interface DDNASmartAdAppLovinAdapter () <ALAdLoadDelegate, ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
+
+@property (nonatomic, copy) NSString *sdkKey;
+@property (nonatomic, assign) BOOL testMode;
 
 @property (nonatomic, assign) BOOL started;
 @property (nonatomic, assign) BOOL loaded;
@@ -36,6 +39,8 @@
 - (instancetype)initWithSdkKey:(NSString *)sdkKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"APPLOVIN" version:[ALSdk version] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+        self.sdkKey = sdkKey;
+        self.testMode = testMode;
         
         ALSdkSettings *settings = [[ALSdkSettings alloc] init];
         settings.isVerboseLogging = YES;
