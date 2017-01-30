@@ -374,7 +374,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		430D4D870990CE002644652A /* [CP] Embed Pods Frameworks */ = {
@@ -389,7 +389,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		73641F799D241BD284BDF974 /* [CP] Embed Pods Frameworks */ = {
@@ -511,7 +511,7 @@
 /* Begin XCBuildConfiguration section */
 		63ABAD6C1DCCA79700AAE98B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3C61AA6D6D2A587C185C5260 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig */;
+			baseConfigurationReference = 18C599368F77C42C0E1DC082 /* Pods-SmartAds iOS Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -529,7 +529,7 @@
 		};
 		63ABAD6D1DCCA79700AAE98B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24B921E02BA34C2FA1B757A2 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig */;
+			baseConfigurationReference = EA2CF8DB6065E6B3678D1003 /* Pods-SmartAds iOS Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
