@@ -37,7 +37,6 @@
 		636B79CB1DCCAD4A00D96B71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C31DCCAD4A00D96B71 /* main.m */; };
 		636B79CC1DCCAD4A00D96B71 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C51DCCAD4A00D96B71 /* ViewController.m */; };
 		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
-		95CC01108193CD9B70532CB3 /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E33AA62B28E61AD2559D9FF /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a */; };
 		C29FFE188A5FEA0E465F0326 /* libPods-SmartAds iOS Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3A1FD0491EF930BF72EC25 /* libPods-SmartAds iOS Example.a */; };
 		E5E97623E252AB3A8302CD6E /* libPods-SmartAds iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 339BF7E6F7A560D459F93050 /* libPods-SmartAds iOS Tests.a */; };
 /* End PBXBuildFile section */
@@ -111,7 +110,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E97623E252AB3A8302CD6E /* libPods-SmartAds iOS Tests.a in Frameworks */,
-				95CC01108193CD9B70532CB3 /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
