@@ -85,6 +85,7 @@
                     [self.delegate adapterIsShowingAd:self];
                 };
                 ad.close = ^{
+                    self.ad = nil;
                     [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                 };
                 ad.leftApplication = ^{

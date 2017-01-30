@@ -69,7 +69,7 @@ describe(@"registering for ads", ^{
         
     });
     
-    it(@"fails with engage non 200 response", ^{
+    it(@"no ad available with engage non 200 response", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -79,14 +79,12 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler(@"Unknown decision point", 400, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: 400 Unknown decision point"];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: 400 Unknown decision point"];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         
     });
     
-    it(@"fails with empty engage response", ^{
+    it(@"no ad available with empty engage response", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
@@ -96,8 +94,6 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
         completionHandler(@"{}", 200, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Invalid Engage response, missing 'parameters' key."];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         
@@ -272,7 +268,7 @@ describe(@"interstitial ads", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@3];
         
         mockViewController = mock([UIViewController class]);
     });
@@ -499,7 +495,7 @@ describe(@"interstitial ads", ^{
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         // session limit should be reached
-        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beFalsy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
         [verifyCount(mockDelegate, times(3)) didOpenInterstitialAd];
 
@@ -543,7 +539,7 @@ describe(@"rewarded ads", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@3];
         
         mockViewController = mock([UIViewController class]);
     });
@@ -830,7 +826,7 @@ describe(@"respects minimum ad interval", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@3];
         
         mockViewController = mock([UIViewController class]);
     });
@@ -924,7 +920,7 @@ describe(@"respects adRequest flag", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@3];
         
         mockViewController = mock([UIViewController class]);
     });
@@ -989,7 +985,7 @@ describe(@"allowed to show interstitial", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@2];
         
         mockViewController = mock([UIViewController class]);
         
@@ -1066,7 +1062,7 @@ describe(@"allowed to show interstitial", ^{
         expect([adService isShowingInterstitialAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        expect([adService isInterstitialAdAvailable]).will.beFalsy();
         
         expect([adService isInterstitialAdAllowed]).to.beFalsy();
         
@@ -1122,7 +1118,7 @@ describe(@"allowed to show interstitial minimal time", ^{
                              }
                      };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@2];
         
         mockViewController = mock([UIViewController class]);
         
@@ -1232,7 +1228,7 @@ describe(@"allowed to show rewarded", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@2];
         
         mockViewController = mock([UIViewController class]);
         
@@ -1311,7 +1307,7 @@ describe(@"allowed to show rewarded", ^{
         expect([adService isShowingRewardedAd]).to.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isRewardedAdAvailable]).will.beTruthy();
+        expect([adService isRewardedAdAvailable]).will.beFalsy();
         
         expect([adService isRewardedAdAllowed]).to.beFalsy();
         
@@ -1368,7 +1364,7 @@ describe(@"allowed to show rewarded minimal time", ^{
             }
         };
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@2];
         
         mockViewController = mock([UIViewController class]);
         
@@ -1457,7 +1453,7 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
         adService.factory = fakeFactory;
         
-        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
+        fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] initWithAdLimit:@2];
         
         mockViewController = mock([UIViewController class]);
         

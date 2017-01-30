@@ -1,5 +1,32 @@
 # Change Log
 
+## [1.2.7](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.7) (2017-01-30)
+### Changed
+- Updated MobFox to v3.1.5.
+- Updated UnityAds to v2.0.8.
+
+### Fixed
+- Check dispatch queue isn't nil.
+- Don't request more ads after session limit reached.
+
+## [1.2.6.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6.1) (2016-12-19)
+### Fixed
+- Fix UnityAds and CocoaPods.
+
+## [1.2.6](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6) (2016-12-19)
+### Fixed
+- Minor fixes to adapters.
+- Updated ad networks.
+
+## [1.2.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.5) (2016-12-08)
+### Fixed
+- Use cached Engage ad network configuration.
+
+## [1.2.4](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.4) (2016-11-25)
+### Fixed
+- Prevent callbacks happening from wrong state.
+- Record when no adProvider is available.
+
 ## [1.2.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (2016-11-11)
 ### Changed
 - iOS 8 minimum version.

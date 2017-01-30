@@ -226,6 +226,65 @@ describe(@"ad agent", ^{
         
     });
 
+    it(@"respects ad request limit", ^{
+        
+        NSArray *adapters = @[
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+        ];
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:@5];
+        agent.delegate = delegate;
+        
+        for (int i = 0; i < 5; ++i) {
+            [agent requestAd];
+            expect([agent hasLoadedAd]).will.beTruthy();
+            [agent showAdFromRootViewController:mockViewController decisionPoint:nil];
+            expect([agent isShowingAd]).to.beTruthy();
+            [adapters[0] closeAd];
+        }
+        
+        [agent requestAd];
+        expect([agent hasLoadedAd]).will.beFalsy();
+    });
+    
+    it(@"continues to request ads if no ad limit", ^{
+        
+        NSArray *adapters = @[
+                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+                              ];
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:nil];
+        agent.delegate = delegate;
+        
+        for (int i = 0; i < 5; ++i) {
+            [agent requestAd];
+            expect([agent hasLoadedAd]).will.beTruthy();
+            [agent showAdFromRootViewController:mockViewController decisionPoint:nil];
+            expect([agent isShowingAd]).to.beTruthy();
+            [adapters[0] closeAd];
+        }
+        
+        [agent requestAd];
+        expect([agent hasLoadedAd]).will.beTruthy();
+    });
+    
+    it(@"requests no ads if ad limit is 0", ^{
+        
+        NSArray *adapters = @[
+                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+                              ];
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:@0];
+        agent.delegate = delegate;
+        
+        [agent requestAd];
+        expect([agent hasLoadedAd]).will.beFalsy();
+    });
+
+
     
 });
 

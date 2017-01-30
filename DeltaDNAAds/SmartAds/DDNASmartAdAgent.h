@@ -40,8 +40,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 @property (nonatomic, assign, readonly) NSInteger adsShown;
 @property (nonatomic, strong, readonly) NSDate *lastAdShownTime;
 
-
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall;
+
+- (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit NS_DESIGNATED_INITIALIZER;
 
 - (void)requestAd;
 
@@ -49,7 +50,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 
 - (BOOL)isShowingAd;
 
-- (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint: (NSString *)decisionPoint;
+- (BOOL)hasReachedAdLimit;
+
+- (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
 
 @end
 
