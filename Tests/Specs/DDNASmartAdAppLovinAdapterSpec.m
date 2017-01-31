@@ -35,6 +35,7 @@ describe(@"AppLovin adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"APPLOVIN",
             @"sdkKey": @"test-sdk-key",
+            @"placement": @"interstitial",
             @"eCPM": @150
         };
         
@@ -43,6 +44,7 @@ describe(@"AppLovin adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
+        expect(adapter.placement).to.equal(@"interstitial");
         expect(adapter.testMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
@@ -66,6 +68,7 @@ describe(@"AppLovin adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"APPLOVIN",
             @"sdkKey": @"test-sdk-key",
+            @"placement": @"interstitial",
             @"testMode": @YES
         };
         
@@ -74,6 +77,7 @@ describe(@"AppLovin adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
+        expect(adapter.placement).to.equal(@"interstitial");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);

@@ -21,6 +21,7 @@
 @interface DDNASmartAdAppLovinAdapter () <ALAdLoadDelegate, ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
 @property (nonatomic, copy) NSString *sdkKey;
+@property (nonatomic, copy) NSString *placement;
 @property (nonatomic, assign) BOOL testMode;
 
 @property (nonatomic, assign) BOOL started;
@@ -36,10 +37,11 @@
 
 @implementation DDNASmartAdAppLovinAdapter
 
-- (instancetype)initWithSdkKey:(NSString *)sdkKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithSdkKey:(NSString *)sdkKey placement:(NSString *)placement testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"APPLOVIN" version:[ALSdk version] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.sdkKey = sdkKey;
+        self.placement = placement;
         self.testMode = testMode;
         
         ALSdkSettings *settings = [[ALSdkSettings alloc] init];
@@ -62,9 +64,9 @@
 
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"sdkKey"]) return nil;
+    if (!configuration[@"sdkKey"] || !configuration[@"placement"]) return nil;
     
-    return [self initWithSdkKey:configuration[@"sdkKey"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithSdkKey:configuration[@"sdkKey"] placement:configuration[@"placement"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
@@ -84,7 +86,7 @@
     self.alInterstitial.adVideoPlaybackDelegate = self;
     
     if (self.loaded) {
-        [self.alInterstitial showOver: [UIApplication sharedApplication].keyWindow andRender: self.ad];
+        [self.alInterstitial showOver: [UIApplication sharedApplication].keyWindow placement:self.placement andRender: self.ad];
     }
     else{
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];

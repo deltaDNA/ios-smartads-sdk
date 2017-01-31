@@ -20,9 +20,11 @@
 @interface DDNASmartAdAppLovinAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *sdkKey;
+@property (nonatomic, copy, readonly) NSString *placement;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
 - (instancetype)initWithSdkKey:(NSString *)sdkKey
+                     placement:(NSString *)placement
                       testMode:(BOOL)testMode
                           eCPM:(NSInteger)eCPM
                 waterfallIndex:(NSInteger)waterfallIndex;
