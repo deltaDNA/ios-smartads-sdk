@@ -193,7 +193,11 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                 }
                 else if ([adProvider caseInsensitiveContains:@"APPLOVIN"]) {
                     if (type == DDNASmartAdAdapterTypeInterstitial) {
-                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinAdapter"
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinRewardedAdapter"
                                                      configuration:configuration
                                                     waterfallIndex:i];
                     }

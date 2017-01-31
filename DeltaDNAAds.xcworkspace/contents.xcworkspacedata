@@ -72,10 +72,16 @@
             location = "group:../../Networks/AppLovin"
             name = "AppLovin">
             <FileRef
-               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h">
+               location = "group:/Users/david/Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinInterstitialAdapter.h">
             </FileRef>
             <FileRef
-               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.m">
+               location = "group:/Users/david/Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinRewardedAdapter.m">
             </FileRef>
          </Group>
          <Group

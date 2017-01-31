@@ -23,12 +23,13 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h>
+#import <DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinInterstitialAdapter.h>
+#import <DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinRewardedAdapter.h>
 
 
 SpecBegin(DDNASmartAdAppLovinAdapter)
 
-describe(@"AppLovin adapter", ^{
+describe(@"AppLovin interstitial adapter", ^{
     
     it(@"builds from valid configuration", ^{
         
@@ -39,13 +40,13 @@ describe(@"AppLovin adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinInterstitialAdapter *adapter = [[DDNASmartAdAppLovinInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
         expect(adapter.placement).to.equal(@"interstitial");
-        expect(adapter.testMode).to.beFalsy();
+        expect(adapter.isTestMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
         
@@ -57,8 +58,8 @@ describe(@"AppLovin adapter", ^{
             @"adProvider": @"APPLOVIN"
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinInterstitialAdapter *adapter = [[DDNASmartAdAppLovinInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -72,13 +73,13 @@ describe(@"AppLovin adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinInterstitialAdapter *adapter = [[DDNASmartAdAppLovinInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
         expect(adapter.placement).to.equal(@"interstitial");
-        expect(adapter.testMode).to.beTruthy();
+        expect(adapter.isTestMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
