@@ -69,6 +69,22 @@
          location = "group:DeltaDNAAds/Networks"
          name = "Networks">
          <Group
+            location = "group:../../Networks/AppLovin"
+            name = "AppLovin">
+            <FileRef
+               location = "group:/Users/david/Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinInterstitialAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:/Users/david/Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:../../Projects/ios-smartads-sdk/DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinRewardedAdapter.m">
+            </FileRef>
+         </Group>
+         <Group
             location = "group:DeltaDNAAds/Networks/../.."
             name = "UnityAds">
             <FileRef
@@ -222,6 +238,9 @@
    <Group
       location = "group:PodSpecs"
       name = "PodSpecs">
+      <FileRef
+         location = "group:AppLovin.podspec">
+      </FileRef>
       <FileRef
          location = "group:UnityAds.podspec">
       </FileRef>
