@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.3.0) (yyyy-mm-dd)
+### Added
+- Support for AppLovin.
+
 ## [1.2.7](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.7) (2017-01-30)
 ### Changed
 - Updated MobFox to v3.1.5.
