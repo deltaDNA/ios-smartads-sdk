@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
     s.header_mappings_dir = 'DeltaDNAAds'
 
-    s.dependency 'DeltaDNA', '~> 4.2'
+    s.dependency 'DeltaDNA', '~> 4.2.0'
 
     s.subspec 'SmartAds' do |ss|
         ss.source_files = 'DeltaDNAAds/DeltaDNAAds.{h,m}', 'DeltaDNAAds/SmartAds/**/*.{h,m}'
