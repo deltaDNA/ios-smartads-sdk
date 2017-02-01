@@ -5,14 +5,14 @@ workspace 'DeltaDNAAds'
 project 'DeltaDNAAds'
 
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '8.0'
 
 target 'SmartAds iOS Example' do
     # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
     # use_frameworks!
 
     # Pods for SmartAds iOS Example
-    pod 'DeltaDNAAds', :path => './', :subspecs => ['ThirdPresence']
+    pod 'DeltaDNAAds', :path => './'
 
     target 'SmartAds iOS Tests' do
         # This breaks since CocoaPods v1.2 with missing frameworks, but links correctly without
