@@ -97,7 +97,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'ThirdPresence' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'thirdpresence-ad-sdk-ios', '~>1.0'
+        ss.dependency 'thirdpresence-ad-sdk-ios', '~>1.5.2'
         ss.source_files = 'DeltaDNAAds/Networks/ThirdPresence/DDNASmartAdThirdPresenceAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/ThirdPresence/DDNASmartAdThirdPresenceAdapter.h'
     end
