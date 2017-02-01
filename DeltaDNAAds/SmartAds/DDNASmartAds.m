@@ -71,7 +71,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.3.0-beta.1";
+    return @"SmartAds v1.3-beta.1";
 }
 
 - (void)registerForAds

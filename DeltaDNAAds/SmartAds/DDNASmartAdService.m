@@ -36,7 +36,6 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 @property (nonatomic, strong) NSDictionary *adConfiguration;
 @property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
 @property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
-@property (nonatomic, strong) NSNumber *maxAdsPerSession;
 @property (nonatomic, assign) NSInteger adMinimumInterval;
 @property (nonatomic, assign) BOOL recordAdRequests;
 @property (nonatomic, assign) BOOL requestDecisionPoints;
@@ -51,7 +50,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 {
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
-        self.dispatchQueue = dispatch_queue_create("com.deltadna.ios.sdk.adService", DISPATCH_QUEUE_CONCURRENT);
+        self.dispatchQueue = dispatch_queue_create("com.deltadna.ios.sdk.adService", DISPATCH_QUEUE_SERIAL);
         self.dispatchQueueSuspended = NO;
     }
     return self;
@@ -89,7 +88,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                 return;
             }
             
-            self.maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
+            NSNumber *maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
             self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
             self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
             self.requestDecisionPoints = !self.adConfiguration[@"adShowPoint"] || [self.adConfiguration[@"adShowPoint"] boolValue];
@@ -106,7 +105,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
+                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
                     [self.interstitialAgent requestAd];
                     
                     [self.delegate didRegisterForInterstitialAds];
@@ -124,7 +123,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                     [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall delegate:self];
+                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
                     [self.rewardedAgent requestAd];
                     
                     [self.delegate didRegisterForRewardedAds];
@@ -311,16 +310,18 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         adAgent.decisionPoint = nil;
     }
     
+    NSString *adTypeLabel = adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded";
+    
     if ([[NSDate date] timeIntervalSinceDate:adAgent.lastAdShownTime] < self.adMinimumInterval) {
-        DDNALogDebug(@"showAd called before minimum interval %ld seconds between ads elasped", (long)self.adMinimumInterval);
+        DDNALogDebug(@"Attempting to show %@ ad before minimum interval of %ld seconds has elasped.", adTypeLabel, (long)self.adMinimumInterval);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeMinTimeNotElapsed]];
         return NO;
     }
     
-    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
-        DDNALogDebug(@"Max ad per session count of %ld reached", (long)[self.maxAdsPerSession integerValue]);
+    if (adAgent.hasReachedAdLimit) {
+        DDNALogDebug(@"Maximum %@ ads per session of %ld reached.", adTypeLabel, adAgent.adsShown);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdSessionLimitReached]];
@@ -330,7 +331,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     if ((adAgent.decisionPoint && !self.requestDecisionPoints) ||
         (engagementParameters != nil && engagementParameters[@"adShowPoint"] != nil && ![engagementParameters[@"adShowPoint"] boolValue])) {
         
-        DDNALogDebug(@"Engage prevented ad from opening at %@", decisionPoint);
+        DDNALogDebug(@"Engage preventing %@ ad from opening at %@.", adTypeLabel, decisionPoint);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeAdShowPoint]];
@@ -338,14 +339,14 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
     }
     
     if (!adAgent.hasLoadedAd) {
-        DDNALogDebug(@"No ad available");
+        DDNALogDebug(@"No %@ ad available to show.", adTypeLabel);
         [self postAdShowEvent:adAgent
                       adapter:adAgent.currentAdapter
                        result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNoAdAvailable]];
         return NO;
     }
     
-    DDNALogDebug(@"Ad fulfilled");
+    DDNALogDebug(@"Allowed to show %@ ad.", adTypeLabel);
     [self postAdShowEvent:adAgent
                   adapter:adAgent.currentAdapter
                    result:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeFulfilled]];
@@ -360,7 +361,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
         return;
     }
 
-    if (self.maxAdsPerSession && adAgent.adsShown >= [self.maxAdsPerSession integerValue]) {
+    if (adAgent.hasReachedAdLimit) {
         [self didFailToOpenAdWithAdAgent:adAgent reason:@"Session limit reached"];
         return;
     }

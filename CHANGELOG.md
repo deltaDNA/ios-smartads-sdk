@@ -1,8 +1,18 @@
 # Change Log
 
-## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.3) (????-??-??)
+## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.3.0) (yyyy-mm-dd)
 ### Added
+- Support for AppLovin.
 - Support for ThirdPresence.
+
+## [1.2.7](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.7) (2017-01-30)
+### Changed
+- Updated MobFox to v3.1.5.
+- Updated UnityAds to v2.0.8.
+
+### Fixed
+- Check dispatch queue isn't nil.
+- Don't request more ads after session limit reached.
 
 ## [1.2.6.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.2.6.1) (2016-12-19)
 ### Fixed

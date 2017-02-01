@@ -48,11 +48,11 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
 {
     static dispatch_once_t once;
     static id sharedInstance;
-    
+
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });
-    
+
     return sharedInstance;
 }
 
@@ -63,9 +63,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
     return adService;
 }
 
-- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall delegate:(id<DDNASmartAdAgentDelegate>)delegate
+- (DDNASmartAdAgent *)buildSmartAdAgentWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit delegate:(id<DDNASmartAdAgentDelegate>)delegate
 {
-    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall];
+    DDNASmartAdAgent *adAgent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:adLimit];
     adAgent.delegate = delegate;
     return adAgent;
 }
@@ -97,9 +97,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
 - (NSArray *)buildAdapterWaterfallWithAdProviders:(NSArray *)adProviders type:(DDNASmartAdAdapterType)type floorPrice:(NSInteger)floorPrice
 {
     if (![adProviders isKindOfClass:[NSArray class]]) return nil;
-    
+
     NSMutableArray *adapters = [NSMutableArray arrayWithCapacity:adProviders.count];
-    
+
     for (int i = 0; i < adProviders.count; i++) {
         NSDictionary *configuration = adProviders[i];
         if (![configuration isKindOfClass:[NSDictionary class]]) {
@@ -111,13 +111,13 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
             DDNALogWarn(@"Failed to build adapter for ad provider at index %d - missing adProvider key.", i);
             continue;
         }
-        
+
         @try {
             DDNASmartAdAdapter * adapter = nil;
             NSInteger ecpm = [configuration[@"eCPM"] integerValue];
-            
+
             if (ecpm > floorPrice) {
-                
+
                 if ([adProvider caseInsensitiveContains:@"ADMOB"]) {
                     adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdMobAdapter"
                                                  configuration:configuration
@@ -195,13 +195,23 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                     adapter = [self instantiateAdapterForKlass:@"DDNASmartAdThirdPresenceAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
+                else if ([adProvider caseInsensitiveContains:@"APPLOVIN"]) {
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
                 }
                 else {
                     DDNALogWarn(@"Ad network %@ for %@ ads is not supported.",
                                 adProvider,
                                 type == DDNASmartAdAdapterTypeInterstitial ? @"interstitial" : @"rewarded");
                 }
-                
+
                 if (adapter) {
                     [adapters addObject:adapter];
                 }
@@ -214,7 +224,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
             DDNALogWarn(@"Failed to build adapter for %@: %@.", adProvider, exception);
         }
     }
-    
+
     return adapters;
 }
 

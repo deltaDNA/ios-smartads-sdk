@@ -19,6 +19,10 @@
 
 @interface DDNAFakeSmartAdAgent : DDNASmartAdAgent
 
+- (instancetype)init;
+
+- (instancetype)initWithAdLimit:(NSNumber *)adLimit;
+
 - (void)closeAd;
 
 - (void)closeAdWithReward:(BOOL)reward;

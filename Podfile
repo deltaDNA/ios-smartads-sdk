@@ -15,7 +15,11 @@ target 'SmartAds iOS Example' do
     pod 'DeltaDNAAds', :path => './', :subspecs => ['ThirdPresence']
 
     target 'SmartAds iOS Tests' do
+        # This breaks since CocoaPods v1.2 with missing frameworks, but links correctly without
+        # although I should need it.
+        # Think it's related to https://github.com/CocoaPods/CocoaPods/issues/6065
         inherit! :search_paths
+        
         # Pods for testing
         pod 'Specta', '~> 1.0'
         pod 'Expecta', '~> 1.0'

@@ -20,6 +20,8 @@
 
 @interface DDNASmartAdAgent (UnitTest)
 
+@property (nonatomic, strong) NSNumber *adLimit;
+
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter;
 - (void)adapterIsShowingAd: (DDNASmartAdAdapter *)adapter;
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward;
@@ -43,6 +45,13 @@
         
     }
     return self;
+}
+
+- (instancetype)initWithAdLimit:(NSNumber *)adLimit
+{
+    DDNAFakeSmartAdAgent *agent = [self init];
+    agent.adLimit = adLimit;
+    return agent;
 }
 
 - (void)closeAd

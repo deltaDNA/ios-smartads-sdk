@@ -1,17 +1,17 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.3.0-beta.1'
+    s.version = '1.3-beta.1'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
-    s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
+    s.source = { :git => 'git@edinlin01:gamesanalytics/ios-smartads-sdk.git', :tag => s.version.to_s }
     s.platform = :ios, '8.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
 
-    s.dependency 'DeltaDNA', '~> 4.2'
+    s.dependency 'DeltaDNA', '~> 4.2.0'
 
     s.subspec 'SmartAds' do |ss|
         ss.source_files = 'DeltaDNAAds/DeltaDNAAds.{h,m}', 'DeltaDNAAds/SmartAds/**/*.{h,m}'
@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFox', '3.1.1'
+        ss.dependency 'MobFox', '3.1.5'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UnityAds' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'UnityAds', '~>2.0'
+        ss.dependency 'UnityAds', '~>2.0.8'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
     end
@@ -102,5 +102,10 @@ Pod::Spec.new do |s|
         ss.public_header_files = 'DeltaDNAAds/Networks/ThirdPresence/DDNASmartAdThirdPresenceAdapter.h'
     end
 
-
+    s.subspec 'AppLovin' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'AppLovin', '3.5.2'
+        ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovin*.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovin*.h'
+    end
 end

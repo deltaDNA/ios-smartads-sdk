@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "MobFox"
-  s.version      = "3.1.1"
+  s.version      = "3.1.5"
   s.summary      = "The MobFox iOS SDK."
   s.description  = <<-DESC
                    MobFox's iOS SDK Used To Get Ads From The MobFox SSP
