@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.11'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.17.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -34,28 +34,28 @@ Pod::Spec.new do |s|
 
     s.subspec 'Amazon' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AmazonAd', '~>2.2'
+        ss.dependency 'AmazonAd', '2.2.15'
         ss.source_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h'
     end
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk', '~>4.9'
+        ss.dependency 'mopub-ios-sdk', '~>4.11.1'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>7.6'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>7.9.2'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>6.0'
+        ss.dependency 'InMobiSDK', '~>6.0.1'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
@@ -69,14 +69,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdColony' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AdColony', '~>3.0'
+        ss.dependency 'AdColony', '~>3.0.6'
         ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
     end
 
     s.subspec 'Chartboost' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'ChartboostSDK', '~>6.4'
+        ss.dependency 'ChartboostSDK', '~>6.6.1'
         ss.source_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.h'
     end
