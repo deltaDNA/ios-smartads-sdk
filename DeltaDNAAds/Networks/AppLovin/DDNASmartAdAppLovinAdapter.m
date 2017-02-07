@@ -14,22 +14,23 @@
 // limitations under the License.
 //
 
-#import "DDNASmartAdAppLovinRewardedAdapter.h"
+#import "DDNASmartAdAppLovinAdapter.h"
 #import <AppLovinSDK/AppLovinSDK.h>
 
-@interface DDNASmartAdAppLovinRewardedAdapter () <ALAdLoadDelegate, ALAdDisplayDelegate, ALAdRewardDelegate>
+@interface DDNASmartAdAppLovinAdapter () <ALAdLoadDelegate, ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
 @property (nonatomic, copy) NSString *sdkKey;
 @property (nonatomic, copy) NSString *placement;
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, strong) ALSdk *alSdk;
-@property (nonatomic, strong) ALIncentivizedInterstitialAd *rewardedAd;
-@property (nonatomic, assign) BOOL reward;
+@property (nonatomic, strong) ALInterstitialAd *interstitialAd;
+@property (nonatomic, strong) ALAd *alad;
 @property (nonatomic, assign) BOOL preloading;
+@property (nonatomic, assign) BOOL reward;
 
 @end
 
-@implementation DDNASmartAdAppLovinRewardedAdapter
+@implementation DDNASmartAdAppLovinAdapter
 
 - (instancetype)initWithSdkKey:(NSString *)sdkKey placement:(NSString *)placement testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
@@ -43,8 +44,9 @@
         settings.isTestAdsEnabled = testMode;
         _alSdk = [ALSdk sharedWithKey:sdkKey settings:settings];
         
-        _rewardedAd = [[ALIncentivizedInterstitialAd alloc] initWithSdk:_alSdk];
-        _rewardedAd.adDisplayDelegate = self;
+        _interstitialAd = [[ALInterstitialAd alloc] initWithSdk:_alSdk];
+        _interstitialAd.adDisplayDelegate = self;
+        _interstitialAd.adVideoPlaybackDelegate = self;
     }
     return self;
 }
@@ -53,32 +55,31 @@
 
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"sdkKey"] || !configuration[@"placement"]) return nil;
+    if (!configuration[@"sdkKey"]) return nil;
     
     return [self initWithSdkKey:configuration[@"sdkKey"] placement:configuration[@"placement"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
-    if ([_rewardedAd isReadyForDisplay]) {
+    if ([_interstitialAd isReadyForDisplay]) {
         [self.delegate adapterDidLoadAd:self];
     } else if (!_preloading) {
-        [_rewardedAd preloadAndNotify:self];
-        _reward = NO;
+        [_alSdk.adService loadNextAd:[ALAdSize sizeInterstitial] andNotify:self];
         _preloading = YES;
     }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if ([_rewardedAd isReadyForDisplay]) {
-        [_rewardedAd showOver:[UIApplication sharedApplication].keyWindow placement:_placement andNotify:self];
+    if ([_interstitialAd isReadyForDisplay]) {
+        [_interstitialAd showOver:[UIApplication sharedApplication].keyWindow placement:_placement andRender:_alad];
     }
 }
 
 - (BOOL)isReady
 {
-    return [_rewardedAd isReadyForDisplay];
+    return [_interstitialAd isReadyForDisplay];
 }
 
 #pragma mark - ALAdLoadDelegate
@@ -94,7 +95,8 @@
 - (void)adService:(alnonnull ALAdService *)adService didLoadAd:(alnonnull ALAd *)ad
 {
     _preloading = NO;
-    
+    _reward = NO;
+    _alad = ad;
     [self.delegate adapterDidLoadAd:self];
 }
 
@@ -179,74 +181,32 @@
     [self.delegate adapterWasClicked:self];
 }
 
-#pragma mark - ALAdRewardDelegate
+#pragma mark - AlAdVideoPlaybackDelegate
 
 /**
- *  This method is invoked if a user viewed a rewarded video and their reward was approved by the AppLovin server.
+ * This method is invoked when a video starts playing in an ad.
  *
- * If you are using reward validation for incentivized videos, this method
- * will be invoked if we contacted AppLovin successfully. This means that we believe the
- * reward is legitimate and should be awarded. Please note that ideally you should refresh the
- * user's balance from your server at this point to prevent tampering with local data on jailbroken devices.
+ * This method is invoked on the main UI thread.
  *
- * The response NSDictionary will typically includes the keys "currency" and "amount", which point to NSStrings containing the name and amount of the virtual currency to be awarded.
- *
- *  @param ad       Ad which was viewed.
- *  @param response Dictionary containing response data, including "currency" and "amount".
+ * @param ad Ad in which video playback began.
  */
-- (void)rewardValidationRequestForAd:(alnonnull ALAd *)ad didSucceedWithResponse:(alnonnull NSDictionary *)response
+- (void)videoPlaybackBeganInAd:(alnonnull ALAd *)ad
 {
-    _reward = YES;
+    
 }
 
 /**
- * This method will be invoked if we were able to contact AppLovin, but the user has already received
- * the maximum number of coins you allowed per day in the web UI.
+ * This method is invoked when a video stops playing in an ad.
  *
- *  @param ad       Ad which was viewed.
- *  @param response Dictionary containing response data from the server.
+ * This method is invoked on the main UI thread.
+ *
+ * @param ad                Ad in which video playback ended.
+ * @param percentPlayed     How much of the video was watched, as a percent.
+ * @param wasFullyWatched   Whether or not the video was watched to, or very near to, completion.
  */
-- (void)rewardValidationRequestForAd:(alnonnull ALAd *)ad didExceedQuotaWithResponse:(alnonnull NSDictionary *)response
+- (void)videoPlaybackEndedInAd:(alnonnull ALAd *)ad atPlaybackPercent:(alnonnull NSNumber *)percentPlayed fullyWatched:(BOOL)wasFullyWatched
 {
-    _reward = NO;
+    _reward = wasFullyWatched;
 }
-
-/**
- * This method will be invoked if the AppLovin server rejected the reward request.
- * This would usually happen if the user fails to pass an anti-fraud check.
- *
- *  @param ad       Ad which was viewed.
- *  @param response Dictionary containing response data from the server.
- */
-- (void)rewardValidationRequestForAd:(alnonnull ALAd *)ad wasRejectedWithResponse:(alnonnull NSDictionary *)response
-{
-    _reward = NO;
-}
-
-/**
- * This method will be invoked if were unable to contact AppLovin, so no ping will be heading to your server.
- *
- *  @param ad           Ad which was viewed.
- *  @param responseCode A failure code corresponding to a constant defined in <code>ALErrorCodes.h</code>.
- */
-- (void)rewardValidationRequestForAd:(alnonnull ALAd *)ad didFailWithError:(NSInteger)responseCode
-{
-    _reward = NO;
-}
-
-/**
- * This method will be invoked if the user chooses 'no' when asked if they want to view a rewarded video.
- *
- * This is only possible if you have the pre-video modal enabled in the Manage Apps UI.
- *
- * @param ad       Ad which was offered to the user, but declined.
- */
-- (void)userDeclinedToViewAd:(alnonnull ALAd *)ad
-{
-    _reward = NO;
-}
-
-
-
 
 @end

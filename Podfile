@@ -12,7 +12,7 @@ target 'SmartAds iOS Example' do
     # use_frameworks!
 
     # Pods for SmartAds iOS Example
-    pod 'DeltaDNAAds', :path => './'
+    pod 'DeltaDNAAds', :path => './', :subspecs => ['AppLovin']
 
     target 'SmartAds iOS Tests' do
         # This breaks since CocoaPods v1.2 with missing frameworks, but links correctly without

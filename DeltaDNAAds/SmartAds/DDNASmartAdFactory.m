@@ -197,15 +197,9 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                                                 waterfallIndex:i];
                 }
                 else if ([adProvider caseInsensitiveContains:@"APPLOVIN"]) {
-                    if (type == DDNASmartAdAdapterTypeInterstitial) {
-                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinInterstitialAdapter"
-                                                     configuration:configuration
-                                                    waterfallIndex:i];
-                    } else {
-                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinRewardedAdapter"
-                                                     configuration:configuration
-                                                    waterfallIndex:i];
-                    }
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAppLovinAdapter"
+                                                 configuration:configuration
+                                                waterfallIndex:i];
                 }
                 else {
                     DDNALogWarn(@"Ad network %@ for %@ ads is not supported.",

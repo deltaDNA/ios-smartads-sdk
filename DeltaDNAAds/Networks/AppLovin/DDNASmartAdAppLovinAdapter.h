@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 #import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
-@interface DDNASmartAdAppLovinInterstitialAdapter : DDNASmartAdAdapter
+@interface DDNASmartAdAppLovinAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *sdkKey;
 @property (nonatomic, copy, readonly) NSString *placement;
