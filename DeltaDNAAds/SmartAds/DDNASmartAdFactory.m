@@ -209,6 +209,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
 
                 if (adapter) {
                     [adapters addObject:adapter];
+                    DDNALogDebug(@"Added ad network %@", adProvider);
                 }
             }
             else {
