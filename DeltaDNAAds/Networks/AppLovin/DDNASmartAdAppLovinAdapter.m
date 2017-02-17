@@ -24,9 +24,8 @@
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, strong) ALSdk *alSdk;
 @property (nonatomic, strong) ALInterstitialAd *interstitialAd;
-@property (nonatomic, strong) ALAd *alad;
-@property (nonatomic, assign) BOOL preloading;
-@property (nonatomic, assign) BOOL reward;
+@property (nonatomic, strong) NSNumber *reward;
+@property (nonatomic, strong) ALAd *lastAd;
 
 @end
 
@@ -40,13 +39,11 @@
         _testMode = testMode;
         
         ALSdkSettings *settings = [[ALSdkSettings alloc] init];
-        settings.isVerboseLogging = YES;
+        settings.isVerboseLogging = NO;
         settings.isTestAdsEnabled = testMode;
         _alSdk = [ALSdk sharedWithKey:sdkKey settings:settings];
-        
+        [_alSdk initializeSdk];
         _interstitialAd = [[ALInterstitialAd alloc] initWithSdk:_alSdk];
-        _interstitialAd.adDisplayDelegate = self;
-        _interstitialAd.adVideoPlaybackDelegate = self;
     }
     return self;
 }
@@ -62,18 +59,36 @@
 
 - (void)requestAd
 {
-    if ([_interstitialAd isReadyForDisplay]) {
+    if (_lastAd || [_alSdk.adService hasPreloadedAdOfSize:[ALAdSize sizeInterstitial]]) {
         [self.delegate adapterDidLoadAd:self];
-    } else if (!_preloading) {
+    } else {
+        // preload interstitial
         [_alSdk.adService loadNextAd:[ALAdSize sizeInterstitial] andNotify:self];
-        _preloading = YES;
     }
+    
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     if ([_interstitialAd isReadyForDisplay]) {
-        [_interstitialAd showOver:[UIApplication sharedApplication].keyWindow placement:_placement andRender:_alad];
+        _interstitialAd.adDisplayDelegate = self;
+        _interstitialAd.adVideoPlaybackDelegate = self;
+        
+        if (_placement) {
+            if (_lastAd) {
+                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] placement:_placement andRender:_lastAd];
+            } else {
+                [_interstitialAd showOverPlacement:_placement];
+            }
+        } else {
+            if (_lastAd) {
+                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] andRender:_lastAd];
+            } else {
+                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
+            }
+        }
+    } else {
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
 }
 
@@ -94,9 +109,8 @@
  */
 - (void)adService:(alnonnull ALAdService *)adService didLoadAd:(alnonnull ALAd *)ad
 {
-    _preloading = NO;
-    _reward = NO;
-    _alad = ad;
+    _lastAd = ad;
+    _reward = nil;
     [self.delegate adapterDidLoadAd:self];
 }
 
@@ -110,8 +124,6 @@
  */
 - (void)adService:(alnonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
 {
-    _preloading = NO;
-    
     DDNASmartAdRequestResultCode resultCode;
     
     switch (code) {
@@ -164,8 +176,9 @@
  */
 - (void)ad:(alnonnull ALAd *)ad wasHiddenIn:(alnonnull UIView *)view
 {
-    [self.delegate adapterDidCloseAd:self canReward:_reward];
-    _reward = NO;
+    _lastAd = nil;
+    [self.delegate adapterDidCloseAd:self canReward:_reward == nil || [_reward boolValue]];
+    _reward = nil;
 }
 
 /**
@@ -206,7 +219,7 @@
  */
 - (void)videoPlaybackEndedInAd:(alnonnull ALAd *)ad atPlaybackPercent:(alnonnull NSNumber *)percentPlayed fullyWatched:(BOOL)wasFullyWatched
 {
-    _reward = wasFullyWatched;
+    _reward = [NSNumber numberWithBool:wasFullyWatched];
 }
 
 @end
