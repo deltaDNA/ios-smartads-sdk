@@ -3,7 +3,7 @@
    version = "1.0">
    <Group
       location = "group:DeltaDNAAds"
-      name = "DeltaDNAAds">
+      name = "&#9;">
       <FileRef
          location = "group:DeltaDNAAds.h">
       </FileRef>

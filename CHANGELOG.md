@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.3.0) (yyyy-mm-dd)
+## [1.3.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.3.0) (2017-03-10)
 ### Added
 - Support for AppLovin.
 - Support for ThirdPresence.

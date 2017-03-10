@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.3-beta.2'
+    s.version = '1.3.0'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
-    s.source = { :git => 'git@edinlin01:gamesanalytics/ios-smartads-sdk.git', :tag => s.version.to_s }
+    s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
     s.platform = :ios, '8.0'
     s.requires_arc = true
 
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.17.0'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.18.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>7.9.2'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>7.10.0'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
@@ -69,7 +69,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdColony' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AdColony', '~>3.0.6'
+        ss.dependency 'AdColony', '~>3.1.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
     end
