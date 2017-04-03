@@ -108,4 +108,11 @@ Pod::Spec.new do |s|
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end
+
+    s.subspec 'IronSource' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'IronSourceSDK', '~>6.5.2'
+        ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
+    end
 end

@@ -69,6 +69,28 @@
          location = "container:DeltaDNAAds/Networks"
          name = "Networks">
          <Group
+            location = "container:"
+            name = "IronSource">
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceInterstitialAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceInterstitialAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceRewardedAdapter.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceRewardedAdapter.m">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceHelper.h">
+            </FileRef>
+            <FileRef
+               location = "group:DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSourceHelper.m">
+            </FileRef>
+         </Group>
+         <Group
             location = "group:DeltaDNAAds/Networks/ThirdPresence"
             name = "ThirdPresence">
             <FileRef
