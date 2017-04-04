@@ -41,6 +41,8 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 @implementation DDNASmartAdAgent
 
+- (instancetype)init { @throw nil; }
+
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall
 {
     return [self initWithWaterfall:waterfall adLimit:nil];
@@ -48,7 +50,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit
 {
-    if ((self = [super self])) {
+    if ((self = [super init])) {
         self.waterfall = waterfall;
         self.adLimit = adLimit;
         [self getNextAdapterAndReset:YES];

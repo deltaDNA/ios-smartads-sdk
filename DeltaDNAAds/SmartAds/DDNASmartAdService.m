@@ -65,7 +65,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
                                         
         NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
         if (!responseDict || !responseDict[@"parameters"]) {
-            DDNALogDebug(@"No valid SmartAds configuration received, trying again in %d seconds.", REGISTER_FOR_ADS_RETRY_SECONDS);
+            DDNALogDebug(@"No valid SmartAds configuration received, trying again in %ld seconds.", (long)REGISTER_FOR_ADS_RETRY_SECONDS);
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{

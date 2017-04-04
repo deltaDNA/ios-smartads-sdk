@@ -54,7 +54,7 @@
 
  @param engagement The engagement returned from an engage request.
 
- @param delegate The delegate to use with this @c DDNARewardedAd.
+ @param delgate The delegate to use with this @c DDNARewardedAd.
  */
 + (instancetype)rewardedAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNARewardedAdDelegate>)delgate;
 

@@ -45,6 +45,9 @@
 {
     self.reward = NO;
     [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey];
+    if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
+        [self.delegate adapterDidLoadAd:self];
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
@@ -67,7 +70,7 @@
 
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo
 {
-    
+    self.reward = YES;
 }
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error

@@ -7,6 +7,7 @@
 //
 
 #import "DDNASmartAdIronSourceHelper.h"
+#import "DeltaDNAAds/SmartAds/DDNASmartAdStatus.h"
 #import <IronSource/IronSource.h>
 #import <DeltaDNA/DDNALog.h>
 
@@ -63,6 +64,11 @@
     [IronSource showRewardedVideoWithViewController:viewController placement:placementName];
 }
 
+- (void)loadInterstitial
+{
+    [IronSource loadInterstitial];
+}
+
 - (BOOL)hasInterstitial
 {
     return [IronSource hasInterstitial];
@@ -71,6 +77,17 @@
 - (void)showInterstitialWithViewController:(UIViewController *)viewController placement:(nullable NSString *)placementName
 {
     [IronSource showInterstitialWithViewController:viewController placement:placementName];
+}
+
+- (int)resultCodeFromError:(NSError *)error
+{
+    switch (error.code) {
+        case 501: return DDNASmartAdRequestResultCodeConfiguration;
+        case 506: return DDNASmartAdRequestResultCodeConfiguration;
+        case 509: return DDNASmartAdRequestResultCodeNoFill;
+        case 520: return DDNASmartAdRequestResultCodeNetwork;
+        default: return DDNASmartAdRequestResultCodeError;
+    }
 }
 
 #pragma mark - ISRewardedVideoDelegate

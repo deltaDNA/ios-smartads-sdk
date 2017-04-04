@@ -14,6 +14,7 @@
 @protocol DDNASmartAdIronSourceRewardedDelegate;
 
 @interface DDNASmartAdIronSourceHelper : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<DDNASmartAdIronSourceInterstitialDelegate> interstitialDelegate;
 @property (nonatomic, weak) id<DDNASmartAdIronSourceRewardedDelegate> rewardedDelegate;
@@ -28,13 +29,19 @@
 
 - (void)showRewardedVideoWithViewController:(UIViewController *)viewController placement:(nullable NSString *)placementName;
 
+- (void)loadInterstitial;
+
 - (BOOL)hasInterstitial;
 
 - (void)showInterstitialWithViewController:(UIViewController *)viewController placement:(nullable NSString *)placementName;
 
+- (int)resultCodeFromError:(NSError *)error;
+
+NS_ASSUME_NONNULL_END
 @end
 
 @protocol DDNASmartAdIronSourceRewardedDelegate <NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
 - (void)rewardedVideoHasChangedAvailability:(BOOL)available;
 
@@ -50,9 +57,11 @@
 
 - (void)rewardedVideoDidEnd;
 
+NS_ASSUME_NONNULL_END
 @end
 
 @protocol DDNASmartAdIronSourceInterstitialDelegate <NSObject>
+NS_ASSUME_NONNULL_BEGIN
 
 - (void)interstitialDidLoad;
 
@@ -68,4 +77,5 @@
 
 - (void)interstitialDidFailToLoadWithError:(NSError *)error;
 
+NS_ASSUME_NONNULL_END
 @end

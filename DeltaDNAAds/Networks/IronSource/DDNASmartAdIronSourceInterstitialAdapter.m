@@ -42,6 +42,7 @@
 - (void)requestAd
 {
     [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey];
+    [[DDNASmartAdIronSourceHelper sharedInstance] loadInterstitial];
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
@@ -87,7 +88,8 @@
 
 - (void)interstitialDidFailToLoadWithError:(NSError *)error
 {
-    DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
+    DDNASmartAdRequestResultCode resultCode = [[DDNASmartAdIronSourceHelper sharedInstance] resultCodeFromError:error];
+    DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:resultCode];
     result.errorDescription = error.localizedDescription;
     
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
