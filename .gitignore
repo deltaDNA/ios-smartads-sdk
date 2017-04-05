@@ -23,3 +23,5 @@ Podfile.lock
 
 .DS_Store
 
+# ad network test accounts
+IntegrationTester/networks.json
