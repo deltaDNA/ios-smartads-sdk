@@ -1,0 +1,7 @@
+framework module DeltaDNAAds {
+    umbrella header "DeltaDNAAds.h"
+    
+    export *
+    module * { export * }
+    
+}

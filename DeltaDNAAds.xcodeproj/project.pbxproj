@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		52D41749175B9211FA63C6B3 /* libPods-SmartAds iOS Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E76687F63F27DF300E09A14D /* libPods-SmartAds iOS Example.a */; };
+		1060FBB601FFA904C48E8EDA /* libPods-DeltaDNAAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9452AF2023130C91C4DEF78E /* libPods-DeltaDNAAds.a */; };
+		34006AF239634B47F0C6322D /* libPods-ObjC SmartAds Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B9BE29F80E7F18BE752476 /* libPods-ObjC SmartAds Example.a */; };
 		6342F7391DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */; };
 		6342F73A1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7201DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m */; };
 		6342F73B1DCCCB7C0058BABC /* DDNAFakeSmartAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7221DCCCB7C0058BABC /* DDNAFakeSmartAds.m */; };
@@ -63,6 +64,17 @@
 		636A418F1E93ABF7002BC4E9 /* DDNASmartAdStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 636A41501E93A724002BC4E9 /* DDNASmartAdStatus.m */; };
 		636A41901E93ABF7002BC4E9 /* DDNASmartAdWaterfall.m in Sources */ = {isa = PBXBuildFile; fileRef = 636A41521E93A724002BC4E9 /* DDNASmartAdWaterfall.m */; };
 		636A41991E93F1D5002BC4E9 /* DDNASmartAdIronSourceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 636A41981E93F1D5002BC4E9 /* DDNASmartAdIronSourceAdapterSpec.m */; };
+		636A41A31E93F80A002BC4E9 /* DeltaDNAAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 636A41A11E93F80A002BC4E9 /* DeltaDNAAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		636A41AF1E93FB2D002BC4E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A41AE1E93FB2D002BC4E9 /* AppDelegate.swift */; };
+		636A41B11E93FB2D002BC4E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A41B01E93FB2D002BC4E9 /* ViewController.swift */; };
+		636A41B41E93FB2D002BC4E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636A41B21E93FB2D002BC4E9 /* Main.storyboard */; };
+		636A41B61E93FB2D002BC4E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 636A41B51E93FB2D002BC4E9 /* Assets.xcassets */; };
+		636A41B91E93FB2D002BC4E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636A41B71E93FB2D002BC4E9 /* LaunchScreen.storyboard */; };
+		636A41BE1E93FB51002BC4E9 /* DeltaDNAAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636A419F1E93F80A002BC4E9 /* DeltaDNAAds.framework */; };
+		636A41BF1E93FB51002BC4E9 /* DeltaDNAAds.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 636A419F1E93F80A002BC4E9 /* DeltaDNAAds.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 636A41411E93A724002BC4E9 /* DDNAInterstitialAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 636A41431E93A724002BC4E9 /* DDNARewardedAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		636A41C71E93FD9E002BC4E9 /* DDNASmartAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 636A414B1E93A724002BC4E9 /* DDNASmartAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		636B79C61DCCAD4A00D96B71 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79BC1DCCAD4A00D96B71 /* AppDelegate.m */; };
 		636B79C71DCCAD4A00D96B71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 636B79BD1DCCAD4A00D96B71 /* Assets.xcassets */; };
 		636B79C81DCCAD4A00D96B71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636B79BE1DCCAD4A00D96B71 /* LaunchScreen.storyboard */; };
@@ -73,9 +85,17 @@
 		63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */; };
 		63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */; };
 		B926B550CD33C89B6339494A /* libPods-SmartAds iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD386468A493E0494AE95BF /* libPods-SmartAds iOS Tests.a */; };
+		DFCB67F4417D6A349EF39F27 /* libPods-ObjC SmartAds Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		636A41C01E93FB51002BC4E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63B381E11BFE16FF0049CE28 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 636A419E1E93F80A002BC4E9;
+			remoteInfo = DeltaDNAAds;
+		};
 		63ABAD691DCCA79700AAE98B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63B381E11BFE16FF0049CE28 /* Project object */;
@@ -85,11 +105,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		636A41C21E93FB52002BC4E9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				636A41BF1E93FB51002BC4E9 /* DeltaDNAAds.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		062B9199A3EB39F40F6F6080 /* Pods-ObjC SmartAds Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjC SmartAds Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjC SmartAds Tests/Pods-ObjC SmartAds Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		18C599368F77C42C0E1DC082 /* Pods-SmartAds iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		1A4565E1BD171DD16726B4D9 /* Pods-DeltaDNAAds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeltaDNAAds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeltaDNAAds/Pods-DeltaDNAAds.debug.xcconfig"; sourceTree = "<group>"; };
 		1E33AA62B28E61AD2559D9FF /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Example-SmartAds iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B921E02BA34C2FA1B757A2 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
 		3C61AA6D6D2A587C185C5260 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjC SmartAds Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6342F71D1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdAgent.h; sourceTree = "<group>"; };
 		6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAdAgent.m; sourceTree = "<group>"; };
 		6342F71F1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdFactory.h; sourceTree = "<group>"; };
@@ -182,6 +219,18 @@
 		636A41511E93A724002BC4E9 /* DDNASmartAdWaterfall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdWaterfall.h; sourceTree = "<group>"; };
 		636A41521E93A724002BC4E9 /* DDNASmartAdWaterfall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdWaterfall.m; sourceTree = "<group>"; };
 		636A41981E93F1D5002BC4E9 /* DDNASmartAdIronSourceAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdIronSourceAdapterSpec.m; sourceTree = "<group>"; };
+		636A419F1E93F80A002BC4E9 /* DeltaDNAAds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DeltaDNAAds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		636A41A11E93F80A002BC4E9 /* DeltaDNAAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeltaDNAAds.h; sourceTree = "<group>"; };
+		636A41A21E93F80A002BC4E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		636A41A71E93FA2F002BC4E9 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		636A41AC1E93FB2D002BC4E9 /* Swift SmartAds Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift SmartAds Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		636A41AE1E93FB2D002BC4E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		636A41B01E93FB2D002BC4E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		636A41B31E93FB2D002BC4E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		636A41B51E93FB2D002BC4E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		636A41B81E93FB2D002BC4E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		636A41BA1E93FB2D002BC4E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		636A41C31E93FC4D002BC4E9 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		636B79BB1DCCAD4A00D96B71 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		636B79BC1DCCAD4A00D96B71 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		636B79BD1DCCAD4A00D96B71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -192,24 +241,48 @@
 		636B79C41DCCAD4A00D96B71 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		636B79C51DCCAD4A00D96B71 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		636B79CF1DCCAD7500D96B71 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		63ABAD641DCCA79700AAE98B /* SmartAds iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SmartAds iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63B381E91BFE16FF0049CE28 /* SmartAds iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SmartAds iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjC SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ObjC SmartAds Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdThirdPresenceAdapterSpec.m; sourceTree = "<group>"; };
 		63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdAppLovinAdapterSpec.m; sourceTree = "<group>"; };
+		6FB20732C1B3448CDA0A3CE7 /* Pods-ObjC SmartAds Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjC SmartAds Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjC SmartAds Tests/Pods-ObjC SmartAds Tests.release.xcconfig"; sourceTree = "<group>"; };
+		83AB28E8CD17615432901928 /* Pods-ObjC SmartAds Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjC SmartAds Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example.release.xcconfig"; sourceTree = "<group>"; };
+		86761B9D710DDAC9E64B683F /* Pods_Swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A7614D206796A25F6DE0FC6 /* Pods-SmartAds iOS Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example.debug.xcconfig"; sourceTree = "<group>"; };
+		9452AF2023130C91C4DEF78E /* libPods-DeltaDNAAds.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeltaDNAAds.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B07F91CA511BDD6788B3D26A /* Pods-DeltaDNAAds.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeltaDNAAds.release.xcconfig"; path = "Pods/Target Support Files/Pods-DeltaDNAAds/Pods-DeltaDNAAds.release.xcconfig"; sourceTree = "<group>"; };
 		C27ADE56B6893DD2A6FF6B53 /* Pods-SmartAds iOS Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example.release.xcconfig"; sourceTree = "<group>"; };
 		E76687F63F27DF300E09A14D /* libPods-SmartAds iOS Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2CF8DB6065E6B3678D1003 /* Pods-SmartAds iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
 		EFD386468A493E0494AE95BF /* libPods-SmartAds iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F294D2401297E4CCCCB7DD57 /* Pods-ObjC SmartAds Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjC SmartAds Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example.debug.xcconfig"; sourceTree = "<group>"; };
+		F8B9BE29F80E7F18BE752476 /* libPods-ObjC SmartAds Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjC SmartAds Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		636A419B1E93F80A002BC4E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1060FBB601FFA904C48E8EDA /* libPods-DeltaDNAAds.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636A41A91E93FB2D002BC4E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				636A41BE1E93FB51002BC4E9 /* DeltaDNAAds.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABAD611DCCA79700AAE98B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B926B550CD33C89B6339494A /* libPods-SmartAds iOS Tests.a in Frameworks */,
+				DFCB67F4417D6A349EF39F27 /* libPods-ObjC SmartAds Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63540B341DCCEFB9005E7EE1 /* CoreLocation.framework in Frameworks */,
-				52D41749175B9211FA63C6B3 /* libPods-SmartAds iOS Example.a in Frameworks */,
+				34006AF239634B47F0C6322D /* libPods-ObjC SmartAds Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,7 +540,32 @@
 			path = SmartAds;
 			sourceTree = "<group>";
 		};
-		636B79BA1DCCAD4A00D96B71 /* SmartAds iOS Example */ = {
+		636A41A01E93F80A002BC4E9 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				636A41A11E93F80A002BC4E9 /* DeltaDNAAds.h */,
+				636A41A21E93F80A002BC4E9 /* Info.plist */,
+				636A41A71E93FA2F002BC4E9 /* module.modulemap */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		636A41AD1E93FB2D002BC4E9 /* Swift SmartAds Example */ = {
+			isa = PBXGroup;
+			children = (
+				636A41AE1E93FB2D002BC4E9 /* AppDelegate.swift */,
+				636A41B01E93FB2D002BC4E9 /* ViewController.swift */,
+				636A41B21E93FB2D002BC4E9 /* Main.storyboard */,
+				636A41B51E93FB2D002BC4E9 /* Assets.xcassets */,
+				636A41B71E93FB2D002BC4E9 /* LaunchScreen.storyboard */,
+				636A41BA1E93FB2D002BC4E9 /* Info.plist */,
+				636A41C31E93FC4D002BC4E9 /* Bridging-Header.h */,
+			);
+			name = "Swift SmartAds Example";
+			path = SwiftExample;
+			sourceTree = "<group>";
+		};
+		636B79BA1DCCAD4A00D96B71 /* ObjC SmartAds Example */ = {
 			isa = PBXGroup;
 			children = (
 				636B79BB1DCCAD4A00D96B71 /* AppDelegate.h */,
@@ -480,18 +578,17 @@
 				636B79C41DCCAD4A00D96B71 /* ViewController.h */,
 				636B79C51DCCAD4A00D96B71 /* ViewController.m */,
 			);
-			name = "SmartAds iOS Example";
-			path = Example;
+			name = "ObjC SmartAds Example";
+			path = ObjcExample;
 			sourceTree = "<group>";
 		};
-		636B79CD1DCCAD7500D96B71 /* SmartAds iOS Tests */ = {
+		636B79CD1DCCAD7500D96B71 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				6342F71C1DCCCB7C0058BABC /* Fakes */,
 				6342F7271DCCCB7C0058BABC /* Specs */,
 				636B79CF1DCCAD7500D96B71 /* Info.plist */,
 			);
-			name = "SmartAds iOS Tests";
 			path = Tests;
 			sourceTree = "<group>";
 		};
@@ -500,8 +597,10 @@
 			children = (
 				63B382891BFF67010049CE28 /* Podfile */,
 				636A41031E93A724002BC4E9 /* DeltaDNAAds */,
-				636B79BA1DCCAD4A00D96B71 /* SmartAds iOS Example */,
-				636B79CD1DCCAD7500D96B71 /* SmartAds iOS Tests */,
+				636B79BA1DCCAD4A00D96B71 /* ObjC SmartAds Example */,
+				636A41AD1E93FB2D002BC4E9 /* Swift SmartAds Example */,
+				636B79CD1DCCAD7500D96B71 /* Tests */,
+				636A41A01E93F80A002BC4E9 /* Framework */,
 				63B381EA1BFE16FF0049CE28 /* Products */,
 				D1FA90A14136E0817FDFECE8 /* Pods */,
 				FD3E9A96C8C7D2474B5F5009 /* Frameworks */,
@@ -511,8 +610,10 @@
 		63B381EA1BFE16FF0049CE28 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63B381E91BFE16FF0049CE28 /* SmartAds iOS Example.app */,
-				63ABAD641DCCA79700AAE98B /* SmartAds iOS Tests.xctest */,
+				63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */,
+				63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */,
+				636A419F1E93F80A002BC4E9 /* DeltaDNAAds.framework */,
+				636A41AC1E93FB2D002BC4E9 /* Swift SmartAds Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -526,6 +627,12 @@
 				EA2CF8DB6065E6B3678D1003 /* Pods-SmartAds iOS Tests.release.xcconfig */,
 				3C61AA6D6D2A587C185C5260 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig */,
 				24B921E02BA34C2FA1B757A2 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig */,
+				1A4565E1BD171DD16726B4D9 /* Pods-DeltaDNAAds.debug.xcconfig */,
+				B07F91CA511BDD6788B3D26A /* Pods-DeltaDNAAds.release.xcconfig */,
+				F294D2401297E4CCCCB7DD57 /* Pods-ObjC SmartAds Example.debug.xcconfig */,
+				83AB28E8CD17615432901928 /* Pods-ObjC SmartAds Example.release.xcconfig */,
+				062B9199A3EB39F40F6F6080 /* Pods-ObjC SmartAds Tests.debug.xcconfig */,
+				6FB20732C1B3448CDA0A3CE7 /* Pods-ObjC SmartAds Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -537,16 +644,73 @@
 				1E33AA62B28E61AD2559D9FF /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a */,
 				E76687F63F27DF300E09A14D /* libPods-SmartAds iOS Example.a */,
 				EFD386468A493E0494AE95BF /* libPods-SmartAds iOS Tests.a */,
+				9452AF2023130C91C4DEF78E /* libPods-DeltaDNAAds.a */,
+				86761B9D710DDAC9E64B683F /* Pods_Swift_Example.framework */,
+				F8B9BE29F80E7F18BE752476 /* libPods-ObjC SmartAds Example.a */,
+				4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		636A419C1E93F80A002BC4E9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */,
+				636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */,
+				636A41C71E93FD9E002BC4E9 /* DDNASmartAds.h in Headers */,
+				636A41A31E93F80A002BC4E9 /* DeltaDNAAds.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		63ABAD631DCCA79700AAE98B /* SmartAds iOS Tests */ = {
+		636A419E1E93F80A002BC4E9 /* DeltaDNAAds */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63ABAD6B1DCCA79700AAE98B /* Build configuration list for PBXNativeTarget "SmartAds iOS Tests" */;
+			buildConfigurationList = 636A41A41E93F80A002BC4E9 /* Build configuration list for PBXNativeTarget "DeltaDNAAds" */;
+			buildPhases = (
+				D83CCA90D1CED1ADB6880F52 /* [CP] Check Pods Manifest.lock */,
+				636A419A1E93F80A002BC4E9 /* Sources */,
+				636A419B1E93F80A002BC4E9 /* Frameworks */,
+				636A419C1E93F80A002BC4E9 /* Headers */,
+				636A419D1E93F80A002BC4E9 /* Resources */,
+				C3D1D6EFD41373B0DC83DC65 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeltaDNAAds;
+			productName = DeltaDNAAds;
+			productReference = 636A419F1E93F80A002BC4E9 /* DeltaDNAAds.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		636A41AB1E93FB2D002BC4E9 /* Swift SmartAds Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 636A41BB1E93FB2D002BC4E9 /* Build configuration list for PBXNativeTarget "Swift SmartAds Example" */;
+			buildPhases = (
+				636A41A81E93FB2D002BC4E9 /* Sources */,
+				636A41A91E93FB2D002BC4E9 /* Frameworks */,
+				636A41AA1E93FB2D002BC4E9 /* Resources */,
+				636A41C21E93FB52002BC4E9 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				636A41C11E93FB51002BC4E9 /* PBXTargetDependency */,
+			);
+			name = "Swift SmartAds Example";
+			productName = "Swift Example";
+			productReference = 636A41AC1E93FB2D002BC4E9 /* Swift SmartAds Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		63ABAD631DCCA79700AAE98B /* ObjC SmartAds Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63ABAD6B1DCCA79700AAE98B /* Build configuration list for PBXNativeTarget "ObjC SmartAds Tests" */;
 			buildPhases = (
 				906DC079580B3BB7720AD34F /* [CP] Check Pods Manifest.lock */,
 				63ABAD601DCCA79700AAE98B /* Sources */,
@@ -560,14 +724,14 @@
 			dependencies = (
 				63ABAD6A1DCCA79700AAE98B /* PBXTargetDependency */,
 			);
-			name = "SmartAds iOS Tests";
+			name = "ObjC SmartAds Tests";
 			productName = "DeltaDNA SmartAds iOS Tests";
-			productReference = 63ABAD641DCCA79700AAE98B /* SmartAds iOS Tests.xctest */;
+			productReference = 63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		63B381E81BFE16FF0049CE28 /* SmartAds iOS Example */ = {
+		63B381E81BFE16FF0049CE28 /* ObjC SmartAds Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "SmartAds iOS Example" */;
+			buildConfigurationList = 63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "ObjC SmartAds Example" */;
 			buildPhases = (
 				36886DC1B4426F773093C6DF /* [CP] Check Pods Manifest.lock */,
 				63B381E51BFE16FF0049CE28 /* Sources */,
@@ -580,9 +744,9 @@
 			);
 			dependencies = (
 			);
-			name = "SmartAds iOS Example";
+			name = "ObjC SmartAds Example";
 			productName = "DeltaDNA SmartAds iOS Example";
-			productReference = 63B381E91BFE16FF0049CE28 /* SmartAds iOS Example.app */;
+			productReference = 63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -591,9 +755,20 @@
 		63B381E11BFE16FF0049CE28 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = deltaDNA;
 				TargetAttributes = {
+					636A419E1E93F80A002BC4E9 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 846C8UZB42;
+						ProvisioningStyle = Automatic;
+					};
+					636A41AB1E93FB2D002BC4E9 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 846C8UZB42;
+						ProvisioningStyle = Automatic;
+					};
 					63ABAD631DCCA79700AAE98B = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 846C8UZB42;
@@ -619,13 +794,32 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				63B381E81BFE16FF0049CE28 /* SmartAds iOS Example */,
-				63ABAD631DCCA79700AAE98B /* SmartAds iOS Tests */,
+				63B381E81BFE16FF0049CE28 /* ObjC SmartAds Example */,
+				636A41AB1E93FB2D002BC4E9 /* Swift SmartAds Example */,
+				636A419E1E93F80A002BC4E9 /* DeltaDNAAds */,
+				63ABAD631DCCA79700AAE98B /* ObjC SmartAds Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		636A419D1E93F80A002BC4E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636A41AA1E93FB2D002BC4E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				636A41B91E93FB2D002BC4E9 /* LaunchScreen.storyboard in Resources */,
+				636A41B61E93FB2D002BC4E9 /* Assets.xcassets in Resources */,
+				636A41B41E93FB2D002BC4E9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABAD621DCCA79700AAE98B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -674,7 +868,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Tests/Pods-ObjC SmartAds Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		430D4D870990CE002644652A /* [CP] Embed Pods Frameworks */ = {
@@ -689,7 +883,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Tests/Pods-SmartAds iOS Tests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Tests/Pods-ObjC SmartAds Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		73641F799D241BD284BDF974 /* [CP] Embed Pods Frameworks */ = {
@@ -704,7 +898,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		906DC079580B3BB7720AD34F /* [CP] Check Pods Manifest.lock */ = {
@@ -734,12 +928,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAds iOS Example/Pods-SmartAds iOS Example-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3D1D6EFD41373B0DC83DC65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DeltaDNAAds/Pods-DeltaDNAAds-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D83CCA90D1CED1ADB6880F52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		636A419A1E93F80A002BC4E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636A41A81E93FB2D002BC4E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				636A41B11E93FB2D002BC4E9 /* ViewController.swift in Sources */,
+				636A41AF1E93FB2D002BC4E9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63ABAD601DCCA79700AAE98B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -816,14 +1056,35 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		636A41C11E93FB51002BC4E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 636A419E1E93F80A002BC4E9 /* DeltaDNAAds */;
+			targetProxy = 636A41C01E93FB51002BC4E9 /* PBXContainerItemProxy */;
+		};
 		63ABAD6A1DCCA79700AAE98B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 63B381E81BFE16FF0049CE28 /* SmartAds iOS Example */;
+			target = 63B381E81BFE16FF0049CE28 /* ObjC SmartAds Example */;
 			targetProxy = 63ABAD691DCCA79700AAE98B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		636A41B21E93FB2D002BC4E9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				636A41B31E93FB2D002BC4E9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		636A41B71E93FB2D002BC4E9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				636A41B81E93FB2D002BC4E9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		636B79BE1DCCAD4A00D96B71 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -843,19 +1104,108 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		636A41A51E93F80A002BC4E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A4565E1BD171DD16726B4D9 /* Pods-DeltaDNAAds.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 846C8UZB42;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = Framework/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.DeltaDNAAds;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		636A41A61E93F80A002BC4E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B07F91CA511BDD6788B3D26A /* Pods-DeltaDNAAds.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 846C8UZB42;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Framework/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = Framework/module.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.DeltaDNAAds;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		636A41BC1E93FB2D002BC4E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = 846C8UZB42;
+				INFOPLIST_FILE = SwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.Swift-SmartAds-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		636A41BD1E93FB2D002BC4E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = 846C8UZB42;
+				INFOPLIST_FILE = SwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.Swift-SmartAds-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		63ABAD6C1DCCA79700AAE98B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18C599368F77C42C0E1DC082 /* Pods-SmartAds iOS Tests.debug.xcconfig */;
+			baseConfigurationReference = 062B9199A3EB39F40F6F6080 /* Pods-ObjC SmartAds Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartAds iOS Example.app/SmartAds iOS Example";
 			};
@@ -863,17 +1213,17 @@
 		};
 		63ABAD6D1DCCA79700AAE98B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA2CF8DB6065E6B3678D1003 /* Pods-SmartAds iOS Tests.release.xcconfig */;
+			baseConfigurationReference = 6FB20732C1B3448CDA0A3CE7 /* Pods-ObjC SmartAds Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
-				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.DeltaDNA-SmartAds-iOS-Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartAds iOS Example.app/SmartAds iOS Example";
 			};
@@ -967,28 +1317,28 @@
 		};
 		63B382011BFE16FF0049CE28 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8A7614D206796A25F6DE0FC6 /* Pods-SmartAds iOS Example.debug.xcconfig */;
+			baseConfigurationReference = F294D2401297E4CCCCB7DD57 /* Pods-ObjC SmartAds Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
+				INFOPLIST_FILE = ObjcExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.SmartAds-iOS-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		63B382021BFE16FF0049CE28 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C27ADE56B6893DD2A6FF6B53 /* Pods-SmartAds iOS Example.release.xcconfig */;
+			baseConfigurationReference = 83AB28E8CD17615432901928 /* Pods-ObjC SmartAds Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
+				INFOPLIST_FILE = ObjcExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.SmartAds-iOS-Example";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -996,7 +1346,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		63ABAD6B1DCCA79700AAE98B /* Build configuration list for PBXNativeTarget "SmartAds iOS Tests" */ = {
+		636A41A41E93F80A002BC4E9 /* Build configuration list for PBXNativeTarget "DeltaDNAAds" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				636A41A51E93F80A002BC4E9 /* Debug */,
+				636A41A61E93F80A002BC4E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		636A41BB1E93FB2D002BC4E9 /* Build configuration list for PBXNativeTarget "Swift SmartAds Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				636A41BC1E93FB2D002BC4E9 /* Debug */,
+				636A41BD1E93FB2D002BC4E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63ABAD6B1DCCA79700AAE98B /* Build configuration list for PBXNativeTarget "ObjC SmartAds Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63ABAD6C1DCCA79700AAE98B /* Debug */,
@@ -1014,7 +1382,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "SmartAds iOS Example" */ = {
+		63B382001BFE16FF0049CE28 /* Build configuration list for PBXNativeTarget "ObjC SmartAds Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63B382011BFE16FF0049CE28 /* Debug */,

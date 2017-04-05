@@ -7,14 +7,14 @@ project 'DeltaDNAAds'
 # Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
 
-target 'SmartAds iOS Example' do
+target 'ObjC SmartAds Example' do
     # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
     # use_frameworks!
 
     # Pods for SmartAds iOS Example
     pod 'DeltaDNAAds', :path => './'
 
-    target 'SmartAds iOS Tests' do
+    target 'ObjC SmartAds Tests' do
         # This breaks since CocoaPods v1.2 with missing frameworks, explicity adding
         # the missing framework fixes it.
         # Related to https://github.com/CocoaPods/CocoaPods/issues/6065
@@ -29,14 +29,21 @@ target 'SmartAds iOS Example' do
 
 end
 
-# Enable extra logging
+# Framework with all pods statically linked for Swift example
+target 'DeltaDNAAds' do
+    pod 'DeltaDNAAds', :path => './'
+end
+
 post_install do |installer|
     installer.pods_project.targets.each do |target|
-        if target.name == 'DeltaDNA' || target.name == 'DeltaDNAAds'
-            target.build_configurations.each do |config|
+        target.build_configurations.each do |config|
+            # Enable extra logging
+            if target.name == 'DeltaDNA' || target.name == 'DeltaDNAAds'
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'DDNA_DEBUG=1'
             end
+            # Disable bitcode
+            config.build_settings['ENABLE_BITCODE'] = 'NO'
         end
     end
 end
