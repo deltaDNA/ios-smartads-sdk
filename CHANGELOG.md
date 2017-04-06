@@ -1,5 +1,9 @@
 # Change Log
 
+## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/) ()
+### Added 
+- Support for Supersonic (IronSource)
+
 ## [1.3.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.3.0) (2017-03-13)
 ### Added
 - Support for AppLovin.
