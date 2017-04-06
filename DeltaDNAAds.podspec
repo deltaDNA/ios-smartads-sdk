@@ -115,4 +115,11 @@ Pod::Spec.new do |s|
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
+
+    s.subspec 'Facebook' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'FBAudienceNetwork', '4.20.0'
+        ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.h'
+    end
 end

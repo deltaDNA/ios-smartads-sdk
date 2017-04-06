@@ -212,6 +212,11 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                                                     waterfallIndex:i];
                     }
                 }
+                else if ([adProvider caseInsensitiveCompare:@"FACEBOOK"]) {
+                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFacebookAdapter"
+                                                 configuration:configuration
+                                                waterfallIndex:i];
+                }
                 else {
                     DDNALogWarn(@"Ad network %@ for %@ ads is not supported.",
                                 adProvider,

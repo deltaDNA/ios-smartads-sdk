@@ -19,6 +19,9 @@
 		6340D0471E95387300786346 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03A1E9537D300786346 /* DetailViewController.swift */; };
 		6340D0481E95387700786346 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03B1E9537D300786346 /* MasterViewController.swift */; };
 		6340D0491E95387B00786346 /* VerticalTopAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03C1E9537D300786346 /* VerticalTopAlignLabel.swift */; };
+		6340D0521E966DE200786346 /* DDNASmartAdFacebookAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */; };
+		6340D0541E96849500786346 /* DDNASmartAdFacebookAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */; };
+		6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */; };
 		6342F7391DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */; };
 		6342F73A1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7201DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m */; };
 		6342F73B1DCCCB7C0058BABC /* DDNAFakeSmartAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7221DCCCB7C0058BABC /* DDNAFakeSmartAds.m */; };
@@ -95,7 +98,6 @@
 		63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */; };
 		63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */; };
 		95012DFFF9026B43BDB8E014 /* Pods_Integration_Tester.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF377FFEEC0802C63231E781 /* Pods_Integration_Tester.framework */; };
-		B926B550CD33C89B6339494A /* libPods-SmartAds iOS Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD386468A493E0494AE95BF /* libPods-SmartAds iOS Tests.a */; };
 		DFCB67F4417D6A349EF39F27 /* libPods-ObjC SmartAds Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -168,6 +170,9 @@
 		6340D03B1E9537D300786346 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		6340D03C1E9537D300786346 /* VerticalTopAlignLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalTopAlignLabel.swift; sourceTree = "<group>"; };
 		6340D04A1E953E4900786346 /* networks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = networks.json; sourceTree = "<group>"; };
+		6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdFacebookAdapter.h; sourceTree = "<group>"; };
+		6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookAdapter.m; sourceTree = "<group>"; };
+		6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookAdapterSpec.m; sourceTree = "<group>"; };
 		6342F71D1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdAgent.h; sourceTree = "<group>"; };
 		6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAdAgent.m; sourceTree = "<group>"; };
 		6342F71F1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdFactory.h; sourceTree = "<group>"; };
@@ -334,7 +339,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B926B550CD33C89B6339494A /* libPods-SmartAds iOS Tests.a in Frameworks */,
 				DFCB67F4417D6A349EF39F27 /* libPods-ObjC SmartAds Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,6 +372,15 @@
 			);
 			name = "Integration Tester";
 			path = IntegrationTester;
+			sourceTree = "<group>";
+		};
+		6340D04F1E966DE200786346 /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */,
+				6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */,
+			);
+			path = Facebook;
 			sourceTree = "<group>";
 		};
 		6342F71C1DCCCB7C0058BABC /* Fakes */ = {
@@ -410,6 +423,7 @@
 				6342F7371DCCCB7C0058BABC /* DDNASmartAdVungleAdapterSpec.m */,
 				6342F7381DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m */,
 				636A41981E93F1D5002BC4E9 /* DDNASmartAdIronSourceAdapterSpec.m */,
+				6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -427,6 +441,7 @@
 		636A41051E93A724002BC4E9 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
+				6340D04F1E966DE200786346 /* Facebook */,
 				636A41061E93A724002BC4E9 /* AdColony */,
 				636A41091E93A724002BC4E9 /* AdMob */,
 				636A410C1E93A724002BC4E9 /* Amazon */,
@@ -737,6 +752,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */,
+				6340D0521E966DE200786346 /* DDNASmartAdFacebookAdapter.h in Headers */,
 				636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */,
 				636A41C71E93FD9E002BC4E9 /* DDNASmartAds.h in Headers */,
 				636A41A31E93F80A002BC4E9 /* DeltaDNAAds.h in Headers */,
@@ -1174,6 +1190,7 @@
 			files = (
 				6342F7441DCCCB7C0058BABC /* DDNASmartAdChartboostAdapterSpec.m in Sources */,
 				636A41901E93ABF7002BC4E9 /* DDNASmartAdWaterfall.m in Sources */,
+				6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */,
 				636A417E1E93ABC6002BC4E9 /* DDNASmartAdInMobiInterstitialAdapter.m in Sources */,
 				6342F73E1DCCCB7C0058BABC /* DDNAInterstitialAdSpec.m in Sources */,
 				6342F74C1DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
@@ -1209,6 +1226,7 @@
 				636A418B1E93ABF7002BC4E9 /* DDNASmartAdAgent.m in Sources */,
 				63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */,
 				6342F73D1DCCCB7C0058BABC /* DDNASmartAdFakeAdapter.m in Sources */,
+				6340D0541E96849500786346 /* DDNASmartAdFacebookAdapter.m in Sources */,
 				636A418F1E93ABF7002BC4E9 /* DDNASmartAdStatus.m in Sources */,
 				636A41741E93ABA4002BC4E9 /* DDNASmartAdAmazonAdapter.m in Sources */,
 				6342F7401DCCCB7C0058BABC /* DDNASmartAdAdColonyAdapterSpec.m in Sources */,
@@ -1321,6 +1339,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = IntegrationTester/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1341,6 +1360,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = IntegrationTester/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1365,6 +1385,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -1391,6 +1412,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
@@ -1411,6 +1433,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1430,6 +1453,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1455,7 +1479,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartAds iOS Example.app/SmartAds iOS Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjC SmartAds Example.app/ObjC SmartAds Example";
 			};
 			name = Debug;
 		};
@@ -1473,7 +1497,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartAds iOS Example.app/SmartAds iOS Example";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ObjC SmartAds Example.app/ObjC SmartAds Example";
 			};
 			name = Release;
 		};
