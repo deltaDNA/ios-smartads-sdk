@@ -42,7 +42,11 @@
         self.zoneId = zoneId;
         self.requestPostConfigure = NO;
         
-        [AdColony configureWithAppID:self.appId zoneIDs:@[self.zoneId] options:nil completion:^(NSArray<AdColonyZone*>* zones) {
+        AdColonyAppOptions *options = [[AdColonyAppOptions alloc] init];
+        options.disableLogging = NO;
+        options.adOrientation = AdColonyOrientationAll;
+        
+        [AdColony configureWithAppID:self.appId zoneIDs:@[self.zoneId] options:options completion:^(NSArray<AdColonyZone*>* zones) {
             AdColonyZone* zone = [zones firstObject];
             
             /* Set the zone's reward handler block */

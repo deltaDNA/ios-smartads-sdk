@@ -19,6 +19,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var leftApplicationSwitch: UISwitch!
     @IBOutlet weak var closedSwitch: UISwitch!
     @IBOutlet weak var adsShown: UILabel!
+    @IBOutlet weak var rewardedLabel: UILabel!
     
     @IBAction func requestAd(_ sender: AnyObject) {
         self.adNetwork?.requestAd()
@@ -60,6 +61,11 @@ class DetailViewController: UIViewController {
             leftApplicationSwitch?.isOn = adNetwork.leftApplication
             closedSwitch?.isOn = adNetwork.closedAd
             adsShown?.text = adNetwork.adCount > 0 ? String(format: "x\(adNetwork.adCount)") : ""
+            if adNetwork.closedAd {
+                rewardedLabel?.text = adNetwork.canReward ? "reward" : "no reward"
+            } else {
+                rewardedLabel?.text = ""
+            }
         }
     }
     

@@ -40,14 +40,6 @@
         self.zoneId = !zoneId || [zoneId isEqualToString:@""] ? @"defaultZone" : zoneId;
         self.testMode = testMode;
         self.showing = NO;
-        
-        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setName:@"deltaDNA"];
-        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
-        [mediationMetaData commit];
-        
-        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
-        self.started = YES;
     }
     return self;
 }
@@ -64,7 +56,13 @@
 - (void)requestAd
 {
     if (!self.started) {
-        return;
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"deltaDNA"];
+        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+        [mediationMetaData commit];
+        
+        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
+        self.started = YES;
     }
     
     if ([UnityAds isSupported] && [self isReady]) {

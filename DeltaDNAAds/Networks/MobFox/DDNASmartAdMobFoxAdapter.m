@@ -67,13 +67,7 @@
 
 - (void)requestAd
 {
-    // TODO: put this a level up
-//    @try {
-        self.interstitial = [self createAndLoadInterstitial];
-//    }
-//    @catch (NSException *exception) {
-//        [self.delegate adapterDidFailToLoadAd:self withStatus:[DDNASmartAdStatus statusWithStatusCode:DDNASmartAdStatusCodeInternalError]];
-//    }
+    self.interstitial = [self createAndLoadInterstitial];
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController

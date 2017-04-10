@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.18.0'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.19.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -41,14 +41,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk', '~>4.12.0'
+        ss.dependency 'mopub-ios-sdk', '~>4.13.1'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>7.10.0'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.0.1'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
@@ -62,14 +62,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFox', '3.1.5'
+        ss.dependency 'MobFoxSDK', '3.1.6c'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
 
     s.subspec 'AdColony' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AdColony', '~>3.1.0'
+        ss.dependency 'AdColony', '~>3.1.1'
         ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
     end
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UnityAds' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'UnityAds', '~>2.0.8'
+        ss.dependency 'UnityAds', '~>2.1.0'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
     end
@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AppLovin' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AppLovin', '3.5.2'
+        ss.dependency 'AppLovin', '4.0.0'
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end

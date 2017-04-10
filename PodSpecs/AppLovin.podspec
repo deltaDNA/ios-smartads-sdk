@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name          = 'AppLovin'
-s.version       = '3.5.2'
+s.version       = '4.0.0'
 s.license       = 'COMMERCIAL'
 s.summary       = 'AppLovin SDK.'
 
@@ -12,7 +12,7 @@ DESC
 s.homepage      = 'https://www.applovin.com'
 s.authors       = { 'AppLovin' => 'support@applovin.com' }
 s.platform      = :ios, "8.0"
-s.source        = { :http => 'https://s3.amazonaws.com/dd-smartads-3rd-party-sdks/AppLovin/3.5.2/AppLovinSDK.zip' }
+s.source        = { :http => "https://s3.amazonaws.com/dd-smartads-3rd-party-sdks/AppLovin/#{s.version}/AppLovinSDK.zip" }
 
 s.vendored_frameworks = 'AppLovinSDK.framework'
 

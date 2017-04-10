@@ -41,7 +41,7 @@
 - (void)startWithAccountID:(NSString *)accountID
 {
     if (!_started) {
-        [IMSdk setLogLevel:kIMSDKLogLevelDebug];
+//        [IMSdk setLogLevel:kIMSDKLogLevelDebug];
         [IMSdk initWithAccountID:accountID];
         self.accountID = accountID;
         self.started = YES;

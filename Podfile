@@ -18,9 +18,9 @@ target 'ObjC SmartAds Example' do
         # This breaks since CocoaPods v1.2 with missing frameworks, explicity adding
         # the missing framework fixes it.
         # Related to https://github.com/CocoaPods/CocoaPods/issues/6065
-        pod 'AdColony', '~>3.1.0'
+        # pod 'AdColony', '~>3.1.0'
         inherit! :search_paths
-        
+
         # Pods for testing
         pod 'Specta', '~> 1.0'
         pod 'Expecta', '~> 1.0'

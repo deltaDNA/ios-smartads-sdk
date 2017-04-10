@@ -16,7 +16,6 @@
 
 #import "DDNASmartAdFlurryHelper.h"
 #import <Flurry.h>
-#import <FlurryAds.h>
 #import <DeltaDNA/DDNALog.h>
 
 @interface DDNASmartAdFlurryHelper ()
@@ -41,8 +40,11 @@
 - (void)startSessionWithApiKey:(NSString *)apiKey testMode:(BOOL)testMode
 {
     if (!self.started) {
-        [Flurry setEventLoggingEnabled:testMode];
-        [Flurry startSession:apiKey];
+        FlurryLogLevel logLevel = testMode ? FlurryLogLevelDebug : FlurryLogLevelNone;
+        [Flurry startSession:apiKey
+         withSessionBuilder:[[[FlurrySessionBuilder new]
+                              withCrashReporting:YES]
+                             withLogLevel:logLevel]];
         self.apiKey = apiKey;
         self.started = YES;
     } else {
