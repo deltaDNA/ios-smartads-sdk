@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.4.0-beta.1'
+    s.version = '1.4-beta.1'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
-    s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
+    s.source = { :git => 'http://edinlin01/gamesanalytics/ios-smartads-sdk.git', :tag => s.version.to_s }
     s.platform = :ios, '8.0'
     s.requires_arc = true
 
