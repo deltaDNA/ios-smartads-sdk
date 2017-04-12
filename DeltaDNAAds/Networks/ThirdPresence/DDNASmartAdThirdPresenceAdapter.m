@@ -25,8 +25,6 @@
 @property (nonatomic, assign) BOOL testMode;
 
 @property (nonatomic, strong) TPRVideoInterstitial *interstitial;
-@property (nonatomic, assign) BOOL started;
-@property (nonatomic, assign) BOOL requestWhenReady;
 @property (nonatomic, assign) BOOL loaded;
 @property (nonatomic, assign) BOOL reward;
 
@@ -40,19 +38,48 @@
         self.accountName = testMode ? @"sdk-demo" : accountName;
         self.placementId = testMode ? @"sa7nvltbrn" : placementId;
         self.testMode = testMode;
-        
-        NSDictionary *environment = [NSDictionary dictionaryWithObjectsAndKeys:
-                                     self.accountName, TPR_ENVIRONMENT_KEY_ACCOUNT,
-                                     self.placementId, TPR_ENVIRONMENT_KEY_PLACEMENT_ID,
-                                     TPR_VALUE_TRUE, TPR_ENVIRONMENT_KEY_FORCE_LANDSCAPE, nil];
-        
-        self.interstitial = [[TPRVideoInterstitial alloc] initWithEnvironment:environment params:nil timeout:10.0];
-        self.interstitial.delegate = self;
-        
-        self.started = YES;
+        self.loaded = NO;
+        self.reward = NO;
     }
     return self;
 }
+
+- (void)initInterstitial
+{
+    self.loaded = NO;
+    self.reward = NO;
+    
+    if (self.interstitial) {
+        [self.interstitial removePlayer];
+        self.interstitial.delegate = nil;
+        self.interstitial = nil;
+    }
+    
+    // Environment dictionary must contain at least key TPR_ENVIRONMENT_KEY_ACCOUNT and
+    // TPR_ENVIRONMENT_KEY_PLACEMENT_ID
+    // TPR_ENVIRONMENT_KEY_FORCE_LANDSCAPE allows to force player to landscape orientation
+    NSMutableDictionary *environment = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        self.accountName, TPR_ENVIRONMENT_KEY_ACCOUNT,
+                                        self.placementId, TPR_ENVIRONMENT_KEY_PLACEMENT_ID,
+                                        TPR_VALUE_TRUE, TPR_ENVIRONMENT_KEY_FORCE_LANDSCAPE,
+                                        TPR_VALUE_FALSE, TPR_ENVIRONMENT_KEY_USE_INSECURE_HTTP,
+                                        TPR_SERVER_TYPE_PRODUCTION, TPR_ENVIRONMENT_KEY_SERVER,
+                                        nil];
+    
+    NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(id)kCFBundleNameKey];
+    NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+
+    NSMutableDictionary *playerParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                         appName, TPR_PLAYER_PARAMETER_KEY_APP_NAME,
+                                         appVersion,TPR_PLAYER_PARAMETER_KEY_APP_VERSION,
+                                         nil];
+    
+    // Initialize the interstitial
+    self.interstitial = [[TPRVideoInterstitial alloc] initWithEnvironment:environment params:playerParams timeout:15];
+    
+    self.interstitial.delegate = self;
+}
+
 
 #pragma mark - DDNASmartAdAdapter
 
@@ -66,15 +93,7 @@
 
 - (void)requestAd
 {
-    if (!self.started) {
-        return;
-    }
-    
-    if (!self.interstitial.ready) {
-        self.requestWhenReady = YES;
-    } else if (!self.loaded) {
-        [self.interstitial loadAd];
-    }
+    [self initInterstitial];
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
@@ -88,7 +107,6 @@
 
 - (BOOL)isReady
 {
-    //return self.zoneId ? [UnityAds isReady:self.zoneId] : [UnityAds isReady];
     return self.loaded;
 }
 
@@ -97,23 +115,24 @@
 - (void)videoAd:(TPRVideoAd*)videoAd failed:(NSError*)error
 {
     if (videoAd == self.interstitial) {
-        NSLog(@"ThirdPresence failed: %@", error.localizedDescription);
-        // Handle the error
+        if (self.loaded) {
+            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+        } else {
+            DDNASmartAdRequestResultCode code = DDNASmartAdRequestResultCodeError;
+            DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:code];
+            result.errorDescription = error.localizedDescription;
+            [self.delegate adapterDidFailToLoadAd:self withResult:result];
+        }
     }
 }
 
 - (void)videoAd:(TPRVideoAd*)videoAd eventOccured:(TPRPlayerEvent*)event
 {
     if (videoAd == self.interstitial) {
-        NSLog(@"ThirdPresence event: %@", event);
-        
         NSString* eventName = [event objectForKey:TPR_EVENT_KEY_NAME];
         if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_READY]) {
-            // The player is ready for loading ads
-            self.loaded = NO;
-            if (self.requestWhenReady) {
-                self.requestWhenReady = NO;
-                [self requestAd];
+            if (self.interstitial.ready) {
+                [self.interstitial loadAd];
             }
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_ERROR]) {
             DDNASmartAdRequestResultCode code = DDNASmartAdRequestResultCodeError;
@@ -124,18 +143,15 @@
             else if ([@"Timeout during ad request" isEqualToString:reason]) {
                 code = DDNASmartAdRequestResultCodeTimeout;
             }
-            
             DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:code];
             result.errorDescription = event[@"arg1"];
             [self.delegate adapterDidFailToLoadAd:self withResult:result];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LOADED]) {
-            // An ad is loaded
             self.loaded = YES;
             [self.delegate adapterDidLoadAd:self];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_STARTED]) {
             [self.delegate adapterIsShowingAd:self];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_ERROR]) {
-            // Failed displaying the loaded ad
             self.loaded = NO;
             [self.interstitial reset];
             [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
@@ -146,8 +162,6 @@
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_VIDEO_COMPLETE]) {
             self.reward = YES;
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_STOPPED]) {
-            // Displaying ad stopped
-            // Close and reset the interstitial
             self.loaded = NO;
             [self.interstitial reset];
             [self.delegate adapterDidCloseAd:self canReward:self.reward];
