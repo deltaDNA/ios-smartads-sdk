@@ -11,7 +11,7 @@
 #import <IronSource/IronSource.h>
 #import <DeltaDNA/DDNALog.h>
 
-@interface DDNASmartAdIronSourceHelper () <ISLogDelegate, ISInterstitialDelegate, ISRewardedVideoDelegate>
+@interface DDNASmartAdIronSourceHelper () <ISInterstitialDelegate, ISRewardedVideoDelegate>
 
 @property (nonatomic, assign) BOOL started;
 @property (nonatomic, copy) NSString *appKey;
@@ -39,7 +39,6 @@
 {
     @synchronized(self) {
         if (!self.started) {
-            [IronSource setLogDelegate:self];
             [IronSource setInterstitialDelegate:self];
             [IronSource setRewardedVideoDelegate:self];
             [IronSource initWithAppKey:appKey adUnits:@[IS_REWARDED_VIDEO, IS_INTERSTITIAL]];

@@ -62,7 +62,9 @@
 /**
  Checks if an interstitial ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the engagement if just checking session and time limits.
  
- @param If an interstitial ad is allowed to be shown.
+ @param engagement The engagement to test.
+ 
+ @return True if the engagement doesn't prevent an ad from showing.
  */
 
 - (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement;
@@ -93,7 +95,9 @@
 /**
  Checks if a rewarded ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the Engagement if just checking for session and time limits.
  
- @param If a rewarded ad is allowed to be shown.
+ @param engagement The engagement to test..
+ 
+ @return True if the engagement doesn't prevent the ad from showing.
  */
 
 - (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement;
