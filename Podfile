@@ -7,6 +7,10 @@ project 'DeltaDNAAds'
 # Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
 
+# Workaround Cocoapods v1.2.1 preventing Swift project use a child without use_frameworks! flag
+install! 'cocoapods',
+         :integrate_targets => false
+
 target 'ObjC SmartAds Example' do
     # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
     # use_frameworks!
@@ -15,10 +19,6 @@ target 'ObjC SmartAds Example' do
     pod 'DeltaDNAAds', :path => './'
 
     target 'ObjC SmartAds Tests' do
-        # This breaks since CocoaPods v1.2 with missing frameworks, explicity adding
-        # the missing framework fixes it.
-        # Related to https://github.com/CocoaPods/CocoaPods/issues/6065
-        # pod 'AdColony', '~>3.1.0'
         inherit! :search_paths
 
         # Pods for testing
