@@ -1,6 +1,6 @@
 # Change Log
 
-## [unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/) ()
+## [1.4.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.0) (2017-04-17)
 ### Added
 - Support for Supersonic (IronSource)
 - Support for Facebook Audience Network

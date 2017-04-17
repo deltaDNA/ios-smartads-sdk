@@ -7,7 +7,7 @@ project 'DeltaDNAAds'
 # Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
 
-# Workaround Cocoapods v1.2.1 preventing Swift project use a child without use_frameworks! flag
+# Workaround Cocoapods v1.2.1 preventing Swift project using a child without use_frameworks! flag
 install! 'cocoapods',
          :integrate_targets => false
 

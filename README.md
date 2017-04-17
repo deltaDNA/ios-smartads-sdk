@@ -174,6 +174,8 @@ The following table is a list of considerations when integrating our library.  M
 | UnityAds      | YES (v2.0)     | YES (v2.0.5)| NO      | NO         |       |
 | AppLovin      | YES            | YES (v3.1.2)| YES     | NO         |       |
 | ThirdPresence | YES            | YES (v1.4.1)| -       | YES        |       |
+| IronSource    | YES            | YES         | YES     | NO         |       |
+| Facebook      | YES            | YES         | YES     | NO         |       |
 
 ## License
 
