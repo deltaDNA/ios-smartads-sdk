@@ -1335,6 +1335,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 74F2799F3BADFFA13F0182CA /* Pods-Integration Tester.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1356,6 +1357,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 948810AA8054DDA9D5348EA4 /* Pods-Integration Tester.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;

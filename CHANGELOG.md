@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.4.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.0) (2017-05-12)
+### Fixed
+- Ensure ads are shown from the main thread.
+- Updated ad networks.
+
 ## [1.4.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.0) (2017-04-17)
 ### Added
 - Support for Supersonic (IronSource)
