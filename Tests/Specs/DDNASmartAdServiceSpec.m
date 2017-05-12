@@ -288,13 +288,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
         
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verifyCount(mockDelegate, times(1)) didOpenInterstitialAd];
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        expect([adService isShowingInterstitialAd]).will.beFalsy();
         [verify(mockDelegate) didCloseInterstitialAd];
         
         NSDictionary *adClosedParams = @{
@@ -339,13 +339,13 @@ describe(@"interstitial ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
         
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
 
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        expect([adService isShowingInterstitialAd]).will.beFalsy();
         [verify(mockDelegate) didCloseInterstitialAd];
         
         NSDictionary *adClosedParams = @{
@@ -385,7 +385,7 @@ describe(@"interstitial ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
         
-        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        expect([adService isShowingInterstitialAd]).will.beFalsy();
         expect([adService isInterstitialAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didFailToOpenInterstitialAdWithReason:@"Engage disallowed the ad"];
         
@@ -411,7 +411,7 @@ describe(@"interstitial ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
         
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
         
@@ -437,7 +437,7 @@ describe(@"interstitial ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters:{\"adShowPoint\":false}}", 200, nil);
         
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
         
@@ -463,7 +463,7 @@ describe(@"interstitial ads", ^{
         completionHandler = [captor value];
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenInterstitialAd];
         
@@ -481,17 +481,17 @@ describe(@"interstitial ads", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         // session limit should be reached
@@ -559,13 +559,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController];
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verifyCount(mockDelegate, times(1)) didOpenRewardedAd];
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingRewardedAd]).to.beFalsy();
+        expect([adService isShowingRewardedAd]).will.beFalsy();
         [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
         
         NSDictionary *adClosedParams = @{
@@ -610,13 +610,13 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{}}", 200, nil);
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isShowingRewardedAd]).to.beFalsy();
+        expect([adService isShowingRewardedAd]).will.beFalsy();
         [verify(mockDelegate) didCloseRewardedAdWithReward:YES];
         
         NSDictionary *adClosedParams = @{
@@ -656,13 +656,13 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{}}", 200, nil);
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAdWithReward:NO];
         
-        expect([adService isShowingRewardedAd]).to.beFalsy();
+        expect([adService isShowingRewardedAd]).will.beFalsy();
         [verify(mockDelegate) didCloseRewardedAdWithReward:NO];
         
         NSDictionary *adClosedParams = @{
@@ -703,7 +703,7 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
         
-        expect([adService isShowingRewardedAd]).to.beFalsy();
+        expect([adService isShowingRewardedAd]).will.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beTruthy();
         [verify(mockDelegate) didFailToOpenRewardedAdWithReason:@"Engage disallowed the ad"];
         
@@ -729,7 +729,7 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{}", 200, nil);
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
@@ -755,7 +755,7 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}", 200, nil);
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
@@ -781,7 +781,7 @@ describe(@"rewarded ads", ^{
         completionHandler = [captor value];
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         [verify(mockDelegate) didOpenRewardedAd];
         
@@ -844,13 +844,13 @@ describe(@"respects minimum ad interval", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         // too soon so fail
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beFalsy();
+        expect([adService isShowingInterstitialAd]).will.beFalsy();
         [verifyCount(mockDelegate, times(1)) didFailToOpenInterstitialAdWithReason:@"Too soon"];
 
     });
@@ -867,7 +867,7 @@ describe(@"respects minimum ad interval", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -875,7 +875,7 @@ describe(@"respects minimum ad interval", ^{
         [NSThread sleepForTimeInterval:3.0f];
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [verifyCount(mockDelegate, times(2)) didOpenInterstitialAd];
         
     });
@@ -938,7 +938,7 @@ describe(@"respects adRequest flag", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         [verifyCount(mockDelegate, never()) recordEventWithName:@"adRequest" parameters:anything()];
@@ -1039,7 +1039,7 @@ describe(@"allowed to show interstitial", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -1059,7 +1059,7 @@ describe(@"allowed to show interstitial", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isInterstitialAdAvailable]).will.beFalsy();
@@ -1151,7 +1151,7 @@ describe(@"allowed to show interstitial minimal time", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
-        expect([adService isShowingInterstitialAd]).to.beTruthy();
+        expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isInterstitialAdAllowed]).after(1.5).to.beFalsy();
@@ -1284,7 +1284,7 @@ describe(@"allowed to show rewarded", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showRewardedAdFromRootViewController:mockViewController];
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -1304,7 +1304,7 @@ describe(@"allowed to show rewarded", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showRewardedAdFromRootViewController:mockViewController];
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isRewardedAdAvailable]).will.beFalsy();
@@ -1397,7 +1397,7 @@ describe(@"allowed to show rewarded minimal time", ^{
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showRewardedAdFromRootViewController:mockViewController];
-        expect([adService isShowingRewardedAd]).to.beTruthy();
+        expect([adService isShowingRewardedAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -1626,7 +1626,7 @@ describe(@"respect null session and time limits", ^{
         
             expect([adService isInterstitialAdAvailable]).will.beTruthy();
             [adService showInterstitialAdFromRootViewController:mockViewController];
-            expect([adService isShowingInterstitialAd]).to.beTruthy();
+            expect([adService isShowingInterstitialAd]).will.beTruthy();
             [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         }
         

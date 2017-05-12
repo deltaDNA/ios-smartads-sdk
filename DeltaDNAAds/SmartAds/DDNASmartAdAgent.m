@@ -96,14 +96,19 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (void)showAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
 {
-    self.decisionPoint = decisionPoint;
-    self.viewController = viewController;
-    
-    if (self.state == DDNASmartAdAgentStateLoaded) {
-        [self.currentAdapter showAdFromViewController:self.viewController];
-    } else {
-        [self.delegate adAgent:self didFailToOpenAdWithAdapter:self.currentAdapter
-                  closedResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+    @synchronized(self)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.decisionPoint = decisionPoint;
+            self.viewController = viewController;
+            
+            if (self.state == DDNASmartAdAgentStateLoaded) {
+                [self.currentAdapter showAdFromViewController:self.viewController];
+            } else {
+                [self.delegate adAgent:self didFailToOpenAdWithAdapter:self.currentAdapter
+                          closedResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+            }
+        });
     }
 }
 

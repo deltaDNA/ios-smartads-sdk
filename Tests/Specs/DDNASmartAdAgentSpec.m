@@ -121,7 +121,7 @@ describe(@"ad agent", ^{
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        expect([agent isShowingAd]).to.beTruthy();
+        expect([agent isShowingAd]).will.beTruthy();
         
         [adapters[0] closeAd];
 
@@ -167,7 +167,7 @@ describe(@"ad agent", ^{
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
 
         // adapter should have been removed from waterfall.
-        expect(waterfall.getAdapters.count).to.equal(1);
+        expect(waterfall.getAdapters.count).will.equal(1);
         expect([agent isShowingAd]).will.beFalsy();
         expect([agent hasLoadedAd]).will.beTruthy();
         expect(agent.currentAdapter).to.equal(adapters[1]);
@@ -192,7 +192,7 @@ describe(@"ad agent", ^{
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        expect([agent isShowingAd]).to.beTruthy();
+        expect([agent isShowingAd]).will.beTruthy();
         
         [adapters[0] clickAdAndLeaveApplication:NO];
         
@@ -217,7 +217,7 @@ describe(@"ad agent", ^{
         
         [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        expect([agent isShowingAd]).to.beTruthy();
+        expect([agent isShowingAd]).will.beTruthy();
         
         [adapters[0] clickAdAndLeaveApplication:YES];
         
@@ -240,7 +240,7 @@ describe(@"ad agent", ^{
             [agent requestAd];
             expect([agent hasLoadedAd]).will.beTruthy();
             [agent showAdFromRootViewController:mockViewController decisionPoint:nil];
-            expect([agent isShowingAd]).to.beTruthy();
+            expect([agent isShowingAd]).will.beTruthy();
             [adapters[0] closeAd];
         }
         
@@ -262,7 +262,7 @@ describe(@"ad agent", ^{
             [agent requestAd];
             expect([agent hasLoadedAd]).will.beTruthy();
             [agent showAdFromRootViewController:mockViewController decisionPoint:nil];
-            expect([agent isShowingAd]).to.beTruthy();
+            expect([agent isShowingAd]).will.beTruthy();
             [adapters[0] closeAd];
         }
         
