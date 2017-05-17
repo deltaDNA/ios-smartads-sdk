@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.4.1'
+    s.version = '1.4.2'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
@@ -118,7 +118,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '4.22.0'
+        ss.dependency 'FBAudienceNetwork', '~>4.22.0'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.h'
     end
