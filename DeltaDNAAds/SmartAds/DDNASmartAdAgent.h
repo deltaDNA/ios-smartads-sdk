@@ -32,6 +32,8 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAgentState) {
 
 @property (nonatomic, weak) id<DDNASmartAdAgentDelegate> delegate;
 @property (nonatomic, copy) NSString *decisionPoint;
+@property (nonatomic, assign) NSUInteger adWaterfallRestartDelaySeconds;
+@property (nonatomic, assign) NSUInteger adNetworkTimeoutSeconds;
 
 @property (nonatomic, assign, readonly) DDNASmartAdAgentState state;
 @property (nonatomic, assign, readonly) BOOL adWasClicked;

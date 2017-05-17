@@ -257,6 +257,10 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter
 {
+    DDNALogDebug(@"Opened %@ ad from %@.",
+                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
+                 adapter.name);
+
     if (adAgent == self.interstitialAgent) {
         [self.delegate didOpenInterstitialAd];
     }
@@ -267,6 +271,10 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter closedResult:(DDNASmartAdClosedResult *)result
 {
+    DDNALogDebug(@"Failed to open %@ ad from %@.",
+                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
+                 adapter != nil ? adapter.name : @"N/A");
+    
     [self postAdClosedEvent:adAgent adapter:adapter result:result];
 
     if (adAgent == self.interstitialAgent) {
@@ -279,6 +287,11 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
+    DDNALogDebug(@"Closed %@ ad from %@%@.",
+                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
+                 adapter.name,
+                 adAgent == self.rewardedAgent ? (canReward ? @" with reward TRUE" : @" with reward FALSE") : @"");
+    
     [self postAdClosedEvent:adAgent adapter:adapter result:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeSuccess]];
 
     if (adAgent == self.interstitialAgent) {

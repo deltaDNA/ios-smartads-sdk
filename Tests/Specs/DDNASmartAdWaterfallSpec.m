@@ -34,11 +34,11 @@ describe(@"Waterfall", ^{
     it(@"with no options and no score", ^{
     
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -62,52 +62,62 @@ describe(@"Waterfall", ^{
     
     it(@"reorders from result code", ^{
         
+        // This test ignore the adapter result, as we're only testing the waterfall
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:DDNASmartAdRequestResultCodeNoFill | DDNASmartAdRequestResultCodeTimeout maxRequests:0];
         
         DDNASmartAdAdapter *currentAdapter = [waterfall resetWaterfall];
+        expect(currentAdapter).to.equal(adapters[0]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeNoFill];
         expect(currentAdapter.score).to.equal(-1);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[1]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeTimeout];
         expect(currentAdapter.score).to.equal(-1);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[2]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeError];
         expect(currentAdapter.score).to.equal(0);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[3]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         expect(currentAdapter.score).to.equal(0);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[4]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeConfiguration];
         expect(currentAdapter.score).to.equal(0);
         
         // reset //
         currentAdapter = [waterfall resetWaterfall];
+        expect(currentAdapter).to.equal(adapters[3]);
         expect(waterfall.getAdapters).to.equal(@[adapters[3],adapters[0],adapters[1]]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeTimeout];
         expect(currentAdapter.score).to.equal(-1);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[0]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeNoFill];
         expect(currentAdapter.score).to.equal(-1);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[1]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         expect(currentAdapter.score).to.equal(0);
 
         // reset //
         currentAdapter = [waterfall resetWaterfall];
+        expect(currentAdapter).to.equal(adapters[1]);
         expect(waterfall.getAdapters).to.equal(@[adapters[1],adapters[3],adapters[0]]);
         
     });
@@ -115,11 +125,11 @@ describe(@"Waterfall", ^{
     it(@"removes adapters", ^{
         
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:DDNASmartAdRequestResultCodeNoFill | DDNASmartAdRequestResultCodeTimeout maxRequests:0];
@@ -145,26 +155,29 @@ describe(@"Waterfall", ^{
     it(@"demotes adapters with max requests", ^{
         
         NSArray *adapters = @[
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO],
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO],
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO],
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"D" failRequest:NO],
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"E" failRequest:NO]
-                              ];
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"D"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"E"]
+        ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0b1000 maxRequests:2];
         
         DDNASmartAdAdapter *currentAdapter = [waterfall resetWaterfall];
+        expect(currentAdapter).to.equal(adapters[0]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         expect(currentAdapter.score).to.equal(0);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[1]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         currentAdapter.score = 0;
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         expect(currentAdapter.score).to.equal(-1);
         
         currentAdapter = [waterfall getNextAdapter];
+        expect(currentAdapter).to.equal(adapters[2]);
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         currentAdapter.score = 0;
         [waterfall scoreAdapter:currentAdapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
@@ -176,7 +189,7 @@ describe(@"Waterfall", ^{
     
     it(@"removes the last adapter", ^{
         
-        NSArray *adapters = @[[[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]];
+        NSArray *adapters = @[[[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:DDNASmartAdRequestResultCodeNoFill | DDNASmartAdRequestResultCodeTimeout maxRequests:0];
         
@@ -188,7 +201,6 @@ describe(@"Waterfall", ^{
         [waterfall resetWaterfall];
         expect([waterfall getNextAdapter]).to.beNil();
     });
-
     
 });
 

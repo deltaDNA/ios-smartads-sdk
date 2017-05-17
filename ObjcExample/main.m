@@ -17,8 +17,23 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-int main(int argc, char * argv[]) {
+int main(int argc, char * argv[])
+{
+    //
+    // http://stackoverflow.com/questions/15714697/unit-testing-in-xcode-does-it-run-the-app
+    // Allows tests to run without starting the app, but links against app to get all the code
+    //
+    
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        BOOL runningTests = NSClassFromString(@"XCTestCase") != nil;
+        if(!runningTests)
+        {
+            return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+        }
+        else
+        {
+            return UIApplicationMain(argc, argv, nil, @"TestAppDelegate");
+        }
     }
 }
+

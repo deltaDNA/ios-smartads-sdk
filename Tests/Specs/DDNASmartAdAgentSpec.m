@@ -37,7 +37,7 @@ describe(@"ad agent", ^{
     
     beforeEach(^{
         delegate = mockProtocol(@protocol(DDNASmartAdAgentDelegate));
-        dispatchQueue = dispatch_get_main_queue(); 
+        dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0); /*dispatch_get_main_queue();*/
         [given([delegate getDispatchQueue]) willReturn:dispatchQueue];
         mockViewController = mock([UIViewController class]);
     });
@@ -45,9 +45,9 @@ describe(@"ad agent", ^{
     it(@"with successful adapters returns first one", ^{
         
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -70,9 +70,9 @@ describe(@"ad agent", ^{
     it(@"with failing adapters returns last one", ^{
         
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:YES],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:YES],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" resultCode:DDNASmartAdRequestResultCodeNoFill],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" resultCode:DDNASmartAdRequestResultCodeNoFill],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"C" resultCode:DDNASmartAdRequestResultCodeLoaded]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -86,10 +86,14 @@ describe(@"ad agent", ^{
         
         [agent requestAd];
 
+        // It should load from the 3rd adapter
         expect([agent hasLoadedAd]).will.beTruthy();
-        // AdAgent should still use the same adapter after a successfull load.
         expect(agent.currentAdapter).willNot.beNil();
         expect(agent.currentAdapter).will.equal(adapters[2]);
+        
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
+        
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[1] requestTime:0 requestResult:anything()];
         
         [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
         
@@ -98,17 +102,16 @@ describe(@"ad agent", ^{
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter showAdFromViewController:nil];
         [(DDNASmartAdFakeAdapter *)agent.currentAdapter closeAd];
 
-        // This only works when not running in a thread!
         expect([agent hasLoadedAd]).will.beTruthy();
         expect(agent.currentAdapter).willNot.beNil();
-        expect(agent.currentAdapter).will.equal(adapters[2]);
-        [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[2] requestTime:0];
+        expect(agent.currentAdapter).will.equal(adapters[0]);
+        [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[0] requestTime:0];
     });
     
     it(@"shows ad",^{
        
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -135,7 +138,7 @@ describe(@"ad agent", ^{
     it(@"fails with one adapter", ^{
        
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:YES]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" resultCode:DDNASmartAdRequestResultCodeTimeout]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -150,8 +153,8 @@ describe(@"ad agent", ^{
     it(@"reports when an ad fails to open", ^{
        
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO failOpen:YES],
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failToShow:YES],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -179,7 +182,7 @@ describe(@"ad agent", ^{
     it(@"reports when ad ad was clicked", ^{
        
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -204,8 +207,8 @@ describe(@"ad agent", ^{
     it(@"reports when ad ad left the app", ^{
         
         NSArray *adapters = @[
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
-                              ];
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
+        ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
         DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall];
@@ -229,7 +232,7 @@ describe(@"ad agent", ^{
     it(@"respects ad request limit", ^{
         
         NSArray *adapters = @[
-            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
         ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
@@ -251,8 +254,8 @@ describe(@"ad agent", ^{
     it(@"continues to request ads if no ad limit", ^{
         
         NSArray *adapters = @[
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
-                              ];
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
+        ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
         DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:nil];
@@ -273,8 +276,8 @@ describe(@"ad agent", ^{
     it(@"requests no ads if ad limit is 0", ^{
         
         NSArray *adapters = @[
-                              [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" failRequest:NO]
-                              ];
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A"]
+        ];
         
         DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:0 maxRequests:0];
         DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:@0];
@@ -283,8 +286,128 @@ describe(@"ad agent", ^{
         [agent requestAd];
         expect([agent hasLoadedAd]).will.beFalsy();
     });
+    
+    it(@"cascades through waterfall with demote on no fill and two networks", ^{
+        
+        NSArray *adapters = @[
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" resultCode:DDNASmartAdRequestResultCodeNoFill],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" resultCode:DDNASmartAdRequestResultCodeLoaded]
+        ];
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters
+                                                                         demoteOnOptions:DDNASmartAdRequestResultCodeNoFill
+                                                                             maxRequests:0];
+        
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:nil];
+        agent.delegate = delegate;
+        
+        expect(agent.currentAdapter).to.equal(adapters[0]);
+        [agent requestAd];
+        expect([agent hasLoadedAd]).will.beTruthy();
+        expect(agent.currentAdapter).to.equal(adapters[1]);
+        
+        [agent showAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
+        expect([agent isShowingAd]).will.beTruthy();
+        
+        [adapters[1] closeAd];
+        expect(agent.currentAdapter).to.equal(adapters[1]);
+        expect(waterfall.getAdapters).to.equal(@[adapters[1], adapters[0]]);
 
+    });
 
+        
+    it(@"waits before restarting waterfall", ^{
+        
+        NSArray *adapters = @[
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" resultCodes:@[
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeNoFill],
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeNoFill]]],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" resultCodes:@[
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeNoFill],
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeLoaded]]]
+        ];
+        
+        const int kWaterfallDelay = 5;
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters
+                                                                         demoteOnOptions:DDNASmartAdRequestResultCodeNoFill
+                                                                             maxRequests:0];
+        
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:nil];
+        agent.delegate = delegate;
+        agent.adWaterfallRestartDelaySeconds = kWaterfallDelay;
+        
+        expect(agent.currentAdapter).to.equal(adapters[0]);
+        
+        [agent requestAd];
+
+        // this will fail and it will run out of adapters.
+        expect(agent.currentAdapter).will.beNil();
+        
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
+
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[1] requestTime:0 requestResult:anything()];
+
+        // then it will load an ad from the second adapter
+        expect(agent.currentAdapter).after(kWaterfallDelay).will.equal(adapters[1]);
+        expect(agent.hasLoadedAd).will.beTruthy();
+        
+        [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
+        
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
+        
+    });
+    
+    it(@"waits and removes failed adapters", ^{
+        
+        NSArray *adapters = @[
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"A" resultCodes:@[
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeError],
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeNoFill]]],
+            [[DDNASmartAdFakeAdapter alloc] initWithName:@"B" resultCodes:@[
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeNoFill],
+                [NSNumber numberWithUnsignedInteger:DDNASmartAdRequestResultCodeLoaded]]]
+        ];
+        
+        const int kWaterfallDelay = 5;
+        
+        DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters
+                                                                         demoteOnOptions:DDNASmartAdRequestResultCodeNoFill
+                                                                             maxRequests:0];
+        
+        DDNASmartAdAgent *agent = [[DDNASmartAdAgent alloc] initWithWaterfall:waterfall adLimit:nil];
+        agent.delegate = delegate;
+        agent.adWaterfallRestartDelaySeconds = kWaterfallDelay;
+        
+        expect(agent.currentAdapter).to.equal(adapters[0]);
+        
+        [agent requestAd];
+        
+        // this will fail and it will run out of adapters.
+        expect(agent.currentAdapter).will.beNil();
+        
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
+        
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[1] requestTime:0 requestResult:anything()];
+        
+        [agent showAdFromRootViewController:mockViewController decisionPoint:nil];
+        
+        
+        // then it will load an ad from the first adapter
+        expect(agent.currentAdapter).after(kWaterfallDelay).will.equal(adapters[1]);
+        expect(agent.hasLoadedAd).will.beTruthy();
+        // and the waterfall will only have that adapter in it
+        expect(waterfall.getAdapters).to.equal(@[adapters[1]]);
+        
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
+        
+        // confirm got the failed to open callback when we tried to show an ad
+        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
+        [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() closedResult:[captor capture]];
+        DDNASmartAdClosedResult *result = captor.value;
+        expect(result.code).to.equal(DDNASmartAdClosedResultCodeNotReady);
+        
+    });
     
 });
 

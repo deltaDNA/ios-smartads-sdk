@@ -51,6 +51,8 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 - (instancetype)initWithWaterfall:(DDNASmartAdWaterfall *)waterfall adLimit:(NSNumber *)adLimit
 {
     if ((self = [super init])) {
+        self.adWaterfallRestartDelaySeconds = AD_WATERFALL_RESTART_DELAY_SECONDS;
+        self.adNetworkTimeoutSeconds = AD_NETWORK_TIMEOUT_SECONDS;
         self.waterfall = waterfall;
         self.adLimit = adLimit;
         [self getNextAdapterAndReset:YES];
@@ -72,11 +74,16 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         DDNALogDebug(@"Ad limit of %ld ads reached, ignoring ad request", self.adsShown);
         return;
     }
+    if (self.state != DDNASmartAdAgentStateReady) {
+        DDNALogDebug(@"Agent already requesting ads.");
+        return;
+    }
     
     self.adWasClicked = NO;
     self.adLeftApplication = NO;
     
-    [self requestNextAdWithDelaySeconds:0];
+    self.state = DDNASmartAdAgentStateLoading;
+    [self requestNextAdWithDispatchQueue];
 }
 
 - (BOOL)hasLoadedAd
@@ -132,26 +139,21 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     @synchronized(self)
     {
         if (adapter == self.currentAdapter) {
-            if (self.state != DDNASmartAdAgentStateLoading) return; // Prevent adapters calling this multiple times.
+
+            // Prevent adapters calling this multiple times after ad loaded.
+            if (self.state != DDNASmartAdAgentStateLoading) return;
             
             [self cancelTimeoutTimer];
             [self.delegate adAgent:self didFailToLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs] requestResult:result];
-            
-            self.state = DDNASmartAdAgentStateReady;
             
             [self.waterfall scoreAdapter:adapter withRequestCode:result.code];
             [self getNextAdapterAndReset:NO];
             
             if (self.currentAdapter) {
-                [self requestNextAdWithDelaySeconds:0];
+                [self requestNextAdWithDispatchQueue];
             }
             else {
-                [self getNextAdapterAndReset:YES];
-                if (self.currentAdapter) {
-                    [self requestNextAdWithDelaySeconds:AD_WATERFALL_RESTART_DELAY_SECONDS];
-                } else {
-                    DDNALogWarn(@"No more ad networks available for ads.");
-                }
+                [self restartWaterfallWithDelaySeconds:_adWaterfallRestartDelaySeconds];
             }
         }
     }
@@ -170,12 +172,12 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 {
     if (adapter == self.currentAdapter) {
         [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
-        self.state = DDNASmartAdAgentStateReady;
+        self.state = DDNASmartAdAgentStateLoading;
         // remove adapter from waterfall since we can't trust it
         [self.waterfall removeAdapter:self.currentAdapter];
         [self getNextAdapterAndReset:YES];
         if (self.currentAdapter) {
-            [self requestNextAdWithDelaySeconds:0];
+            [self requestNextAdWithDispatchQueue];
         } else {
             DDNALogWarn(@"No more ad networks available for ads.");
         }
@@ -201,14 +203,14 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
         self.lastAdShownTime = [NSDate date];
         [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
-        self.state = DDNASmartAdAgentStateReady;
+        self.state = DDNASmartAdAgentStateLoading;
         [self getNextAdapterAndReset:YES];
         if (!self.currentAdapter) {
             DDNALogWarn(@"No more ad networks available for ads.");
         } else if (self.hasReachedAdLimit) {
             DDNALogDebug(@"Ad limit of %ld reached, stopping ad requests.", self.adsShown);
         } else {
-            [self requestNextAdWithDelaySeconds:0];
+            [self requestNextAdWithDispatchQueue];
         }
     }
 }
@@ -221,10 +223,9 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 #pragma mark - Private Methods
 
-- (void)requestNextAdWithDelaySeconds:(NSUInteger)delaySeconds
+- (void)requestNextAdWithDispatchQueue
 {
-    if (self.state == DDNASmartAdAgentStateReady) {
-        self.state = DDNASmartAdAgentStateLoading;
+    if (self.state == DDNASmartAdAgentStateLoading) {
         self.lastRequestTime = [NSDate date];
         
         // Dispatching to our own queue allows the requests to
@@ -232,12 +233,11 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         // request ads from the main thread.
         dispatch_queue_t queue = [self.delegate getDispatchQueue];
         if (queue) {
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delaySeconds*NSEC_PER_SEC);
-            dispatch_after(delay, queue, ^{
+            dispatch_async(queue, ^{
                 [self requestNextAd];
             });
         } else {
-            NSLog(@"Failed to get dispatch queue!");
+            DDNALogWarn(@"Failed to get dispatch queue!");
         }
     }
 }
@@ -250,7 +250,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         if (self.timeoutTimer) {
             [self.timeoutTimer invalidate];
         }
-        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:AD_NETWORK_TIMEOUT_SECONDS
+        self.timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:_adNetworkTimeoutSeconds
                                                              target:[NSBlockOperation blockOperationWithBlock:^{
             DDNASmartAdRequestResult * requestResult = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeTimeout];
             [self adapterDidFailToLoadAd:self.currentAdapter withResult:requestResult];
@@ -261,6 +261,26 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
         
         [self.currentAdapter requestAd];
     });
+}
+
+- (void)restartWaterfallWithDelaySeconds:(NSUInteger)delaySeconds
+{
+    DDNALogDebug(@"Restarting waterfall in %lu seconds", (unsigned long)delaySeconds);
+    dispatch_queue_t queue = [self.delegate getDispatchQueue];
+    if (queue) {
+        dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, delaySeconds*NSEC_PER_SEC);
+        dispatch_after(delay, queue, ^{
+            
+            [self getNextAdapterAndReset:YES];
+            if (self.currentAdapter) {
+                [self requestNextAd];
+            } else {
+                DDNALogWarn(@"No more ad networks available for ads.");
+            }
+        });
+    } else {
+        NSLog(@"Failed to get dispatch queue!");
+    }
 }
 
 - (void)getNextAdapterAndReset:(BOOL)reset

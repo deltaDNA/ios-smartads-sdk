@@ -19,16 +19,16 @@
 
 @interface DDNASmartAdFakeAdapter : DDNASmartAdAdapter
 
-//@property (nonatomic, weak) id<DDNASmartAdAdapterDelegate> delegate;
-
-//@property (nonatomic, copy, readonly) NSString *name;
-@property (nonatomic, assign, readonly) BOOL failRequest;
 @property (nonatomic, assign, readonly,getter=isShowing) BOOL showing;
-@property (nonatomic, assign, readonly) BOOL failOpen;
+@property (nonatomic, assign, readonly) BOOL failToShow;
 
-- (instancetype)initWithName: (NSString *)name failRequest: (BOOL)failRequest;
+- (instancetype)initWithName: (NSString *)name;
 
-- (instancetype)initWithName:(NSString *)name failRequest:(BOOL)failRequest failOpen:(BOOL)failOpen;
+- (instancetype)initWithName:(NSString *)name resultCode:(DDNASmartAdRequestResultCode)resultCode;
+
+- (instancetype)initWithName:(NSString *)name resultCodes:(NSArray *)resultCodes;
+
+- (instancetype)initWithName:(NSString *)name failToShow:(BOOL)failToShow;
 
 - (void)clickAdAndLeaveApplication: (BOOL)didLeave;
 

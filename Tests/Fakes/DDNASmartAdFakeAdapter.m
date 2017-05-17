@@ -18,9 +18,9 @@
 
 @interface DDNASmartAdFakeAdapter ()
 
-@property (nonatomic, assign, readwrite) BOOL failRequest;
 @property (nonatomic, assign, readwrite) BOOL showing;
-@property (nonatomic, assign, readwrite) BOOL failOpen;
+@property (nonatomic, assign, readwrite) BOOL failToShow;
+@property (nonatomic, strong) NSMutableArray *resultCodes;
 
 @end
 
@@ -31,17 +31,39 @@
     return [self init];
 }
 
-- (instancetype)initWithName:(NSString *)name failRequest:(BOOL)failRequest
+- (instancetype)initWithName:(NSString *)name
 {
-    return [self initWithName:name failRequest:failRequest failOpen:NO];
+    return [self initWithName:name resultCode:DDNASmartAdRequestResultCodeLoaded failToShow:NO];
 }
 
-- (instancetype)initWithName:(NSString *)name failRequest:(BOOL)failRequest failOpen:(BOOL)failOpen
+- (instancetype)initWithName:(NSString *)name failToShow:(BOOL)failToShow
+{
+    return [self initWithName:name resultCode:DDNASmartAdRequestResultCodeLoaded failToShow:failToShow];
+}
+
+- (instancetype)initWithName:(NSString *)name resultCode:(DDNASmartAdRequestResultCode)resultCode
+{
+    return [self initWithName:name resultCode:resultCode failToShow:NO];
+}
+
+- (instancetype)initWithName:(NSString *)name resultCode:(DDNASmartAdRequestResultCode)resultCode failToShow:(BOOL)failToShow
+{
+    return [self initWithName:name
+                  resultCodes:[NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:resultCode]]
+                   failToShow:failToShow];
+}
+
+- (instancetype)initWithName:(NSString *)name resultCodes:(NSArray *)resultCodes
+{
+    return [self initWithName:name resultCodes:resultCodes failToShow:NO];
+}
+
+- (instancetype)initWithName:(NSString *)name resultCodes:(NSArray *)resultCodes failToShow:(BOOL)failToShow
 {
     if ((self = [super initWithName:name version:@"1.0.0" eCPM:150 waterfallIndex:1])) {
-        self.failRequest = failRequest;
         self.showing = NO;
-        self.failOpen = failOpen;
+        self.failToShow = failToShow;
+        self.resultCodes = [NSMutableArray arrayWithArray:resultCodes];
     }
     return self;
 }
@@ -65,10 +87,16 @@
 
 - (void)requestAd
 {
-    NSLog(@"Fake adapter requesting ad");
+    NSLog(@"Fake adapter %@ requesting ad", self.name);
     
-    if (self.failRequest) {
-        [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError]];
+    DDNASmartAdRequestResultCode resultCode = DDNASmartAdRequestResultCodeLoaded;
+    if (_resultCodes.count > 0) {
+        resultCode = [[_resultCodes objectAtIndex:0] unsignedIntegerValue];
+        [_resultCodes removeObjectAtIndex:0];
+    }
+    
+    if (resultCode != DDNASmartAdRequestResultCodeLoaded) {
+        [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:resultCode]];
     } else {
         [self.delegate adapterDidLoadAd:self];
     }
@@ -76,7 +104,7 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if (self.failOpen) {
+    if (self.failToShow) {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
     } else {
         self.showing = YES;

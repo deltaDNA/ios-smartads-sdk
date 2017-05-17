@@ -269,7 +269,6 @@
 
 - (void)didFailToOpenInterstitialAdWithReason:(NSString *)reason
 {
-    DDNALogDebug(@"Failed to open interstitial ad: %@", reason);
     if ([self.interstitialDelegate respondsToSelector:@selector(didFailToOpenInterstitialAdWithReason:)]) {
         [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:reason];
     }
@@ -277,7 +276,6 @@
 
 - (void)didOpenInterstitialAd
 {
-    DDNALogDebug(@"Opened interstitial ad.");
     if ([self.interstitialDelegate respondsToSelector:@selector(didOpenInterstitialAd)]) {
         [self.interstitialDelegate didOpenInterstitialAd];
     }
@@ -285,7 +283,6 @@
 
 - (void)didCloseInterstitialAd
 {
-    DDNALogDebug(@"Closed interstitial ad.");
     if ([self.interstitialDelegate respondsToSelector:@selector(didCloseInterstitialAd)]) {
         [self.interstitialDelegate didCloseInterstitialAd];
     }
