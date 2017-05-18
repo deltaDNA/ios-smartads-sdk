@@ -49,11 +49,7 @@
     self.loaded = NO;
     self.reward = NO;
     
-    if (self.interstitial) {
-        [self.interstitial removePlayer];
-        self.interstitial.delegate = nil;
-        self.interstitial = nil;
-    }
+    [self deleteInterstitial];
     
     // Environment dictionary must contain at least key TPR_ENVIRONMENT_KEY_ACCOUNT and
     // TPR_ENVIRONMENT_KEY_PLACEMENT_ID
@@ -78,6 +74,15 @@
     self.interstitial = [[TPRVideoInterstitial alloc] initWithEnvironment:environment params:playerParams timeout:15];
     
     self.interstitial.delegate = self;
+}
+
+- (void)deleteInterstitial
+{
+    if (self.interstitial) {
+        [self.interstitial removePlayer];
+        self.interstitial.delegate = nil;
+        self.interstitial = nil;
+    }
 }
 
 
@@ -135,6 +140,7 @@
                 [self.interstitial loadAd];
             }
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_ERROR]) {
+            
             DDNASmartAdRequestResultCode code = DDNASmartAdRequestResultCodeError;
             NSString *reason = event[@"arg1"];
             if ([@"No fill" isEqualToString:reason]) {
@@ -145,6 +151,7 @@
             }
             DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:code];
             result.errorDescription = event[@"arg1"];
+            [self deleteInterstitial];  // prevent further events
             [self.delegate adapterDidFailToLoadAd:self withResult:result];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LOADED]) {
             self.loaded = YES;
@@ -153,7 +160,7 @@
             [self.delegate adapterIsShowingAd:self];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_ERROR]) {
             self.loaded = NO;
-            [self.interstitial reset];
+            [self deleteInterstitial];
             [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_CLICKTHRU]) {
             [self.delegate adapterWasClicked:self];
@@ -162,9 +169,11 @@
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_VIDEO_COMPLETE]) {
             self.reward = YES;
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_STOPPED]) {
-            self.loaded = NO;
-            [self.interstitial reset];
-            [self.delegate adapterDidCloseAd:self canReward:self.reward];
+            if (self.loaded) {
+                [self deleteInterstitial];
+                self.loaded = NO;
+                [self.delegate adapterDidCloseAd:self canReward:self.reward];
+            }
         }
     }
 }
