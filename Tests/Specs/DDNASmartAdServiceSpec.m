@@ -16,11 +16,7 @@
 
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
-
-#define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
 #import <DeltaDNAAds/SmartAds/DDNASmartAdService.h>
@@ -56,10 +52,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler(nil, -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
         [verifyCount(mockDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: -1 The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
@@ -73,10 +72,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler(@"Unknown decision point", 400, nil);
         
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
@@ -88,10 +90,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler(@"{}", 200, nil);
         
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
@@ -109,10 +114,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
@@ -132,10 +140,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
@@ -155,10 +166,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
@@ -180,10 +194,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         NSString *responseJSON = [NSString stringWithContentsOfDictionary:response];
@@ -218,10 +235,13 @@ describe(@"registering for ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
 
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         [verify(mockDelegate) didRegisterForInterstitialAds];
@@ -277,10 +297,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -323,10 +346,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -334,9 +360,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{}", 200, nil);
         
         expect([adService isShowingInterstitialAd]).will.beTruthy();
@@ -369,10 +399,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -380,9 +413,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
         
         expect([adService isShowingInterstitialAd]).will.beFalsy();
@@ -395,10 +432,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -406,9 +446,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{}", 200, nil);
         
         expect([adService isShowingInterstitialAd]).will.beTruthy();
@@ -421,10 +465,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -432,9 +479,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters:{\"adShowPoint\":false}}", 200, nil);
         
         expect([adService isShowingInterstitialAd]).will.beTruthy();
@@ -447,10 +498,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -458,9 +512,13 @@ describe(@"interstitial ads", ^{
         
         [adService showInterstitialAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
         expect([adService isShowingInterstitialAd]).will.beTruthy();
@@ -473,10 +531,13 @@ describe(@"interstitial ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -548,10 +609,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -594,10 +658,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -605,9 +672,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters\":{}}", 200, nil);
         
         expect([adService isShowingRewardedAd]).will.beTruthy();
@@ -640,10 +711,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -651,9 +725,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters\":{}}", 200, nil);
         
         expect([adService isShowingRewardedAd]).will.beTruthy();
@@ -687,10 +765,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -698,9 +779,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}}", 200, nil);
         
         expect([adService isShowingRewardedAd]).will.beFalsy();
@@ -713,10 +798,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -724,9 +812,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{}", 200, nil);
         
         expect([adService isShowingRewardedAd]).will.beTruthy();
@@ -739,10 +831,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -750,9 +845,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"{\"parameters\":{\"adShowPoint\":false}", 200, nil);
         
         expect([adService isShowingRewardedAd]).will.beTruthy();
@@ -765,10 +864,13 @@ describe(@"rewarded ads", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -776,9 +878,13 @@ describe(@"rewarded ads", ^{
         
         [adService showRewardedAdFromRootViewController:mockViewController decisionPoint:@"testDecisionPoint"];
         
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint" flavour:@"advertising" parameters:nil completionHandler:[captor capture]];
+        argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"testDecisionPoint"
+                                                         flavour:@"advertising"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        completionHandler = [captor value];
+        completionHandler = argument.value;
         completionHandler(@"", -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
         
         expect([adService isShowingRewardedAd]).will.beTruthy();
@@ -836,10 +942,13 @@ describe(@"respects minimum ad interval", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -859,10 +968,13 @@ describe(@"respects minimum ad interval", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -872,7 +984,9 @@ describe(@"respects minimum ad interval", ^{
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
-        [NSThread sleepForTimeInterval:3.0f];
+        expect([adService isInterstitialAdAllowed]).to.beFalsy();
+        
+        expect([adService isInterstitialAdAllowed]).after(2).to.beTruthy();
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
         expect([adService isShowingInterstitialAd]).will.beTruthy();
@@ -930,10 +1044,13 @@ describe(@"respects adRequest flag", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
@@ -991,10 +1108,13 @@ describe(@"allowed to show interstitial", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
     });
@@ -1055,7 +1175,7 @@ describe(@"allowed to show interstitial", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showInterstitialAdFromRootViewController:mockViewController];
@@ -1075,7 +1195,7 @@ describe(@"allowed to show interstitial", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
     });
 });
@@ -1124,10 +1244,13 @@ describe(@"allowed to show interstitial minimal time", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
     });
@@ -1165,14 +1288,14 @@ describe(@"allowed to show interstitial minimal time", ^{
                          };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         expect([adService isInterstitialAdAvailable]).will.beTruthy();
         
-        [NSThread sleepForTimeInterval:3.0f];
-        
-        expect([adService isInterstitialAdAllowed]).to.beTruthy();
+        expect([adService isInterstitialAdAllowed]).to.beFalsy();
+                
+        expect([adService isInterstitialAdAllowed]).after(2).to.beTruthy();
         
         adShowParams = @{
                          @"adProvider": @"DUMMY",
@@ -1183,7 +1306,7 @@ describe(@"allowed to show interstitial minimal time", ^{
                          };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verifyCount(mockDelegate, atLeastOnce()) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
     });
@@ -1234,10 +1357,13 @@ describe(@"allowed to show rewarded", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
     });
@@ -1300,7 +1426,7 @@ describe(@"allowed to show rewarded", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
         [adService showRewardedAdFromRootViewController:mockViewController];
@@ -1320,7 +1446,7 @@ describe(@"allowed to show rewarded", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
     });
     
@@ -1370,10 +1496,13 @@ describe(@"allowed to show rewarded minimal time", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
     });
@@ -1413,12 +1542,14 @@ describe(@"allowed to show rewarded minimal time", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
+    
+        expect([adService isRewardedAdAvailable]).will.beTruthy();
         
-        [NSThread sleepForTimeInterval:3.0f];
+        expect([adService isRewardedAdAllowed]).to.beFalsy();
         
-        expect([adService isRewardedAdAllowed]).to.beTruthy();
+        expect([adService isRewardedAdAllowed]).after(2).to.beTruthy();
         
         adShowParams = @{
             @"adProvider": @"DUMMY",
@@ -1429,7 +1560,7 @@ describe(@"allowed to show rewarded minimal time", ^{
         };
         
         adShowArg = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(3)) recordEventWithName:@"adShow" parameters:(id)adShowArg];
+        [verifyCount(mockDelegate, atLeastOnce()) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
     });
@@ -1485,10 +1616,13 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
 
         expect([adService isRewardedAdAvailable]).will.beTruthy();
@@ -1519,7 +1653,7 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         };
         
         HCArgumentCaptor *adShowArg2 = [[HCArgumentCaptor alloc] init];
-        [verifyCount(mockDelegate, times(2)) recordEventWithName:@"adShow" parameters:(id)adShowArg2];
+        [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg2];
         expect([adShowArg2.value isEqualToDictionary:adShowParams2]).to.beTruthy();
         
     });
@@ -1550,10 +1684,13 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         // The session won't have started, so no ads are being fetched.  We don't log anything in that case.
@@ -1616,10 +1753,13 @@ describe(@"respect null session and time limits", ^{
         
         [adService beginSessionWithDecisionPoint:@"advertising"];
         
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising" flavour:@"internal" parameters:nil completionHandler:[captor capture]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
+                                                         flavour:@"internal"
+                                                      parameters:nil
+                                               completionHandler:(id)argument];
         
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = [captor value];
+        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
         for (int i = 0; i < 100; ++i) {

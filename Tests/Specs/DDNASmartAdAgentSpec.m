@@ -16,11 +16,7 @@
 
 #import <Specta/Specta.h>
 #import <Expecta/Expecta.h>
-
-#define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
-
-#define MOCKITO_SHORTHAND
 #import <OCMockito/OCMockito.h>
 
 #import <DeltaDNAAds/SmartAds/DDNASmartAdAgent.h>
@@ -352,7 +348,7 @@ describe(@"ad agent", ^{
         expect(agent.currentAdapter).after(kWaterfallDelay).will.equal(adapters[1]);
         expect(agent.hasLoadedAd).will.beTruthy();
         
-        [[verifyCount(delegate, times(2)) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
+        [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didFailToLoadAdWithAdapter:adapters[0] requestTime:0 requestResult:anything()];
         
         [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
         
@@ -394,7 +390,7 @@ describe(@"ad agent", ^{
         
         
         // then it will load an ad from the first adapter
-        expect(agent.currentAdapter).after(kWaterfallDelay).will.equal(adapters[1]);
+        expect(agent.currentAdapter).after(kWaterfallDelay+1).will.equal(adapters[1]);
         expect(agent.hasLoadedAd).will.beTruthy();
         // and the waterfall will only have that adapter in it
         expect(waterfall.getAdapters).to.equal(@[adapters[1]]);
@@ -402,9 +398,9 @@ describe(@"ad agent", ^{
         [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
         
         // confirm got the failed to open callback when we tried to show an ad
-        MKTArgumentCaptor *captor = [MKTArgumentCaptor new];
-        [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() closedResult:[captor capture]];
-        DDNASmartAdClosedResult *result = captor.value;
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() closedResult:(id)argument];
+        DDNASmartAdClosedResult *result = argument.value;
         expect(result.code).to.equal(DDNASmartAdClosedResultCodeNotReady);
         
     });
