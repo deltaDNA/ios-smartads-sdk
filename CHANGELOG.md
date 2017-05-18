@@ -1,6 +1,11 @@
 # Change Log
 
-## [1.4.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.0) (2017-05-12)
+## [1.4.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.2) (2017-05-18)
+### Fixed
+- Improved adAgent behaviour
+- Updated unit test libraries
+
+## [1.4.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.1) (2017-05-12)
 ### Fixed
 - Ensure ads are shown from the main thread.
 - Updated ad networks.
