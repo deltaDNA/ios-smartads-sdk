@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '~>3.1.5'
+        ss.dependency 'MobFoxSDK', '3.1.6.h'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -111,7 +111,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.6.0.0'
+        ss.dependency 'IronSourceSDK', '~>6.6.1.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end

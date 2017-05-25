@@ -95,7 +95,7 @@
 /* Indicates that the interstitial has failed to receive an ad */
 - (void)interstitial:(IMInterstitial *)interstitial didFailToLoadWithError:(IMRequestStatus *)error
 {
-    DDNALogDebug(@"Interstitial failed to load ad with error: %@", error.description);
+    DDNALogDebug(@"Rewarded failed to load ad with error: %@", error.description);
     
     DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
     
@@ -139,7 +139,7 @@
 /* Indicates that the interstitial has failed to present itself. */
 - (void)interstitial:(IMInterstitial *)interstitial didFailToPresentWithError:(IMRequestStatus *)error
 {
-    DDNALogDebug(@"Interstitial didFailToPresentWithError: %@", [error localizedDescription]);
+    DDNALogDebug(@"Rewarded didFailToPresentWithError: %@", [error localizedDescription]);
     
     [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
 }

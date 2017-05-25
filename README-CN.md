@@ -17,7 +17,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.4.2'
+    pod 'DeltaDNAAds', '~> 1.4.3'
 end
 ```
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.4.2', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.4.3', :subspecs => ['AdMob','MoPub']
 end
 ```
 可用的子项列表可以从项目根目录中的`DeltaDNAAds.podspec`文件中找到。

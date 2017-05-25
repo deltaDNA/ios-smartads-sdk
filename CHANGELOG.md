@@ -1,8 +1,9 @@
 # Change Log
 
-## [1.4.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.3) (2017-05-18)
+## [1.4.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.3) (2017-05-25)
 ### Fixed
 - Thirdpresence adapter repeat event fix.
+- Fix MobFox cocoapods version.
 
 ## [1.4.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.2) (2017-05-18)
 ### Fixed
