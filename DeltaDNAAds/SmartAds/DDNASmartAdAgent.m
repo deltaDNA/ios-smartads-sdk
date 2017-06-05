@@ -123,21 +123,19 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter
 {
-    @synchronized(self)
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateLoading) {
             [self cancelTimeoutTimer];
             self.state = DDNASmartAdAgentStateLoaded;
             [self.delegate adAgent:self didLoadAdWithAdapter:adapter requestTime:[self lastRequestTimeMs]];
             [self.waterfall scoreAdapter:adapter withRequestCode:DDNASmartAdRequestResultCodeLoaded];
         }
-    }
+    });
 }
 
 - (void)adapterDidFailToLoadAd:(DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdRequestResult *)result
 {
-    @synchronized(self)
-    {
+    dispatch_async(dispatch_get_main_queue(), ^{
         if (adapter == self.currentAdapter) {
 
             // Prevent adapters calling this multiple times after ad loaded.
@@ -156,63 +154,73 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
                 [self restartWaterfallWithDelaySeconds:_adWaterfallRestartDelaySeconds];
             }
         }
-    }
+    });
 }
 
 - (void)adapterIsShowingAd: (DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter) {
-        self.state = DDNASmartAdAgentStateShowing;
-        self.adsShown += 1;
-        [self.delegate adAgent:self didOpenAdWithAdapter:adapter];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (adapter == self.currentAdapter) {
+            self.state = DDNASmartAdAgentStateShowing;
+            self.adsShown += 1;
+            [self.delegate adAgent:self didOpenAdWithAdapter:adapter];
+        }
+    });
 }
 
 - (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdClosedResult *)result
 {
-    if (adapter == self.currentAdapter) {
-        [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
-        self.state = DDNASmartAdAgentStateLoading;
-        // remove adapter from waterfall since we can't trust it
-        [self.waterfall removeAdapter:self.currentAdapter];
-        [self getNextAdapterAndReset:YES];
-        if (self.currentAdapter) {
-            [self requestNextAdWithDispatchQueue];
-        } else {
-            DDNALogWarn(@"No more ad networks available for ads.");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (adapter == self.currentAdapter) {
+            [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
+            self.state = DDNASmartAdAgentStateLoading;
+            // remove adapter from waterfall since we can't trust it
+            [self.waterfall removeAdapter:self.currentAdapter];
+            [self getNextAdapterAndReset:YES];
+            if (self.currentAdapter) {
+                [self requestNextAdWithDispatchQueue];
+            } else {
+                DDNALogWarn(@"No more ad networks available for ads.");
+            }
         }
-    }
+    });
 }
 
 - (void)adapterWasClicked:(DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
-        self.adWasClicked = YES;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
+            self.adWasClicked = YES;
+        }
+    });
 }
 
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter
 {
-    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
-        self.adLeftApplication = YES;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
+            self.adLeftApplication = YES;
+        }
+    });
 }
 
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
-    if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
-        self.lastAdShownTime = [NSDate date];
-        [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
-        self.state = DDNASmartAdAgentStateLoading;
-        [self getNextAdapterAndReset:YES];
-        if (!self.currentAdapter) {
-            DDNALogWarn(@"No more ad networks available for ads.");
-        } else if (self.hasReachedAdLimit) {
-            DDNALogDebug(@"Ad limit of %ld reached, stopping ad requests.", self.adsShown);
-        } else {
-            [self requestNextAdWithDispatchQueue];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (adapter == self.currentAdapter && self.state == DDNASmartAdAgentStateShowing) {
+            self.lastAdShownTime = [NSDate date];
+            [self.delegate adAgent:self didCloseAdWithAdapter:adapter canReward:canReward];
+            self.state = DDNASmartAdAgentStateLoading;
+            [self getNextAdapterAndReset:YES];
+            if (!self.currentAdapter) {
+                DDNALogWarn(@"No more ad networks available for ads.");
+            } else if (self.hasReachedAdLimit) {
+                DDNALogDebug(@"Ad limit of %ld reached, stopping ad requests.", self.adsShown);
+            } else {
+                [self requestNextAdWithDispatchQueue];
+            }
         }
-    }
+    });
 }
 
 - (NSInteger)sessionAdCount

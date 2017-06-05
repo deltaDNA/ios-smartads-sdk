@@ -195,8 +195,8 @@ describe(@"ad agent", ^{
         
         [adapters[0] clickAdAndLeaveApplication:NO];
         
-        expect([agent adWasClicked]).to.beTruthy();
-        expect([agent adLeftApplication]).to.beFalsy();
+        expect([agent adWasClicked]).will.beTruthy();
+        expect([agent adLeftApplication]).will.beFalsy();
 
     });
     
@@ -220,8 +220,8 @@ describe(@"ad agent", ^{
         
         [adapters[0] clickAdAndLeaveApplication:YES];
         
-        expect([agent adWasClicked]).to.beTruthy();
-        expect([agent adLeftApplication]).to.beTruthy();
+        expect([agent adWasClicked]).will.beTruthy();
+        expect([agent adLeftApplication]).will.beTruthy();
         
     });
 
@@ -306,8 +306,8 @@ describe(@"ad agent", ^{
         expect([agent isShowingAd]).will.beTruthy();
         
         [adapters[1] closeAd];
-        expect(agent.currentAdapter).to.equal(adapters[1]);
-        expect(waterfall.getAdapters).to.equal(@[adapters[1], adapters[0]]);
+        expect(agent.currentAdapter).will.equal(adapters[1]);
+        expect(waterfall.getAdapters).will.equal(@[adapters[1], adapters[0]]);
 
     });
 

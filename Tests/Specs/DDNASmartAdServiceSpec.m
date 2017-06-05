@@ -1277,7 +1277,8 @@ describe(@"allowed to show interstitial minimal time", ^{
         expect([adService isShowingInterstitialAd]).will.beTruthy();
         [(DDNAFakeSmartAdAgent *)fakeFactory.fakeSmartAdAgent closeAd];
         
-        expect([adService isInterstitialAdAllowed]).after(1.5).to.beFalsy();
+        expect([adService isInterstitialAdAvailable]).will.beTruthy();
+        expect([adService isInterstitialAdAllowed]).will.beFalsy();
         
         adShowParams = @{
                          @"adProvider": @"DUMMY",
@@ -1291,10 +1292,6 @@ describe(@"allowed to show interstitial minimal time", ^{
         [verify(mockDelegate) recordEventWithName:@"adShow" parameters:(id)adShowArg];
         expect([adShowArg.value isEqualToDictionary:adShowParams]).to.beTruthy();
         
-        expect([adService isInterstitialAdAvailable]).will.beTruthy();
-        
-        expect([adService isInterstitialAdAllowed]).to.beFalsy();
-                
         expect([adService isInterstitialAdAllowed]).after(2).to.beTruthy();
         
         adShowParams = @{
