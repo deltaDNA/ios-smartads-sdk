@@ -17,29 +17,47 @@
 #import "DDNASmartAdUnityAdsAdapter.h"
 #import "DDNASmartAds.h"
 #import <UnityAds/UnityAds.h>
+#import <UnityAds/UnityAdsExtended.h>
+#import <DeltaDNA/DDNALog.h>
 
-@interface DDNASmartAdUnityAdsAdapter () <UnityAdsDelegate>
+typedef NS_ENUM(NSInteger, UnityAdsState) {
+    kUnityAdsStateInitialising = 0,
+    kUnityAdsStateWaiting,
+    kUnityAdsStateRequesting,
+    kUnityAdsStateReady,
+    kUnityAdsStateShowing,
+    kUnityAdsStateError
+};
+
+
+@interface DDNASmartAdUnityAdsAdapter () <UnityAdsExtendedDelegate>
 
 @property (nonatomic, copy) NSString *gameId;
-
-// zoneId was renamed placementId in v2.0
-@property (nonatomic, copy) NSString *zoneId;
+@property (nonatomic, copy) NSString *placementId;
 @property (nonatomic, assign) BOOL testMode;
-
-@property (nonatomic, assign) BOOL started;
-@property (nonatomic, assign) BOOL showing;
+@property (nonatomic, assign) UnityAdsState state;
+@property (nonatomic, strong) NSString *errorMessage;
+@property (nonatomic, assign) UnityAdsPlacementState placementState;
 
 @end
 
 @implementation DDNASmartAdUnityAdsAdapter
 
-- (instancetype)initWithGameId:(NSString *)gameId zoneId:(NSString *)zoneId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithGameId:(NSString *)gameId placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"UNITY" version:[UnityAds getVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.gameId = gameId;
-        self.zoneId = !zoneId || [zoneId isEqualToString:@""] ? @"defaultZone" : zoneId;
+        self.placementId = placementId;
         self.testMode = testMode;
-        self.showing = NO;
+        self.state = kUnityAdsStateInitialising;
+        self.placementState = kUnityAdsPlacementStateNotAvailable;
+        
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"deltaDNA"];
+        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+        [mediationMetaData commit];
+
+        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
     }
     return self;
 }
@@ -48,44 +66,42 @@
 
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"gameId"]) return nil;
+    if (!configuration[@"gameId"] || !configuration[@"placementId"]) return nil;
     
-    return [self initWithGameId:configuration[@"gameId"] zoneId:configuration[@"zoneId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithGameId:configuration[@"gameId"] placementId:configuration[@"placementId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
-    if (!self.started) {
-        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setName:@"deltaDNA"];
-        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
-        [mediationMetaData commit];
-        
-        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
-        self.started = YES;
+    if ([UnityAds isInitialized] && self.state == kUnityAdsStateInitialising) {
+        self.state = kUnityAdsStateWaiting;
     }
     
-    if ([UnityAds isSupported] && [self isReady]) {
+    if (self.state == kUnityAdsStateWaiting && [UnityAds isReady:self.placementId]) {
+        self.state = kUnityAdsStateReady;
         [self.delegate adapterDidLoadAd:self];
+    } else if (self.placementState == kUnityAdsPlacementStateNoFill) {
+        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill errorDescription:[NSString stringWithFormat:@"No fill for placement %@", self.placementId]];
+        [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    } else if (self.state == kUnityAdsStateError) {
+        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:self.errorMessage];
+        [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    } else {
+        self.state = kUnityAdsStateRequesting;
     }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if ([UnityAds isSupported] && [self isReady]) {
-        self.showing = YES;
+    if (self.state == kUnityAdsStateReady && [UnityAds isReady:self.placementId]) {
         id mediationMetaData = [[UADSMediationMetaData alloc] init];
         [mediationMetaData setOrdinal:(int)(self.delegate.sessionAdCount+1)];
         [mediationMetaData commit];
-        [UnityAds show:viewController placementId:self.zoneId];
+        self.state = kUnityAdsStateShowing;
+        [UnityAds show:viewController placementId:self.placementId];
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
-}
-
-- (BOOL)isReady
-{
-    return self.zoneId ? [UnityAds isReady:self.zoneId] : [UnityAds isReady];
 }
 
 #pragma mark - UnityAdsDelegate
@@ -99,9 +115,12 @@
  */
 - (void)unityAdsReady:(NSString *)placementId
 {
-    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
-        [self.delegate adapterDidLoadAd:self];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.state == kUnityAdsStateRequesting && [self.placementId isEqualToString:placementId]) {
+            self.state = kUnityAdsStateReady;
+            [self.delegate adapterDidLoadAd:self];
+        }
+    });
 }
 
 /**
@@ -112,15 +131,25 @@
  */
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
 {
-    if (self.showing) {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
-        self.showing = NO;
-    } else if (self.started) {
-        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:message];
-        [self.delegate adapterDidFailToLoadAd:self withResult:result];
-    } else {
-        //NSLog(@"UnityAds initialise error: %@ %@", error, message);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch (self.state) {
+            case kUnityAdsStateRequesting: {
+                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:message];
+                [self.delegate adapterDidFailToLoadAd:self withResult:result];
+                break;
+            }
+            case kUnityAdsStateShowing: {
+                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                break;
+            }
+            default:
+                DDNALogWarn(@"UnityAds unhandled error: %@", message);
+        }
+        
+        // All the errors are bad so let's give up.
+        self.errorMessage = message;
+        self.state = kUnityAdsStateError;
+    });
 }
 
 /**
@@ -132,9 +161,47 @@
  */
 - (void)unityAdsDidStart:(NSString *)placementId
 {
-    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
-        [self.delegate adapterIsShowingAd:self];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.placementId isEqualToString:placementId]) {
+            [self.delegate adapterIsShowingAd:self];
+        }
+    });
+}
+
+/**
+ *  Called when a click event happens.
+ *
+ *  @param placementId The ID of the placement that was clicked.
+ */
+- (void)unityAdsDidClick:(NSString *)placementId {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.state == kUnityAdsStateShowing && [self.placementId isEqualToString:placementId]) {
+            [self.delegate adapterWasClicked:self];
+        }
+    });
+}
+
+/**
+ *  Called when a placement changes state.
+ *
+ *  @param placementId The ID of the placement that changed state.
+ *  @param oldState The state before the change.
+ *  @param newState The state after the change.
+ */
+- (void)unityAdsPlacementStateChanged:(NSString *)placementId oldState:(UnityAdsPlacementState)oldState newState:(UnityAdsPlacementState)newState
+{
+    DDNALogDebug(@"UnityAds placement state changed: %@ %ld -> %ld", placementId, (long)oldState, (long)newState);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.placementId isEqualToString:placementId]) {
+            self.placementState = newState;
+
+            if (self.state == kUnityAdsStateRequesting && newState == kUnityAdsPlacementStateNoFill) {
+                self.state = kUnityAdsStateWaiting;
+                [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
+            }
+        }
+    });
 }
 
 /**
@@ -146,37 +213,42 @@
 - (void)unityAdsDidFinish:(NSString *)placementId
           withFinishState:(UnityAdsFinishState)state
 {
-    if (!self.zoneId || [self.zoneId isEqualToString:placementId]) {
-        self.showing = NO;
-        
-        switch (state) {
-            /**
-             *  A state that indicates that the ad did not successfully display.
-             */
-            case kUnityAdsFinishStateError : {
-                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
-                break;
-            }
-            /**
-             *  A state that indicates that the user skipped the ad.
-             */
-            case kUnityAdsFinishStateSkipped : {
-                [self.delegate adapterDidCloseAd:self canReward:NO];
-                break;
-            }
-            /**
-             *  A state that indicates that the ad was played entirely.
-             */
-            case kUnityAdsFinishStateCompleted : {
-                [self.delegate adapterDidCloseAd:self canReward:YES];
-                break;
-            }
-            default : {
-                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
-                break;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.state == kUnityAdsStateShowing && [self.placementId isEqualToString:placementId]) {
+            self.state = kUnityAdsStateWaiting;
+            
+            switch (state) {
+                /**
+                 *  A state that indicates that the ad did not successfully display.
+                 */
+                case kUnityAdsFinishStateError : {
+                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                    break;
+                }
+                /**
+                 *  A state that indicates that the user skipped the ad.
+                 */
+                case kUnityAdsFinishStateSkipped : {
+                    [self.delegate adapterDidCloseAd:self canReward:NO];
+                    break;
+                }
+                /**
+                 *  A state that indicates that the ad was played entirely.
+                 */
+                case kUnityAdsFinishStateCompleted : {
+                    [self.delegate adapterDidCloseAd:self canReward:YES];
+                    break;
+                }
+                default : {
+                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                    break;
+                }
             }
         }
-    }
+        else {
+            DDNALogWarn(@"unityAdsDidFinish called with inconsistent state: %ld %@", (long)self.state, placementId);
+        }
+    });
 }
 
 @end

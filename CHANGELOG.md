@@ -1,5 +1,9 @@
 # Change Log
 
+## [Unreleased]()()
+### Fixed
+- Improvements to UnityAds adapter.
+
 ## [1.4.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.3) (2017-05-25)
 ### Fixed
 - Thirdpresence adapter repeat event fix.

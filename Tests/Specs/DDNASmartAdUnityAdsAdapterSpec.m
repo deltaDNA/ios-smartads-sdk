@@ -31,7 +31,7 @@ describe(@"UnityAds adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"UNITY",
             @"gameId": @"test-game-id",
-            @"zoneId": @"test-zone-id",
+            @"placementId": @"test-placement-id",
             @"eCPM": @150
         };
         
@@ -40,7 +40,7 @@ describe(@"UnityAds adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.gameId).to.equal(@"test-game-id");
-        expect(adapter.zoneId).to.equal(@"test-zone-id");
+        expect(adapter.placementId).to.equal(@"test-placement-id");
         expect(adapter.testMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
@@ -64,7 +64,7 @@ describe(@"UnityAds adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"UNITY",
             @"gameId": @"test-game-id",
-            @"zoneId": @"test-zone-id",
+            @"placementId": @"test-placement-id",
             @"testMode": @YES
         };
         
@@ -73,7 +73,7 @@ describe(@"UnityAds adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.gameId).to.equal(@"test-game-id");
-        expect(adapter.zoneId).to.equal(@"test-zone-id");
+        expect(adapter.placementId).to.equal(@"test-placement-id");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);

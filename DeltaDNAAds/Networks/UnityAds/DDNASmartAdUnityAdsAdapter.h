@@ -20,11 +20,11 @@
 @interface DDNASmartAdUnityAdsAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *gameId;
-@property (nonatomic, copy, readonly) NSString *zoneId;
+@property (nonatomic, copy, readonly) NSString *placementId;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
 - (instancetype)initWithGameId:(NSString *)gameId
-                          zoneId:(NSString *)zoneId
+                          placementId:(NSString *)placementId
                       testMode:(BOOL)testMode
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex;
