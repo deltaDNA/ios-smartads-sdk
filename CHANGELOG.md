@@ -3,6 +3,7 @@
 ## [Unreleased]()()
 ### Fixed
 - Improvements to UnityAds adapter.
+- Updated AppLovin to 4.2.0.
 
 ## [1.4.3](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.3) (2017-05-25)
 ### Fixed
