@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]()()
+## [1.4.4](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.4) (2017-06-08)
 ### Fixed
 - Improvements to UnityAds adapter.
 - Updated AppLovin to 4.2.0.
