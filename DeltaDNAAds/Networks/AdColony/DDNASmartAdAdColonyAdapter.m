@@ -16,6 +16,7 @@
 
 #import "DDNASmartAdAdColonyAdapter.h"
 #import <AdColony/AdColony.h>
+#import <DeltaDNA/DDNALog.h>
 
 @interface DDNASmartAdAdColonyAdapter ()
 
@@ -51,6 +52,7 @@
             
             /* Set the zone's reward handler block */
             zone.reward = ^(BOOL success, NSString* name, int amount) {
+                DDNALogDebug(@"AdColony zone.reward success=%@ name=%@ amount=%d %@", success ? @"YES" : @"NO", name, amount, [NSThread currentThread]);
                 self.watchedVideo = success;
             };
             
@@ -89,6 +91,7 @@
                     [self.delegate adapterIsShowingAd:self];
                 };
                 ad.close = ^{
+                    DDNALogDebug(@"AdColony ad.close %@", [NSThread currentThread]);
                     self.ad = nil;
                     [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                 };
@@ -103,7 +106,7 @@
                 [self.delegate adapterDidLoadAd:self];
             }
             failure:^(AdColonyAdRequestError* error) {
-                NSLog(@"AdColony request failed with error: %@", [error localizedDescription]);
+                DDNALogDebug(@"AdColony request failed with error: %@", [error localizedDescription]);
                 self.ad = nil;
                    
                 DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:[error localizedDescription]];

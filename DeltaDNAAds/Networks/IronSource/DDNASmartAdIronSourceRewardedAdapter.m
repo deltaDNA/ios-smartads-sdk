@@ -16,6 +16,7 @@
 
 #import "DDNASmartAdIronSourceRewardedAdapter.h"
 #import "DDNASmartAdIronSourceHelper.h"
+#import <DeltaDNA/DDNALog.h>
 
 @interface DDNASmartAdIronSourceRewardedAdapter () <DDNASmartAdIronSourceRewardedDelegate>
 
@@ -78,6 +79,7 @@
 
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo
 {
+    DDNALogDebug(@"IronSource didReceiveRewardForPlacement %@", [NSThread currentThread]);
     self.reward = YES;
 }
 
@@ -93,6 +95,7 @@
 
 - (void)rewardedVideoDidClose
 {
+    DDNALogDebug(@"IronSource videoDidClose %@", [NSThread currentThread]);
     [self.delegate adapterDidCloseAd:self canReward:self.reward];
 }
 
