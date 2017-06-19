@@ -85,6 +85,7 @@
         return;
     }
     else {
+        self.ad = nil;
         [AdColony requestInterstitialInZone:self.zoneId options:nil
             success:^(AdColonyInterstitial* ad) {
                 ad.open = ^{
@@ -92,7 +93,6 @@
                 };
                 ad.close = ^{
                     DDNALogDebug(@"AdColony ad.close %@", [NSThread currentThread]);
-                    self.ad = nil;
                     [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                 };
                 ad.leftApplication = ^{
@@ -102,12 +102,12 @@
                     [self.delegate adapterWasClicked:self];
                 };
 
+                self.watchedVideo = NO;
                 self.ad = ad;
                 [self.delegate adapterDidLoadAd:self];
             }
             failure:^(AdColonyAdRequestError* error) {
                 DDNALogDebug(@"AdColony request failed with error: %@", [error localizedDescription]);
-                self.ad = nil;
                    
                 DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:[error localizedDescription]];
                 [self.delegate adapterDidFailToLoadAd:self withResult:result];
