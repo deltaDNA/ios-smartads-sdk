@@ -212,7 +212,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                                                     waterfallIndex:i];
                     }
                 }
-                else if ([adProvider caseInsensitiveCompare:@"FACEBOOK"]) {
+                else if ([adProvider caseInsensitiveContains:@"FACEBOOK"]) {
                     adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFacebookAdapter"
                                                  configuration:configuration
                                                 waterfallIndex:i];
