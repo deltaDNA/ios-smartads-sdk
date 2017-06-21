@@ -28,6 +28,8 @@
 @property (nonatomic, strong) AdColonyInterstitial *ad;
 @property (nonatomic, strong) AdColonyZone *zone;
 @property (nonatomic, assign) BOOL requestPostConfigure;
+@property (nonatomic, assign) BOOL rewardCallbackTriggered;
+@property (nonatomic, assign) BOOL closedCallbackTriggered;
 
 @end
 
@@ -42,6 +44,8 @@
         self.appId = appId;
         self.zoneId = zoneId;
         self.requestPostConfigure = NO;
+        self.rewardCallbackTriggered = NO;
+        self.closedCallbackTriggered = NO;
         
         AdColonyAppOptions *options = [[AdColonyAppOptions alloc] init];
         options.disableLogging = NO;
@@ -54,6 +58,12 @@
             zone.reward = ^(BOOL success, NSString* name, int amount) {
                 DDNALogDebug(@"AdColony zone.reward success=%@ name=%@ amount=%d %@", success ? @"YES" : @"NO", name, amount, [NSThread currentThread]);
                 self.watchedVideo = success;
+
+                if (self.closedCallbackTriggered) {
+                    [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
+                } else {
+                    self.rewardCallbackTriggered = YES;
+                }
             };
             
             self.zone = zone;
@@ -86,6 +96,9 @@
     }
     else {
         self.ad = nil;
+        self.rewardCallbackTriggered = NO;
+        self.closedCallbackTriggered = NO;
+        
         [AdColony requestInterstitialInZone:self.zoneId options:nil
             success:^(AdColonyInterstitial* ad) {
                 ad.open = ^{
@@ -93,7 +106,11 @@
                 };
                 ad.close = ^{
                     DDNALogDebug(@"AdColony ad.close %@", [NSThread currentThread]);
-                    [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
+                    if (self.rewardCallbackTriggered) {
+                        [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
+                    } else {
+                        self.closedCallbackTriggered = YES;
+                    }
                 };
                 ad.leftApplication = ^{
                     [self.delegate adapterLeftApplication:self];
