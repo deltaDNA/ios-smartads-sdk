@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.4.4'
+    s.version = '1.4.5'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.20.0'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.21.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk', '~>4.14.0'
+        ss.dependency 'mopub-ios-sdk', '~>4.15.0'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end

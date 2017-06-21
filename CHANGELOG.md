@@ -1,9 +1,10 @@
 # Change Log
 
-## [1.4.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.5) (????-??-??)
+## [1.4.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.5) (2017-06-21)
 ### Fixed
 - Not instantiating Facebook adapter.
 - AdColony reward callback ordering.
+- Updated AdMob and MoPub ad networks to latest versions.
 
 ## [1.4.4](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.4) (2017-06-08)
 ### Fixed
