@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.4.5'
+    s.version = '1.5.0'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
     s.header_mappings_dir = 'DeltaDNAAds'
 
-    s.dependency 'DeltaDNA', '~> 4.3.0'
+    s.dependency 'DeltaDNA', '~> 4.5.0'
 
     s.subspec 'SmartAds' do |ss|
         ss.source_files = 'DeltaDNAAds/DeltaDNAAds.{h,m}', 'DeltaDNAAds/SmartAds/**/*.{h,m}'
