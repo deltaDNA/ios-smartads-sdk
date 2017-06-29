@@ -60,7 +60,7 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 {
     [self.delegate requestEngagementWithDecisionPoint:decisionPoint
                                               flavour:@"internal"
-                                           parameters:nil
+                                           parameters:@{@"adSdkVersion" : [DDNASmartAds sdkVersion]}
                                     completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
                                         
         NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
