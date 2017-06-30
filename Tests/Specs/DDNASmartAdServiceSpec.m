@@ -55,7 +55,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -75,7 +75,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -93,7 +93,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -117,7 +117,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -143,7 +143,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -169,7 +169,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -197,7 +197,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -238,7 +238,7 @@ describe(@"registering for ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -300,7 +300,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -349,7 +349,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -402,7 +402,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -435,7 +435,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -468,7 +468,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -501,7 +501,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -534,7 +534,7 @@ describe(@"interstitial ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -612,7 +612,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -661,7 +661,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -714,7 +714,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -768,7 +768,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -801,7 +801,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -834,7 +834,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -867,7 +867,7 @@ describe(@"rewarded ads", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -945,7 +945,7 @@ describe(@"respects minimum ad interval", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -971,7 +971,7 @@ describe(@"respects minimum ad interval", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1047,7 +1047,7 @@ describe(@"respects adRequest flag", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1111,7 +1111,7 @@ describe(@"allowed to show interstitial", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1247,7 +1247,7 @@ describe(@"allowed to show interstitial minimal time", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1357,7 +1357,7 @@ describe(@"allowed to show rewarded", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1496,7 +1496,7 @@ describe(@"allowed to show rewarded minimal time", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1616,7 +1616,7 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1684,7 +1684,7 @@ describe(@"respects adShowPoint and adShowSession for a session", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
@@ -1753,7 +1753,7 @@ describe(@"respect null session and time limits", ^{
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
                                                          flavour:@"internal"
-                                                      parameters:nil
+                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
                                                completionHandler:(id)argument];
         
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
