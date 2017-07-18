@@ -4,6 +4,7 @@
 ### Added
 - Send adSdkVersion when requesting configuration.
 - Support for Tapjoy.
+- Support for AdMob rewarded ads.
 
 ## [1.4.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.5) (2017-06-21)
 ### Fixed

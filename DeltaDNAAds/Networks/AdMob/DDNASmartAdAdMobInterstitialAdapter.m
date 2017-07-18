@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
+// Copyright (c) 2017 deltaDNA Ltd. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
 // limitations under the License.
 //
 
-#import "DDNASmartAdAdMobAdapter.h"
+#import "DDNASmartAdAdMobInterstitialAdapter.h"
 #import <GoogleMobileAds/GADInterstitial.h>
 
-@interface DDNASmartAdAdMobAdapter () <GADInterstitialDelegate>
+@interface DDNASmartAdAdMobInterstitialAdapter () <GADInterstitialDelegate>
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
 @property (nonatomic, copy) NSString *adUnitId;
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation DDNASmartAdAdMobAdapter
+@implementation DDNASmartAdAdMobInterstitialAdapter
 
 - (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {

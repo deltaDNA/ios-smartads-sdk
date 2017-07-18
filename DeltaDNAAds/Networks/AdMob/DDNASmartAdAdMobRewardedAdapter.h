@@ -17,8 +17,8 @@
 #import <Foundation/Foundation.h>
 #import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
-@interface DDNASmartAdAdMobAdapter : DDNASmartAdAdapter
-
+@interface DDNASmartAdAdMobRewardedAdapter : DDNASmartAdAdapter
+    
 @property (nonatomic, copy, readonly) NSString *adUnitId;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
@@ -27,4 +27,5 @@
                             eCPM: (NSInteger)eCPM
                   waterfallIndex: (NSInteger)waterfallIndex;
 
+    
 @end

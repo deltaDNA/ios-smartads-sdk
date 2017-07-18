@@ -27,8 +27,8 @@ Pod::Spec.new do |s|
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
         ss.dependency 'Google-Mobile-Ads-SDK', '~>7.21.0'
-        ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.{h,m}'
-        ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h'
+        ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*Adapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*Adapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
     end
 

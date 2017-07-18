@@ -119,9 +119,15 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
             if (ecpm > floorPrice) {
 
                 if ([adProvider caseInsensitiveContains:@"ADMOB"]) {
-                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdMobAdapter"
-                                                 configuration:configuration
-                                                waterfallIndex:i];
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdMobInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAdMobRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
                 }
                 else if ([adProvider caseInsensitiveContains:@"AMAZON"]) {
                     adapter = [self instantiateAdapterForKlass:@"DDNASmartAdAmazonAdapter"

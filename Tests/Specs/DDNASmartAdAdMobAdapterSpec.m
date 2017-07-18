@@ -19,12 +19,13 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h>
+#import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobInterstitialAdapter.h>
+#import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobRewardedAdapter.h>
 
 
 SpecBegin(DDNASmartAdAdMobAdapter)
 
-describe(@"AdMob adapter", ^{
+describe(@"AdMob interstitial adapter", ^{
 
     it(@"builds from valid configuration", ^{
         
@@ -34,8 +35,8 @@ describe(@"AdMob adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAdMobAdapter *adapter = [[DDNASmartAdAdMobAdapter alloc] initWithConfiguration:configuration
-                                                                                   waterfallIndex:1];
+        DDNASmartAdAdMobInterstitialAdapter *adapter = [[DDNASmartAdAdMobInterstitialAdapter alloc] initWithConfiguration:configuration
+                                                                                                           waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
@@ -51,7 +52,7 @@ describe(@"AdMob adapter", ^{
             @"adProvider": @"ADMOB"
         };
         
-        DDNASmartAdAdMobAdapter *adapter = [[DDNASmartAdAdMobAdapter alloc] initWithConfiguration:configuration
+        DDNASmartAdAdMobInterstitialAdapter *adapter = [[DDNASmartAdAdMobInterstitialAdapter alloc] initWithConfiguration:configuration
                                                                                    waterfallIndex:1];
         
         expect(adapter).to.beNil();
@@ -65,7 +66,7 @@ describe(@"AdMob adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdAdMobAdapter *adapter = [[DDNASmartAdAdMobAdapter alloc] initWithConfiguration:configuration
+        DDNASmartAdAdMobInterstitialAdapter *adapter = [[DDNASmartAdAdMobInterstitialAdapter alloc] initWithConfiguration:configuration
                                                                                    waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
@@ -77,5 +78,60 @@ describe(@"AdMob adapter", ^{
     });
     
 });
+
+describe(@"AdMob rewarded adapter", ^{
+    
+    it(@"builds from valid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"ADMOB",
+            @"adUnitId": @"test-ad-unit-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdAdMobRewardedAdapter *adapter = [[DDNASmartAdAdMobRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                   waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
+        expect(adapter.testMode).to.beFalsy();
+        expect(adapter.eCPM).to.equal(150);
+        expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+    it(@"returns nil from invalid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"ADMOB"
+        };
+        
+        DDNASmartAdAdMobRewardedAdapter *adapter = [[DDNASmartAdAdMobRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                   waterfallIndex:1];
+        
+        expect(adapter).to.beNil();
+    });
+    
+    it(@"supports test mode", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"ADMOB",
+            @"adUnitId": @"test-ad-unit-id",
+            @"testMode": @YES
+        };
+        
+        DDNASmartAdAdMobRewardedAdapter *adapter = [[DDNASmartAdAdMobRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                   waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
+        expect(adapter.testMode).to.beTruthy();
+        expect(adapter.eCPM).to.equal(0);
+        expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+});
+
 
 SpecEnd
