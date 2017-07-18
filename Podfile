@@ -7,9 +7,13 @@ project 'DeltaDNAAds'
 # Uncomment the next line to define a global platform for your project
 platform :ios, '8.0'
 
+# Ignore all warnings from all pods
+inhibit_all_warnings!
+
 # Workaround Cocoapods v1.2.1 preventing Swift project using a child without use_frameworks! flag
 install! 'cocoapods',
-         :integrate_targets => false
+         :integrate_targets => false,
+         :deterministic_uuids => true
 
 target 'ObjC SmartAds Example' do
     # Uncomment the next line if you're using Swift or would like to use dynamic frameworks

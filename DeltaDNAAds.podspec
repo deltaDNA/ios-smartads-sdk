@@ -122,4 +122,11 @@ Pod::Spec.new do |s|
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.h'
     end
+
+    s.subspec 'Tapjoy' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'TapjoySDK', '~>11.11.0'
+        ss.source_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.h'
+    end
 end
