@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.4.6](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.6) (YYYY-MM-DD)
+### Fixed
+- IronSource timing out during no fill cases.
+
 ## [1.4.5](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.4.5) (2017-06-21)
 ### Fixed
 - Not instantiating Facebook adapter.

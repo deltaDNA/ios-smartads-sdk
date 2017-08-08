@@ -21,6 +21,8 @@
 @interface DDNASmartAdIronSourceRewardedAdapter () <DDNASmartAdIronSourceRewardedDelegate>
 
 @property (nonatomic, copy) NSString *appKey;
+@property (nonatomic, assign) BOOL firstTime;
+@property (nonatomic, assign) BOOL availability;
 @property (nonatomic, assign) BOOL reward;
 
 @end
@@ -34,6 +36,9 @@
     if ((self = [super initWithName:@"IRONSOURCE" version:[[DDNASmartAdIronSourceHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdIronSourceHelper sharedInstance] setRewardedDelegate:self];
         self.appKey = appKey;
+        
+        self.firstTime = YES;
+        self.availability = NO;
         self.reward = NO;
     }
     return self;
@@ -54,8 +59,13 @@
 {
     self.reward = NO;
     [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey];
-    if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
-        [self.delegate adapterDidLoadAd:self];
+    
+    if (!self.firstTime) {
+        if (self.availability && [[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
+            [self.delegate adapterDidLoadAd:self];
+        } else {
+            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
+        }
     }
 }
 
@@ -72,8 +82,17 @@
 
 - (void)rewardedVideoHasChangedAvailability:(BOOL)available
 {
-    if (available) {
-        [self.delegate adapterDidLoadAd:self];
+    DDNALogDebug(@"IronSource rewardedVideoHasChangedAvailability %d %@", available, [NSThread currentThread]);
+    self.availability = available;
+    
+    if (self.firstTime) {
+        self.firstTime = NO;
+        
+        if (available) {
+            [self.delegate adapterDidLoadAd:self];
+        } else {
+            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
+        }
     }
 }
 
