@@ -228,6 +228,11 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     return self.adsShown;
 }
 
+- (NSUInteger)adapterTimeoutSeconds
+{
+    return self.adNetworkTimeoutSeconds;
+}
+
 
 #pragma mark - Private Methods
 

@@ -31,6 +31,7 @@ describe(@"IronSource interstitial adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"IRONSOURCE",
             @"appKey": @"test-app-key",
+            @"placementName": @"test-placement-name",
             @"eCPM": @150
         };
         
@@ -39,6 +40,7 @@ describe(@"IronSource interstitial adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
+        expect(adapter.placementName).to.equal(@"test-placement-name");
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
         
@@ -64,6 +66,7 @@ describe(@"IronSource rewarded adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"IRONSOURCE",
             @"appKey": @"test-app-key",
+            @"placementName": @"test-placement-name",
             @"eCPM": @150
         };
         
@@ -72,6 +75,7 @@ describe(@"IronSource rewarded adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
+        expect(adapter.placementName).to.equal(@"test-placement-name");
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
         

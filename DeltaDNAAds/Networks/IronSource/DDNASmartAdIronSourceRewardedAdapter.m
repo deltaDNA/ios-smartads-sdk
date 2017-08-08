@@ -21,24 +21,23 @@
 @interface DDNASmartAdIronSourceRewardedAdapter () <DDNASmartAdIronSourceRewardedDelegate>
 
 @property (nonatomic, copy) NSString *appKey;
-@property (nonatomic, assign) BOOL firstTime;
-@property (nonatomic, assign) BOOL availability;
+@property (nonatomic, copy) NSString *placementName;
 @property (nonatomic, assign) BOOL reward;
+@property (nonatomic, weak) NSTimer *loadedTimer;
 
 @end
 
 @implementation DDNASmartAdIronSourceRewardedAdapter
 
 - (instancetype)initWithAppKey:(NSString *)appKey
+                 placementName:(NSString *)placementName
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"IRONSOURCE" version:[[DDNASmartAdIronSourceHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdIronSourceHelper sharedInstance] setRewardedDelegate:self];
         self.appKey = appKey;
-        
-        self.firstTime = YES;
-        self.availability = NO;
+        self.placementName = placementName;
         self.reward = NO;
     }
     return self;
@@ -51,6 +50,7 @@
     if (!configuration[@"appKey"]) return nil;
     
     return [self initWithAppKey:configuration[@"appKey"]
+                  placementName:configuration[@"placementName"]
                           eCPM:[configuration[@"eCPM"] integerValue]
                 waterfallIndex:waterfallIndex];
 }
@@ -60,19 +60,34 @@
     self.reward = NO;
     [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey];
     
-    if (!self.firstTime) {
-        if (self.availability && [[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
-            [self.delegate adapterDidLoadAd:self];
-        } else {
-            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
+    if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
+        [self.delegate adapterDidLoadAd:self];
+    }
+    else {
+    
+        // start a timer to give it a chance to call the availability callback
+        if (self.loadedTimer) {
+            [self.loadedTimer invalidate];
         }
+        
+        self.loadedTimer = [NSTimer scheduledTimerWithTimeInterval:self.delegate ? self.delegate.adapterTimeoutSeconds - 1.0 : 10.0
+                                                      target:[NSBlockOperation blockOperationWithBlock:^{
+            if (![[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
+                [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
+            } else {
+                [self.delegate adapterDidLoadAd:self];
+            }
+        }]
+                                                    selector: @selector(main)
+                                                    userInfo: nil
+                                                     repeats: NO];
     }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
-        [[DDNASmartAdIronSourceHelper sharedInstance] showRewardedVideoWithViewController:viewController placement:nil];
+        [[DDNASmartAdIronSourceHelper sharedInstance] showRewardedVideoWithViewController:viewController placement:self.placementName];
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
@@ -82,23 +97,14 @@
 
 - (void)rewardedVideoHasChangedAvailability:(BOOL)available
 {
-    DDNALogDebug(@"IronSource rewardedVideoHasChangedAvailability %d %@", available, [NSThread currentThread]);
-    self.availability = available;
-    
-    if (self.firstTime) {
-        self.firstTime = NO;
-        
-        if (available) {
-            [self.delegate adapterDidLoadAd:self];
-        } else {
-            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill]];
-        }
+    if (self.loadedTimer && available) {
+        [self.loadedTimer invalidate];
+        [self.delegate adapterDidLoadAd:self];
     }
 }
 
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo
 {
-    DDNALogDebug(@"IronSource didReceiveRewardForPlacement %@", [NSThread currentThread]);
     self.reward = YES;
 }
 
@@ -114,7 +120,6 @@
 
 - (void)rewardedVideoDidClose
 {
-    DDNALogDebug(@"IronSource videoDidClose %@", [NSThread currentThread]);
     [self.delegate adapterDidCloseAd:self canReward:self.reward];
 }
 

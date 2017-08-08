@@ -20,8 +20,10 @@
 @interface DDNASmartAdIronSourceInterstitialAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *appKey;
+@property (nonatomic, copy, readonly) NSString *placementName;
 
 - (instancetype)initWithAppKey:(NSString *)appKey
+                 placementName:(NSString *)placementName
                           eCPM:(NSInteger)eCPM
                 waterfallIndex:(NSInteger)waterfallIndex;
 

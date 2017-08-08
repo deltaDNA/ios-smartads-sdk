@@ -96,6 +96,10 @@ class AdNetwork : NSObject {
 }
 
 extension AdNetwork : DDNASmartAdAdapterDelegate {
+    func adapterTimeoutSeconds() -> UInt {
+        return 15;
+    }
+
     
     func adapterDidLoadAd(_ adapter: DDNASmartAdAdapter!) {
         self.adLoaded = true
@@ -104,8 +108,9 @@ extension AdNetwork : DDNASmartAdAdapterDelegate {
     }
     
     func adapterDidFail(toLoadAd adapter: DDNASmartAdAdapter!, with result: DDNASmartAdRequestResult!) {
+        print("Failed to load \(self.name) ad: \(result.desc)\nerror: \(result.errorDescription)")
         self.adLoaded = false
-        self.adResult = result.desc + "\n" + result.errorDescription
+        self.adResult = String(format: "%@\n%@", result.desc, result.errorDescription ?? "")
         self.delegate?.update()
     }
     

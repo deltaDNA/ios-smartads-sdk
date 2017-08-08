@@ -20,18 +20,21 @@
 @interface DDNASmartAdIronSourceInterstitialAdapter () <DDNASmartAdIronSourceInterstitialDelegate>
 
 @property (nonatomic, copy) NSString *appKey;
+@property (nonatomic, copy) NSString *placementName;
 
 @end
 
 @implementation DDNASmartAdIronSourceInterstitialAdapter
 
 - (instancetype)initWithAppKey:(NSString *)appKey
+                 placementName:(NSString *)placementName
                           eCPM:(NSInteger)eCPM
                 waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"IRONSOURCE" version:[[DDNASmartAdIronSourceHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdIronSourceHelper sharedInstance] setInterstitialDelegate:self];
         self.appKey = appKey;
+        self.placementName = placementName;
     }
     return self;
 }
@@ -43,6 +46,7 @@
     if (!configuration[@"appKey"]) return nil;
     
     return [self initWithAppKey:configuration[@"appKey"]
+                  placementName:configuration[@"placementName"]
                            eCPM:[configuration[@"eCPM"] integerValue]
                  waterfallIndex:waterfallIndex];
 }
@@ -56,7 +60,7 @@
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     if ([[DDNASmartAdIronSourceHelper sharedInstance] hasInterstitial]) {
-        [[DDNASmartAdIronSourceHelper sharedInstance] showInterstitialWithViewController:viewController placement:nil];
+        [[DDNASmartAdIronSourceHelper sharedInstance] showInterstitialWithViewController:viewController placement:self.placementName];
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
