@@ -21,7 +21,7 @@
 
 #import <DeltaDNAAds/SmartAds/DDNASmartAdFactory.h>
 #import <DeltaDNAAds/Networks/Dummy/DDNASmartAdDummyAdapter.h>
-#import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobAdapter.h>
+#import <DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMobInterstitialAdapter.h>
 #import <DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h>
 
 
@@ -53,7 +53,7 @@ describe(@"factory waterfall", ^{
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(3);
         // InstanceOf doesn't work, neither does comparing the class names, must convert to strings and compare.
-        expect(NSStringFromClass([adapters[0] class])).to.equal(NSStringFromClass([DDNASmartAdAdMobAdapter class]));
+        expect(NSStringFromClass([adapters[0] class])).to.equal(NSStringFromClass([DDNASmartAdAdMobInterstitialAdapter class]));
         expect(NSStringFromClass([adapters[1] class])).to.equal(NSStringFromClass([DDNASmartAdAmazonAdapter class]));
         expect(NSStringFromClass([adapters[2] class])).to.equal(NSStringFromClass([DDNASmartAdDummyAdapter class]));
         
