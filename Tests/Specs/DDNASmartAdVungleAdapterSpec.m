@@ -31,6 +31,7 @@ describe(@"Vungle adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"VUNGLE",
             @"appId": @"test-app-id",
+            @"placementId": @"test-placement-id",
             @"eCPM": @150
         };
         
@@ -39,6 +40,7 @@ describe(@"Vungle adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.appId).to.equal(@"test-app-id");
+        expect(adapter.placementId).to.equal(@"test-placement-id");
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
         

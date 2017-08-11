@@ -20,8 +20,10 @@
 @interface DDNASmartAdVungleAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *appId;
+@property (nonatomic, copy, readonly) NSString *placementId;
 
 - (instancetype)initWithAppId:(NSString *)appId
+                  placementId:(NSString *)placementId
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex;
 

@@ -20,6 +20,7 @@
 @interface DDNASmartAdVungleAdapter () <VungleSDKDelegate>
 
 @property (nonatomic, copy) NSString *appId;
+@property (nonatomic, copy) NSString *placementId;
 @property (nonatomic, assign) BOOL started;
 @property (nonatomic, assign) BOOL reward;
 
@@ -27,10 +28,12 @@
 
 @implementation DDNASmartAdVungleAdapter
 
-- (instancetype)initWithAppId:(NSString *)appId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppId:(NSString *)appId placementId:(NSString *)placementId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"VUNGLE" version:VungleSDKVersion eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.appId = appId;
+        self.placementId = placementId;
+        self.started = NO;
         [[VungleSDK sharedSDK] setDelegate:self];
     }
     return self;
@@ -40,28 +43,31 @@
 
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"appId"]) return nil;
+    if (!configuration[@"appId"] || !configuration[@"placementId"]) return nil;
     
-    return [self initWithAppId:configuration[@"appId"] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithAppId:configuration[@"appId"] placementId:configuration[@"placementId"] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
     if (!self.started) {
-        [[VungleSDK sharedSDK] startWithAppId:self.appId];
-        self.started = YES;
+        NSError *error;
+        [[VungleSDK sharedSDK] startWithAppId:self.appId placements:@[self.placementId] error:&error];
+        if (error) {
+            [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration errorDescription:error.localizedDescription]];
+        }
     }
-    
-    if ([[VungleSDK sharedSDK] isAdPlayable]) {
+    else if ([[VungleSDK sharedSDK] isAdCachedForPlacementID:self.placementId]) {
         [self.delegate adapterDidLoadAd:self];
     }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if ([[VungleSDK sharedSDK] isAdPlayable]) {
+    if ([[VungleSDK sharedSDK] isAdCachedForPlacementID:self.placementId]) {
         NSError *error;
-        if (![[VungleSDK sharedSDK] playAd:viewController error:&error]) {
+        [[VungleSDK sharedSDK] playAd:viewController options:nil placementID:self.placementId error:&error];
+        if (error) {
             [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
         }
     } else {
@@ -71,27 +77,44 @@
 
 #pragma mark - VungleSDKDelegate protocol
 
-- (void)vungleSDKAdPlayableChanged:(BOOL)isAdPlayable
+- (void)vungleAdPlayabilityUpdate:(BOOL)isAdPlayable placementID:(nullable NSString *)placementID
 {
-    if (isAdPlayable) {
-        [self.delegate adapterDidLoadAd:self];
+    if ([placementID isEqualToString:self.placementId]) {
+        if (isAdPlayable) {
+            [self.delegate adapterDidLoadAd:self];
+        }
     }
 }
 
-- (void)vungleSDKwillShowAd
+- (void)vungleWillShowAdForPlacementID:(nullable NSString *)placementID
 {
-    [self.delegate adapterIsShowingAd:self];
+    if ([placementID isEqualToString:self.placementId]) {
+        [self.delegate adapterIsShowingAd:self];
+    }
 }
 
-- (void)vungleSDKwillCloseAdWithViewInfo:(NSDictionary*)viewInfo willPresentProductSheet:(BOOL)willPresentProductSheet
+- (void)vungleWillCloseAdWithViewInfo:(nonnull VungleViewInfo *)info placementID:(nonnull NSString *)placementID
 {
-    self.reward = [viewInfo[@"completedView"] boolValue];
-    
-    if ([viewInfo[@"didDownload"] boolValue]) {
-        [self.delegate adapterWasClicked:self];
+    if ([placementID isEqualToString:self.placementId]) {
+        self.reward = [info.completedView boolValue];
+        
+        if ([info.didDownload boolValue]) {
+            [self.delegate adapterWasClicked:self];
+        }
+        
+        [self.delegate adapterDidCloseAd:self canReward:self.reward];
     }
-    
-    [self.delegate adapterDidCloseAd:self canReward:self.reward];
+}
+
+- (void)vungleSDKDidInitialize
+{
+    self.started = YES;
+}
+
+- (void)vungleSDKFailedToInitializeWithError:(NSError *)error
+{
+    self.started = NO;
+    [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration errorDescription:error.localizedDescription]];
 }
 
 @end
