@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.21.0'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.22.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*Adapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*Adapter.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '3.1.6.h'
+        ss.dependency 'MobFoxSDK', '3.1.7'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -111,14 +111,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.6.4.0'
+        ss.dependency 'IronSourceSDK', '~>6.6.5.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '~>4.23.0'
+        ss.dependency 'FBAudienceNetwork', '~>4.25.0'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.h'
     end
