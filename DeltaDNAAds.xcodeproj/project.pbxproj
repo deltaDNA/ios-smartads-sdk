@@ -10,6 +10,8 @@
 		1060FBB601FFA904C48E8EDA /* libPods-DeltaDNAAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9452AF2023130C91C4DEF78E /* libPods-DeltaDNAAds.a */; };
 		34006AF239634B47F0C6322D /* libPods-ObjC SmartAds Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B9BE29F80E7F18BE752476 /* libPods-ObjC SmartAds Example.a */; };
 		630089751ECA041E007A1331 /* TestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 630089741ECA041E007A1331 /* TestAppDelegate.m */; };
+		631D9FD11F3DFDEB00F54F0A /* DDNASmartAdHyprMXAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D9FCE1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.m */; };
+		631D9FD31F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */; };
 		63286F291EEAF98700D47372 /* DDNASmartAdTapjoyAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F261EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.m */; };
 		63286F2C1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */; };
 		6340D0291E95365900786346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0281E95365900786346 /* AppDelegate.swift */; };
@@ -164,6 +166,9 @@
 		4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjC SmartAds Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		630089731ECA041E007A1331 /* TestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAppDelegate.h; sourceTree = "<group>"; };
 		630089741ECA041E007A1331 /* TestAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestAppDelegate.m; sourceTree = "<group>"; };
+		631D9FCD1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdHyprMXAdapter.h; sourceTree = "<group>"; };
+		631D9FCE1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdHyprMXAdapter.m; sourceTree = "<group>"; };
+		631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdHyprMXAdapterSpec.m; sourceTree = "<group>"; };
 		63286F251EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdTapjoyAdapter.h; sourceTree = "<group>"; };
 		63286F261EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdTapjoyAdapter.m; sourceTree = "<group>"; };
 		63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdTapjoyAdapterSpec.m; sourceTree = "<group>"; };
@@ -366,6 +371,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		631D9FCC1F3DF68600F54F0A /* HyprMX */ = {
+			isa = PBXGroup;
+			children = (
+				631D9FCD1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.h */,
+				631D9FCE1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.m */,
+			);
+			path = HyprMX;
+			sourceTree = "<group>";
+		};
 		6340D0271E95365900786346 /* Integration Tester */ = {
 			isa = PBXGroup;
 			children = (
@@ -436,6 +450,7 @@
 				636A41981E93F1D5002BC4E9 /* DDNASmartAdIronSourceAdapterSpec.m */,
 				6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */,
 				63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */,
+				631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -453,6 +468,7 @@
 		636A41051E93A724002BC4E9 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
+				631D9FCC1F3DF68600F54F0A /* HyprMX */,
 				637752471EE9A8500066EABB /* Tapjoy */,
 				6340D04F1E966DE200786346 /* Facebook */,
 				636A41061E93A724002BC4E9 /* AdColony */,
@@ -1230,6 +1246,7 @@
 				6342F74A1DCCCB7C0058BABC /* DDNASmartAdServiceSpec.m in Sources */,
 				6342F74E1DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m in Sources */,
 				6342F7391DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m in Sources */,
+				631D9FD31F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m in Sources */,
 				6342F74B1DCCCB7C0058BABC /* DDNASmartAdsSpec.m in Sources */,
 				636A418C1E93ABF7002BC4E9 /* DDNASmartAdFactory.m in Sources */,
 				6342F7451DCCCB7C0058BABC /* DDNASmartAdFactorySpec.m in Sources */,
@@ -1266,6 +1283,7 @@
 				636A41821E93ABCF002BC4E9 /* DDNASmartAdIronSourceRewardedAdapter.m in Sources */,
 				636A41771E93ABB3002BC4E9 /* DDNASmartAdChartboostInterstitialAdapter.m in Sources */,
 				6342F7461DCCCB7C0058BABC /* DDNASmartAdFlurryAdapterSpec.m in Sources */,
+				631D9FD11F3DFDEB00F54F0A /* DDNASmartAdHyprMXAdapter.m in Sources */,
 				636A41761E93ABB3002BC4E9 /* DDNASmartAdChartboostHelper.m in Sources */,
 				6342F7481DCCCB7C0058BABC /* DDNASmartAdMobFoxAdapterSpec.m in Sources */,
 				636A41731E93AB9D002BC4E9 /* DDNASmartAdAdMobInterstitialAdapter.m in Sources */,

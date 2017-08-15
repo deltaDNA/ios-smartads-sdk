@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
     s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
-    s.platform = :ios, '8.0'
+    s.platform = :ios, '9.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
@@ -128,5 +128,12 @@ Pod::Spec.new do |s|
         ss.dependency 'TapjoySDK', '~>11.11.0'
         ss.source_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.h'
+    end
+
+    s.subspec 'HyprMX' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'HyprMX', '93'
+        ss.source_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.h'
     end
 end

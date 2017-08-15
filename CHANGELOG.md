@@ -1,10 +1,14 @@
 # Change Log
 
 ## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.0) (????-??-??)
+### Changed
+- iOS 9 minimum version.
+
 ### Added
 - Send adSdkVersion when requesting configuration.
 - Support for Tapjoy.
 - Support for AdMob rewarded ads.
+- Support for HyprMX.
 
 ### Fixed
 - IronSource timing out during no fill cases.
