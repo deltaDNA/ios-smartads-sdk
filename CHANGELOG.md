@@ -9,6 +9,7 @@
 - Support for Tapjoy.
 - Support for AdMob rewarded ads.
 - Support for HyprMX.
+- Support for LoopMe.
 
 ### Fixed
 - IronSource timing out during no fill cases.

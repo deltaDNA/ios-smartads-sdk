@@ -136,4 +136,11 @@ Pod::Spec.new do |s|
         ss.source_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.h'
     end
+
+    s.subspec 'LoopMe' do |ss|
+        ss.dependency 'DeltaDNAAds/SmartAds'
+        ss.dependency 'LoopMeSDK', '~>6.3.2'
+        ss.source_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.{h,m}'
+        ss.public_header_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.h'
+    end
 end
