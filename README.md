@@ -17,11 +17,11 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.4.5'
+    pod 'DeltaDNAAds', '~> 1.5.0'
 end
 ```
 
-The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your Podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.  
+The deltaDNA SDKs are available from our private spec repository, its url must be added as a source to your Podfile.  DeltaDNAAds depends on our analytics SDK, which will also be installed.
 
 The above example will install all the ad networks we support.  To install just a subset declare each subspec separately in your Podfile, for example:
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.4.5', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.5.0', :subspecs => ['AdMob','MoPub']
 end
 ```
 The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.
@@ -72,7 +72,7 @@ If everything went well the SmartAds service will start fetching ads in the back
 
 #### Create an Interstitial Ad
 
-An interstitial ad is a fullscreen popup that the player can dismiss from a close button.  In order to show an interstitial ad, try to create a `DDNAInterstitialAd` and then show it.  
+An interstitial ad is a fullscreen popup that the player can dismiss from a close button.  In order to show an interstitial ad, try to create a `DDNAInterstitialAd` and then show it.
 
 ```objective-c
 DDNAInterstitialAd *interstitialAd = [DDNAInterstitialAd interstitialAdWithDelegate:self];
@@ -114,7 +114,7 @@ Again, make sure you keep a strong reference to the rewarded ad object else the 
 
 #### Working with Engage
 
-To fully take advantage of deltaDNA's SmartAds you want to work with our Engage service.  The game can ask Engage if it should show an ad for this particular player.  Engage will tailor is response according to which campaigns are running and which segment this player is in.  You can try to build an ad from a `DDNAEngagement` object, it will only succeed if the Engage response allows it.  We can also add additional parameters into the Engage response which the game can use, perhaps to customise the reward for this player.  For more details on Engage checkout out the [analytics SDK](https://github.com/deltaDNA/ios-sdk).  
+To fully take advantage of deltaDNA's SmartAds you want to work with our Engage service.  The game can ask Engage if it should show an ad for this particular player.  Engage will tailor its response according to which campaigns are running and which segment this player is in.  You can try to build an ad from a `DDNAEngagement` object, it will only succeed if the Engage response allows it.  We can also add additional parameters into the Engage response which the game can use, perhaps to customise the reward for this player.  For more details on Engage checkout out the [analytics SDK](https://github.com/deltaDNA/ios-sdk).
 
 ```objective-c
 DDNAEngagement* engagement = [DDNAEngagement engagementWithDecisionPoint:@"showRewardedAd"];
@@ -156,26 +156,29 @@ You can also set the delegates for the DDNASmartAds object, so the SDK behaviour
 
 See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/DeltaDNAAds/SmartAds/DDNASmartAds.h) for more details.
 
-### iOS 10
+### iOS 10 and ATS Support
 
-The following table is a list of considerations when integrating our library.  Most of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.
+The following table is a list of considerations when integrating our library.  Many of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry and ThirdPresence work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.
 
-| Ad Network    | iOS 10 Support | ATS Support | Bitcode | Frameworks | Notes |
-|---------------|----------------|-------------|---------|------------|-------|
-| AdMob         | YES (v7.11)    | YES (v7.13) | YES     | NO         |       |
-| Amazon        | YES (v2.15)    | NO          | YES     | NO         | see [iOS 10 integration](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
-| MoPub         | YES (v4.9.1)   | YES (v4.10) | YES     | YES        |       |
-| Flurry        | YES (v7.6.6)   | NO          | YES     | YES        |       |
-| InMobi        | YES (v6.0.0)   | YES (v6.0.0)| YES     | NO         | Enterprise only |
-| MobFox        | YES (v2.3.3)   | NO          | NO      | NO         |       |
-| AdColony      | YES (v3.0)      | YES         | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
-| Chartboost    | YES (v6.5.1)   | YES (v6.5.1)| YES     | NO         |       |
-| Vungle        | YES (v4.0.5)   | NO          | YES     | NO         |       |
-| UnityAds      | YES (v2.0)     | YES (v2.0.5)| NO      | NO         |       |
-| AppLovin      | YES            | YES (v3.1.2)| YES     | NO         |       |
-| ThirdPresence | YES            | YES (v1.4.1)| -       | YES        |       |
-| IronSource    | YES            | YES         | YES     | NO         |       |
-| Facebook      | YES            | YES         | YES     | NO         |       |
+| Ad Network      | iOS 10 Support | ATS Support  | Bitcode | Frameworks | Notes |
+|-----------------|----------------|--------------|---------|------------|-------|
+| AdMob           | YES            | YES          | YES     | NO         |       |
+| Amazon          | YES            | NO           | YES     | NO         | see [iOS 10 integration](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
+| MoPub           | YES            | YES          | YES     | YES        |       |
+| Flurry          | YES            | YES          | YES     | YES        |       |
+| InMobi          | YES            | NO           | YES     | NO         |       |
+| MobFox          | YES            | NO           | NO      | NO         |       |
+| AdColony        | YES            | NO           | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
+| Chartboost      | YES            | YES          | YES     | NO         |       |
+| Vungle          | YES            | YES          | YES     | NO         |       |
+| UnityAds        | YES            | YES          | NO      | NO         |       |
+| AppLovin        | YES            | YES          | YES     | NO         |       |
+| ThirdPresence   | YES            | YES          |         | YES        |       |
+| IronSource      | YES            | YES          | YES     | NO         |       |
+| Facebook        | YES            | YES          | YES     | NO         |       |
+| Tapjoy          | YES            | NO           | YES     | NO         |       |
+| HyprMX          | YES            | NO           |         | NO         |       |
+| LoopMe          | YES            | NO           |         | NO         |       |
 
 ## License
 

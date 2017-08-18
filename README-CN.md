@@ -114,7 +114,7 @@ if (rewardedAd != nil) {
 
 #### 使用吸引（Engage）
 
-要充分利用deltaDNA的智能广告的优势，你需要使用我们的吸引（Engage）服务。如果游戏要向某个特定玩家展示一个广告，那么需要使用吸引（Engage）。吸引（Engage）将根据哪个活动在进行以及玩家在哪个分组中来定制响应。你可以尝试从一个`DDNAEngagement`对象创建一个广告，其将只会在吸引（Engage）响应允许时能够成功。我们还可以添加游戏可以使用的额外参数到吸引（Engage）响应中，也许可以为玩家自定义奖励。有关吸引（Engage）的更多详细信息请查看[分析SDK](https://github.com/deltaDNA/ios-sdk)。 
+要充分利用deltaDNA的智能广告的优势，你需要使用我们的吸引（Engage）服务。如果游戏要向某个特定玩家展示一个广告，那么需要使用吸引（Engage）。吸引（Engage）将根据哪个活动在进行以及玩家在哪个分组中来定制响应。你可以尝试从一个`DDNAEngagement`对象创建一个广告，其将只会在吸引（Engage）响应允许时能够成功。我们还可以添加游戏可以使用的额外参数到吸引（Engage）响应中，也许可以为玩家自定义奖励。有关吸引（Engage）的更多详细信息请查看[分析SDK](https://github.com/deltaDNA/ios-sdk)。
 
 ```objective-c
 DDNAEngagement* engagement = [DDNAEngagement engagementWithDecisionPoint:@"showRewardedAd"];
@@ -160,22 +160,26 @@ DDNAEngagement* engagement = [DDNAEngagement engagementWithDecisionPoint:@"showR
 
 下面的表格是整合库时的注意事项表。多数广告网络符合ATS，其他的[推荐](https://firebase.google.com/docs/admob/ios/ios9)设置`NSArbitararyLoads`键值为真（true）。现在多数支持bitcode，但是目前我们不支持。只有MobPub和Flurry使用CocoaPods `use_frameworks!`选项，其他的都会给出一个转换依赖错误。这个库还没有被写成支持动态框架，所有现在应避免这样。请记住如果你只想将已确定的网络包含到智能网络中，你可以使用subspecs选项。你还将想要考虑为iOS 10配置隐私控制。
 
-| 广告网络      | iOS 10 支持    | ATS 支持    | Bitcode | 框架       | 备注 |
-|---------------|----------------|-------------|---------|------------|-------|
-| AdMob         | YES (v7.11)    | YES (v7.13) | YES     | NO         |       |
-| Amazon        | YES (v2.15)    | NO          | YES     | NO         | 查看[iOS 10整合](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
-| MoPub         | YES (v4.9.1)   | YES (v4.10) | YES     | YES        |       |
-| Flurry        | YES (v7.6.6)   | NO          | YES     | YES        |       |
-| InMobi        | YES (v6.0.0)   | YES (v6.0.0)| YES     | NO         | 仅限企业版 |
-| MobFox        | YES (v2.3.3)   | NO          | NO      | NO         |       |
-| AdColony      | YES (v3.0)     | YES         | YES     | NO         | 查看[iOS 10整合](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
-| Chartboost    | YES (v6.5.1)   | YES (v6.5.1)| YES     | NO         |       |
-| Vungle        | YES (v4.0.5)   | NO          | YES     | NO         |       |
-| UnityAds      | YES (v2.0)     | YES (v2.0.5)| NO      | NO         |       |
-| AppLovin      | YES            | YES (v3.1.2)| YES     | NO         |       |
-| ThirdPresence | YES            | YES (v1.4.1)| -       | YES        |       |
-| IronSource    | YES            | YES         | YES     | NO         |       |
-| Facebook      | YES            | YES         | YES     | NO         |       |
+| 广告网络         | iOS 10 支持     | ATS 支持     | Bitcode | 框架        | 备注   |
+|-----------------|----------------|--------------|---------|------------|-------|
+| AdMob           | YES            | YES          | YES     | NO         |       |
+| Amazon          | YES            | NO           | YES     | NO         | 查看[iOS 10整合](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
+| MoPub           | YES            | YES          | YES     | YES        |       |
+| Flurry          | YES            | YES          | YES     | YES        |       |
+| InMobi          | YES            | NO           | YES     | NO         |       |
+| MobFox          | YES            | NO           | NO      | NO         |       |
+| AdColony        | YES            | NO           | YES     | NO         | 查看[iOS 10整合](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
+| Chartboost      | YES            | YES          | YES     | NO         |       |
+| Vungle          | YES            | YES          | YES     | NO         |       |
+| UnityAds        | YES            | YES          | NO      | NO         |       |
+| AppLovin        | YES            | YES          | YES     | NO         |       |
+| ThirdPresence   | YES            | YES          |         | YES        |       |
+| IronSource      | YES            | YES          | YES     | NO         |       |
+| Facebook        | YES            | YES          | YES     | NO         |       |
+| Tapjoy          | YES            | NO           | YES     | NO         |       |
+| HyprMX          | YES            | NO           |         | NO         |       |
+| LoopMe          | YES            | NO           |         | NO         |       |
+
 
 ## 授权
 
