@@ -1,7 +1,6 @@
 # Change Log
 
-## [Unreleased](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.0) (????-??-??)
-
+## [1.5.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.0) (2017-08-22)
 ### Added
 - Send adSdkVersion when requesting configuration.
 - Support for Tapjoy.
