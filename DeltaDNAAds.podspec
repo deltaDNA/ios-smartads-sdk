@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
     s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
-    s.platform = :ios, '9.0'
+    s.platform = :ios, '8.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
@@ -139,7 +139,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'LoopMe' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'LoopMeSDK', '~>6.3.2'
+        ss.dependency 'LoopMeSDK', '~>6.0'
         ss.source_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.h'
     end

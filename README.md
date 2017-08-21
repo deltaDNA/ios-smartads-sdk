@@ -178,7 +178,7 @@ The following table is a list of considerations when integrating our library.  M
 | Facebook        | YES            | YES          | YES     | NO         |       |
 | Tapjoy          | YES            | NO           | YES     | NO         |       |
 | HyprMX          | YES            | NO           |         | NO         |       |
-| LoopMe          | YES            | NO           |         | NO         |       |
+| LoopMe          | YES            | NO           |         | NO         | requires iOS 9 for latest features      |
 
 ## License
 

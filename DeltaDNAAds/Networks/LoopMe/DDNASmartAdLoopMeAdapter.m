@@ -15,10 +15,21 @@
 //
 
 #import "DDNASmartAdLoopMeAdapter.h"
-#import <LoopMeSDK/LoopMeDefinitions.h>
+// Older CocoaPod didn't make these files public
+#if __has_include(<LoopMeSDK/LoopMeDefinitions.h>)
+    #import <LoopMeSDK/LoopMeDefinitions.h>
+#endif
+#if __has_include(<LoopMeSDK/LoopMeError.h>)
+    #import <LoopMeSDK/LoopMeError.h>
+#endif
 #import <LoopMeSDK/LoopMeInterstitial.h>
-#import <LoopMeSDK/LoopMeError.h>
 #import <LoopMeSDK/LoopMeLogging.h>
+
+// Handle older version which didn't expose LOOPME_SDK_VERSION
+#ifndef LOOPME_SDK_VERSION
+#define LOOPME_SDK_VERSION @"6.0.0"
+#endif
+
 
 @interface DDNASmartAdLoopMeAdapter () <LoopMeInterstitialDelegate>
 
@@ -84,19 +95,20 @@
         
         DDNASmartAdRequestResult *result;
         
+        // Using codes directly to support older SDK version
         switch (error.code) {
-            case LoopMeErrorCodeNoAdsFound : {
+            case 204 /*LoopMeErrorCodeNoAdsFound*/ : {
                 result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
                 break;
             }
-            case LoopMeErrorCodeInvalidAppKey : {
+            case 404 /*LoopMeErrorCodeInvalidAppKey*/ : {
                 result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
                 break;
             }
-            case LoopMeErrorCodeVideoDownloadTimeout :
-            case LoopMeErrorCodeSpecificHost :
-            case LoopMeErrorCodeHTMLRequestTimeOut :
-            case LoopMeErrorCodeURLResolve : {
+            case 408 /*LoopMeErrorCodeVideoDownloadTimeout*/ :
+            case -12 /*LoopMeErrorCodeSpecificHost*/ :
+            case -13 /*LoopMeErrorCodeHTMLRequestTimeOut*/ :
+            case -20 /*LoopMeErrorCodeURLResolve*/ : {
                 result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
                 break;
             }

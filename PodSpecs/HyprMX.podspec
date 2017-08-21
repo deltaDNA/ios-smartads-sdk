@@ -11,7 +11,7 @@ DESC
 
 s.homepage      = 'https://hyprmx.com/'
 s.authors       = { 'HyprMX' => 'support@hyprmx.com' }
-s.platform      = :ios, "9.0"
+s.platform      = :ios, "7.0"
 s.source        = { :http => "https://s3.amazonaws.com/dd-smartads-3rd-party-sdks/HyprMX/#{s.version}/HyprMXSDK.zip" }
 
 s.vendored_frameworks = 'HyprMX.framework'
