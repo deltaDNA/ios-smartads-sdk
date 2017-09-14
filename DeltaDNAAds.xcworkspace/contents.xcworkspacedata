@@ -10,18 +10,6 @@
       <FileRef
          location = "group:/Users/david/Projects/ios-smartads-sdk/PodSpecs/HyprMX.podspec">
       </FileRef>
-      <FileRef
-         location = "group:AppLovin.podspec">
-      </FileRef>
-      <FileRef
-         location = "group:UnityAds.podspec">
-      </FileRef>
-      <FileRef
-         location = "group:AmazonAds.podspec">
-      </FileRef>
-      <FileRef
-         location = "group:MobFox.podspec">
-      </FileRef>
    </Group>
    <FileRef
       location = "group:LICENSE">

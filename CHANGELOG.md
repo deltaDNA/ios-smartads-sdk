@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.5.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.1) (2017-09-14)
+### Fixed
+- Updated AdMob, MoPub, Flurry, MobFox, AdColony, Chartboost, AppLovin and IronSource to latest versions.
+
 ## [1.5.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.0) (2017-08-22)
 ### Added
 - Send adSdkVersion when requesting configuration.

@@ -36,10 +36,8 @@
                      waterfallIndex:waterfallIndex])) {
 
         self.publicationId = publicationId;
-        
-        [MobFoxInterstitialAd locationServicesDisabled:YES];
-        [MobFoxNativeAd locationServicesDisabled:YES];
-        [MobFoxAd locationServicesDisabled:YES];
+        // Not sure if this is still required, it doesn't seem to be triggering the location permission anymore.
+        [[MFLocationServicesManager sharedInstance] stopFindingLocation];
     }
     return self;
 }
