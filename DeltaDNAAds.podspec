@@ -132,7 +132,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'HyprMX' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'HyprMX', '93'
+        ss.dependency 'HyprMX', '110'
         ss.source_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/HyprMX/DDNASmartAdHyprMXAdapter.h'
     end

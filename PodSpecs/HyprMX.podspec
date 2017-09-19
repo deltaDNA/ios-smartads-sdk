@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name          = 'HyprMX'
-s.version       = '93'
+s.version       = '110'
 s.license       = { :type => 'Commercial', :file => 'LICENSE.txt' }
 s.summary       = 'HyprMX SDK.'
 
