@@ -27,8 +27,7 @@
 		6340D0471E95387300786346 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03A1E9537D300786346 /* DetailViewController.swift */; };
 		6340D0481E95387700786346 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03B1E9537D300786346 /* MasterViewController.swift */; };
 		6340D0491E95387B00786346 /* VerticalTopAlignLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D03C1E9537D300786346 /* VerticalTopAlignLabel.swift */; };
-		6340D0521E966DE200786346 /* DDNASmartAdFacebookAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */; };
-		6340D0541E96849500786346 /* DDNASmartAdFacebookAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */; };
+		6340D0541E96849500786346 /* DDNASmartAdFacebookInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0511E966DE200786346 /* DDNASmartAdFacebookInterstitialAdapter.m */; };
 		6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */; };
 		6342F7391DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */; };
 		6342F73A1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6342F7201DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m */; };
@@ -103,6 +102,8 @@
 		636B79C91DCCAD4A00D96B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636B79C01DCCAD4A00D96B71 /* Main.storyboard */; };
 		636B79CB1DCCAD4A00D96B71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C31DCCAD4A00D96B71 /* main.m */; };
 		636B79CC1DCCAD4A00D96B71 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C51DCCAD4A00D96B71 /* ViewController.m */; };
+		63A99C1C1F712F5F00253B1E /* DDNASmartAdFacebookRewardedAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A99C151F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.m */; };
+		63A99C1D1F712F7300253B1E /* DDNASmartAdFacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A99C171F712E7800253B1E /* DDNASmartAdFacebookHelper.m */; };
 		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
 		63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */; };
 		63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */; };
@@ -190,8 +191,8 @@
 		6340D03B1E9537D300786346 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		6340D03C1E9537D300786346 /* VerticalTopAlignLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalTopAlignLabel.swift; sourceTree = "<group>"; };
 		6340D04A1E953E4900786346 /* networks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = networks.json; sourceTree = "<group>"; };
-		6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdFacebookAdapter.h; sourceTree = "<group>"; };
-		6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookAdapter.m; sourceTree = "<group>"; };
+		6340D0501E966DE200786346 /* DDNASmartAdFacebookInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdFacebookInterstitialAdapter.h; sourceTree = "<group>"; };
+		6340D0511E966DE200786346 /* DDNASmartAdFacebookInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookInterstitialAdapter.m; sourceTree = "<group>"; };
 		6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookAdapterSpec.m; sourceTree = "<group>"; };
 		6342F71D1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSmartAdAgent.h; sourceTree = "<group>"; };
 		6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSmartAdAgent.m; sourceTree = "<group>"; };
@@ -309,6 +310,10 @@
 		636B79C41DCCAD4A00D96B71 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		636B79C51DCCAD4A00D96B71 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		636B79CF1DCCAD7500D96B71 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63A99C141F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdFacebookRewardedAdapter.h; sourceTree = "<group>"; };
+		63A99C151F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookRewardedAdapter.m; sourceTree = "<group>"; };
+		63A99C161F712E7800253B1E /* DDNASmartAdFacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdFacebookHelper.h; sourceTree = "<group>"; };
+		63A99C171F712E7800253B1E /* DDNASmartAdFacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdFacebookHelper.m; sourceTree = "<group>"; };
 		63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjC SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ObjC SmartAds Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -417,8 +422,12 @@
 		6340D04F1E966DE200786346 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				6340D0501E966DE200786346 /* DDNASmartAdFacebookAdapter.h */,
-				6340D0511E966DE200786346 /* DDNASmartAdFacebookAdapter.m */,
+				63A99C161F712E7800253B1E /* DDNASmartAdFacebookHelper.h */,
+				63A99C171F712E7800253B1E /* DDNASmartAdFacebookHelper.m */,
+				63A99C141F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.h */,
+				63A99C151F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.m */,
+				6340D0501E966DE200786346 /* DDNASmartAdFacebookInterstitialAdapter.h */,
+				6340D0511E966DE200786346 /* DDNASmartAdFacebookInterstitialAdapter.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -812,7 +821,6 @@
 			files = (
 				63047F221F45F6D700282267 /* DDNASmartAdLoopMeAdapter.h in Headers */,
 				636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */,
-				6340D0521E966DE200786346 /* DDNASmartAdFacebookAdapter.h in Headers */,
 				636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */,
 				636A41C71E93FD9E002BC4E9 /* DDNASmartAds.h in Headers */,
 				636A41A31E93F80A002BC4E9 /* DeltaDNAAds.h in Headers */,
@@ -1259,6 +1267,7 @@
 				636A41791E93ABB7002BC4E9 /* DDNASmartAdDummyAdapter.m in Sources */,
 				636A418E1E93ABF7002BC4E9 /* DDNASmartAdService.m in Sources */,
 				636A41841E93ABD8002BC4E9 /* DDNASmartAdMoPubAdapter.m in Sources */,
+				63A99C1D1F712F7300253B1E /* DDNASmartAdFacebookHelper.m in Sources */,
 				6342F7411DCCCB7C0058BABC /* DDNASmartAdAdMobAdapterSpec.m in Sources */,
 				636A418A1E93ABF7002BC4E9 /* DDNASmartAdAdapter.m in Sources */,
 				6342F74A1DCCCB7C0058BABC /* DDNASmartAdServiceSpec.m in Sources */,
@@ -1292,7 +1301,7 @@
 				63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */,
 				6342F73D1DCCCB7C0058BABC /* DDNASmartAdFakeAdapter.m in Sources */,
 				63047F241F45F76400282267 /* DDNASmartAdLoopMeAdapter.m in Sources */,
-				6340D0541E96849500786346 /* DDNASmartAdFacebookAdapter.m in Sources */,
+				6340D0541E96849500786346 /* DDNASmartAdFacebookInterstitialAdapter.m in Sources */,
 				636A418F1E93ABF7002BC4E9 /* DDNASmartAdStatus.m in Sources */,
 				63047F251F45F76B00282267 /* DDNASmartAdLoopMeAdapterSpec.m in Sources */,
 				636A41741E93ABA4002BC4E9 /* DDNASmartAdAmazonAdapter.m in Sources */,
@@ -1313,6 +1322,7 @@
 				636A41851E93ABDD002BC4E9 /* DDNASmartAdThirdPresenceAdapter.m in Sources */,
 				6342F73A1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.m in Sources */,
 				6342F7421DCCCB7C0058BABC /* DDNASmartAdAgentSpec.m in Sources */,
+				63A99C1C1F712F5F00253B1E /* DDNASmartAdFacebookRewardedAdapter.m in Sources */,
 				63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

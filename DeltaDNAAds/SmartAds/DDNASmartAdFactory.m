@@ -219,9 +219,15 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                     }
                 }
                 else if ([adProvider caseInsensitiveContains:@"FACEBOOK"]) {
-                    adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFacebookAdapter"
-                                                 configuration:configuration
-                                                waterfallIndex:i];
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFacebookInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdFacebookRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
                 }
                 else if ([adProvider caseInsensitiveContains:@"TAPJOY"]) {
                     adapter = [self instantiateAdapterForKlass:@"DDNASmartAdTapjoyAdapter"
@@ -246,7 +252,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
 
                 if (adapter) {
                     [adapters addObject:adapter];
-                    DDNALogDebug(@"Added ad network %@", adProvider);
+                    DDNALogDebug(@"Enabled %@ for %@ ads", adProvider, type == DDNASmartAdAdapterTypeInterstitial ? @"interstitial" : @"rewarded");
                 }
             }
             else {

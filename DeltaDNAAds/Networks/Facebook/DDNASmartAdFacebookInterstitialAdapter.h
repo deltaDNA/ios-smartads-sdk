@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 #import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
-@interface DDNASmartAdFacebookAdapter : DDNASmartAdAdapter
+@interface DDNASmartAdFacebookInterstitialAdapter : DDNASmartAdAdapter
 
 @property (nonatomic, copy, readonly) NSString *placementId;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
