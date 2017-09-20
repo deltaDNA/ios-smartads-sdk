@@ -103,6 +103,7 @@
 		636B79C91DCCAD4A00D96B71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636B79C01DCCAD4A00D96B71 /* Main.storyboard */; };
 		636B79CB1DCCAD4A00D96B71 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C31DCCAD4A00D96B71 /* main.m */; };
 		636B79CC1DCCAD4A00D96B71 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 636B79C51DCCAD4A00D96B71 /* ViewController.m */; };
+		63A99C221F727EE200253B1E /* DDNASmartAdAdMobHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A99C1E1F727EDF00253B1E /* DDNASmartAdAdMobHelper.m */; };
 		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
 		63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */; };
 		63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */; };
@@ -309,6 +310,8 @@
 		636B79C41DCCAD4A00D96B71 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		636B79C51DCCAD4A00D96B71 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		636B79CF1DCCAD7500D96B71 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63A99C1E1F727EDF00253B1E /* DDNASmartAdAdMobHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdAdMobHelper.m; sourceTree = "<group>"; };
+		63A99C1F1F727EDF00253B1E /* DDNASmartAdAdMobHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdAdMobHelper.h; sourceTree = "<group>"; };
 		63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjC SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ObjC SmartAds Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -518,6 +521,8 @@
 		636A41091E93A724002BC4E9 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
+				63A99C1F1F727EDF00253B1E /* DDNASmartAdAdMobHelper.h */,
+				63A99C1E1F727EDF00253B1E /* DDNASmartAdAdMobHelper.m */,
 				636A410A1E93A724002BC4E9 /* DDNASmartAdAdMobInterstitialAdapter.h */,
 				636A410B1E93A724002BC4E9 /* DDNASmartAdAdMobInterstitialAdapter.m */,
 				634669A01F065D85003F287E /* DDNASmartAdAdMobRewardedAdapter.h */,
@@ -1253,6 +1258,7 @@
 				6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */,
 				636A417E1E93ABC6002BC4E9 /* DDNASmartAdInMobiInterstitialAdapter.m in Sources */,
 				6342F73E1DCCCB7C0058BABC /* DDNAInterstitialAdSpec.m in Sources */,
+				63A99C221F727EE200253B1E /* DDNASmartAdAdMobHelper.m in Sources */,
 				6342F74C1DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
 				6342F73C1DCCCB7C0058BABC /* DDNAFakeSmartAdService.m in Sources */,
 				636A41891E93ABF7002BC4E9 /* DDNARewardedAd.m in Sources */,

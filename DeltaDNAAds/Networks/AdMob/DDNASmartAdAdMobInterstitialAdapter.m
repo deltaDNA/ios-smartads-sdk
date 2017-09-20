@@ -15,7 +15,8 @@
 //
 
 #import "DDNASmartAdAdMobInterstitialAdapter.h"
-#import <GoogleMobileAds/GADInterstitial.h>
+#import "DDNASmartAdAdMobHelper.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface DDNASmartAdAdMobInterstitialAdapter () <GADInterstitialDelegate>
 
@@ -30,12 +31,14 @@
 - (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"ADMOB"
-                            version:[GADRequest sdkVersion]
+                            version:[DDNASmartAdAdMobHelper sdkVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
         
-        self.adUnitId = adUnitId;
+        self.adUnitId = testMode ? @"ca-app-pub-3940256099942544/1033173712" : adUnitId;
         self.testMode = testMode;
+        
+        [DDNASmartAdAdMobHelper configureWithAppId:@"ca-app-pub-3940256099942544~1458002511"];
     }
     return self;
 }
@@ -45,11 +48,6 @@
     interstitial.delegate = self;
     
     GADRequest *request = [GADRequest request];
-    if (self.testMode) {
-        // Requests test ads on test devices.  We could expand this to list of known devices
-        // to run test ads on them too.
-        request.testDevices = @[kGADSimulatorID];
-    }
     [interstitial loadRequest:request];
     return interstitial;
 }
@@ -97,89 +95,7 @@
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
     if (ad == self.interstitial) {
-        DDNASmartAdRequestResult *result;
-        
-        switch (error.code) {
-            case kGADErrorInvalidRequest:
-                
-                /// The ad request is invalid. The localizedFailureReason error description will have more
-                /// details. Typically this is because the ad did not have the ad unit ID or root view
-                /// controller set.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorNoFill:
-                /// The ad request was successful, but no ad was returned.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
-                break;
-                
-            case kGADErrorNetworkError:
-                /// There was an error loading data from the network.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
-                break;
-                
-            case kGADErrorServerError:
-                /// The ad server experienced a failure processing the request.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorOSVersionTooLow:
-                /// The current device's OS is below the minimum required version.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
-                break;
-                
-            case kGADErrorTimeout:
-                /// The request was unable to be loaded before being timed out.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNetwork];
-                break;
-                
-            case kGADErrorInterstitialAlreadyUsed:
-                /// Will not send request because the interstitial object has already been used.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorMediationDataError:
-                /// The mediation response was invalid.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorMediationAdapterError:
-                /// Error finding or creating a mediation ad network adapter.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorMediationNoFill:
-                /// The mediation request was successful, but no ad was returned from any ad networks.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
-                break;
-                
-            case kGADErrorMediationInvalidAdSize:
-                /// Attempting to pass an invalid ad size to an adapter.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration];
-                break;
-                
-            case kGADErrorInternalError:
-                /// Internal error.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorInvalidArgument:
-                /// Invalid argument error.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            case kGADErrorReceivedInvalidResponse:
-                /// Received invalid response.
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError];
-                break;
-                
-            default:
-                result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeNoFill];
-                break;
-        }
-        result.errorDescription = [error localizedDescription];
-        
-        [self.delegate adapterDidFailToLoadAd:self withResult:result];
+        [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdAdMobHelper resultCodeFromError:error]];
     }
 }
 
