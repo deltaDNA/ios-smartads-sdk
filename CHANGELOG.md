@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.5.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.2) (2017-09-20)
+### Fixed
+- Updated InMobi and HyprMX to latest versions.
+
 ## [1.5.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.1) (2017-09-14)
 ### Fixed
 - Updated AdMob, MoPub, Flurry, MobFox, AdColony, Chartboost, AppLovin and IronSource to latest versions.
