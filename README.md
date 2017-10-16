@@ -180,6 +180,9 @@ The following table is a list of considerations when integrating our library.  M
 | HyprMX          | YES            | NO           |         | NO         |       |
 | LoopMe          | YES            | NO           |         | NO         | requires iOS 9 for latest features      |
 
+### Facebook Integration
+Facebook Audience Network integration needs you to manage the account and create suitable placements for our mediation to use.  Contact support for more information.
+
 ## License
 
 The sources are available under the Apache 2.0 license.
