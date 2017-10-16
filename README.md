@@ -17,7 +17,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.5.2'
+    pod 'DeltaDNAAds', '~> 1.6.0'
 end
 ```
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.5.2', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.6.0', :subspecs => ['AdMob','MoPub']
 end
 ```
 The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.

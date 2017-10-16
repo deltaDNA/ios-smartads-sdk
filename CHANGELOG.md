@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.6.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.6.0)
+### Added
+- Support for Facebook rewarded video (see README for integration instructions).
+
 ## [1.5.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.2) (2017-09-20)
 ### Fixed
 - Updated InMobi and HyprMX to latest versions.
