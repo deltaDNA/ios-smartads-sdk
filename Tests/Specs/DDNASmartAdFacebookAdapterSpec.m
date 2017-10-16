@@ -19,12 +19,13 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 
-#import <DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookAdapter.h>
+#import <DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookInterstitialAdapter.h>
+#import <DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebookRewardedAdapter.h>
 
 
 SpecBegin(DDNASmartAdFacebookAdapter)
 
-describe(@"Facebook adapter", ^{
+describe(@"Facebook interstitial adapter", ^{
     
     it(@"builds from valid configuration", ^{
         
@@ -34,7 +35,7 @@ describe(@"Facebook adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdFacebookAdapter *adapter = [[DDNASmartAdFacebookAdapter alloc] initWithConfiguration:configuration
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
                                                                                          waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
@@ -50,7 +51,7 @@ describe(@"Facebook adapter", ^{
             @"adProvider": @"FACEBOOK"
         };
         
-        DDNASmartAdFacebookAdapter *adapter = [[DDNASmartAdFacebookAdapter alloc] initWithConfiguration:configuration
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
                                                                                          waterfallIndex:1];
         
         expect(adapter).to.beNil();
@@ -64,7 +65,7 @@ describe(@"Facebook adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdFacebookAdapter *adapter = [[DDNASmartAdFacebookAdapter alloc] initWithConfiguration:configuration
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
                                                                                          waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
@@ -76,6 +77,58 @@ describe(@"Facebook adapter", ^{
     });
 
     
+});
+
+describe(@"Facebook rewarded adapter", ^{
+    
+    it(@"builds from valid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FACEBOOK",
+            @"placementId": @"test-placement-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.placementId).to.equal(@"test-placement-id");
+        expect(adapter.eCPM).to.equal(150);
+        expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+    it(@"returns nil from invalid configuration", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FACEBOOK"
+        };
+        
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
+        
+        expect(adapter).to.beNil();
+    });
+    
+    it(@"supports test mode", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FACEBOOK",
+            @"placementId": @"test-placement-id",
+            @"testMode": @YES
+        };
+        
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
+                                                                                                                 waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.placementId).to.equal(@"test-placement-id");
+        expect(adapter.testMode).to.beTruthy();
+        expect(adapter.eCPM).to.equal(0);
+        expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
 });
 
 SpecEnd

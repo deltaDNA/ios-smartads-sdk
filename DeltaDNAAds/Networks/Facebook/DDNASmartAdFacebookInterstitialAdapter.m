@@ -14,10 +14,11 @@
 // limitations under the License.
 //
 
-#import "DDNASmartAdFacebookAdapter.h"
+#import "DDNASmartAdFacebookInterstitialAdapter.h"
+#import "DDNASmartAdFacebookHelper.h"
 #import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-@interface DDNASmartAdFacebookAdapter () <FBInterstitialAdDelegate>
+@interface DDNASmartAdFacebookInterstitialAdapter () <FBInterstitialAdDelegate>
 
 @property (nonatomic, copy, readwrite) NSString *placementId;
 @property (nonatomic, strong) FBInterstitialAd *interstitialAd;
@@ -25,23 +26,17 @@
 
 @end
 
-@implementation DDNASmartAdFacebookAdapter
+@implementation DDNASmartAdFacebookInterstitialAdapter
 
 - (instancetype)initWithPlacementId:(NSString *)placementId
                            testMode:(BOOL)testMode
                                eCPM:(NSInteger)eCPM
                      waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"FACEBOOK" version:FB_AD_SDK_VERSION eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"FACEBOOK" version:[[DDNASmartAdFacebookHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.placementId = placementId;
         
-        [FBAdSettings setLogLevel:FBAdLogLevelVerbose];
-        
-        if (testMode) {
-            [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-        } else {
-            [FBAdSettings clearTestDevice:[FBAdSettings testDeviceHash]];
-        }
+        [[DDNASmartAdFacebookHelper sharedInstance] setTestMode:testMode];
         self.testMode = testMode;
     }
     return self;
@@ -93,7 +88,9 @@
  */
 - (void)interstitialAdDidClick:(FBInterstitialAd *)interstitialAd
 {
-    [self.delegate adapterWasClicked:self];
+    if (interstitialAd == self.interstitialAd) {
+        [self.delegate adapterWasClicked:self];
+    }
 }
 
 /**
@@ -104,17 +101,9 @@
  */
 - (void)interstitialAdDidClose:(FBInterstitialAd *)interstitialAd
 {
-    [self.delegate adapterDidCloseAd:self canReward:YES];
-}
-
-/**
- Sent immediately before an FBInterstitialAd object will be dismissed from the screen.
- 
- - Parameter interstitialAd: An FBInterstitialAd object sending the message.
- */
-- (void)interstitialAdWillClose:(FBInterstitialAd *)interstitialAd
-{
-    
+    if (interstitialAd == self.interstitialAd) {
+        [self.delegate adapterDidCloseAd:self canReward:YES];
+    }
 }
 
 /**
@@ -124,7 +113,9 @@
  */
 - (void)interstitialAdDidLoad:(FBInterstitialAd *)interstitialAd
 {
-    [self.delegate adapterDidLoadAd:self];
+    if (interstitialAd == self.interstitialAd) {
+        [self.delegate adapterDidLoadAd:self];
+    }
 }
 
 /**
@@ -135,10 +126,12 @@
  */
 - (void)interstitialAd:(FBInterstitialAd *)interstitialAd didFailWithError:(NSError *)error
 {
-    DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:[self resultCodeFromError:error]];
-    result.errorDescription = error.localizedDescription;
-    
-    [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    if (interstitialAd == self.interstitialAd) {
+        DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:[[DDNASmartAdFacebookHelper sharedInstance] resultCodeFromError:error]];
+        result.errorDescription = error.localizedDescription;
+        
+        [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    }
 }
 
 /**
@@ -148,16 +141,8 @@
  */
 - (void)interstitialAdWillLogImpression:(FBInterstitialAd *)interstitialAd
 {
-    [self.delegate adapterIsShowingAd:self];
-}
-
-- (DDNASmartAdRequestResultCode)resultCodeFromError:(NSError *)error
-{
-    switch (error.code) {
-        case 1000: return DDNASmartAdRequestResultCodeNetwork;
-        case 1001: return DDNASmartAdRequestResultCodeNoFill;
-        case 1002: return DDNASmartAdRequestResultCodeMaxRequests;
-        default: return DDNASmartAdRequestResultCodeError;
+    if (interstitialAd == self.interstitialAd) {
+        [self.delegate adapterIsShowingAd:self];
     }
 }
 
