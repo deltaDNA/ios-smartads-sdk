@@ -4,6 +4,9 @@
 ### Added
 - Support for Facebook rewarded video (see README for integration instructions).
 
+### Fixed
+- Updated Admob, Amazon, Mopub, Flurry, Mobfox, Vungle, AppLovin, Ironsource and Facebook.
+
 ## [1.5.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.5.2) (2017-09-20)
 ### Fixed
 - Updated InMobi and HyprMX to latest versions.
