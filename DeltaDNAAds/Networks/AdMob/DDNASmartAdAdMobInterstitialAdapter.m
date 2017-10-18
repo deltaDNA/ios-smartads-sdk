@@ -21,6 +21,7 @@
 @interface DDNASmartAdAdMobInterstitialAdapter () <GADInterstitialDelegate>
 
 @property (nonatomic, strong) GADInterstitial *interstitial;
+@property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *adUnitId;
 @property (nonatomic, assign) BOOL testMode;
 
@@ -28,17 +29,18 @@
 
 @implementation DDNASmartAdAdMobInterstitialAdapter
 
-- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppId:(NSString *)appId adUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"ADMOB"
                             version:[DDNASmartAdAdMobHelper sdkVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
         
-        self.adUnitId = testMode ? @"ca-app-pub-3940256099942544/1033173712" : adUnitId;
+        self.appId = testMode ? @"ca-app-pub-3940256099942544~1458002511" : appId;
+        self.adUnitId = testMode ? @"ca-app-pub-3940256099942544/4411468910" : adUnitId;
         self.testMode = testMode;
         
-        [DDNASmartAdAdMobHelper configureWithAppId:@"ca-app-pub-3940256099942544~1458002511"];
+        [DDNASmartAdAdMobHelper configureWithAppId:self.appId];
     }
     return self;
 }
@@ -56,9 +58,10 @@
 
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"adUnitId"]) return nil;
+    if (!configuration[@"adUnitId"] || !configuration[@"appId"]) return nil;
     
-    return [self initWithAdUnitId:configuration[@"adUnitId"]
+    return [self initWithAppId:configuration[@"appId"]
+                      adUnitId:configuration[@"adUnitId"]
                          testMode:[configuration[@"testMode"] boolValue]
                              eCPM:[configuration[@"eCPM"] integerValue]
                    waterfallIndex:waterfallIndex];

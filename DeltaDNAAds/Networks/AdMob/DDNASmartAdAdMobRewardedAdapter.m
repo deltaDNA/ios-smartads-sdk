@@ -22,6 +22,7 @@
 @interface DDNASmartAdAdMobRewardedAdapter () <GADRewardBasedVideoAdDelegate>
     
 @property (nonatomic, strong) GADRewardBasedVideoAd *videoAd;
+@property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *adUnitId;
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, assign) BOOL reward;
@@ -30,17 +31,18 @@
 
 @implementation DDNASmartAdAdMobRewardedAdapter
     
-- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppId:(NSString *)appId adUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"ADMOB"
                             version:[DDNASmartAdAdMobHelper sdkVersion]
                                eCPM:eCPM
                      waterfallIndex:waterfallIndex])) {
         
+        self.appId = testMode ? @"ca-app-pub-3940256099942544~1458002511" : appId;
         self.adUnitId = testMode ? @"ca-app-pub-3940256099942544/1712485313" : adUnitId;
         self.testMode = testMode;
         
-        [DDNASmartAdAdMobHelper configureWithAppId:@"ca-app-pub-3940256099942544~1458002511"];
+        [DDNASmartAdAdMobHelper configureWithAppId:self.appId];
         
         [GADRewardBasedVideoAd sharedInstance].delegate = self;
         [self requestRewardedVideo];
@@ -59,12 +61,13 @@
     
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
-    if (!configuration[@"adUnitId"]) return nil;
+    if (!configuration[@"adUnitId"] || !configuration[@"appId"]) return nil;
     
-    return [self initWithAdUnitId:configuration[@"adUnitId"]
-                         testMode:[configuration[@"testMode"] boolValue]
-                             eCPM:[configuration[@"eCPM"] integerValue]
-                   waterfallIndex:waterfallIndex];
+    return [self initWithAppId:configuration[@"appId"]
+                      adUnitId:configuration[@"adUnitId"]
+                      testMode:[configuration[@"testMode"] boolValue]
+                          eCPM:[configuration[@"eCPM"] integerValue]
+                waterfallIndex:waterfallIndex];
 }
     
 - (void)requestAd

@@ -18,14 +18,16 @@
 #import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
 @interface DDNASmartAdAdMobRewardedAdapter : DDNASmartAdAdapter
-    
+
+@property (nonatomic, copy, readonly) NSString *appId;
 @property (nonatomic, copy, readonly) NSString *adUnitId;
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
-- (instancetype)initWithAdUnitId: (NSString *)adUnitId
-                        testMode: (BOOL)testMode
-                            eCPM: (NSInteger)eCPM
-                  waterfallIndex: (NSInteger)waterfallIndex;
+- (instancetype)initWithAppId: (NSString *)appId
+                     adUnitId: (NSString *)adUnitId
+                     testMode: (BOOL)testMode
+                         eCPM: (NSInteger)eCPM
+               waterfallIndex: (NSInteger)waterfallIndex;
 
     
 @end

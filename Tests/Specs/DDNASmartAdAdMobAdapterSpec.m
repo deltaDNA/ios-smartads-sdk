@@ -31,6 +31,7 @@ describe(@"AdMob interstitial adapter", ^{
         
         NSDictionary *configuration = @{
             @"adProvider": @"ADMOB",
+            @"appId": @"test-app-id",
             @"adUnitId": @"test-ad-unit-id",
             @"eCPM": @150
         };
@@ -39,6 +40,7 @@ describe(@"AdMob interstitial adapter", ^{
                                                                                                            waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
+        expect(adapter.appId).to.equal(@"test-app-id");
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
         expect(adapter.testMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
@@ -62,7 +64,8 @@ describe(@"AdMob interstitial adapter", ^{
         
         NSDictionary *configuration = @{
             @"adProvider": @"ADMOB",
-            @"adUnitId": @"test-ad-unit-id",
+            @"appId": @"ignored-app-id",
+            @"adUnitId": @"ignored-ad-unit-id",
             @"testMode": @YES
         };
         
@@ -70,7 +73,8 @@ describe(@"AdMob interstitial adapter", ^{
                                                                                    waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
+        expect(adapter.appId).to.equal(@"ca-app-pub-3940256099942544~1458002511");
+        expect(adapter.adUnitId).to.equal(@"ca-app-pub-3940256099942544/4411468910");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
@@ -85,6 +89,7 @@ describe(@"AdMob rewarded adapter", ^{
         
         NSDictionary *configuration = @{
             @"adProvider": @"ADMOB",
+            @"appId": @"test-app-id",
             @"adUnitId": @"test-ad-unit-id",
             @"eCPM": @150
         };
@@ -93,6 +98,7 @@ describe(@"AdMob rewarded adapter", ^{
                                                                                                    waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
+        expect(adapter.appId).to.equal(@"test-app-id");
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
         expect(adapter.testMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
@@ -116,7 +122,8 @@ describe(@"AdMob rewarded adapter", ^{
         
         NSDictionary *configuration = @{
             @"adProvider": @"ADMOB",
-            @"adUnitId": @"test-ad-unit-id",
+            @"appId": @"ignored-app-id",
+            @"adUnitId": @"ignored-ad-unit-id",
             @"testMode": @YES
         };
         
@@ -124,7 +131,8 @@ describe(@"AdMob rewarded adapter", ^{
                                                                                                    waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
+        expect(adapter.appId).to.equal(@"ca-app-pub-3940256099942544~1458002511");
+        expect(adapter.adUnitId).to.equal(@"ca-app-pub-3940256099942544/1712485313");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);

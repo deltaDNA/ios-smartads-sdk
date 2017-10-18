@@ -35,6 +35,7 @@ describe(@"factory waterfall", ^{
             @{
                 @"adProvider": @"ADMOB",
                 @"eCPM": @100,
+                @"appId": @"test-app-id",
                 @"adUnitId": @"test-ad-unit-id"
             },
             @{
@@ -65,6 +66,7 @@ describe(@"factory waterfall", ^{
             @{
                 @"adProvider": @"ADMOB",
                 @"eCPM": @100,
+                @"appId": @"test-app-id",
                 @"adUnitId": @"test-ad-unit-id"
             },
             @{

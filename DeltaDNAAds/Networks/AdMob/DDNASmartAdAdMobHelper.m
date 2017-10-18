@@ -38,8 +38,6 @@
     
 + (void)configureWithAppId:(NSString *)appId
 {
-    appId = @"ca-app-pub-3940256099942544~1458002511";  // Test one
-    NSLog(@"AppId = %@", appId);
     if ([DDNASmartAdAdMobHelper sharedInstance].appId == nil) {
         [GADMobileAds configureWithApplicationID:appId];
         [DDNASmartAdAdMobHelper sharedInstance].appId = appId;
