@@ -43,16 +43,3 @@ target 'Integration Tester' do
     pod 'SwiftyJSON'
 end
 
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            # Enable extra logging
-            if target.name == 'DeltaDNA' || target.name == 'DeltaDNAAds'
-                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
-                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'DDNA_DEBUG=1'
-            end
-            # Disable bitcode
-            config.build_settings['ENABLE_BITCODE'] = 'NO'
-        end
-    end
-end
