@@ -132,9 +132,12 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSString * errorMessage = [NSString stringWithFormat:@"UnityAdsError %@ - %@", [DDNASmartAdUnityAdsAdapter stringFromUnityAdsError:error], message];
+        
         switch (self.state) {
             case kUnityAdsStateRequesting: {
-                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:message];
+                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:errorMessage];
                 [self.delegate adapterDidFailToLoadAd:self withResult:result];
                 break;
             }
@@ -143,7 +146,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
                 break;
             }
             default:
-                DDNALogWarn(@"UnityAds unhandled error: %@", message);
+                DDNALogWarn(@"UnityAds initialising error: %@", errorMessage);
         }
         
         // All the errors are bad so let's give up.
@@ -249,6 +252,25 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
             DDNALogWarn(@"unityAdsDidFinish called with inconsistent state: %ld %@", (long)self.state, placementId);
         }
     });
+}
+
+#pragma mark - private methods
+
++ (NSString *)stringFromUnityAdsError:(UnityAdsError)error
+{
+    switch (error) {
+        case kUnityAdsErrorNotInitialized : return @"NotInitialized";
+        case kUnityAdsErrorInitializedFailed: return @"InitializedFailed";
+        case kUnityAdsErrorInvalidArgument: return @"InvalidArgument";
+        case kUnityAdsErrorVideoPlayerError: return @"VideoPlayerError";
+        case kUnityAdsErrorInitSanityCheckFail: return @"InitSanityCheckFail";
+        case kUnityAdsErrorAdBlockerDetected: return @"AdBlockerDetected";
+        case kUnityAdsErrorFileIoError: return @"FileIoError";
+        case kUnityAdsErrorDeviceIdError: return @"DeviceIdError";
+        case kUnityAdsErrorShowError: return @"ShowError";
+        case kUnityAdsErrorInternalError: return @"InternalError";
+        default: return @"UnknownError";
+    }
 }
 
 @end
