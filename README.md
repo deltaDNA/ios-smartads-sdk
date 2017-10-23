@@ -167,18 +167,18 @@ The following table is a list of considerations when integrating our library.  M
 | MoPub           | YES            | YES          | YES     | YES        |       |
 | Flurry          | YES            | YES          | YES     | YES        |       |
 | InMobi          | YES            | NO           | YES     | NO         |       |
-| MobFox          | YES            | NO           | NO      | NO         |       |
+| MobFox          | YES            | NO           | YES     | NO         |       |
 | AdColony        | YES            | NO           | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
 | Chartboost      | YES            | YES          | YES     | NO         |       |
 | Vungle          | YES            | YES          | YES     | NO         |       |
-| UnityAds        | YES            | YES          | NO      | NO         |       |
+| UnityAds        | YES            | YES          | YES     | NO         |       |
 | AppLovin        | YES            | YES          | YES     | NO         |       |
-| ThirdPresence   | YES            | YES          |         | YES        |       |
+| ThirdPresence   | YES            | YES          | YES     | YES        |       |
 | IronSource      | YES            | YES          | YES     | NO         |       |
 | Facebook        | YES            | YES          | YES     | NO         |       |
 | Tapjoy          | YES            | NO           | YES     | NO         |       |
-| HyprMX          | YES            | NO           |         | NO         |       |
-| LoopMe          | YES            | NO           |         | NO         | requires iOS 9 for latest features      |
+| HyprMX          | YES            | NO           | YES     | NO         |       |
+| LoopMe          | YES            | NO           | YES     | NO         | requires iOS 9 for latest features      |
 
 ### Facebook Integration
 Facebook Audience Network integration needs you to manage the account and create suitable placements for our mediation to use.  Contact support for more information.
