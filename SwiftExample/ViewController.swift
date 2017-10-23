@@ -36,6 +36,7 @@ class ViewController: UIViewController {
         self.interstitialAdLabel.text = "Registering..."
         self.rewardedAdLabel.text = "Registering..."
         
+        DDNASDK.setLogLevel(DDNALogLevel.debug)
         DDNASDK.sharedInstance().clientVersion = "1.0.0"
         DDNASDK.sharedInstance().hashSecret = "KmMBBcNwStLJaq6KsEBxXc6HY3A4bhGw"
         DDNASDK.sharedInstance().start(withEnvironmentKey: "55822530117170763508653519413932",
