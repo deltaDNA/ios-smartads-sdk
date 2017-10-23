@@ -43,7 +43,7 @@
 
 + (void)load
 {
-    NSLog(@"Loaded DDNASmartAds class");
+    
 }
 
 - (id)init
