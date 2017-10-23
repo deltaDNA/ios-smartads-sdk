@@ -37,12 +37,13 @@
     self.smartAdsStatus.text = @"Registering...";
     self.smartAdsRewardedStatus.text = @"Registering...";
     
+    [DDNASDK setLogLevel:DDNALogLevelDebug];
     [DDNASDK sharedInstance].clientVersion = @"0.1.0";
     [DDNASDK sharedInstance].hashSecret = @"KmMBBcNwStLJaq6KsEBxXc6HY3A4bhGw";
     
     [[DDNASDK sharedInstance] startWithEnvironmentKey:@"55822530117170763508653519413932"
-                                           collectURL:@"http://collect2010stst.deltadna.net/collect/api"
-                                            engageURL:@"http://engage2010stst.deltadna.net"];
+                                           collectURL:@"https://collect2010stst.deltadna.net/collect/api"
+                                            engageURL:@"https://engage2010stst.deltadna.net"];
     
     [DDNASmartAds sharedInstance].registrationDelegate = self;
     [[DDNASmartAds sharedInstance] registerForAds];
