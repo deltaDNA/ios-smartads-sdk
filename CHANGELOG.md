@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.6.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.6.0)
+## [1.6.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.6.0)(2017-10-23)
 ### Added
 - Support for Facebook rewarded video (see README for integration instructions).
 
