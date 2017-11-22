@@ -21,6 +21,19 @@
 
 @protocol DDNASmartAdServiceDelegate;
 
+extern NSString * const AD_TYPE_UNKNOWN;
+extern NSString * const AD_TYPE_INTERSTITIAL;
+extern NSString * const AD_TYPE_REWARDED;
+
+// NSNotifcation keys
+extern NSString * const kDDNALoadedAd;
+extern NSString * const kDDNAShowingAd;
+extern NSString * const kDDNAClosedAd;
+extern NSString * const kDDNAAdType;
+extern NSString * const kDDNAAdNetwork;
+extern NSString * const kDDNAAdRequestTime;
+extern NSString * const kDDNAFullyWatched;
+
 @interface DDNASmartAdService : NSObject
 
 @property (nonatomic, weak) id<DDNASmartAdServiceDelegate> delegate;

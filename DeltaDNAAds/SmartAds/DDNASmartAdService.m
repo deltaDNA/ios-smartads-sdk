@@ -24,12 +24,20 @@
 #import "DDNASmartAdStatus.h"
 #import "DDNASmartAdWaterfall.h"
 
-static NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
-static NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
-static NSString * const AD_TYPE_REWARDED = @"REWARDED";
+NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
+NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
+NSString * const AD_TYPE_REWARDED = @"REWARDED";
 
 static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
+
+NSString * const kDDNALoadedAd = @"com.deltadna.LoadedAd";
+NSString * const kDDNAShowingAd = @"com.deltadna.ShowingAd";
+NSString * const kDDNAClosedAd = @"com.deltadna.ClosedAd";
+NSString * const kDDNAAdType = @"com.deltadna.AdType";
+NSString * const kDDNAAdNetwork = @"com.deltadna.AdNetwork";
+NSString * const kDDNARequestTime = @"com.deltadna.RequestTime";
+NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
 
 @interface DDNASmartAdService () <DDNASmartAdAgentDelegate>
 
@@ -234,10 +242,15 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didLoadAdWithAdapter:(DDNASmartAdAdapter *)adapter requestTime:(NSTimeInterval)requestTime
 {
-    DDNALogDebug(@"Loaded %@ ad from %@.",
-                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
-                 adapter.name);
-
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:kDDNALoadedAd
+                          object:self
+                        userInfo:@{
+        kDDNAAdType: self.interstitialAgent == adAgent ? AD_TYPE_INTERSTITIAL : AD_TYPE_REWARDED,
+        kDDNAAdNetwork: adapter.name,
+        kDDNARequestTime: [NSNumber numberWithDouble:requestTime]
+    }];
+    
     [self postAdRequestEvent:adAgent
                      adapter:adapter
              requestDuration:requestTime
@@ -257,9 +270,13 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter
 {
-    DDNALogDebug(@"Opened %@ ad from %@.",
-                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
-                 adapter.name);
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:kDDNAShowingAd
+                          object:self
+                        userInfo:@{
+       kDDNAAdType: self.interstitialAgent == adAgent ? AD_TYPE_INTERSTITIAL : AD_TYPE_REWARDED,
+       kDDNAAdNetwork: adapter.name
+    }];
 
     if (adAgent == self.interstitialAgent) {
         [self.delegate didOpenInterstitialAd];
@@ -287,10 +304,14 @@ static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 - (void)adAgent:(DDNASmartAdAgent *)adAgent didCloseAdWithAdapter:(DDNASmartAdAdapter *)adapter canReward:(BOOL)canReward
 {
-    DDNALogDebug(@"Closed %@ ad from %@%@.",
-                 adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
-                 adapter.name,
-                 adAgent == self.rewardedAgent ? (canReward ? @" with reward TRUE" : @" with reward FALSE") : @"");
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center postNotificationName:kDDNAClosedAd
+                          object:self
+                        userInfo:@{
+       kDDNAAdType: self.interstitialAgent == adAgent ? AD_TYPE_INTERSTITIAL : AD_TYPE_REWARDED,
+       kDDNAAdNetwork: adapter.name,
+       kDDNAFullyWatched: [NSNumber numberWithBool:canReward]
+    }];
     
     [self postAdClosedEvent:adAgent adapter:adapter result:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeSuccess]];
 

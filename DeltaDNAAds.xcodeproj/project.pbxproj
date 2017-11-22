@@ -18,6 +18,8 @@
 		631D9FD31F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */; };
 		63286F291EEAF98700D47372 /* DDNASmartAdTapjoyAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F261EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.m */; };
 		63286F2C1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */; };
+		632FE0751FC5A38A0002145B /* DDNADebugListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 632FE0731FC5A38A0002145B /* DDNADebugListener.h */; };
+		632FE0761FC5A38A0002145B /* DDNADebugListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 632FE0741FC5A38A0002145B /* DDNADebugListener.m */; };
 		6340D0291E95365900786346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0281E95365900786346 /* AppDelegate.swift */; };
 		6340D02E1E95365900786346 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6340D02C1E95365900786346 /* Main.storyboard */; };
 		6340D0301E95365900786346 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6340D02F1E95365900786346 /* Assets.xcassets */; };
@@ -182,6 +184,8 @@
 		63286F251EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdTapjoyAdapter.h; sourceTree = "<group>"; };
 		63286F261EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdTapjoyAdapter.m; sourceTree = "<group>"; };
 		63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdTapjoyAdapterSpec.m; sourceTree = "<group>"; };
+		632FE0731FC5A38A0002145B /* DDNADebugListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNADebugListener.h; sourceTree = "<group>"; };
+		632FE0741FC5A38A0002145B /* DDNADebugListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNADebugListener.m; sourceTree = "<group>"; };
 		6340D0261E95365900786346 /* Integration Tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Integration Tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6340D0281E95365900786346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6340D02D1E95365900786346 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -667,6 +671,8 @@
 		636A41401E93A724002BC4E9 /* SmartAds */ = {
 			isa = PBXGroup;
 			children = (
+				632FE0731FC5A38A0002145B /* DDNADebugListener.h */,
+				632FE0741FC5A38A0002145B /* DDNADebugListener.m */,
 				636A41411E93A724002BC4E9 /* DDNAInterstitialAd.h */,
 				636A41421E93A724002BC4E9 /* DDNAInterstitialAd.m */,
 				636A41431E93A724002BC4E9 /* DDNARewardedAd.h */,
@@ -824,6 +830,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632FE0751FC5A38A0002145B /* DDNADebugListener.h in Headers */,
 				63047F221F45F6D700282267 /* DDNASmartAdLoopMeAdapter.h in Headers */,
 				636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */,
 				636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */,
@@ -1246,6 +1253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				632FE0761FC5A38A0002145B /* DDNADebugListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

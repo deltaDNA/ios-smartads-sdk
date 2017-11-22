@@ -17,6 +17,7 @@
 #import "DDNASmartAds.h"
 #import "DDNASmartAdFactory.h"
 #import "DDNASmartAdService.h"
+#import "DDNADebugListener.h"
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNA/DDNALog.h>
 #import <DeltaDNA/NSString+DeltaDNA.h>
@@ -36,6 +37,7 @@
 
 @property (nonatomic, strong) DDNASmartAdFactory *factory;
 @property (nonatomic, strong) DDNASmartAdService *adService;
+@property (nonatomic, strong) DDNADebugListener *debugListener;
 
 @end
 
@@ -50,6 +52,7 @@
 {
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
+        self.debugListener = [DDNADebugListener sharedInstance];
     }
     return self;
 }
