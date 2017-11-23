@@ -1,9 +1,17 @@
 //
-//  DDNADebugListener.m
-//  DeltaDNAAds
+// Copyright (c) 2017 deltaDNA Ltd. All rights reserved.
 //
-//  Created by David White on 22/11/2017.
-//  Copyright © 2017 deltaDNA. All rights reserved.
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 #import "DDNADebugListener.h"
@@ -33,6 +41,7 @@
 
 @interface DDNADebugListener ()
 
+@property (nonatomic, assign) BOOL userNotifications;
 @property (nonatomic, strong) NSMutableDictionary *content;
 
 @end
@@ -43,6 +52,7 @@
 {
     if ((self = [super init])) {
         
+        self.userNotifications = YES;
         self.content = [NSMutableDictionary dictionaryWithDictionary:@{
             AD_TYPE_INTERSTITIAL: [[AdInfo alloc] init],
             AD_TYPE_REWARDED: [[AdInfo alloc] init]
@@ -50,6 +60,27 @@
         
         // register notification handlers
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:@"DDNASDKNewSession" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            self.content[AD_TYPE_INTERSTITIAL] = [[AdInfo alloc] init];
+            self.content[AD_TYPE_REWARDED] = [[AdInfo alloc] init];
+            [self postNotificationWithMessage:@"New SmartAds session started."];
+        }];
+        [center addObserverForName:kDDNAAdsDisabledEngage object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            AdInfo *interstitialAdInfo = self.content[AD_TYPE_INTERSTITIAL];
+            AdInfo *rewardedAdInfo = self.content[AD_TYPE_REWARDED];
+            NSString *message = @"Ads disabled by Engage.";
+            interstitialAdInfo.message = message;
+            interstitialAdInfo.network = @"";
+            rewardedAdInfo.message = message;
+            rewardedAdInfo.network = @"";
+            [self postNotificationWithMessage:message];
+        }];
+        [center addObserverForName:kDDNAAdsDisabledNoNetworks object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            NSString *adType = note.userInfo[kDDNAAdType];
+            AdInfo *adInfo = self.content[adType];
+            adInfo.message = [NSString stringWithFormat:@"No %@ ad networks configured.", [adType lowercaseString]];
+            [self postNotificationWithMessage:adInfo.message];
+        }];
         [center addObserverForName:kDDNALoadedAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
             
             NSString *adType = note.userInfo[kDDNAAdType];
@@ -99,18 +130,25 @@
     return _sharedObject;
 }
 
+- (void)disableNotifications
+{
+    self.userNotifications = NO;
+}
+
 - (void)postNotificationWithMessage:(NSString *)message
 {
     DDNALogDebug(message);
     
-    AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
-    AdInfo *rewardedInfo = self.content[AD_TYPE_REWARDED];
-    
-    UNNotificationRequest *userNotification = [self createUserNotificationWithBody:message
-                                                                      interstitial:interstialInfo.message
-                                                                          rewarded:rewardedInfo.message];
-    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-    [center addNotificationRequest:userNotification withCompletionHandler:nil];
+    if (self.userNotifications) {
+        AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
+        AdInfo *rewardedInfo = self.content[AD_TYPE_REWARDED];
+        
+        UNNotificationRequest *userNotification = [self createUserNotificationWithBody:message
+                                                                          interstitial:interstialInfo.message
+                                                                              rewarded:rewardedInfo.message];
+        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+        [center addNotificationRequest:userNotification withCompletionHandler:nil];
+    }
 }
 
 - (UNNotificationRequest *)createUserNotificationWithBody:(NSString *)body interstitial:(NSString *)interstitial rewarded:(NSString *)rewarded

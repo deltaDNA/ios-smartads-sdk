@@ -22,5 +22,6 @@
 #import "SmartAds/DDNASmartAds.h"
 #import "SmartAds/DDNAInterstitialAd.h"
 #import "SmartAds/DDNARewardedAd.h"
+#import "SmartAds/DDNADebugListener.h"
 
 #endif /* _DELTADNA_ADS_ */

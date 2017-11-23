@@ -31,6 +31,8 @@ NSString * const AD_TYPE_REWARDED = @"REWARDED";
 static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
+NSString * const kDDNAAdsDisabledEngage = @"com.deltadna.AdsDisabledEngage";
+NSString * const kDDNAAdsDisabledNoNetworks = @"com.deltadna.AdDisabledNoNetworks";
 NSString * const kDDNALoadedAd = @"com.deltadna.LoadedAd";
 NSString * const kDDNAShowingAd = @"com.deltadna.ShowingAd";
 NSString * const kDDNAClosedAd = @"com.deltadna.ClosedAd";
@@ -90,7 +92,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             self.adConfiguration = responseDict[@"parameters"];
             
             if (!self.adConfiguration[@"adShowSession"] || (![self.adConfiguration[@"adShowSession"] boolValue])) {
-                DDNALogDebug(@"SmartAds disabled by Engage for this session");
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:kDDNAAdsDisabledEngage
+                                      object:self
+                                    userInfo:nil];
                 [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
                 [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
                 return;
@@ -110,6 +115,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
                 NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
+                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                    [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                          object:self
+                                        userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
                     [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
@@ -120,6 +129,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 }
             }
             else {
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                      object:self
+                                    userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
                 [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
             }
             
@@ -128,6 +141,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
                 NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
+                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                    [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                          object:self
+                                        userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
                     [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
@@ -138,6 +155,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 }
             }
             else {
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                      object:self
+                                    userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
                 [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
             }
         }

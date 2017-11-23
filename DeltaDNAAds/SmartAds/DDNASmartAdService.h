@@ -26,6 +26,8 @@ extern NSString * const AD_TYPE_INTERSTITIAL;
 extern NSString * const AD_TYPE_REWARDED;
 
 // NSNotifcation keys
+extern NSString * const kDDNAAdsDisabledEngage;
+extern NSString * const kDDNAAdsDisabledNoNetworks;
 extern NSString * const kDDNALoadedAd;
 extern NSString * const kDDNAShowingAd;
 extern NSString * const kDDNAClosedAd;
