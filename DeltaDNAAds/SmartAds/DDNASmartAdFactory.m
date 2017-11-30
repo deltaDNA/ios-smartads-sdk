@@ -244,6 +244,17 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
                                                  configuration:configuration
                                                 waterfallIndex:i];
                 }
+                else if ([adProvider caseInsensitiveContains:@"MACHINEZONE"]) {
+                    if (type == DDNASmartAdAdapterTypeInterstitial) {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdMachineZoneInterstitialAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    } else {
+                        adapter = [self instantiateAdapterForKlass:@"DDNASmartAdMachineZoneRewardedAdapter"
+                                                     configuration:configuration
+                                                    waterfallIndex:i];
+                    }
+                }
                 else {
                     DDNALogWarn(@"Ad network %@ for %@ ads is not supported.",
                                 adProvider,
