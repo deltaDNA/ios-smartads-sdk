@@ -8,6 +8,9 @@
       location = "group:PodSpecs"
       name = "PodSpecs">
       <FileRef
+         location = "group:/Users/david/Projects/ios-smartads-sdk/PodSpecs/FMAdZone.podspec">
+      </FileRef>
+      <FileRef
          location = "group:AmazonAds.podspec">
       </FileRef>
       <FileRef
