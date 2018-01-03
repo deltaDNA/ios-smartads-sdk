@@ -49,6 +49,7 @@
         if (!self.started) {
             [IronSource setInterstitialDelegate:self];
             [IronSource setRewardedVideoDelegate:self];
+            [IronSource setMediationType:@"DeltaDNA"];
             [IronSource initWithAppKey:appKey adUnits:@[IS_REWARDED_VIDEO, IS_INTERSTITIAL]];
             self.started = YES;
             self.appKey = appKey;
@@ -130,6 +131,13 @@
 //Called after a rewarded video has finished playing.
 - (void)rewardedVideoDidEnd {
     [self.rewardedDelegate rewardedVideoDidEnd];
+}
+/**
+ Called after a video has been clicked.
+ */
+- (void)didClickRewardedVideo:(ISPlacementInfo *)placementInfo
+{
+    [self.rewardedDelegate didClickRewardedVideoForPlacement:placementInfo];
 }
 
 #pragma mark - ISInterstitialDelegate

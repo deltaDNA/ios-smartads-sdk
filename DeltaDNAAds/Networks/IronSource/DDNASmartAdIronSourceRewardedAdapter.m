@@ -17,6 +17,7 @@
 #import "DDNASmartAdIronSourceRewardedAdapter.h"
 #import "DDNASmartAdIronSourceHelper.h"
 #import <DeltaDNA/DDNALog.h>
+#import <IronSource/IronSource.h>
 
 @interface DDNASmartAdIronSourceRewardedAdapter () <DDNASmartAdIronSourceRewardedDelegate>
 
@@ -105,7 +106,9 @@
 
 - (void)didReceiveRewardForPlacement:(ISPlacementInfo *)placementInfo
 {
-    self.reward = YES;
+    if ([_placementName isEqualToString:placementInfo.placementName]) {
+        self.reward = YES;
+    }
 }
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error
@@ -131,6 +134,13 @@
 - (void)rewardedVideoDidEnd
 {
     
+}
+
+- (void)didClickRewardedVideoForPlacement:(ISPlacementInfo *)placementInfo
+{
+    if ([_placementName isEqualToString:placementInfo.placementName]) {
+        [self.delegate adapterWasClicked:self];
+    }
 }
 
 @end
