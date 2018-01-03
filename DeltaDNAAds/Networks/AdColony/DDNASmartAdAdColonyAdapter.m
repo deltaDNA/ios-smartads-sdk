@@ -17,11 +17,13 @@
 #import "DDNASmartAdAdColonyAdapter.h"
 #import <AdColony/AdColony.h>
 #import <DeltaDNA/DDNALog.h>
+#import <DeltaDNAAds/DDNASmartAds.h>
 
 @interface DDNASmartAdAdColonyAdapter ()
 
 @property (nonatomic, copy, readwrite) NSString *appId;
 @property (nonatomic, copy, readwrite) NSString *zoneId;
+@property (nonatomic, assign, readwrite) BOOL testMode;
 
 @property (atomic, assign) BOOL configured;
 @property (nonatomic, assign) BOOL watchedVideo;
@@ -37,18 +39,23 @@
 
 - (instancetype)initWithAppId:(NSString *)appId
                        zoneId:(NSString *)zoneId
+                     testMode:(BOOL)testMode
                          eCPM:(NSInteger)eCPM
                waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"ADCOLONY" version:[AdColony getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
         self.appId = appId;
         self.zoneId = zoneId;
+        self.testMode = testMode;
         self.requestPostConfigure = NO;
         self.rewardCallbackTriggered = NO;
         self.closedCallbackTriggered = NO;
         
         AdColonyAppOptions *options = [[AdColonyAppOptions alloc] init];
-        options.disableLogging = NO;
+        options.testMode = testMode;
+        options.disableLogging = !testMode;
+        options.mediationNetwork = @"DeltaDNA";
+        options.mediationNetworkVersion = [DDNASmartAds sdkVersion];
         options.adOrientation = AdColonyOrientationAll;
         
         [AdColony configureWithAppID:self.appId zoneIDs:@[self.zoneId] options:options completion:^(NSArray<AdColonyZone*>* zones) {
@@ -83,6 +90,7 @@
     
     return [self initWithAppId:configuration[@"appId"]
                         zoneId:configuration[@"zoneId"]
+                      testMode:[configuration[@"testMode"] boolValue]
                           eCPM:[configuration[@"eCPM"] integerValue]
                 waterfallIndex:waterfallIndex];
 }
