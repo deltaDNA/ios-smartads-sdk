@@ -23,11 +23,11 @@
 @property (nonatomic, copy, readwrite) NSString *appId;
 @property (nonatomic, copy, readwrite) NSString *zoneId;
 
-@property (nonatomic, assign) BOOL configured;
+@property (atomic, assign) BOOL configured;
 @property (nonatomic, assign) BOOL watchedVideo;
 @property (nonatomic, strong) AdColonyInterstitial *ad;
 @property (nonatomic, strong) AdColonyZone *zone;
-@property (nonatomic, assign) BOOL requestPostConfigure;
+@property (atomic, assign) BOOL requestPostConfigure;
 @property (nonatomic, assign) BOOL rewardCallbackTriggered;
 @property (nonatomic, assign) BOOL closedCallbackTriggered;
 
@@ -56,7 +56,6 @@
             
             /* Set the zone's reward handler block */
             zone.reward = ^(BOOL success, NSString* name, int amount) {
-                DDNALogDebug(@"AdColony zone.reward success=%@ name=%@ amount=%d %@", success ? @"YES" : @"NO", name, amount, [NSThread currentThread]);
                 self.watchedVideo = success;
 
                 if (self.closedCallbackTriggered) {
@@ -101,32 +100,32 @@
         
         [AdColony requestInterstitialInZone:self.zoneId options:nil
             success:^(AdColonyInterstitial* ad) {
-                ad.open = ^{
+                [ad setOpen:^{
                     [self.delegate adapterIsShowingAd:self];
-                };
-                ad.close = ^{
-                    DDNALogDebug(@"AdColony ad.close %@", [NSThread currentThread]);
+                }];
+                [ad setClose:^{
                     if (self.rewardCallbackTriggered) {
                         [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                     } else {
                         self.closedCallbackTriggered = YES;
                     }
-                };
-                ad.leftApplication = ^{
+                }];
+                [ad setLeftApplication:^{
                     [self.delegate adapterLeftApplication:self];
-                };
-                ad.click = ^{
+                }];
+                [ad setClick:^{
                     [self.delegate adapterWasClicked:self];
-                };
+                }];
+                [ad setExpire:^{
+                    [self requestAd];
+                }];
 
                 self.watchedVideo = NO;
                 self.ad = ad;
                 [self.delegate adapterDidLoadAd:self];
             }
             failure:^(AdColonyAdRequestError* error) {
-                DDNALogDebug(@"AdColony request failed with error: %@", [error localizedDescription]);
-                   
-                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeError errorDescription:[error localizedDescription]];
+                DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:[self resultCodeFromError:error] errorDescription:[error localizedDescription]];
                 [self.delegate adapterDidFailToLoadAd:self withResult:result];
             }
         ];
@@ -148,5 +147,21 @@
     }
     
 }
+
+- (int)resultCodeFromError:(NSError *)error
+{
+    switch (error.code) {
+        /** An invalid app id or zone id was specified by the developer or an invalid configuration was received from the server (unlikely). */
+        case AdColonyRequestErrorInvalidRequest: return DDNASmartAdRequestResultCodeConfiguration;
+        /** The ad was skipped due to the skip interval setting on the control panel. */
+        case AdColonyRequestErrorSkippedRequest: return DDNASmartAdRequestResultCodeError;
+        /** The current zone has no ad fill. */
+        case AdColonyRequestErrorNoFillForRequest: return DDNASmartAdRequestResultCodeNoFill;
+        /** Either AdColony has not been configured, is still in the process of configuring, is still downloading assets, or is already showing an ad. */
+        case AdColonyRequestErrorUnready: return DDNASmartAdRequestResultCodeConfiguration;
+        default: return DDNASmartAdRequestResultCodeError;
+    }
+}
+
 
 @end
