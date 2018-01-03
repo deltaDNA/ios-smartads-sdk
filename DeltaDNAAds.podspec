@@ -111,7 +111,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.6.8.1'
+        ss.dependency 'IronSourceSDK', '~>6.7.4.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
