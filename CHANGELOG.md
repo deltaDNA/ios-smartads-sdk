@@ -3,6 +3,7 @@
 ## [1.7.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.0)(????-??-??)
 ### Added
 - Support for MachineZone interstitial and rewarded video ads.
+- Handle AdColony expired callback.
 
 ### Fixed
 - Updated IronSource to 6.7.4.0.

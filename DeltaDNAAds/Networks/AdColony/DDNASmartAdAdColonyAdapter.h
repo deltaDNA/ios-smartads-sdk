@@ -21,9 +21,11 @@
 
 @property (nonatomic, copy, readonly) NSString *appId;
 @property (nonatomic, copy, readonly) NSString *zoneId;
+@property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
 - (instancetype)initWithAppId: (NSString *)appId
                        zoneId: (NSString *)zoneId
+                     testMode: (BOOL)testMode
                          eCPM: (NSInteger)eCPM
                waterfallIndex: (NSInteger)waterfallIndex;
 
