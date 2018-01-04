@@ -17,7 +17,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.6.0'
+    pod 'DeltaDNAAds', '~> 1.7.0'
 end
 ```
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.6.0', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.7.0', :subspecs => ['AdMob','MoPub']
 end
 ```
 The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.
@@ -160,25 +160,26 @@ See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/De
 
 The following table is a list of considerations when integrating our library.  Many of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry and ThirdPresence work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.
 
-| Ad Network      | iOS 10 Support | ATS Support  | Bitcode | Frameworks | Notes |
-|-----------------|----------------|--------------|---------|------------|-------|
-| AdMob           | YES            | YES          | YES     | NO         |       |
-| Amazon          | YES            | NO           | YES     | NO         | see [iOS 10 integration](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
-| MoPub           | YES            | YES          | YES     | YES        |       |
-| Flurry          | YES            | YES          | YES     | YES        |       |
-| InMobi          | YES            | NO           | YES     | NO         |       |
-| MobFox          | YES            | NO           | YES     | NO         |       |
-| AdColony        | YES            | NO           | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
-| Chartboost      | YES            | YES          | YES     | NO         |       |
-| Vungle          | YES            | YES          | YES     | NO         |       |
-| UnityAds        | YES            | YES          | YES     | NO         |       |
-| AppLovin        | YES            | YES          | YES     | NO         |       |
-| ThirdPresence   | YES            | YES          | YES     | YES        |       |
-| IronSource      | YES            | YES          | YES     | NO         |       |
-| Facebook        | YES            | YES          | YES     | NO         |       |
-| Tapjoy          | YES            | NO           | YES     | NO         |       |
-| HyprMX          | YES            | NO           | YES     | NO         |       |
-| LoopMe          | YES            | NO           | YES     | NO         | requires iOS 9 for latest features      |
+| Ad Network      | ATS Support  | Bitcode | Frameworks | Notes |
+|-----------------|--------------|---------|------------|-------|
+| AdMob           | YES          | YES     | NO         |       |
+| Amazon          | NO           | YES     | NO         | see [iOS 10 integration](https://developer.amazon.com/public/apis/earn/mobile-ads/ios/docs/release-notes)      |
+| MoPub           | YES          | YES     | YES        |       |
+| Flurry          | YES          | YES     | YES        |       |
+| InMobi          | NO           | YES     | NO         |       |
+| MobFox          | NO           | YES     | NO         | requires iOS 9 for latest version      |
+| AdColony        | NO           | YES     | NO         | see [iOS 10 integration](https://github.com/AdColony/AdColony-iOS-SDK-3/wiki/Xcode-Project-Setup#configuring-privacy-controls) |
+| Chartboost      | YES          | YES     | NO         |       |
+| Vungle          | YES          | YES     | NO         |       |
+| UnityAds        | YES          | YES     | NO         |       |
+| AppLovin        | YES          | YES     | NO         |       |
+| ThirdPresence   | YES          | YES     | YES        |       |
+| IronSource      | YES          | YES     | NO         |       |
+| Facebook        | YES          | YES     | NO         |       |
+| Tapjoy          | NO           | YES     | NO         |       |
+| HyprMX          | NO           | YES     | NO         |       |
+| LoopMe          | NO           | YES     | NO         | requires iOS 9 for latest version      |
+| MachineZone     | YES          | YES     | NO         |       |
 
 ### Facebook Integration
 Facebook Audience Network integration needs you to manage the account and create suitable placements for our mediation to use.  Contact support for more information.
