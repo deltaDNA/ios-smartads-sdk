@@ -68,7 +68,7 @@ describe(@"LoopMe adapter", ^{
                                                                                      waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.appKey).to.equal(@"test_interstitial_l");
+        expect(adapter.appKey).to.equal(@"test_interstitial_p");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
