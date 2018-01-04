@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.24.1'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.27.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk', '~>4.17.0'
+        ss.dependency 'mopub-ios-sdk/Core', '~>4.19.0'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end
@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '3.1.9'
+        ss.dependency 'MobFoxSDK', '~>3.2'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AppLovin' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AppLovinSDK', '~>4.4.1'
+        ss.dependency 'AppLovinSDK', '~>4.6.1'
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end
@@ -118,7 +118,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '~>4.26.0'
+        ss.dependency 'FBAudienceNetwork', '~>4.27.1'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.h'
     end
