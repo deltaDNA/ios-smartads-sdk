@@ -18,7 +18,7 @@
 		631D9FD31F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */; };
 		63286F291EEAF98700D47372 /* DDNASmartAdTapjoyAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F261EEAEB9C00D47372 /* DDNASmartAdTapjoyAdapter.m */; };
 		63286F2C1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */; };
-		632FE0751FC5A38A0002145B /* DDNADebugListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 632FE0731FC5A38A0002145B /* DDNADebugListener.h */; };
+		632FE0751FC5A38A0002145B /* DDNADebugListener.h in Headers */ = {isa = PBXBuildFile; fileRef = 632FE0731FC5A38A0002145B /* DDNADebugListener.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6340D0291E95365900786346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6340D0281E95365900786346 /* AppDelegate.swift */; };
 		6340D02E1E95365900786346 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6340D02C1E95365900786346 /* Main.storyboard */; };
 		6340D0301E95365900786346 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6340D02F1E95365900786346 /* Assets.xcassets */; };

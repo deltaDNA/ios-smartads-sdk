@@ -62,7 +62,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '3.1.9'
+        ss.dependency 'MobFoxSDK', '~>3.2'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
