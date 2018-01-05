@@ -6,7 +6,7 @@
 - Handle AdColony expired callback.
 
 ### Fixed
-- Updated IronSource to 6.7.4.0.
+- Updated IronSource, Facebook, AdMob, MoPub, LoopMe, Mobfox and AppLovin to latest versions.
 
 ## [1.6.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.6.0)(2017-10-23)
 ### Added

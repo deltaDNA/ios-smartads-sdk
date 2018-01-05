@@ -46,7 +46,7 @@
 {
     if ((self = [super initWithName:@"LOOPME" version:LOOPME_SDK_VERSION eCPM:eCPM waterfallIndex:waterfallIndex])) {
         
-        self.appKey = testMode ? @"test_interstitial_l" : appKey;
+        self.appKey = testMode ? TEST_APP_KEY_INTERSTITIAL_PORTRAIT : appKey;
         self.testMode = testMode;
         self.reward = NO;
         
