@@ -53,6 +53,7 @@
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
         self.debugListener = [DDNADebugListener sharedInstance];
+        [self.debugListener registerListeners];
     }
     return self;
 }
@@ -74,7 +75,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.7.0-beta.1";
+    return @"SmartAds v1.7.0-beta.2";
 }
 
 - (void)registerForAds

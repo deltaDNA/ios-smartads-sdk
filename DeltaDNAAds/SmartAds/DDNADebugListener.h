@@ -20,6 +20,8 @@
 
 + (instancetype)sharedInstance;
 
+- (void)registerListeners;
+
 - (void)disableNotifications;
 
 @end

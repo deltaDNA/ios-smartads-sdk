@@ -57,65 +57,6 @@
             AD_TYPE_INTERSTITIAL: [[AdInfo alloc] init],
             AD_TYPE_REWARDED: [[AdInfo alloc] init]
         }];
-        
-        // register notification handlers
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserverForName:@"DDNASDKNewSession" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            self.content[AD_TYPE_INTERSTITIAL] = [[AdInfo alloc] init];
-            self.content[AD_TYPE_REWARDED] = [[AdInfo alloc] init];
-            [self postNotificationWithMessage:@"New SmartAds session started."];
-        }];
-        [center addObserverForName:kDDNAAdsDisabledEngage object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            AdInfo *interstitialAdInfo = self.content[AD_TYPE_INTERSTITIAL];
-            AdInfo *rewardedAdInfo = self.content[AD_TYPE_REWARDED];
-            NSString *message = @"Ads disabled by Engage.";
-            interstitialAdInfo.message = message;
-            interstitialAdInfo.network = @"";
-            rewardedAdInfo.message = message;
-            rewardedAdInfo.network = @"";
-            [self postNotificationWithMessage:message];
-        }];
-        [center addObserverForName:kDDNAAdsDisabledNoNetworks object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            NSString *adType = note.userInfo[kDDNAAdType];
-            AdInfo *adInfo = self.content[adType];
-            adInfo.message = [NSString stringWithFormat:@"No %@ ad networks configured.", [adType lowercaseString]];
-            [self postNotificationWithMessage:adInfo.message];
-        }];
-        [center addObserverForName:kDDNALoadedAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            
-            NSString *adType = note.userInfo[kDDNAAdType];
-            NSString *adNetwork = note.userInfo[kDDNAAdNetwork];
-            NSString *message = @"";
-            AdInfo *adInfo = self.content[adType];
-        
-            if ([adInfo.network isEqualToString:@""]) {
-                message = [NSString stringWithFormat:@"Loaded %@ ad from %@.", [adType lowercaseString], adNetwork];
-            } else {
-                message = [NSString stringWithFormat:@"Shown %@ ad from %@ and loaded ad from %@.", [adType lowercaseString], adInfo.network, adNetwork];
-            }
-
-            adInfo.network = note.userInfo[kDDNAAdNetwork];
-            adInfo.message = message;
-            
-            [self postNotificationWithMessage:message];
-        }];
-        [center addObserverForName:kDDNAShowingAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            
-            NSString *adType = note.userInfo[kDDNAAdType];
-            AdInfo *adInfo = self.content[adType];
-            adInfo.message = [NSString stringWithFormat:@"Showing %@ ad from %@.", [adType lowercaseString], adInfo.network];
-            
-            [self postNotificationWithMessage:adInfo.message];
-        }];
-        [center addObserverForName:kDDNAClosedAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            
-            NSString *adType = note.userInfo[kDDNAAdType];
-            BOOL skipped = ![note.userInfo[kDDNAFullyWatched] boolValue];
-            AdInfo *adInfo = self.content[adType];
-            adInfo.message = [NSString stringWithFormat:@"Closed %@ ad%@ from %@.", [adType lowercaseString], skipped ? @" (skipped)": @"", adInfo.network];
-            
-            [self postNotificationWithMessage:adInfo.message];
-        }];
     }
     return self;
 }
@@ -130,6 +71,68 @@
     return _sharedObject;
 }
 
+- (void)registerListeners
+{
+    // register notification handlers
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:@"DDNASDKNewSession" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        self.content[AD_TYPE_INTERSTITIAL] = [[AdInfo alloc] init];
+        self.content[AD_TYPE_REWARDED] = [[AdInfo alloc] init];
+        [self postNotificationWithMessage:@"New SmartAds session started."];
+    }];
+    [center addObserverForName:kDDNAAdsDisabledEngage object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        AdInfo *interstitialAdInfo = self.content[AD_TYPE_INTERSTITIAL];
+        AdInfo *rewardedAdInfo = self.content[AD_TYPE_REWARDED];
+        NSString *message = @"Ads disabled by Engage.";
+        interstitialAdInfo.message = message;
+        interstitialAdInfo.network = @"";
+        rewardedAdInfo.message = message;
+        rewardedAdInfo.network = @"";
+        [self postNotificationWithMessage:message];
+    }];
+    [center addObserverForName:kDDNAAdsDisabledNoNetworks object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        NSString *adType = note.userInfo[kDDNAAdType];
+        AdInfo *adInfo = self.content[adType];
+        adInfo.message = [NSString stringWithFormat:@"No %@ ad networks configured.", [adType lowercaseString]];
+        [self postNotificationWithMessage:adInfo.message];
+    }];
+    [center addObserverForName:kDDNALoadedAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        
+        NSString *adType = note.userInfo[kDDNAAdType];
+        NSString *adNetwork = note.userInfo[kDDNAAdNetwork];
+        NSString *message = @"";
+        AdInfo *adInfo = self.content[adType];
+        
+        if ([adInfo.network isEqualToString:@""]) {
+            message = [NSString stringWithFormat:@"Loaded %@ ad from %@.", [adType lowercaseString], adNetwork];
+        } else {
+            message = [NSString stringWithFormat:@"Shown %@ ad from %@ and loaded ad from %@.", [adType lowercaseString], adInfo.network, adNetwork];
+        }
+        
+        adInfo.network = note.userInfo[kDDNAAdNetwork];
+        adInfo.message = message;
+        
+        [self postNotificationWithMessage:message];
+    }];
+    [center addObserverForName:kDDNAShowingAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        
+        NSString *adType = note.userInfo[kDDNAAdType];
+        AdInfo *adInfo = self.content[adType];
+        adInfo.message = [NSString stringWithFormat:@"Showing %@ ad from %@.", [adType lowercaseString], adInfo.network];
+        
+        [self postNotificationWithMessage:adInfo.message];
+    }];
+    [center addObserverForName:kDDNAClosedAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+        
+        NSString *adType = note.userInfo[kDDNAAdType];
+        BOOL skipped = ![note.userInfo[kDDNAFullyWatched] boolValue];
+        AdInfo *adInfo = self.content[adType];
+        adInfo.message = [NSString stringWithFormat:@"Closed %@ ad%@ from %@.", [adType lowercaseString], skipped ? @" (skipped)": @"", adInfo.network];
+        
+        [self postNotificationWithMessage:adInfo.message];
+    }];
+}
+
 - (void)disableNotifications
 {
     self.userNotifications = NO;
@@ -137,7 +140,7 @@
 
 - (void)postNotificationWithMessage:(NSString *)message
 {
-    DDNALogDebug(message);
+    DDNALogDebug(@"Debug notification received:> %@", message);
     
     if (self.userNotifications) {
         AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
