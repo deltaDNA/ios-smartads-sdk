@@ -140,7 +140,7 @@
 
 - (void)postNotificationWithMessage:(NSString *)message
 {
-    DDNALogDebug(@"Debug notification received:> %@", message);
+    DDNALogDebug(@"%@", message);
     
     if (self.userNotifications) {
         AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
