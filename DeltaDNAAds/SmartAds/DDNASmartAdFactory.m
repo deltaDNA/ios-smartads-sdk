@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
         adapter = [[klass alloc] initWithConfiguration:configuration waterfallIndex:waterfallIndex];
         // optionally call create here if you need to do more, i.e. pass config in
     } else {
-        DDNALogWarn(@"Ad network %@ not available", configuration[@"adProvider"]);
+        DDNALogWarn(@"Ad network %@ is not built into app", configuration[@"adProvider"]);
     }
     return adapter;
 }
@@ -103,12 +103,12 @@ typedef NS_ENUM(NSInteger, DDNASmartAdAdapterType) {
     for (int i = 0; i < adProviders.count; i++) {
         NSDictionary *configuration = adProviders[i];
         if (![configuration isKindOfClass:[NSDictionary class]]) {
-            DDNALogWarn(@"Failed to build adapter for ad provider at index %d - invalid format.", i);
+            DDNALogWarn(@"Failed to build adapter for ad network at index %d - invalid format.", i);
             continue;
         }
         NSString *adProvider = configuration[@"adProvider"];
         if ([NSString stringIsNilOrEmpty:adProvider]) {
-            DDNALogWarn(@"Failed to build adapter for ad provider at index %d - missing adProvider key.", i);
+            DDNALogWarn(@"Failed to build adapter for ad network at index %d - missing adProvider key.", i);
             continue;
         }
 
