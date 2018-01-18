@@ -75,7 +75,8 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                                         
         NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
         if (!responseDict || !responseDict[@"parameters"]) {
-            DDNALogDebug(@"No valid SmartAds configuration received, trying again in %ld seconds.", (long)REGISTER_FOR_ADS_RETRY_SECONDS);
+            DDNALogWarn(@"No SmartAds configuration returned by Engage due to missing 'parameters' key, trying again in %ld seconds.", (long)REGISTER_FOR_ADS_RETRY_SECONDS);
+            
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
@@ -115,11 +116,13 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
                 NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
+                    DDNALogWarn(@"No interstitial ad networks enabled");
+                    
                     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                     [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                           object:self
                                         userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
-                    [self.delegate didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", response]];
+                    [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks enabled"];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
                     self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
@@ -129,11 +132,13 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 }
             }
             else {
+                DDNALogWarn(@"No interstitial ad networks configured");
+                
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                       object:self
                                     userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
-                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks configured"];
             }
             
             NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
@@ -141,11 +146,13 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
                 NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
                 if (adapters == nil || adapters.count == 0) {
+                    DDNALogWarn(@"No rewarded ad networks enabled");
+                    
                     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                     [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                           object:self
                                         userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
-                    [self.delegate didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", response]];
+                    [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks enabled"];
                 } else {
                     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
                     self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
@@ -155,11 +162,13 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 }
             }
             else {
+                DDNALogWarn(@"No rewarded ad networks configured");
+                
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                       object:self
                                     userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
-                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
             }
         }
     }];
