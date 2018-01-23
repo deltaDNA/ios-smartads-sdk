@@ -32,8 +32,8 @@ class MasterViewController: UITableViewController {
         
         if let url = Bundle.main.url(forResource: "networks", withExtension: "json") {
             let jsonData = try? Data(contentsOf: url, options: Data.ReadingOptions.mappedIfSafe)
-            let json = JSON(st: jsonData!)
-            for (i, n): (String, JSON) in json["networks"] {
+            let json = try? JSON(data: jsonData!)
+            for (i, n): (String, JSON) in json!["networks"] {
                 print(i, n)
                 let c = NSMutableDictionary()
                 for (k, v): (String, JSON) in n["config"].dictionary! {
