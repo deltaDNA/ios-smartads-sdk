@@ -104,7 +104,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AppLovin' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AppLovinSDK', '~>4.6.1'
+        ss.dependency 'AppLovinSDK', '~>4.7.0'
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end
