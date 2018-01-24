@@ -97,8 +97,8 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 [center postNotificationName:kDDNAAdsDisabledEngage
                                       object:self
                                     userInfo:nil];
-                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
-                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
                 return;
             }
             

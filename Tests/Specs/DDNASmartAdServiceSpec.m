@@ -123,8 +123,8 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
     });
@@ -149,8 +149,8 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session."];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session."];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         
@@ -175,8 +175,8 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad providers defined"];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad providers defined"];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks configured"];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
         
@@ -203,12 +203,10 @@ describe(@"registering for ads", ^{
         void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
         completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
         
-        NSString *responseJSON = [NSString stringWithContentsOfDictionary:response];
-        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:[NSString stringWithFormat:@"Failed to build interstitial waterfall from engage response %@", responseJSON]];
-        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:[NSString stringWithFormat:@"Failed to build rewarded waterfall from engage response %@", responseJSON]];
+        [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks enabled"];
+        [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks enabled"];
         expect([adService isInterstitialAdAvailable]).to.beFalsy();
         expect([adService isRewardedAdAvailable]).to.beFalsy();
-        
     });
     
     it(@"handles successful engage response", ^{
