@@ -1,9 +1,10 @@
 # Change Log
 
-## [1.7.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.0)(????-??-??)
+## [1.7.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.0)(2018-01-24)
 ### Added
 - Support for MachineZone interstitial and rewarded video ads.
 - Handle AdColony expired callback.
+- Debug listener which can show notifications reporting which ads are loaded.
 
 ### Fixed
 - Updated IronSource, Facebook, AdMob, MoPub, LoopMe, Mobfox and AppLovin to latest versions.
