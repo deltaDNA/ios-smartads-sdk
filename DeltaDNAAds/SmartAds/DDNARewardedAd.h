@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
+// Copyright (c) 2018 deltaDNA Ltd. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DDNAAd.h"
 
-@class DDNAEngagement;
 
 @protocol DDNARewardedAdDelegate;
 
@@ -33,17 +33,22 @@
  When the player dismisses the ad, the delegate's @c -didCloseRewardedAd:withReward will be called.  The reward flag indicates if the ad was watched sufficiently that you can reward the player.
 
  */
-@interface DDNARewardedAd : NSObject
+@interface DDNARewardedAd : DDNAAd
 
 @property (nonatomic, weak) id<DDNARewardedAdDelegate> delegate;
 
 /**
- If created by a @c DDNAEngagement it contains the custom parameters returned by the engagement.  Will be empty if the Engagement contained no parameters or was created without one.
+ The type of reward returned by this ad.
  */
-@property (nonatomic, strong, readonly) NSDictionary *parameters;
+@property (nonatomic, copy, readonly) NSString *rewardType;
 
 /**
- Creates and returns a @c DDNARewardedAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
+ The amount of reward returned by this ad.
+ */
+@property (nonatomic, assign, readonly) NSInteger rewardAmount;
+
+/**
+ Creates and returns a @c DDNARewardedAd.
 
  @param delegate The delegate to use with this @c DDNARewardedAd.
  */
@@ -59,7 +64,16 @@
 + (instancetype)rewardedAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNARewardedAdDelegate>)delgate;
 
 /**
- Creates a @c DDNARewardedAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
+ Creates and returns a @c DDNARewardedAd.  The Engagement controls whether the add will be allowed to show in the future.  The difference to the checked engagement, is that an object is always created and @c -isReady can be used to test it.
+ 
+ @param engagement The engagement returned from an engage request.
+ 
+ @param delegate The delegate to use with this @c DDNARewardedAd.
+ */
++ (instancetype)rewardedAdWithUncheckedEngagement:(DDNAEngagement *)engagement delegate:(id<DDNARewardedAdDelegate>)delegate;
+
+/**
+ Creates a @c DDNARewardedAd without using Engage.  Ads can be shown as soon as one has loaded.
  */
 - (instancetype)init;
 
@@ -92,6 +106,20 @@
 @protocol DDNARewardedAdDelegate <NSObject>
 
 @optional
+
+/**
+ Reports when an ad has been loaded and is ready to show.
+ 
+ @param rewardedAd The rewarded ad.
+ */
+- (void)didLoadRewardedAd:(DDNARewardedAd *)rewardedAd;
+
+/**
+ Reports when an ad is not longer available to show.
+ 
+ @param rewardedAd The rewarded ad.
+ */
+- (void)didExpireRewardedAd:(DDNARewardedAd *)rewardedAd;
 
 /**
  Reports when the ad has started playing on screen.

@@ -28,7 +28,10 @@ FOUNDATION_EXPORT const unsigned char DeltaDNAAdsVersionString[];
 #define _DELTADNA_ADS_
 
 #import <DeltaDNAAds/DDNASmartAds.h>
+#import <DeltaDNAAds/DDNAAd.h>
 #import <DeltaDNAAds/DDNAInterstitialAd.h>
 #import <DeltaDNAAds/DDNARewardedAd.h>
+#import <DeltaDNAAds/DDNAEngageFactory+SmartAds.h>
+#import <DeltaDNAAds/DDNADebugListener.h>
 
 #endif // _DELTADNA_ADS_

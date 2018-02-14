@@ -22,6 +22,7 @@
 @protocol DDNASmartAdsRewardedDelegate;
 
 @class DDNAEngagement;
+@class DDNASmartAdEngageFactory;
 
 /**
  @c DDNASmartAds provides a service for fetching and showing ads.  It supports showing interstitial and rewarded ad types.
@@ -36,11 +37,14 @@
  
  The Decision Point versions are now marked as deprecated since we want you to use the separate ad classes with Engage explicitly.  This approach allows for greater flexibility in choosing when and if you should show an ad to the player.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface DDNASmartAds : NSObject
 
-@property (nonatomic, weak) id<DDNASmartAdsRegistrationDelegate> registrationDelegate;
-@property (nonatomic, weak) id<DDNASmartAdsInterstitialDelegate> interstitialDelegate;
-@property (nonatomic, weak) id<DDNASmartAdsRewardedDelegate> rewardedDelegate;
+@property (nonatomic, weak, nullable) id<DDNASmartAdsRegistrationDelegate> registrationDelegate;
+@property (nonatomic, weak, nullable) id<DDNASmartAdsInterstitialDelegate> interstitialDelegate;
+@property (nonatomic, weak, nullable) id<DDNASmartAdsRewardedDelegate> rewardedDelegate;
+
+@property (nonatomic, strong, readonly) DDNASmartAdEngageFactory *engageFactory;
 
 /**
  Returns the singleton instance.
@@ -69,30 +73,24 @@
  @return True if the engagement doesn't prevent an ad from showing.
  */
 
-- (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement;
+- (BOOL)isInterstitialAdAllowed:(nullable DDNAEngagement *)engagement checkTime:(BOOL)checkTime;
 
 /**
  Reports if an interstitial ad has loaded and is available to display.
  
  @return If an interstitial ad is ready to display.
  */
-- (BOOL)isInterstitialAdAvailable;
+- (BOOL)hasLoadedInterstitialAd;
 
 /**
- Shows an interstitial ad.
- 
- @param viewController The view controller to show the ad from.
- */
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
-
-/**
- Shows an interstitial ad using Engage.
+ Shows an interstitial ad.  This is a helper for InterstitialAd and shouldn't be called directly.
  
  @param viewController The view controller to show the ad from.
  
- @param decisionPoint The decision point to ask Engage for.
+ @param engagement The completed engagement that will control if the ad can be shown now or not.
+ 
  */
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint DEPRECATED_ATTRIBUTE;
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController engagement:(nullable DDNAEngagement *)engagement;
 
 /**
  Checks if a rewarded ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the Engagement if just checking for session and time limits.
@@ -102,30 +100,31 @@
  @return True if the engagement doesn't prevent the ad from showing.
  */
 
-- (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement;
+- (BOOL)isRewardedAdAllowed:(nullable DDNAEngagement *)engagement checkTime:(BOOL)checkTime;
+
+- (NSTimeInterval)timeUntilRewardedAdAllowedForEngagement:(DDNAEngagement *)engagement;
 
 /**
  Reports if a rewarded ad has loaded and is available to display.
  
  @return If a rewarded ad is ready to display.
  */
-- (BOOL)isRewardedAdAvailable;
+- (BOOL)hasLoadedRewardedAd;
 
 /**
- Shows a rewarded ad.
- 
- @param viewController The view controller to show the ad from.
- */
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController;
-
-/**
- Shows a rewarded ad.
+ Shows a rewarded ad.  This is a helper for RewardedAd and shouldn't be called directly.
  
  @param viewController The view controller to show the ad from.
  
- @param decisionPoint The decision point to ask Engage for.
+ @param engagement The completed engagement which configures how the ad is shown.
  */
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint DEPRECATED_ATTRIBUTE;
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController engagement:(nullable DDNAEngagement *)engagement;
+
+- (nullable NSDate *)lastShownForDecisionPoint:(NSString *)decisionPoint;
+
+- (NSInteger)sessionCountForDecisionPoint:(NSString *)decisionPoint;
+
+- (NSInteger)dailyCountForDecisionPoint:(NSString *)decisionPoint;
 
 /**
  Pauses fetching ads in the background.
@@ -225,3 +224,5 @@
 - (void)didCloseRewardedAdWithReward:(BOOL)reward;
 
 @end
+NS_ASSUME_NONNULL_END
+

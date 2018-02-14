@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
+// Copyright (c) 2018 deltaDNA Ltd. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DDNAAd.h"
 
 @class DDNAEngagement;
 
@@ -32,17 +33,12 @@
  
  When the player dismisses the ad, the delegate's @c -didCloseInterstitialAd: will be called.
  */
-@interface DDNAInterstitialAd : NSObject
+@interface DDNAInterstitialAd : DDNAAd
 
 @property (nonatomic, weak) id<DDNAInterstitialAdDelegate> delegate;
 
 /**
- If created by a @c DDNAEngagement it contains the custom parameters returned by the engagement.  Will be empty if the Engagement contained no parameters or was created without one.
- */
-@property (nonatomic, strong, readonly) NSDictionary *parameters;
-
-/**
- Creates and returns a @c DDNAInterstitialAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
+ Creates and returns a @c DDNAInterstitialAd.
  
  @param delegate The delegate to use with this @c DDNAInterstitialAd.
  */
@@ -58,7 +54,16 @@
 + (instancetype)interstitialAdWithEngagement:(DDNAEngagement *)engagement delegate:(id<DDNAInterstitialAdDelegate>)delegate;
 
 /**
- Creates a @c DDNAInterstitialAd.  If an ad is not allowed to be shown, either because of session or time limits, or an ad hasn't loaded yet, nil is returned.
+ Creates and returns a @c DDNAInterstitialAd.  The Engagement controls whether the add will be allowed to show in the future.  The difference to the checked engagement, is that an object is always created and @c -isReady can be used to test it.
+ 
+ @param engagement The engagement returned from an engage request.
+ 
+ @param delegate The delegate to use with this @c DDNAInterstitialAd.
+ */
++ (instancetype)interstitialAdWithUncheckedEngagement:(DDNAEngagement *)engagement delegate:(id<DDNAInterstitialAdDelegate>)delegate;
+
+/**
+ Creates a @c DDNAInterstitialAd without using Engage.  Ads can be shown as soon as one has loaded.
  */
 - (instancetype)init;
 

@@ -15,6 +15,15 @@
 //
 
 #import "DDNAFakeSmartAdService.h"
+#import "DDNAFakeSmartAdAgent.h"
+#import "DDNAFakeSmartAdFactory.h"
+
+@interface DDNAFakeSmartAdService ()
+
+@property (nonatomic, strong) DDNASmartAdAgent *interstitialAgent;
+@property (nonatomic, strong) DDNASmartAdAgent *rewardedAgent;
+
+@end
 
 @implementation DDNAFakeSmartAdService
 
@@ -28,6 +37,9 @@
 
 - (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint
 {
+    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:nil adLimit:nil delegate:nil];
+    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:nil adLimit:nil delegate:nil];
+    
     [self.delegate didRegisterForInterstitialAds];
     [self.delegate didRegisterForRewardedAds];
 }

@@ -17,7 +17,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class DDNASmartAdFactory;
+@class DDNAEngagement;
 
 @protocol DDNASmartAdServiceDelegate;
 
@@ -32,6 +35,7 @@ extern NSString * const kDDNALoadedAd;
 extern NSString * const kDDNAShowingAd;
 extern NSString * const kDDNAClosedAd;
 extern NSString * const kDDNAAdType;
+extern NSString * const kDDNAAdPoint;
 extern NSString * const kDDNAAdNetwork;
 extern NSString * const kDDNARequestTime;
 extern NSString * const kDDNAFullyWatched;
@@ -43,31 +47,40 @@ extern NSString * const kDDNAFullyWatched;
 
 - (instancetype)init;
 
-- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint;
+- (void)beginSessionWithDecisionPoint:(nonnull NSString *)decisionPoint;
 
-- (BOOL)isInterstitialAdAllowed;
+- (BOOL)isInterstitialAdAllowedForDecisionPoint:(nullable NSString *)decisionPoint
+                                     parameters:(nullable NSDictionary *)parameters
+                                      checkTime:(BOOL)checkTime;
 
-- (BOOL)isInterstitialAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters;
+- (BOOL)hasLoadedInterstitialAd;
 
-- (BOOL)isInterstitialAdAvailable;
-
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController;
-
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController
+                                   decisionPoint:(nullable NSString *)decisionPoint
+                                      parameters:(nullable NSDictionary *)parameters;
 
 - (BOOL)isShowingInterstitialAd;
 
-- (BOOL)isRewardedAdAllowed;
+- (BOOL)isRewardedAdAllowedForDecisionPoint:(nullable NSString *)decisionPoint
+                                 parameters:(nullable NSDictionary *)parameters
+                                  checkTime:(BOOL)checkTime;
 
-- (BOOL)isRewardedAdAllowedForDecisionPoint:(NSString *)decisionPoint engagementParameters:(NSDictionary *)engagementParameters;
+- (NSTimeInterval)timeUntilRewardedAdAllowedForDecisionPoint:(nullable NSString *)decisionPoint
+                                                  parameters:(nullable NSDictionary *)parameters;
 
-- (BOOL)isRewardedAdAvailable;
+- (BOOL)hasLoadedRewardedAd;
 
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController;
-
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint;
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController
+                               decisionPoint:(nullable NSString *)decisionPoint
+                                  parameters:(nullable NSDictionary *)parameters;
 
 - (BOOL)isShowingRewardedAd;
+
+- (nullable NSDate *)lastShownForDecisionPoint:(NSString *)decisionPoint;
+
+- (NSInteger)sessionCountForDecisionPoint:(NSString *)decisionPoint;
+
+- (NSInteger)dailyCountForDecisionPoint:(NSString *)decisionPoint;
 
 - (void)pause;
 
@@ -94,7 +107,9 @@ extern NSString * const kDDNAFullyWatched;
 
 - (void)didFailToRegisterForRewardedAdsWithReason:(NSString *)reason;
 
-- (void)didOpenRewardedAd;
+- (void)didLoadRewardedAd;
+
+- (void)didOpenRewardedAdForDecisionPoint:(nullable NSString *)decisionPoint;
 
 - (void)didFailToOpenRewardedAdWithReason:(NSString *)reason;
 
@@ -108,3 +123,6 @@ extern NSString * const kDDNAFullyWatched;
                          completionHandler:(void (^)(NSString *response, NSInteger statusCode, NSError *connectionError))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
+
