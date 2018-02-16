@@ -56,8 +56,10 @@
 
 /**
  Registers for the SmartAds service.  On successful completion the service will being loading ads in the background.
+ 
+ @deprecated in version 1.8, in favour of automatic registration
  */
-- (void)registerForAds;
+- (void)registerForAds __attribute__((deprecated));
 
 /**
  Checks if an interstitial ad can be shown.  This method looks for 'adShowPoint'=false in the Engagement, and checks the ads shown and time between ads limits for this session.  Pass nil for the engagement if just checking session and time limits.

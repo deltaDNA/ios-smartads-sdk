@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.8.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(YYYY-MM-DD)
+### Added
+- Automatic registration for ads.
+- 
 ## [1.7.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.2)(2018-03-26)
 ### Fixed
 - Updated AppLovin, Vungle, Unity, MoPub and AdMob to latest versions.

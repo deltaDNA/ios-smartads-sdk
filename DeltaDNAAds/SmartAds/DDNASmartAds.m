@@ -43,17 +43,17 @@
 
 @implementation DDNASmartAds
 
-+ (void)load
-{
-    
-}
-
 - (id)init
 {
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
         self.debugListener = [DDNADebugListener sharedInstance];
         [self.debugListener registerListeners];
+
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAdsInternal) name:@"DDNASDKNewSession" object:nil];
+
+        [self registerForAdsInternal];
     }
     return self;
 }
@@ -75,18 +75,18 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.7.2";
+    return @"SmartAds v1.8.0";
 }
 
 - (void)registerForAds
 {
+
+}
+
+- (void)registerForAdsInternal
+{
     @synchronized(self) {
         @try{
-            if (!self.adService) {
-                [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAds) name:@"DDNASDKNewSession" object:nil];
-            }
-
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
             [self.adService beginSessionWithDecisionPoint:@"advertising"];
         }

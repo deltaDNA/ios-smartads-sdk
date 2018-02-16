@@ -46,7 +46,6 @@
                                             engageURL:@"https://engage2010stst.deltadna.net"];
     
     [DDNASmartAds sharedInstance].registrationDelegate = self;
-    [[DDNASmartAds sharedInstance] registerForAds];
     
     // Prepare CoreLocation
     self.locationManager = [[CLLocationManager alloc] init];

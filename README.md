@@ -44,7 +44,7 @@ Include the SDK header files.
 #include <DeltaDNAAds/DeltaDNAAds.h>
 ```
 
-Start the analytics SDK.
+Start the analytics SDK which will also register SmartAds for ads.
 
 ```objective-c
 [DDNASDK sharedInstance].clientVersion = @"1.0";
@@ -52,15 +52,6 @@ Start the analytics SDK.
 [[DDNASDK sharedInstance] startWithEnvironmentKey:@"YOUR_ENVIRONMENT_KEY"
                                        collectURL:@"YOUR_COLLECT_URL"
                                         engageURL:@"YOUR_ENGAGE_URL"];
-
-
-```
-
-Register for ads.
-
-```objective-c
-[DDNASmartAds sharedInstance].registrationDelegate = self;
-[[DDNASmartAds sharedInstance] registerForAds];
 ```
 
 If everything went well the SmartAds service will start fetching ads in the background.  The `DDNASmartAdsRegistrationDelegate` methods report if the service was successfully configured:

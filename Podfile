@@ -20,6 +20,7 @@ target 'ObjC SmartAds Example' do
     # use_frameworks!
 
     # Pods for SmartAds iOS Example
+    pod 'DeltaDNA', git: 'git@corp-vm-gitlab:gamesanalytics/ios-sdk-v4.git', branch: 'develop'
     pod 'DeltaDNAAds', :path => './'
 
     target 'ObjC SmartAds Tests' do

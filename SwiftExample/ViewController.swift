@@ -44,7 +44,6 @@ class ViewController: UIViewController {
                                        engageURL: "https://engage2010stst.deltadna.net")
         
         DDNASmartAds.sharedInstance().registrationDelegate = self
-        DDNASmartAds.sharedInstance().registerForAds()
     }
 
     override func didReceiveMemoryWarning() {
