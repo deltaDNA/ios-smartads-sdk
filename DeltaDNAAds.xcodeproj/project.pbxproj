@@ -183,6 +183,7 @@
 		63047F1D1F45F6C800282267 /* DDNASmartAdLoopMeAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdLoopMeAdapterSpec.m; sourceTree = "<group>"; };
 		63047F201F45F6D700282267 /* DDNASmartAdLoopMeAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdLoopMeAdapter.h; sourceTree = "<group>"; };
 		63047F211F45F6D700282267 /* DDNASmartAdLoopMeAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdLoopMeAdapter.m; sourceTree = "<group>"; };
+		630AC51F2037368100DEC350 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		6311C2F91F9790770023C329 /* DDNASmartAdAdMobHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdAdMobHelper.m; sourceTree = "<group>"; };
 		6311C2FA1F9790770023C329 /* DDNASmartAdAdMobHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdAdMobHelper.h; sourceTree = "<group>"; };
 		631D9FCD1F3DF68600F54F0A /* DDNASmartAdHyprMXAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdHyprMXAdapter.h; sourceTree = "<group>"; };
@@ -839,6 +840,7 @@
 		FD3E9A96C8C7D2474B5F5009 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				630AC51F2037368100DEC350 /* CoreFoundation.framework */,
 				63540B331DCCEFB9005E7EE1 /* CoreLocation.framework */,
 				1E33AA62B28E61AD2559D9FF /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a */,
 				E76687F63F27DF300E09A14D /* libPods-SmartAds iOS Example.a */,
@@ -1612,7 +1614,7 @@
 					"COCOAPODS=1",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1630,7 +1632,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				DEVELOPMENT_TEAM = 846C8UZB42;
 				INFOPLIST_FILE = Tests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1682,7 +1684,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1728,7 +1730,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1746,6 +1748,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = ObjcExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1763,6 +1766,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = ObjcExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.ObjC-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";

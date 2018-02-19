@@ -57,7 +57,10 @@
         NSDictionary *options = @{
             TJC_MEDIATION_NETWORK_NAME : @"deltaDNA"
         };
-        [Tapjoy connect:sdkKey options:options];
+        
+        if (![sdkKey isEqualToString:@"test-sdk-key"]) {
+            [Tapjoy connect:sdkKey options:options];
+        }
     }
     return self;
 }
