@@ -142,15 +142,18 @@
 {
     DDNALogDebug(@"%@", message);
     
-    if (self.userNotifications) {
-        AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
-        AdInfo *rewardedInfo = self.content[AD_TYPE_REWARDED];
-        
-        UNNotificationRequest *userNotification = [self createUserNotificationWithBody:message
-                                                                          interstitial:interstialInfo.message
-                                                                              rewarded:rewardedInfo.message];
-        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-        [center addNotificationRequest:userNotification withCompletionHandler:nil];
+    // UNUserNotifications available from iOS 10
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        if (self.userNotifications) {
+            AdInfo *interstialInfo = self.content[AD_TYPE_INTERSTITIAL];
+            AdInfo *rewardedInfo = self.content[AD_TYPE_REWARDED];
+            
+            UNNotificationRequest *userNotification = [self createUserNotificationWithBody:message
+                                                                              interstitial:interstialInfo.message
+                                                                                  rewarded:rewardedInfo.message];
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            [center addNotificationRequest:userNotification withCompletionHandler:nil];
+        }
     }
 }
 

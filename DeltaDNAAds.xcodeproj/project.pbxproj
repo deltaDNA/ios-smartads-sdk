@@ -1473,7 +1473,7 @@
 				DEVELOPMENT_TEAM = 846C8UZB42;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = IntegrationTester/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.IntegrationTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1495,7 +1495,7 @@
 				DEVELOPMENT_TEAM = 846C8UZB42;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = IntegrationTester/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.IntegrationTester;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1521,7 +1521,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Framework/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.DeltaDNAAds;
@@ -1548,7 +1548,7 @@
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = Framework/module.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deltadna.ios.DeltaDNAAds;
@@ -1568,7 +1568,7 @@
 				DEVELOPMENT_TEAM = 846C8UZB42;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.Swift-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1589,7 +1589,7 @@
 				DEVELOPMENT_TEAM = 846C8UZB42;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.deltadna.ios.Swift-SmartAds-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
