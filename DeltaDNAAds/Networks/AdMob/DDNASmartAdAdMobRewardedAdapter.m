@@ -20,8 +20,7 @@
 #import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface DDNASmartAdAdMobRewardedAdapter () <GADRewardBasedVideoAdDelegate>
-    
-@property (nonatomic, strong) GADRewardBasedVideoAd *videoAd;
+
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *adUnitId;
 @property (nonatomic, assign) BOOL testMode;
@@ -94,50 +93,43 @@
     
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        self.reward = YES;
-    }
+    self.reward = YES;
 }
     
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        [self.delegate adapterDidLoadAd:self];
-    }
+    [self.delegate adapterDidLoadAd:self];
 }
     
 - (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        [self.delegate adapterIsShowingAd:self];
-    }
+    [self.delegate adapterIsShowingAd:self];
 }
     
 - (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd
 {
     
 }
+
+- (void)rewardBasedVideoAdDidCompletePlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+{
+    
+}
     
 - (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        [self.delegate adapterDidCloseAd:self canReward:self.reward];
-    }
+    [self.delegate adapterDidCloseAd:self canReward:self.reward];
 }
     
 - (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        [self.delegate adapterWasClicked:self];
-        [self.delegate adapterLeftApplication:self];
-    }
+    [self.delegate adapterWasClicked:self];
+    [self.delegate adapterLeftApplication:self];
 }
     
 - (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didFailToLoadWithError:(NSError *)error
 {
-    if (rewardBasedVideoAd == self.videoAd) {
-        [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdAdMobHelper resultCodeFromError:error]];
-    }
+    [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdAdMobHelper resultCodeFromError:error]];
 }
 
 @end
