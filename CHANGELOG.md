@@ -1,9 +1,10 @@
 # Change Log
 
-## [1.7.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.1)(2018-??-??)
+## [1.7.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.1)(2018-02-20)
 ### Fixed
 - Support for iOS 8.
 - Callbacks for AdMob rewarded video.
+- Updated Flurry, Chartboost and IronSource to their latest versions.
 
 ## [1.7.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.0)(2018-01-24)
 ### Added

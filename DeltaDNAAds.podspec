@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.3.0'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.4.0'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Chartboost' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'ChartboostSDK', '~>7.0.0'
+        ss.dependency 'ChartboostSDK', '~>7.1.0'
         ss.source_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.h'
     end
@@ -111,7 +111,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.7.5.0'
+        ss.dependency 'IronSourceSDK', '~>6.7.6.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
