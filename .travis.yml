@@ -7,13 +7,16 @@ xcode_workspace: DeltaDNAAds.xcworkspace
 xcode_scheme: ObjC SmartAds Example
 xcode_sdk: iphonesimulator
 matrix:
+    fast_finish: true
     include:
         - {osx_image: xcode9.2,     env: 'PLAT=iOS  DST="OS=11.2,name=iPhone 6"'}
-        - {osx_image: xcode9.2,     env: 'PLAT=iOS  DST="OS=10.3.1,name=iPhone 6"'}
         - {osx_image: xcode9.2,     env: 'PLAT=iOS  DST="OS=8.4,name=iPhone 6"'}
 
         - {osx_image: xcode9.3beta, env: 'PLAT=iOS  DST="OS=11.3,name=iPhone 6"'}
-        - {osx_image: xcode9.3beta, env: 'PLAT=iOS  DST="OS=10.3.1,name=iPhone 6"'}
+        - {osx_image: xcode9.3beta, env: 'PLAT=iOS  DST="OS=8.4,name=iPhone 6"'}
+
+    allow_failures:
+        - {osx_image: xcode9.3beta, env: 'PLAT=iOS  DST="OS=11.3,name=iPhone 6"'}
         - {osx_image: xcode9.3beta, env: 'PLAT=iOS  DST="OS=8.4,name=iPhone 6"'}
 
 script:
