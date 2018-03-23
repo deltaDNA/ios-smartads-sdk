@@ -31,7 +31,7 @@ describe(@"AppLovin interstitial adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"APPLOVIN",
             @"sdkKey": @"test-sdk-key",
-            @"placement": @"interstitial",
+            @"zoneId": @"interstitial",
             @"eCPM": @150
         };
         
@@ -40,7 +40,7 @@ describe(@"AppLovin interstitial adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
-        expect(adapter.placement).to.equal(@"interstitial");
+        expect(adapter.zoneId).to.equal(@"interstitial");
         expect(adapter.isTestMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
@@ -60,6 +60,7 @@ describe(@"AppLovin interstitial adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
+        expect(adapter.zoneId).to.beNil();
         expect(adapter.isTestMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
@@ -83,7 +84,7 @@ describe(@"AppLovin interstitial adapter", ^{
         NSDictionary *configuration = @{
             @"adProvider": @"APPLOVIN",
             @"sdkKey": @"test-sdk-key",
-            @"placement": @"interstitial",
+            @"zoneId": @"interstitial",
             @"testMode": @YES
         };
         
@@ -92,7 +93,7 @@ describe(@"AppLovin interstitial adapter", ^{
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
-        expect(adapter.placement).to.equal(@"interstitial");
+        expect(adapter.zoneId).to.equal(@"interstitial");
         expect(adapter.isTestMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);

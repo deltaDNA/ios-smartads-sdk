@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.7.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.2)(????-??-??)
+### Fixed
+- Updated AppLovin to latest version.
+
 ## [1.7.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.1)(2018-02-20)
 ### Fixed
 - Support for iOS 8.

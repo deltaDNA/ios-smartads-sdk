@@ -15,35 +15,40 @@
 //
 
 #import "DDNASmartAdAppLovinAdapter.h"
+#import "DDNASmartAds.h"
 #import <AppLovinSDK/AppLovinSDK.h>
 
 @interface DDNASmartAdAppLovinAdapter () <ALAdLoadDelegate, ALAdDisplayDelegate, ALAdVideoPlaybackDelegate>
 
 @property (nonatomic, copy) NSString *sdkKey;
-@property (nonatomic, copy) NSString *placement;
+@property (nonatomic, copy) NSString *zoneId;
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, strong) ALSdk *alSdk;
 @property (nonatomic, strong) ALInterstitialAd *interstitialAd;
+@property (nonatomic, strong) ALAd *ad;
 @property (nonatomic, strong) NSNumber *reward;
-@property (nonatomic, strong) ALAd *lastAd;
 
 @end
 
 @implementation DDNASmartAdAppLovinAdapter
 
-- (instancetype)initWithSdkKey:(NSString *)sdkKey placement:(NSString *)placement testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithSdkKey:(NSString *)sdkKey zoneId:(NSString *)zoneId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"APPLOVIN" version:[ALSdk version] eCPM:eCPM waterfallIndex:waterfallIndex])) {
-        _sdkKey = sdkKey;
-        _placement = placement;
-        _testMode = testMode;
+        self.sdkKey = sdkKey;
+        self.zoneId = zoneId;
+        self.testMode = testMode;
         
         ALSdkSettings *settings = [[ALSdkSettings alloc] init];
-        settings.isVerboseLogging = NO;
+        settings.isVerboseLogging = testMode;
         settings.isTestAdsEnabled = testMode;
-        _alSdk = [ALSdk sharedWithKey:sdkKey settings:settings];
-        [_alSdk initializeSdk];
-        _interstitialAd = [[ALInterstitialAd alloc] initWithSdk:_alSdk];
+        ALSdk *alSdk = [ALSdk sharedWithKey:sdkKey settings:settings];
+        [alSdk setMediationProvider:@"deltaDNA"];
+        [alSdk setPluginVersion:[DDNASmartAds sdkVersion]];
+        [alSdk initializeSdk];
+        
+        self.alSdk = alSdk;
+        
     }
     return self;
 }
@@ -53,173 +58,119 @@
 - (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"sdkKey"]) return nil;
+    // ZoneId is optional
     
-    return [self initWithSdkKey:configuration[@"sdkKey"] placement:configuration[@"placement"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithSdkKey:configuration[@"sdkKey"] zoneId:configuration[@"zoneId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
-    if (_lastAd || [_alSdk.adService hasPreloadedAdOfSize:[ALAdSize sizeInterstitial]]) {
+    if (self.interstitialAd && self.ad) {
         [self.delegate adapterDidLoadAd:self];
-    } else {
-        // preload interstitial
-        [_alSdk.adService loadNextAd:[ALAdSize sizeInterstitial] andNotify:self];
     }
+    else if (!self.interstitialAd && !self.ad) {
+        ALInterstitialAd *interstitialAd = [[ALInterstitialAd alloc] initWithSdk:self.alSdk];
+        interstitialAd.adDisplayDelegate = self;
+        interstitialAd.adVideoPlaybackDelegate = self;
     
+        if (self.zoneId) {
+            [self.alSdk.adService loadNextAdForZoneIdentifier:self.zoneId andNotify: self];
+        } else {
+            [self.alSdk.adService loadNextAd:[ALAdSize sizeInterstitial] andNotify:self];
+        }
+        
+        self.interstitialAd = interstitialAd;
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if ([_interstitialAd isReadyForDisplay]) {
-        _interstitialAd.adDisplayDelegate = self;
-        _interstitialAd.adVideoPlaybackDelegate = self;
-        
-        if (_placement) {
-            if (_lastAd) {
-                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] placement:_placement andRender:_lastAd];
-            } else {
-                [_interstitialAd showOverPlacement:_placement];
-            }
-        } else {
-            if (_lastAd) {
-                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] andRender:_lastAd];
-            } else {
-                [_interstitialAd showOver:[[UIApplication sharedApplication] keyWindow]];
-            }
-        }
-    } else {
+    if (self.ad) {
+        [self.interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] andRender:self.ad];
+    }
+    else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
     }
 }
 
 - (BOOL)isReady
 {
-    return [_interstitialAd isReadyForDisplay];
+    return self.ad != nil;
 }
 
 #pragma mark - ALAdLoadDelegate
 
-/**
- * This method is invoked when an ad is loaded by the AdService.
- *
- * This method is invoked on the main UI thread.
- *
- * @param adService AdService which loaded the ad. Will not be nil.
- * @param ad        Ad that was loaded. Will not be nil.
- */
-- (void)adService:(alnonnull ALAdService *)adService didLoadAd:(alnonnull ALAd *)ad
+- (void)adService:(ALAdService *)adService didLoadAd:(ALAd *)ad
 {
-    _lastAd = ad;
-    _reward = nil;
+    self.ad = ad;
     [self.delegate adapterDidLoadAd:self];
 }
 
-/**
- * This method is invoked when an ad load fails.
- *
- * This method is invoked on the main UI thread.
- *
- * @param adService AdService which failed to load an ad. Will not be nil.
- * @param code      An error code corresponding with a constant defined in <code>ALErrorCodes.h</code>.
- */
-- (void)adService:(alnonnull ALAdService *)adService didFailToLoadAdWithError:(int)code
+- (void)adService:(ALAdService *)adService didFailToLoadAdWithError:(int)code
 {
     DDNASmartAdRequestResultCode resultCode;
     
     switch (code) {
             
-        case kALErrorCodeNoFill:
+        case kALErrorCodeNoFill: {
             resultCode = DDNASmartAdRequestResultCodeNoFill;
             break;
-            
-        case kALErrorCodeAdRequestNetworkTimeout:
+        }
+        case kALErrorCodeAdRequestNetworkTimeout: {
             resultCode = DDNASmartAdRequestResultCodeTimeout;
             break;
-            
-        case kALErrorCodeNotConnectedToInternet:
+        }
+        case kALErrorCodeNotConnectedToInternet: {
             resultCode = DDNASmartAdRequestResultCodeNetwork;
             break;
-            
-        default:
+        }
+        case kALErrorCodeInvalidZone: {
+            resultCode = DDNASmartAdRequestResultCodeConfiguration;
+            break;
+        }
+        default: {
             resultCode = DDNASmartAdRequestResultCodeError;
             break;
+        }
     }
     
     DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:resultCode errorDescription:[NSString stringWithFormat:@"code = %d", code]];
     
     [self.delegate adapterDidFailToLoadAd:self withResult:result];
+    self.interstitialAd = nil;
 }
 
 #pragma mark - ALAdDisplayDelegate
 
-/**
- * This method is invoked when the ad is displayed in the view.
- *
- * This method is invoked on the main UI thread.
- *
- * @param ad     Ad that was just displayed. Will not be nil.
- * @param view   Ad view in which the ad was displayed. Will not be nil.
- */
-- (void)ad:(alnonnull ALAd *)ad wasDisplayedIn:(alnonnull UIView *)view
+- (void)ad:(ALAd *)ad wasDisplayedIn:(UIView *)view
 {
     [self.delegate adapterIsShowingAd:self];
 }
 
-/**
- * This method is invoked when the ad is hidden from in the view.
- * This occurs when the user "X's" out of an interstitial.
- *
- * This method is invoked on the main UI thread.
- *
- * @param ad     Ad that was just hidden. Will not be nil.
- * @param view   Ad view in which the ad was hidden. Will not be nil.
- */
-- (void)ad:(alnonnull ALAd *)ad wasHiddenIn:(alnonnull UIView *)view
+- (void)ad:(ALAd *)ad wasHiddenIn:(UIView *)view
 {
-    _lastAd = nil;
-    [self.delegate adapterDidCloseAd:self canReward:_reward == nil || [_reward boolValue]];
-    _reward = nil;
+    [self.delegate adapterDidCloseAd:self canReward:self.reward == nil || [self.reward boolValue]];
+
+    self.reward = nil;
+    self.ad = nil;
+    self.interstitialAd = nil;
 }
 
-/**
- * This method is invoked when the ad is clicked from in the view.
- *
- * This method is invoked on the main UI thread.
- *
- * @param ad     Ad that was just clicked. Will not be nil.
- * @param view   Ad view in which the ad was hidden. Will not be nil.
- */
-- (void)ad:(alnonnull ALAd *)ad wasClickedIn:(alnonnull UIView *)view
+- (void)ad:(ALAd *)ad wasClickedIn:(UIView *)view
 {
     [self.delegate adapterWasClicked:self];
 }
 
 #pragma mark - AlAdVideoPlaybackDelegate
 
-/**
- * This method is invoked when a video starts playing in an ad.
- *
- * This method is invoked on the main UI thread.
- *
- * @param ad Ad in which video playback began.
- */
-- (void)videoPlaybackBeganInAd:(alnonnull ALAd *)ad
+- (void)videoPlaybackBeganInAd:(ALAd *)ad
 {
     
 }
 
-/**
- * This method is invoked when a video stops playing in an ad.
- *
- * This method is invoked on the main UI thread.
- *
- * @param ad                Ad in which video playback ended.
- * @param percentPlayed     How much of the video was watched, as a percent.
- * @param wasFullyWatched   Whether or not the video was watched to, or very near to, completion.
- */
-- (void)videoPlaybackEndedInAd:(alnonnull ALAd *)ad atPlaybackPercent:(alnonnull NSNumber *)percentPlayed fullyWatched:(BOOL)wasFullyWatched
+- (void)videoPlaybackEndedInAd:(ALAd *)ad atPlaybackPercent:(NSNumber *)percentPlayed fullyWatched:(BOOL)wasFullyWatched
 {
-    _reward = [NSNumber numberWithBool:wasFullyWatched];
+    self.reward = [NSNumber numberWithBool:wasFullyWatched];
 }
 
 @end
