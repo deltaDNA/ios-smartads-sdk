@@ -44,7 +44,6 @@
         [DDNASmartAdAdMobHelper configureWithAppId:self.appId];
         
         [GADRewardBasedVideoAd sharedInstance].delegate = self;
-        [self requestRewardedVideo];
     }
     return self;
 }

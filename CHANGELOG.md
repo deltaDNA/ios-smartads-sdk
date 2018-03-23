@@ -2,7 +2,7 @@
 
 ## [1.7.2](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.2)(????-??-??)
 ### Fixed
-- Updated AppLovin, Vungle, Unity and MoPub to latest versions.
+- Updated AppLovin, Vungle, Unity, MoPub and AdMob to latest versions.
 
 ## [1.7.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.7.1)(2018-02-20)
 ### Fixed
