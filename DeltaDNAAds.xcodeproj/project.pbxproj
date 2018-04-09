@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1060FBB601FFA904C48E8EDA /* libPods-DeltaDNAAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9452AF2023130C91C4DEF78E /* libPods-DeltaDNAAds.a */; };
+		30FB0D6A2077B4C00010C60B /* DDNAEngageFactorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FB0D692077B4C00010C60B /* DDNAEngageFactorySpec.m */; };
 		34006AF239634B47F0C6322D /* libPods-ObjC SmartAds Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B9BE29F80E7F18BE752476 /* libPods-ObjC SmartAds Example.a */; };
 		630089751ECA041E007A1331 /* TestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 630089741ECA041E007A1331 /* TestAppDelegate.m */; };
 		63047F221F45F6D700282267 /* DDNASmartAdLoopMeAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 63047F201F45F6D700282267 /* DDNASmartAdLoopMeAdapter.h */; };
@@ -107,6 +108,11 @@
 		63A99C1C1F712F5F00253B1E /* DDNASmartAdFacebookRewardedAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A99C151F712E7800253B1E /* DDNASmartAdFacebookRewardedAdapter.m */; };
 		63A99C1D1F712F7300253B1E /* DDNASmartAdFacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A99C171F712E7800253B1E /* DDNASmartAdFacebookHelper.m */; };
 		63B3828A1BFF67010049CE28 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 63B382891BFF67010049CE28 /* Podfile */; };
+		63BE820F206D25CB00CB2F13 /* DDNASmartAdMetrics.h in Headers */ = {isa = PBXBuildFile; fileRef = 63BE8208206D25CA00CB2F13 /* DDNASmartAdMetrics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63BE8210206D25CB00CB2F13 /* DDNASmartAdMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BE8209206D25CA00CB2F13 /* DDNASmartAdMetrics.m */; };
+		63BE8213206D25CB00CB2F13 /* DDNAAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 63BE820C206D25CB00CB2F13 /* DDNAAd.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63BE8222206D373B00CB2F13 /* DDNASmartAdMetricsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BE8216206D361900CB2F13 /* DDNASmartAdMetricsSpec.m */; };
+		63BE8224206D375100CB2F13 /* DDNAFakeSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BE821E206D362500CB2F13 /* DDNAFakeSDK.m */; };
 		63CC15911FD0161300B992DD /* DDNASmartAdMachineZoneHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CC158F1FD0161300B992DD /* DDNASmartAdMachineZoneHelper.h */; };
 		63CC15981FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CC15941FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.h */; };
 		63CC15991FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 63CC15951FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h */; };
@@ -115,6 +121,9 @@
 		63CC159D1FD0660200B992DD /* DDNASmartAdMachineZoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC15901FD0161300B992DD /* DDNASmartAdMachineZoneHelper.m */; };
 		63CC15A01FD069AA00B992DD /* DDNASmartAdMachineZoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */; };
 		63CC15A11FD06BE700B992DD /* DDNADebugListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 632FE0741FC5A38A0002145B /* DDNADebugListener.m */; };
+		63D207E7206E8EBF00095001 /* DDNAEngageFactory+SmartAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D207E6206E8EBF00095001 /* DDNAEngageFactory+SmartAds.m */; };
+		63D207E8206E92C900095001 /* DDNAEngageFactory+SmartAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 63D207E5206E8EBF00095001 /* DDNAEngageFactory+SmartAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63D207EA20722F9B00095001 /* DDNAAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D207E920722F9B00095001 /* DDNAAd.m */; };
 		63E088371E425022009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */; };
 		63FC968E1E409EB10066972D /* DDNASmartAdAppLovinAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */; };
 		95012DFFF9026B43BDB8E014 /* Pods_Integration_Tester.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF377FFEEC0802C63231E781 /* Pods_Integration_Tester.framework */; };
@@ -176,6 +185,7 @@
 		1A4565E1BD171DD16726B4D9 /* Pods-DeltaDNAAds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeltaDNAAds.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DeltaDNAAds/Pods-DeltaDNAAds.debug.xcconfig"; sourceTree = "<group>"; };
 		1E33AA62B28E61AD2559D9FF /* libPods-SmartAds iOS Example-SmartAds iOS Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartAds iOS Example-SmartAds iOS Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B921E02BA34C2FA1B757A2 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests.release.xcconfig"; sourceTree = "<group>"; };
+		30FB0D692077B4C00010C60B /* DDNAEngageFactorySpec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNAEngageFactorySpec.m; sourceTree = "<group>"; };
 		3C61AA6D6D2A587C185C5260 /* Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAds iOS Example-SmartAds iOS Tests/Pods-SmartAds iOS Example-SmartAds iOS Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4A3D11846AB54B27030D6446 /* libPods-ObjC SmartAds Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ObjC SmartAds Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		630089731ECA041E007A1331 /* TestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestAppDelegate.h; sourceTree = "<group>"; };
@@ -332,6 +342,12 @@
 		63ABAD641DCCA79700AAE98B /* ObjC SmartAds Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ObjC SmartAds Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B381E91BFE16FF0049CE28 /* ObjC SmartAds Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ObjC SmartAds Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B382891BFF67010049CE28 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		63BE8208206D25CA00CB2F13 /* DDNASmartAdMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMetrics.h; sourceTree = "<group>"; };
+		63BE8209206D25CA00CB2F13 /* DDNASmartAdMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMetrics.m; sourceTree = "<group>"; };
+		63BE820C206D25CB00CB2F13 /* DDNAAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAAd.h; sourceTree = "<group>"; };
+		63BE8216206D361900CB2F13 /* DDNASmartAdMetricsSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMetricsSpec.m; sourceTree = "<group>"; };
+		63BE821D206D362500CB2F13 /* DDNAFakeSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNAFakeSDK.h; sourceTree = "<group>"; };
+		63BE821E206D362500CB2F13 /* DDNAFakeSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSDK.m; sourceTree = "<group>"; };
 		63CC158F1FD0161300B992DD /* DDNASmartAdMachineZoneHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMachineZoneHelper.h; sourceTree = "<group>"; };
 		63CC15901FD0161300B992DD /* DDNASmartAdMachineZoneHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneHelper.m; sourceTree = "<group>"; };
 		63CC15931FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneInterstitialAdapter.m; sourceTree = "<group>"; };
@@ -339,6 +355,9 @@
 		63CC15951FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMachineZoneInterstitialAdapter.h; sourceTree = "<group>"; };
 		63CC15961FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneRewardedAdapter.m; sourceTree = "<group>"; };
 		63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneSpec.m; sourceTree = "<group>"; };
+		63D207E5206E8EBF00095001 /* DDNAEngageFactory+SmartAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DDNAEngageFactory+SmartAds.h"; sourceTree = "<group>"; };
+		63D207E6206E8EBF00095001 /* DDNAEngageFactory+SmartAds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DDNAEngageFactory+SmartAds.m"; sourceTree = "<group>"; };
+		63D207E920722F9B00095001 /* DDNAAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNAAd.m; sourceTree = "<group>"; };
 		63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdThirdPresenceAdapterSpec.m; sourceTree = "<group>"; };
 		63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdAppLovinAdapterSpec.m; sourceTree = "<group>"; };
 		6FB20732C1B3448CDA0A3CE7 /* Pods-ObjC SmartAds Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ObjC SmartAds Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ObjC SmartAds Tests/Pods-ObjC SmartAds Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -457,6 +476,8 @@
 		6342F71C1DCCCB7C0058BABC /* Fakes */ = {
 			isa = PBXGroup;
 			children = (
+				63BE821D206D362500CB2F13 /* DDNAFakeSDK.h */,
+				63BE821E206D362500CB2F13 /* DDNAFakeSDK.m */,
 				6342F71D1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.h */,
 				6342F71E1DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m */,
 				6342F71F1DCCCB7C0058BABC /* DDNAFakeSmartAdFactory.h */,
@@ -474,6 +495,7 @@
 		6342F7271DCCCB7C0058BABC /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				63BE8216206D361900CB2F13 /* DDNASmartAdMetricsSpec.m */,
 				63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */,
 				63047F1D1F45F6C800282267 /* DDNASmartAdLoopMeAdapterSpec.m */,
 				63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */,
@@ -499,6 +521,7 @@
 				6340D0551E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m */,
 				63286F2B1EEAFA7B00D47372 /* DDNASmartAdTapjoyAdapterSpec.m */,
 				631D9FD21F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m */,
+				30FB0D692077B4C00010C60B /* DDNAEngageFactorySpec.m */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -688,12 +711,16 @@
 		636A41401E93A724002BC4E9 /* SmartAds */ = {
 			isa = PBXGroup;
 			children = (
-				632FE0731FC5A38A0002145B /* DDNADebugListener.h */,
-				632FE0741FC5A38A0002145B /* DDNADebugListener.m */,
+				63BE820C206D25CB00CB2F13 /* DDNAAd.h */,
+				63D207E920722F9B00095001 /* DDNAAd.m */,
 				636A41411E93A724002BC4E9 /* DDNAInterstitialAd.h */,
 				636A41421E93A724002BC4E9 /* DDNAInterstitialAd.m */,
 				636A41431E93A724002BC4E9 /* DDNARewardedAd.h */,
 				636A41441E93A724002BC4E9 /* DDNARewardedAd.m */,
+				63BE8208206D25CA00CB2F13 /* DDNASmartAdMetrics.h */,
+				63BE8209206D25CA00CB2F13 /* DDNASmartAdMetrics.m */,
+				632FE0731FC5A38A0002145B /* DDNADebugListener.h */,
+				632FE0741FC5A38A0002145B /* DDNADebugListener.m */,
 				636A41451E93A724002BC4E9 /* DDNASmartAdAdapter.h */,
 				636A41461E93A724002BC4E9 /* DDNASmartAdAdapter.m */,
 				636A41471E93A724002BC4E9 /* DDNASmartAdAgent.h */,
@@ -708,6 +735,8 @@
 				636A41501E93A724002BC4E9 /* DDNASmartAdStatus.m */,
 				636A41511E93A724002BC4E9 /* DDNASmartAdWaterfall.h */,
 				636A41521E93A724002BC4E9 /* DDNASmartAdWaterfall.m */,
+				63D207E5206E8EBF00095001 /* DDNAEngageFactory+SmartAds.h */,
+				63D207E6206E8EBF00095001 /* DDNAEngageFactory+SmartAds.m */,
 			);
 			path = SmartAds;
 			sourceTree = "<group>";
@@ -868,6 +897,9 @@
 				636A41C51E93FD9E002BC4E9 /* DDNAInterstitialAd.h in Headers */,
 				636A41C61E93FD9E002BC4E9 /* DDNARewardedAd.h in Headers */,
 				63CC15991FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h in Headers */,
+				63BE820F206D25CB00CB2F13 /* DDNASmartAdMetrics.h in Headers */,
+				63D207E8206E92C900095001 /* DDNAEngageFactory+SmartAds.h in Headers */,
+				63BE8213206D25CB00CB2F13 /* DDNAAd.h in Headers */,
 				636A41C71E93FD9E002BC4E9 /* DDNASmartAds.h in Headers */,
 				636A41A31E93F80A002BC4E9 /* DeltaDNAAds.h in Headers */,
 			);
@@ -1287,6 +1319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63BE8210206D25CB00CB2F13 /* DDNASmartAdMetrics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1304,6 +1337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6342F7441DCCCB7C0058BABC /* DDNASmartAdChartboostAdapterSpec.m in Sources */,
+				30FB0D6A2077B4C00010C60B /* DDNAEngageFactorySpec.m in Sources */,
 				636A41901E93ABF7002BC4E9 /* DDNASmartAdWaterfall.m in Sources */,
 				6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */,
 				636A417E1E93ABC6002BC4E9 /* DDNASmartAdInMobiInterstitialAdapter.m in Sources */,
@@ -1318,6 +1352,7 @@
 				636A41841E93ABD8002BC4E9 /* DDNASmartAdMoPubAdapter.m in Sources */,
 				63A99C1D1F712F7300253B1E /* DDNASmartAdFacebookHelper.m in Sources */,
 				6342F7411DCCCB7C0058BABC /* DDNASmartAdAdMobAdapterSpec.m in Sources */,
+				63BE8222206D373B00CB2F13 /* DDNASmartAdMetricsSpec.m in Sources */,
 				636A418A1E93ABF7002BC4E9 /* DDNASmartAdAdapter.m in Sources */,
 				6342F74A1DCCCB7C0058BABC /* DDNASmartAdServiceSpec.m in Sources */,
 				6342F74E1DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m in Sources */,
@@ -1332,6 +1367,7 @@
 				6342F7471DCCCB7C0058BABC /* DDNASmartAdInMobiAdapterSpec.m in Sources */,
 				636A417C1E93ABBF002BC4E9 /* DDNASmartAdFlurryRewardedAdapter.m in Sources */,
 				636A418D1E93ABF7002BC4E9 /* DDNASmartAds.m in Sources */,
+				63D207EA20722F9B00095001 /* DDNAAd.m in Sources */,
 				636A41811E93ABCF002BC4E9 /* DDNASmartAdIronSourceInterstitialAdapter.m in Sources */,
 				636A417A1E93ABBF002BC4E9 /* DDNASmartAdFlurryHelper.m in Sources */,
 				6342F73F1DCCCB7C0058BABC /* DDNARewardedAdSpec.m in Sources */,
@@ -1339,6 +1375,7 @@
 				634669A41F065D96003F287E /* DDNASmartAdAdMobRewardedAdapter.m in Sources */,
 				636A417B1E93ABBF002BC4E9 /* DDNASmartAdFlurryInterstitialAdapter.m in Sources */,
 				636A417D1E93ABC6002BC4E9 /* DDNASmartAdInMobiHelper.m in Sources */,
+				63D207E7206E8EBF00095001 /* DDNAEngageFactory+SmartAds.m in Sources */,
 				636A41831E93ABD4002BC4E9 /* DDNASmartAdMobFoxAdapter.m in Sources */,
 				636A417F1E93ABC6002BC4E9 /* DDNASmartAdInMobiRewardedAdapter.m in Sources */,
 				6342F7491DCCCB7C0058BABC /* DDNASmartAdMoPubAdapterSpec.m in Sources */,
@@ -1361,6 +1398,7 @@
 				636A41781E93ABB3002BC4E9 /* DDNASmartAdChartboostRewardedAdapter.m in Sources */,
 				636A41871E93ABE8002BC4E9 /* DDNASmartAdVungleAdapter.m in Sources */,
 				636A41821E93ABCF002BC4E9 /* DDNASmartAdIronSourceRewardedAdapter.m in Sources */,
+				63BE8224206D375100CB2F13 /* DDNAFakeSDK.m in Sources */,
 				636A41771E93ABB3002BC4E9 /* DDNASmartAdChartboostInterstitialAdapter.m in Sources */,
 				6342F7461DCCCB7C0058BABC /* DDNASmartAdFlurryAdapterSpec.m in Sources */,
 				631D9FD11F3DFDEB00F54F0A /* DDNASmartAdHyprMXAdapter.m in Sources */,

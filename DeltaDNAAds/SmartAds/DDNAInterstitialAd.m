@@ -21,11 +21,13 @@
 
 @interface DDNAInterstitialAd () <DDNASmartAdsInterstitialDelegate>
 
-@property (nonatomic, strong) NSDictionary *parameters;
+@property (nonatomic, strong) DDNAEngagement *engagement;
 
 @end
 
 @implementation DDNAInterstitialAd
+
+@synthesize engagement;
 
 + (instancetype)interstitialAdWithDelegate:(id<DDNAInterstitialAdDelegate>)delegate
 {
@@ -45,12 +47,22 @@
     return interstitialAd;
 }
 
++ (instancetype)interstitialAdWithUncheckedEngagement:(DDNAEngagement *)engagement delegate:(id<DDNAInterstitialAdDelegate>)delegate
+{
+    DDNAInterstitialAd *interstitialAd = [[DDNAInterstitialAd alloc] init];
+    if (interstitialAd) {
+        interstitialAd.delegate = delegate;
+        if (engagement != nil && engagement.json != nil && engagement.json[@"parameters"] != nil) {
+            interstitialAd.engagement = engagement;
+        }
+    }
+    return interstitialAd;
+}
+
 - (instancetype)init
 {
-    if ((self = [super init])) {
-        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:nil]) return nil;
-        
-        self.parameters = [[NSDictionary alloc] init];
+    if ((self = [super initWithEngagement:nil])) {
+        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:nil checkTime:NO]) return nil;
         [DDNASmartAds sharedInstance].interstitialDelegate = self;
     }
     return self;
@@ -58,9 +70,8 @@
 
 - (instancetype)initWithEngagement:(DDNAEngagement *)engagement
 {
-    if ((self = [super init])) {        
-        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:engagement]) return nil;
-        self.parameters = [NSDictionary dictionaryWithDictionary:engagement.json[@"parameters"]];
+    if ((self = [super initWithEngagement:engagement])) {        
+        if (![[DDNASmartAds sharedInstance] isInterstitialAdAllowed:engagement checkTime:NO]) return nil;
         [DDNASmartAds sharedInstance].interstitialDelegate = self;
     }
     return self;
@@ -68,12 +79,21 @@
 
 - (BOOL)isReady
 {
-    return [[DDNASmartAds sharedInstance] isInterstitialAdAvailable];
+    if (self.engagement) {
+        return [[DDNASmartAds sharedInstance] isInterstitialAdAllowed:self.engagement checkTime:YES] && [[DDNASmartAds sharedInstance] hasLoadedInterstitialAd];
+    } else {
+        return [[DDNASmartAds sharedInstance] hasLoadedInterstitialAd];
+    }
 }
 
 - (void)showFromRootViewController:(UIViewController *)viewController
 {
-    [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:viewController];
+    if (self.engagement) {
+        [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:viewController engagement:self.engagement];
+    } else {
+        DDNALogWarn(@"Prefer showing ads with Engagements");
+        [[DDNASmartAds sharedInstance] showInterstitialAdFromRootViewController:viewController engagement:nil];
+    }
 }
 
 #pragma mark - DDNASmartAdsInterstitialDelegate

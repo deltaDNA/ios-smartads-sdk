@@ -36,6 +36,7 @@ describe(@"interstitial ad", ^{
     beforeEach(^{
         mockDelegate = mockProtocol(@protocol(DDNAInterstitialAdDelegate));
         
+        [[DDNAFakeSmartAds sharedInstance] reset];
         [DDNAFakeSmartAds sharedInstance].allowInterstitial = YES;
     });
 
@@ -44,16 +45,38 @@ describe(@"interstitial ad", ^{
         DDNAInterstitialAd *interstitialAd = [DDNAInterstitialAd interstitialAdWithDelegate:mockDelegate];
         expect(interstitialAd).toNot.beNil();
         expect([interstitialAd.parameters isEqualToDictionary:@{}]).to.beTruthy();
+        expect(interstitialAd.sessionCount).to.equal(0);
+        expect(interstitialAd.sessionLimit).to.equal(0);
+        expect(interstitialAd.dailyCount).to.equal(0);
+        expect(interstitialAd.dailyLimit).to.equal(0);
+        expect(interstitialAd.lastShown).to.beNil();
+        expect(interstitialAd.showWaitSecs).to.equal(0);
     });
 
     it(@"can be created with a valid Engagement", ^{
 
         DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testDecisionPoint"];
-        engagement.json = @{ @"parameters": @{} };
+        engagement.json = @{ @"parameters":
+                                 @{@"customParam":@5,
+                                   @"ddnaAdSessionCount":@4,
+                                   @"ddnaAdDailyCount":@6,
+                                   @"ddnaAdShowWaitSecs":@2}};
         DDNAInterstitialAd *interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:engagement delegate:mockDelegate];
 
         expect(interstitialAd).toNot.beNil();
-        expect([interstitialAd.parameters isEqualToDictionary:@{}]).to.beTruthy();
+        expect([interstitialAd.parameters isEqualToDictionary:@{@"customParam": @5,
+                                                                @"ddnaAdSessionCount":@4,
+                                                                @"ddnaAdDailyCount":@6,
+                                                                @"ddnaAdShowWaitSecs":@2
+                                                                }]).to.beTruthy();
+        expect(interstitialAd.decisionPoint).to.equal(@"testDecisionPoint");
+        expect(interstitialAd.engagement).to.equal(engagement);
+        expect(interstitialAd.sessionCount).to.equal(0);
+        expect(interstitialAd.sessionLimit).to.equal(4);
+        expect(interstitialAd.dailyCount).to.equal(0);
+        expect(interstitialAd.dailyLimit).to.equal(6);
+        expect(interstitialAd.lastShown).to.beNil();
+        expect(interstitialAd.showWaitSecs).to.equal(2);
     });
     
     it(@"can be created with a nil Engagement", ^{
@@ -62,6 +85,8 @@ describe(@"interstitial ad", ^{
         
         expect(interstitialAd).toNot.beNil();
         expect([interstitialAd.parameters isEqualToDictionary:@{}]).to.beTruthy();
+        expect([interstitialAd engagement]).to.beNil();
+        expect([interstitialAd decisionPoint]).to.beNil();
     });
     
     it(@"can be created with an invalid Engagement", ^{
@@ -71,6 +96,8 @@ describe(@"interstitial ad", ^{
         
         expect(interstitialAd).toNot.beNil();
         expect([interstitialAd.parameters isEqualToDictionary:@{}]).to.beTruthy();
+        expect([interstitialAd engagement]).to.beNil();
+        expect([interstitialAd decisionPoint]).to.beNil();
     });
     
     it(@"returns nil if not allowed to create", ^{
@@ -82,6 +109,18 @@ describe(@"interstitial ad", ^{
         
         DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testDecisionPoint"];
         interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:engagement delegate:mockDelegate];
+        expect(interstitialAd).to.beNil();
+    });
+    
+    it(@"returns nil if not allowed to create with an Engagement", ^{
+        
+        [DDNAFakeSmartAds sharedInstance].allowInterstitial = NO;
+        
+        DDNAEngagement *engagement = [DDNAEngagement engagementWithDecisionPoint:@"testDecisionPoint"];
+        engagement.statusCode = 200;
+        engagement.raw = @"{\"parameters\":{\"adShowPoint\":false}}";
+        
+        DDNAInterstitialAd *interstitialAd = [DDNAInterstitialAd interstitialAdWithEngagement:engagement delegate:mockDelegate];
         expect(interstitialAd).to.beNil();
     });
 });

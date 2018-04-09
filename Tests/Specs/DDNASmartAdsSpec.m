@@ -29,6 +29,8 @@
 
 @property (strong, nonatomic) DDNASmartAdFactory *factory;
 
+- (void)registerForAdsInternal;
+
 @end
 
 SpecBegin(DDNASmartAds)
@@ -54,13 +56,39 @@ describe(@"registers for ads", ^{
     
     it(@"succeeds with a good response", ^{
 
-        [smartAds registerForAds];
+        [smartAds registerForAdsInternal];
         
         [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
         [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];
         
         [verify(mockRegistrationDelegate) didRegisterForRewardedAds];
         [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForRewardedAdsWithReason:anything()];
+    });
+    
+    it(@"allows an interstitial ad with a null engagement", ^{
+        
+        [smartAds registerForAdsInternal];
+        
+        [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
+        [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];
+        
+        [verify(mockRegistrationDelegate) didRegisterForRewardedAds];
+        [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForRewardedAdsWithReason:anything()];
+        
+        expect([smartAds isInterstitialAdAllowed:nil checkTime:NO]).to.beTruthy();
+    });
+    
+    it(@"allows a rewarded ad with a null engagement", ^{
+        
+        [smartAds registerForAdsInternal];
+        
+        [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
+        [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];
+        
+        [verify(mockRegistrationDelegate) didRegisterForRewardedAds];
+        [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForRewardedAdsWithReason:anything()];
+        
+        expect([smartAds isRewardedAdAllowed:nil checkTime:NO]).to.beTruthy();
     });
     
 });

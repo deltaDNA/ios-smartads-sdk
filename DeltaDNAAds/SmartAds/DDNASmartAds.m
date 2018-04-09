@@ -75,7 +75,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.8.0-beta.1";
+    return @"SmartAds v1.8.0-beta.2";
 }
 
 - (void)registerForAds
@@ -103,39 +103,39 @@
     }
 }
 
-- (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement
+- (BOOL)isInterstitialAdAllowed:(DDNAEngagement *)engagement checkTime:(BOOL)checkTime
 {
     @synchronized (self) {
         if (!self.adService) return NO;
 
-        if (engagement != nil && engagement.json != nil) {
-            return [self.adService isInterstitialAdAllowedForDecisionPoint:engagement.decisionPoint
-                                                      engagementParameters:engagement.json[@"parameters"]];
-        } else {
-            return [self.adService isInterstitialAdAllowed];
-        }
+        NSString *decisionPoint = engagement ? engagement.decisionPoint : nil;
+        NSDictionary *parameters = engagement && engagement.json && engagement.json[@"parameters"] ? engagement.json[@"parameters"] : nil;
+        
+        return [self.adService isInterstitialAdAllowedForDecisionPoint:decisionPoint parameters:parameters checkTime:checkTime];
     }
 }
 
-- (BOOL)isInterstitialAdAvailable
+- (BOOL)hasLoadedInterstitialAd
 {
     @synchronized(self) {
         if (self.adService) {
-            return [self.adService isInterstitialAdAvailable];
+            return [self.adService hasLoadedInterstitialAd];
         }
         return NO;
     }
 }
 
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController
+- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController engagement:(DDNAEngagement *)engagement
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showInterstitialAdFromRootViewController:viewController];
+                NSString *decisionPoint = engagement ? engagement.decisionPoint : nil;
+                NSDictionary *parameters = engagement && engagement.json && engagement.json[@"parameters"] ? engagement.json[@"parameters"] : nil;
+                [self.adService showInterstitialAdFromRootViewController:viewController decisionPoint:decisionPoint parameters:parameters];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:@"Not registered"];
+                [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:@"Not configured for interstitial ads"];
             }
         }
         @catch (NSException *exception) {
@@ -145,55 +145,48 @@
     }
 }
 
-- (void)showInterstitialAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
-{
-    @synchronized(self) {
-        @try {
-            if (self.adService) {
-                [self.adService showInterstitialAdFromRootViewController:viewController decisionPoint:decisionPoint];
-            } else {
-                DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:@"Not registered"];
-            }
-        }
-        @catch (NSException *exception) {
-            DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.interstitialDelegate didFailToOpenInterstitialAdWithReason:exception.reason];
-        }
-    }
-}
-
-- (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement
+- (BOOL)isRewardedAdAllowed:(DDNAEngagement *)engagement checkTime:(BOOL)checkTime
 {
     @synchronized (self) {
         if (!self.adService) return NO;
-
-        if (engagement != nil && engagement.json != nil) {
-            return [self.adService isRewardedAdAllowedForDecisionPoint:engagement.decisionPoint
-                                                  engagementParameters:engagement.json[@"parameters"]];
-        } else {
-            return [self.adService isRewardedAdAllowed];
-        }
+        
+        NSString *decisionPoint = engagement ? engagement.decisionPoint : nil;
+        NSDictionary *parameters = engagement && engagement.json && engagement.json[@"parameters"] ? engagement.json[@"parameters"] : nil;
+        
+        return [self.adService isRewardedAdAllowedForDecisionPoint:decisionPoint parameters:parameters checkTime:checkTime];
     }
 }
 
+- (NSTimeInterval)timeUntilRewardedAdAllowedForEngagement:(DDNAEngagement *)engagement
+{
+    @synchronized (self) {
+        if (!self.adService) return NO;
+        
+        NSString *decisionPoint = engagement ? engagement.decisionPoint : nil;
+        NSDictionary *parameters = engagement && engagement.json && engagement.json[@"parameters"] ? engagement.json[@"parameters"] : nil;
+        
+        return [self.adService timeUntilRewardedAdAllowedForDecisionPoint:decisionPoint parameters:parameters];
+    }
+}
 
-- (BOOL)isRewardedAdAvailable
+- (BOOL)hasLoadedRewardedAd
 {
     @synchronized(self) {
         if (self.adService) {
-            return [self.adService isRewardedAdAvailable];
+            return [self.adService hasLoadedRewardedAd];
         }
         return NO;
     }
 }
 
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController
+- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController engagement:(DDNAEngagement *)engagement
 {
     @synchronized(self) {
         @try {
             if (self.adService) {
-                [self.adService showRewardedAdFromRootViewController:viewController];
+                NSString *decisionPoint = engagement ? engagement.decisionPoint : nil;
+                NSDictionary *parameters = engagement && engagement.json && engagement.json[@"parameters"] ? engagement.json[@"parameters"] : nil;
+                [self.adService showRewardedAdFromRootViewController:viewController decisionPoint:decisionPoint parameters:parameters];
             } else {
                 DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
                 [self.rewardedDelegate didFailToOpenRewardedAdWithReason:@"Not registered"];
@@ -206,23 +199,21 @@
     }
 }
 
-- (void)showRewardedAdFromRootViewController:(UIViewController *)viewController decisionPoint:(NSString *)decisionPoint
+- (NSDate *)lastShownForDecisionPoint:(NSString *)decisionPoint
 {
-    @synchronized(self) {
-        @try {
-            if (self.adService) {
-                [self.adService showRewardedAdFromRootViewController:viewController decisionPoint:decisionPoint];
-            } else {
-                DDNALogWarn(@"RegisterForAds must be called before showing ads will work.");
-                [self.rewardedDelegate didFailToOpenRewardedAdWithReason:@"Not registered"];
-            }
-        }
-        @catch (NSException *exception) {
-            DDNALogWarn(@"Error showing ad: %@", exception);
-            [self.rewardedDelegate didFailToOpenRewardedAdWithReason:exception.reason];
-        }
-    }
+    return [self.adService lastShownForDecisionPoint:decisionPoint];
 }
+
+- (NSInteger)sessionCountForDecisionPoint:(NSString *)decisionPoint
+{
+    return [self.adService sessionCountForDecisionPoint:decisionPoint];
+}
+
+- (NSInteger)dailyCountForDecisionPoint:(NSString *)decisionPoint
+{
+    return [self.adService dailyCountForDecisionPoint:decisionPoint];
+}
+
 
 - (void)pause
 {
@@ -308,6 +299,11 @@
     }
 }
 
+- (void)didLoadRewardedAd
+{
+    
+}
+
 - (void)didFailToOpenRewardedAdWithReason:(NSString *)reason
 {
     DDNALogDebug(@"Failed to open rewarded ad: %@", reason);
@@ -316,9 +312,9 @@
     }
 }
 
-- (void)didOpenRewardedAd
+- (void)didOpenRewardedAdForDecisionPoint:(NSString *)decisionPoint
 {
-    DDNALogDebug(@"Opened rewarded ad.");
+    DDNALogDebug(@"Opened rewarded ad %@.", decisionPoint);
     if ([self.rewardedDelegate respondsToSelector:@selector(didOpenRewardedAd)]) {
         [self.rewardedDelegate didOpenRewardedAd];
     }

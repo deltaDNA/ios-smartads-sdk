@@ -23,4 +23,25 @@
 @property (nonatomic, assign) BOOL allowInterstitial;
 @property (nonatomic, assign) BOOL allowRewarded;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSDate *> *lastShown;
+
+@property (nonatomic, assign) BOOL loadedInterstitial;
+@property (nonatomic, assign) BOOL loadedRewarded;
+
+@property (nonatomic, assign) BOOL showInterstitial;
+@property (nonatomic, assign) BOOL showRewarded;
+
+@property (nonatomic, copy) NSString *decisionPoint;
+
+- (void)reset;
+- (void)loadInterstitialAd;
+- (void)showInterstitialAdWithDecisionPoint:(NSString *)decisionPoint;
+- (void)loadRewardedAd;
+- (void)showRewardedAdWithDecisionPoint:(NSString *)decisionPoint;
+
+- (void)closeInterstitialAd;
+- (void)closeInterstitialAdAtDecisionPoint:(NSString *)decisionPoint;
+- (void)closeRewardedAdWithReward:(BOOL)reward;
+- (void)closeRewardedAdWithReward:(BOOL)reward atDecisionPoint:(NSString *)decisionPoint;
+
 @end

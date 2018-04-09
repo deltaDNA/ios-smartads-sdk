@@ -398,6 +398,7 @@ describe(@"ad agent", ^{
         [[verify(delegate) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
         
         // confirm got the failed to open callback when we tried to show an ad
+        // (This fails with OCMockito 5.1)
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() closedResult:(id)argument];
         DDNASmartAdClosedResult *result = argument.value;

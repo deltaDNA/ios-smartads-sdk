@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1421" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,51 +14,51 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sdk Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8z-Bz-5Pg">
-                                <rect key="frame" x="142" y="120" width="91" height="21"/>
+                                <rect key="frame" x="254.5" y="120" width="91" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3x-4s-ki2">
-                                <rect key="frame" x="132" y="362" width="111" height="21"/>
+                                <rect key="frame" x="244.5" y="362" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGz-Dw-tdi">
-                                <rect key="frame" x="132.5" y="232" width="110" height="30"/>
+                                <rect key="frame" x="245" y="232" width="110" height="30"/>
                                 <state key="normal" title="Show Interstitial"/>
                                 <connections>
                                     <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mrV-sw-fZy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI9-19-Ihc">
-                                <rect key="frame" x="64" y="282" width="247" height="30"/>
+                                <rect key="frame" x="176.5" y="282" width="247" height="30"/>
                                 <state key="normal" title="Show Interstitial With Decision Point"/>
                                 <connections>
-                                    <action selector="showInterstitialAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ljd-U5-cUd"/>
+                                    <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ljd-U5-cUd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-AU-uhv">
-                                <rect key="frame" x="132" y="403" width="111" height="30"/>
+                                <rect key="frame" x="244.5" y="403" width="111" height="30"/>
                                 <state key="normal" title="Show Rewarded"/>
                                 <connections>
-                                    <action selector="showRewardedAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xy8-dj-agI"/>
+                                    <action selector="showRewardedAd1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xy8-dj-agI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6P-Wl-6Xx">
-                                <rect key="frame" x="63.5" y="453" width="248" height="30"/>
+                                <rect key="frame" x="176" y="453" width="248" height="30"/>
                                 <state key="normal" title="Show Rewarded With Decision Point"/>
                                 <connections>
-                                    <action selector="showRewardedAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dc-Dh-6hr"/>
+                                    <action selector="showRewardedAd1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dc-Dh-6hr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cL-Qs-ed1">
-                                <rect key="frame" x="66" y="503" width="243" height="30"/>
+                                <rect key="frame" x="178.5" y="503" width="243" height="30"/>
                                 <state key="normal" title="Show Rewarded Or Image Message"/>
                                 <connections>
                                     <action selector="showRewardedAdOrImageMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kHQ-dd-ie5"/>
@@ -73,13 +69,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interstitial Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="823-Pe-Aoz">
-                                <rect key="frame" x="133" y="191" width="109" height="21"/>
+                                <rect key="frame" x="245.5" y="191" width="109" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYz-pW-ylS">
-                                <rect key="frame" x="158.5" y="553" width="58" height="21"/>
+                                <rect key="frame" x="271" y="553" width="58" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

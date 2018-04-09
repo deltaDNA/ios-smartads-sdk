@@ -42,7 +42,10 @@ typedef NS_ENUM(NSInteger, DDNASmartAdShowResultCode) {
     DDNASmartAdShowResultCodeNoAdAvailable,
     DDNASmartAdShowResultCodeAdShowPoint,
     DDNASmartAdShowResultCodeAdSessionLimitReached,
+    DDNASmartAdShowResultCodeAdSessionDecisionPointLimitReached,
+    DDNASmartAdShowResultCodeAdDailyDecisionPointLimitReached,
     DDNASmartAdShowResultCodeMinTimeNotElapsed,
+    DDNASmartAdShowResultCodeMinTimeDecisionPointNotElapsed,
     DDNASmartAdShowResultCodeNotReady,
     DDNASmartAdShowResultCodeEngageFailed
 };

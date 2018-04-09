@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
+// Copyright (c) 2018 deltaDNA Ltd. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,16 +14,12 @@
 // limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import <DeltaDNA/DDNASDK.h>
 
-#ifndef _DELTADNA_ADS_
-#define _DELTADNA_ADS_
+@interface DDNAFakeSDK : DDNASDK
 
-#import "SmartAds/DDNASmartAds.h"
-#import "SmartAds/DDNAAd.h"
-#import "SmartAds/DDNAInterstitialAd.h"
-#import "SmartAds/DDNARewardedAd.h"
-#import "SmartAds/DDNAEngageFactory+SmartAds.h"
-#import "SmartAds/DDNADebugListener.h"
++(instancetype)mockSharedInstance;
 
-#endif /* _DELTADNA_ADS_ */
+@property (nonatomic, copy) NSString *engageResponse;
+
+@end

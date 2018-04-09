@@ -92,8 +92,14 @@
             return @"adShowPoint was false";
         case DDNASmartAdShowResultCodeAdSessionLimitReached:
             return @"Session limit reached";
+        case DDNASmartAdShowResultCodeAdSessionDecisionPointLimitReached:
+            return @"Session limit for decision point reached";
+        case DDNASmartAdShowResultCodeAdDailyDecisionPointLimitReached:
+            return @"Daily limit for decision point reached";
         case DDNASmartAdShowResultCodeMinTimeNotElapsed:
-            return @"adMinimumInterval not elapsed";
+            return @"Minimum time between ads not elapsed";
+        case DDNASmartAdShowResultCodeMinTimeDecisionPointNotElapsed:
+            return @"Minimum time between ads not elapsed for decision point";
         case DDNASmartAdShowResultCodeNotReady:
             return @"Not ready";
         case DDNASmartAdShowResultCodeEngageFailed:

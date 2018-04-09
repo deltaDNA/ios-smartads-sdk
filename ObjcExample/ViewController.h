@@ -18,17 +18,22 @@
 
 @interface ViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (weak, nonatomic) IBOutlet UILabel *sdkVersion;
-@property (weak, nonatomic) IBOutlet UILabel *smartAdsStatus;
-@property (weak, nonatomic) IBOutlet UILabel *smartAdsRewardedStatus;
-@property (weak, nonatomic) IBOutlet UILabel *rewardAmount;
+@property (weak, nonatomic) IBOutlet UILabel *interstitialStats;
+@property (weak, nonatomic) IBOutlet UILabel *interstitialMessage;
+@property (weak, nonatomic) IBOutlet UILabel *rewardedStats1;
+@property (weak, nonatomic) IBOutlet UILabel *rewardedMessage1;
+@property (weak, nonatomic) IBOutlet UILabel *rewardedStats2;
+@property (weak, nonatomic) IBOutlet UILabel *rewardedMessage2;
+@property (weak, nonatomic) IBOutlet UIButton *showInterstitialAd;
+@property (weak, nonatomic) IBOutlet UIButton *showRewardedAd1;
+@property (weak, nonatomic) IBOutlet UIButton *showRewardedAd2;
 
 
 - (IBAction)showInterstitialAd:(id)sender;
-- (IBAction)showInterstitialAdWithDecisionPoint:(id)sender;
-- (IBAction)showRewardedAd:(id)sender;
-- (IBAction)showRewardedAdWithDecisionPoint:(id)sender;
-- (IBAction)showRewardedAdOrImageMessage:(id)sender;
+- (IBAction)showRewardedAd1:(id)sender;
+- (IBAction)showRewardedAd2:(id)sender;
 - (IBAction)newSession:(id)sender;
 - (IBAction)getGpsPosition:(id)sender;
 

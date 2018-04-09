@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,115 +21,150 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-BW-757">
-                                <frame key="frameInset" minX="279" minY="28" width="42" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNV-He-Fbo">
-                                <frame key="frameInset" minX="279" minY="115" width="42" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBG-To-rMD">
-                                <frame key="frameInset" minX="234" minY="144" width="132" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dQ-0t-JwA">
+                                <rect key="frame" x="118" y="125" width="139" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Show Interstitial Ad"/>
                                 <connections>
-                                    <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AeQ-jM-SXj"/>
+                                    <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9eN-2i-bm8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkc-4e-h00">
-                                <frame key="frameInset" minX="165" minY="182" width="270" height="30"/>
-                                <state key="normal" title="Show Interstitial Ad @testDecisionPoint"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Vc-Zqq">
+                                <rect key="frame" x="113" y="238" width="149" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Show Rewarded Ad 1"/>
                                 <connections>
-                                    <action selector="showInterstitialAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rid-3E-Nft"/>
+                                    <action selector="showRewardedAd1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A75-ox-4af"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8P8-1s-NMq">
-                                <frame key="frameInset" minX="279" minY="269" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0d-ho-KDs">
-                                <frame key="frameInset" minX="233" minY="298" width="133" height="30"/>
-                                <state key="normal" title="Show Rewarded Ad"/>
-                                <connections>
-                                    <action selector="showRewardedAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dvt-ST-LIl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMi-Vc-Zqq">
-                                <frame key="frameInset" minX="130" minY="336" width="339" height="30"/>
-                                <state key="normal" title="Show Rewarded Ad @testRewardedDecisionPoint"/>
-                                <connections>
-                                    <action selector="showRewardedAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L9F-8z-gbo"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlC-x0-J9a">
-                                <frame key="frameInset" minX="168.5" minY="434" width="263" height="30"/>
-                                <state key="normal" title="Show Rewarded Ad or Image Message"/>
-                                <connections>
-                                    <action selector="showRewardedAdOrImageMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OAp-0o-5o9"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zef-VW-GZI">
-                                <frame key="frameInset" minX="271" minY="472" width="58" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km9-bm-gSq">
-                                <frame key="frameInset" minX="256" minY="529" width="88" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km9-bm-gSq">
+                                <rect key="frame" x="141.5" y="465" width="92" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="New Session"/>
                                 <connections>
                                     <action selector="newSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fXR-fJ-nUK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THM-ZQ-Jgw">
-                                <frame key="frameInset" minX="200" minY="599" width="198" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THM-ZQ-Jgw">
+                                <rect key="frame" x="84" y="535" width="207" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Request Location Permission"/>
                                 <connections>
                                     <action selector="getGpsPosition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xf8-c5-JMZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interstitial Stats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-1v-7qj">
+                                <rect key="frame" x="143" y="183.5" width="89" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Stats 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KbQ-8G-8Aq">
+                                <rect key="frame" x="138.5" y="297" width="98" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KG-4M-Ait">
+                                <rect key="frame" x="112" y="351.5" width="151" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Show Rewarded Ad 2"/>
+                                <connections>
+                                    <action selector="showRewardedAd2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nj6-tP-C45"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interstitial Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YKR-n5-iP6">
+                                <rect key="frame" x="132.5" y="161" width="110" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Message 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a43-ew-hhp">
+                                <rect key="frame" x="127.5" y="274" width="120" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Stats 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWB-qe-72H">
+                                <rect key="frame" x="137.5" y="410.5" width="100" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Message 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Md8-As-Iw6">
+                                <rect key="frame" x="127" y="387.5" width="121" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMb-BW-757">
+                                <rect key="frame" x="167.5" y="77" width="40" height="18"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="PSl-qz-JTH">
+                                <rect key="frame" x="84" y="30" width="207" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="207" id="8VS-DY-vLG"/>
+                                    <constraint firstAttribute="height" constant="47" id="y0l-mA-owx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="2gv-a7-WbX"/>
-                            <constraint firstItem="fMi-Vc-Zqq" firstAttribute="top" secondItem="E0d-ho-KDs" secondAttribute="bottom" constant="8" id="6ON-Xa-f4i"/>
-                            <constraint firstItem="8P8-1s-NMq" firstAttribute="top" secondItem="pkc-4e-h00" secondAttribute="bottom" constant="57" id="9Bn-3v-GQ9"/>
+                            <constraint firstItem="3dQ-0t-JwA" firstAttribute="top" secondItem="bMb-BW-757" secondAttribute="bottom" constant="30" id="1Ye-sw-Eo6"/>
+                            <constraint firstItem="1Tg-1v-7qj" firstAttribute="top" secondItem="YKR-n5-iP6" secondAttribute="bottom" constant="8" id="2G0-6J-D2l"/>
+                            <constraint firstItem="a43-ew-hhp" firstAttribute="top" secondItem="fMi-Vc-Zqq" secondAttribute="bottom" constant="6" id="39J-Qd-Bqj"/>
+                            <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4NT-ce-cp1"/>
+                            <constraint firstItem="1Tg-1v-7qj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6bh-VB-oLi"/>
+                            <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="PSl-qz-JTH" secondAttribute="bottom" id="DHz-Nl-Rr9"/>
+                            <constraint firstItem="fMi-Vc-Zqq" firstAttribute="top" secondItem="1Tg-1v-7qj" secondAttribute="bottom" constant="40" id="N06-zQ-yNc"/>
+                            <constraint firstItem="2KG-4M-Ait" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P0P-Dk-VFR"/>
+                            <constraint firstItem="KbQ-8G-8Aq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P63-ow-10x"/>
                             <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PgL-Qk-vnb"/>
-                            <constraint firstItem="8P8-1s-NMq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q9s-71-xlR"/>
-                            <constraint firstItem="BBG-To-rMD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SYL-V5-U1a"/>
-                            <constraint firstItem="Zef-VW-GZI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="U4A-gb-Paj"/>
-                            <constraint firstItem="E0d-ho-KDs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VgU-pf-R38"/>
-                            <constraint firstItem="BBG-To-rMD" firstAttribute="top" secondItem="LNV-He-Fbo" secondAttribute="bottom" constant="8.5" id="Vkr-rh-d8X"/>
+                            <constraint firstItem="PSl-qz-JTH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="QeO-Un-J1j"/>
+                            <constraint firstItem="Md8-As-Iw6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RIY-Xg-eCr"/>
+                            <constraint firstItem="2KG-4M-Ait" firstAttribute="top" secondItem="KbQ-8G-8Aq" secondAttribute="bottom" constant="40" id="RmO-ul-fdl"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tj1-8j-4qx"/>
+                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="top" secondItem="Km9-bm-gSq" secondAttribute="bottom" constant="40" id="TvL-Se-mla"/>
+                            <constraint firstItem="fMi-Vc-Zqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Udz-7o-0AU"/>
+                            <constraint firstItem="GWB-qe-72H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X2d-bG-OOu"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XO6-6m-gkf"/>
-                            <constraint firstItem="XlC-x0-J9a" firstAttribute="top" secondItem="fMi-Vc-Zqq" secondAttribute="bottom" constant="68" id="bMR-if-wSH"/>
-                            <constraint firstItem="LNV-He-Fbo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eNh-it-05M"/>
-                            <constraint firstItem="pkc-4e-h00" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gX9-Ld-rWP"/>
-                            <constraint firstItem="pkc-4e-h00" firstAttribute="top" secondItem="BBG-To-rMD" secondAttribute="bottom" constant="8" id="hSQ-4B-yg0"/>
-                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="top" secondItem="Km9-bm-gSq" secondAttribute="bottom" constant="40" id="l5C-Ji-dDO"/>
-                            <constraint firstItem="XlC-x0-J9a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="qVJ-U8-5S9"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZeP-T0-9Wy"/>
+                            <constraint firstItem="Md8-As-Iw6" firstAttribute="top" secondItem="2KG-4M-Ait" secondAttribute="bottom" constant="6" id="aXr-hj-csA"/>
+                            <constraint firstItem="a43-ew-hhp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dNB-ct-kTv"/>
+                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dp9-4b-sl4"/>
+                            <constraint firstItem="PSl-qz-JTH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="esZ-4w-E7S"/>
+                            <constraint firstItem="YKR-n5-iP6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hf0-Bz-fbw"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="GWB-qe-72H" secondAttribute="bottom" constant="40" id="iIA-ol-1mz"/>
+                            <constraint firstItem="GWB-qe-72H" firstAttribute="top" secondItem="Md8-As-Iw6" secondAttribute="bottom" constant="8" id="j6X-Gw-d0v"/>
+                            <constraint firstItem="KbQ-8G-8Aq" firstAttribute="top" secondItem="a43-ew-hhp" secondAttribute="bottom" constant="8" id="l3Z-Tc-dra"/>
+                            <constraint firstItem="YKR-n5-iP6" firstAttribute="top" secondItem="3dQ-0t-JwA" secondAttribute="bottom" constant="6" id="nWt-Jy-sLT"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
-                            <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="Zef-VW-GZI" secondAttribute="bottom" constant="36" id="tCr-zs-WS3"/>
-                            <constraint firstItem="E0d-ho-KDs" firstAttribute="top" secondItem="8P8-1s-NMq" secondAttribute="bottom" constant="8" id="uVH-Jg-cCW"/>
-                            <constraint firstItem="Zef-VW-GZI" firstAttribute="top" secondItem="XlC-x0-J9a" secondAttribute="bottom" constant="8" id="y7B-0V-S6r"/>
-                            <constraint firstItem="fMi-Vc-Zqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yOn-IV-aX7"/>
-                            <constraint firstItem="LNV-He-Fbo" firstAttribute="top" secondItem="bMb-BW-757" secondAttribute="bottom" constant="66.5" id="zQ5-nJ-Rvm"/>
+                            <constraint firstItem="3dQ-0t-JwA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tNE-cq-JKe"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="rewardAmount" destination="Zef-VW-GZI" id="otj-7D-bo8"/>
+                        <outlet property="interstitialMessage" destination="YKR-n5-iP6" id="M32-ZP-Rm5"/>
+                        <outlet property="interstitialStats" destination="1Tg-1v-7qj" id="lwW-xV-a3y"/>
+                        <outlet property="logoImageView" destination="PSl-qz-JTH" id="WEQ-au-qcY"/>
+                        <outlet property="rewardedMessage1" destination="a43-ew-hhp" id="Do4-uf-CKc"/>
+                        <outlet property="rewardedMessage2" destination="Md8-As-Iw6" id="ioa-bK-eBs"/>
+                        <outlet property="rewardedStats1" destination="KbQ-8G-8Aq" id="9rU-ym-uwc"/>
+                        <outlet property="rewardedStats2" destination="GWB-qe-72H" id="FQb-UQ-03H"/>
                         <outlet property="sdkVersion" destination="bMb-BW-757" id="0OL-Ms-Hn9"/>
-                        <outlet property="smartAdsRewardedStatus" destination="8P8-1s-NMq" id="dbS-cg-grQ"/>
-                        <outlet property="smartAdsStatus" destination="LNV-He-Fbo" id="kzM-sA-jXB"/>
+                        <outlet property="showInterstitialAd" destination="3dQ-0t-JwA" id="Nji-Da-9qq"/>
+                        <outlet property="showRewardedAd1" destination="fMi-Vc-Zqq" id="Yyp-m4-LsY"/>
+                        <outlet property="showRewardedAd2" destination="2KG-4M-Ait" id="Z3A-eb-JYl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="140" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="670" height="172"/>
+    </resources>
 </document>

@@ -29,7 +29,8 @@ target 'ObjC SmartAds Example' do
         # Pods for testing
         pod 'Specta', '~> 1.0'
         pod 'Expecta', '~> 1.0'
-        pod 'OCMockito', '~> 5.0.0'
+        pod 'OCHamcrest', '7.0.2'
+        pod 'OCMockito', '5.0.1'
     end
 
 end
