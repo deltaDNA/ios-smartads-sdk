@@ -33,7 +33,7 @@ extern NSString * const kDDNAShowingAd;
 extern NSString * const kDDNAClosedAd;
 extern NSString * const kDDNAAdType;
 extern NSString * const kDDNAAdNetwork;
-extern NSString * const kDDNAAdRequestTime;
+extern NSString * const kDDNARequestTime;
 extern NSString * const kDDNAFullyWatched;
 
 @interface DDNASmartAdService : NSObject
