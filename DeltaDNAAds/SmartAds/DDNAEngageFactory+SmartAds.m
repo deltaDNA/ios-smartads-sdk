@@ -88,7 +88,7 @@
     [engagement setParam:[NSNumber numberWithInteger:sessionCount] forKey:@"ddnaAdSessionCount"];
     [engagement setParam:[NSNumber numberWithInteger:dailyCount] forKey:@"ddnaAdDailyCount"];
     if (lastShown) {
-        [engagement setParam:lastShown forKey:@"adLastShownTime"];
+        [engagement setParam:lastShown forKey:@"ddnaAdLastShownTime"];
     }
 }
 
