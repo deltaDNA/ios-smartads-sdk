@@ -70,7 +70,7 @@
     if ([[DDNASmartAdChartboostHelper sharedInstance] hasRewardedVideo:self.location]) {
         [[DDNASmartAdChartboostHelper sharedInstance] showRewardedVideo:self.location];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

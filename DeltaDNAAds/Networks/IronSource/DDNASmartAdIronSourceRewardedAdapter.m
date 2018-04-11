@@ -90,7 +90,7 @@
     if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
         [[DDNASmartAdIronSourceHelper sharedInstance] showRewardedVideoWithViewController:viewController placement:self.placementName];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -113,7 +113,7 @@
 
 - (void)rewardedVideoDidFailToShowWithError:(NSError *)error
 {
-    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
 }
 
 - (void)rewardedVideoDidOpen

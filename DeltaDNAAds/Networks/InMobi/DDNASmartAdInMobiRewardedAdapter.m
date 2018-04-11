@@ -80,7 +80,7 @@
     }
     else {
         [self.delegate adapterDidFailToShowAd:self
-                                   withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+                                   withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -141,7 +141,7 @@
 {
     DDNALogDebug(@"Rewarded didFailToPresentWithError: %@", [error localizedDescription]);
     
-    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
 }
 
 /* indicates that the interstitial is going to present itself. */

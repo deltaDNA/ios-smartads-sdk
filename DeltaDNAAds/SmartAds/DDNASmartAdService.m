@@ -350,13 +350,13 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     }
 }
 
-- (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter closedResult:(DDNASmartAdClosedResult *)result
+- (void)adAgent:(DDNASmartAdAgent *)adAgent didFailToOpenAdWithAdapter:(DDNASmartAdAdapter *)adapter showResult:(DDNASmartAdShowResult *)result
 {
     DDNALogDebug(@"Failed to open %@ ad from %@.",
                  adAgent == self.interstitialAgent ? @"interstitial" : @"rewarded",
                  adapter != nil ? adapter.name : @"N/A");
     
-    [self postAdClosedEvent:adAgent adapter:adapter result:result];
+    [self postAdShowEvent:adAgent resultCode:result.code];
 
     if (adAgent == self.interstitialAgent) {
         [self.delegate didFailToOpenInterstitialAdWithReason:result.desc];
@@ -382,7 +382,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
        kDDNAAdPoint: adAgent.decisionPoint ? adAgent.decisionPoint : @""
     }];
     
-    [self postAdClosedEvent:adAgent adapter:adapter result:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeSuccess]];
+    [self postAdClosedEvent:adAgent adapter:adapter];
 
     if (adAgent == self.interstitialAgent) {
         [self.delegate didCloseInterstitialAd];
@@ -409,7 +409,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     switch (result) {
         case DDNASmartAdShowResultCodeMinTimeNotElapsed:
         case DDNASmartAdShowResultCodeMinTimeDecisionPointNotElapsed:
-        case DDNASmartAdShowResultCodeNoAdAvailable: {
+        case DDNASmartAdShowResultCodeNotLoaded: {
             allowed = !checkTime;
             break;
         }
@@ -462,7 +462,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     }
     
     if (!adAgent.hasLoadedAd) {
-        return DDNASmartAdShowResultCodeNoAdAvailable;
+        return DDNASmartAdShowResultCodeNotLoaded;
     }
     
     return DDNASmartAdShowResultCodeFulfilled;
@@ -525,7 +525,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                 [self didFailToOpenAdWithAdAgent:adAgent reason:@"Daily limit for decision point reached"];
                 break;
             }
-            case DDNASmartAdShowResultCodeNoAdAvailable: {
+            case DDNASmartAdShowResultCodeNotLoaded: {
                 [self didFailToOpenAdWithAdAgent:adAgent reason:@"Ad not loaded"];
                 break;
             }
@@ -579,7 +579,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     [self.delegate recordEventWithName:@"adShow" parameters:eventParams];
 }
 
-- (void)postAdClosedEvent:(DDNASmartAdAgent *)agent adapter:(DDNASmartAdAdapter *)adapter result:(DDNASmartAdClosedResult *)result
+- (void)postAdClosedEvent:(DDNASmartAdAgent *)agent adapter:(DDNASmartAdAdapter *)adapter
 {
     NSString *adType = AD_TYPE_UNKNOWN;
     if (agent == self.interstitialAgent) {
@@ -597,7 +597,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     eventParams[@"adLeftApplication"] = [NSNumber numberWithBool:[agent adLeftApplication]];
     eventParams[@"adEcpm"] = [NSNumber numberWithInteger:adapter.eCPM];
     eventParams[@"adSdkVersion"] = [DDNASmartAds sdkVersion];
-    eventParams[@"adStatus"] = result.desc;
+    eventParams[@"adStatus"] = @"Success";
 
     [self.delegate recordEventWithName:@"adClosed" parameters:eventParams];
 }

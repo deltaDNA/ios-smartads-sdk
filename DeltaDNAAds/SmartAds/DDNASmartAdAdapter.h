@@ -51,7 +51,7 @@
 - (void)adapterDidLoadAd: (DDNASmartAdAdapter *)adapter;
 - (void)adapterDidFailToLoadAd: (DDNASmartAdAdapter *)adapter withResult: (DDNASmartAdRequestResult *)result;
 - (void)adapterIsShowingAd: (DDNASmartAdAdapter *)adapter;
-- (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult: (DDNASmartAdClosedResult *)result;
+- (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult: (DDNASmartAdShowResult *)result;
 - (void)adapterWasClicked:(DDNASmartAdAdapter *)adapter;
 - (void)adapterLeftApplication:(DDNASmartAdAdapter *)adapter;
 - (void)adapterDidCloseAd: (DDNASmartAdAdapter *)adapter canReward: (BOOL)canReward;

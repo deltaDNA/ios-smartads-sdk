@@ -83,7 +83,7 @@
     if ([self.interstitial isReady]) {
         [self.interstitial showFromViewController:viewController animated:YES];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

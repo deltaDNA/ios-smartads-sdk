@@ -84,6 +84,8 @@ static NSString * const kUserDefaultsUserIDKey = @"hyprmxUserId";
         [[HYPRManager sharedManager] displayOffer:^(BOOL completed, HYPROffer *offer) {
             [self.delegate adapterDidCloseAd:self canReward:completed];
         }];
+    } else {
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

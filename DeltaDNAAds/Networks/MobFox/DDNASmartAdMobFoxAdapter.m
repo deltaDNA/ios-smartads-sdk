@@ -76,7 +76,7 @@
     }
     else {
         [self.delegate adapterDidFailToShowAd:self
-                                   withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+                                   withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

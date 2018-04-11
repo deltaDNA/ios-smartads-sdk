@@ -113,7 +113,7 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
                 [self.currentAdapter showAdFromViewController:self.viewController];
             } else {
                 [self.delegate adAgent:self didFailToOpenAdWithAdapter:self.currentAdapter
-                          closedResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+                          showResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeNotLoaded]];
             }
         });
     }
@@ -168,11 +168,11 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
     });
 }
 
-- (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdClosedResult *)result
+- (void)adapterDidFailToShowAd: (DDNASmartAdAdapter *)adapter withResult:(DDNASmartAdShowResult *)result
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (adapter == self.currentAdapter) {
-            [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter closedResult:result];
+            [self.delegate adAgent:self didFailToOpenAdWithAdapter:adapter showResult:result];
             self.state = DDNASmartAdAgentStateLoading;
             // remove adapter from waterfall since we can't trust it
             [self.waterfall removeAdapter:self.currentAdapter];
