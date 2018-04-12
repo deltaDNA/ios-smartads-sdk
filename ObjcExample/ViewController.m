@@ -143,7 +143,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 
 - (void)didRegisterForInterstitialAds
 {
-    [[DDNASDK sharedInstance].engageFactory requestInterstitialAdForDecisionPoint:@"interstitialAd" parameters:nil handler:^(DDNAInterstitialAd * _Nonnull interstitialAd)
+    [[DDNASmartAds sharedInstance].engageFactory requestInterstitialAdForDecisionPoint:@"interstitialAd" parameters:nil handler:^(DDNAInterstitialAd * _Nonnull interstitialAd)
     {
         interstitialAd.delegate = self;
         self.interstitialAd = interstitialAd;
@@ -159,12 +159,12 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 
 - (void)didRegisterForRewardedAds
 {
-    [[DDNASDK sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd1" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
+    [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd1" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
         rewardedAd.delegate = self;
         self.rewardedAd1 = rewardedAd;
     }];
     
-    [[DDNASDK sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd2" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
+    [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd2" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
         rewardedAd.delegate = self;
         self.rewardedAd2 = rewardedAd;
     }];
@@ -192,13 +192,11 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 - (void)didCloseInterstitialAd:(DDNAInterstitialAd *)interstitialAd
 {
     // This is a good place to request another one.
-    [[DDNASDK sharedInstance].engageFactory requestInterstitialAdForDecisionPoint:@"interstitialAd" parameters:nil handler:^(DDNAInterstitialAd * _Nullable interstitialAd) {
-        if (interstitialAd != nil) {
-            interstitialAd.delegate = self;
-            self.interstitialAd = interstitialAd;
-            
-            self.showInterstitialAd.enabled = YES;
-        }
+    [[DDNASmartAds sharedInstance].engageFactory requestInterstitialAdForDecisionPoint:@"interstitialAd" parameters:nil handler:^(DDNAInterstitialAd * _Nonnull interstitialAd) {
+        interstitialAd.delegate = self;
+        self.interstitialAd = interstitialAd;
+        
+        self.showInterstitialAd.enabled = YES;
     }];
 }
 
@@ -252,14 +250,14 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
     if (rewardedAd == self.rewardedAd1) {
         self.rewardedMessage1.text = message;
         
-        [[DDNASDK sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd1" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
+        [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd1" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
             rewardedAd.delegate = self;
             self.rewardedAd1 = rewardedAd;
         }];
     } else if (rewardedAd == self.rewardedAd2) {
         self.rewardedMessage2.text = message;
         
-        [[DDNASDK sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd2" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
+        [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd2" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
             rewardedAd.delegate = self;
             self.rewardedAd2 = rewardedAd;
         }];

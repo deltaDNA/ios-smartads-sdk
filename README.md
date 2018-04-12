@@ -105,47 +105,28 @@ Again, make sure you keep a strong reference to the rewarded ad object else the 
 
 #### Working with Engage
 
-To fully take advantage of deltaDNA's SmartAds you want to work with our Engage service.  The game can ask Engage if it should show an ad for this particular player.  Engage will tailor its response according to which campaigns are running and which segment this player is in.  You can try to build an ad from a `DDNAEngagement` object, it will only succeed if the Engage response allows it.  We can also add additional parameters into the Engage response which the game can use, perhaps to customise the reward for this player.  For more details on Engage checkout out the [analytics SDK](https://github.com/deltaDNA/ios-sdk).
+To fully take advantage of deltaDNA's SmartAds you want to work with our Engage service.  The game can ask Engage if it should show an ad for this particular player.  Engage will tailor its response according to which campaigns are running and which segment this player is in.  You can build an ad object with the SmartAds Engage factory.  We can also pass additional real-time parameters to Engage which could customise the reward for this player.  For more details on Engage checkout out the [analytics SDK](https://github.com/deltaDNA/ios-sdk).
 
 ```objective-c
-DDNAEngagement* engagement = [DDNAEngagement engagementWithDecisionPoint:@"showRewardedAd"];
+[[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
+    rewardedAd.delegate = self;
+    self.rewardedAd = rewardedAd;
+}
 
-[[DDNASDK sharedInstance] requestEngagement:engagement engagementHandler:^(DDNAEngagement* response) {
+// wait for an ad to be loaded in the delegate
 
-    DDNARewardedAd* rewardedAd = [DDNARewardedAd rewardedAdWithEngagement:response delegate:self];
-    if (rewardedAd != nil) {
+- (void)didLoadRewardedAd:(DDNARewardedAd *)rewardedAd
+{
+    NSInteger rewardAmount = rewardedAd.rewardAmount;
 
-        // See what reward is being offered
-        if (rewardedAd.parameters[@"rewardAmount"]) {
-            NSInteger rewardAmount = [rewardedAd.parameters[@"rewardAmount"] integerValue];
+    // Present offer to player...
 
-            // Present offer to player...
-
-            // If they choose to watch the ad
-            [rewardedAd showFromRootViewController:self];
-        }
-    }
-}];
+    // If they choose to watch the ad
+    [rewardedAd showFromRootViewController:self];
+}
 ```
 
 Checkout the included example project for more details.
-
-#### Legacy Interface
-
-Instead of creating `DDNAInterstitialAd` and `DDNARewardedAd` objects, it is still possible to use the `DDNASmartAds` object directly.
-
-You can test if an interstitial ad is ready to be displayed with `-isInterstitialAdAvailable`.  Show an interstitial ad by calling `-showInterstitialAdFromRootViewController:`.  You can test if a rewarded ad is ready to be displayed with `-isRewardedAdAvailable`.  Show a rewarded ad by calling `-showRewardedAdFromRootViewController:`.
-
-The additional show methods that use Decision Points are now deprecated, since they hide what Engage is returning which prevents you from controlling if and when to show the ad in your game.
-
-You can also set the delegates for the DDNASmartAds object, so the SDK behaviour will be reported to you.
-
-```objective-c
-[DDNASmartAds sharedInstance].interstitialDelegate = self;
-[DDNASmartAds sharedInstance].rewardedDelegate = self;
-```
-
-See [DDNASmartAds.h](https://github.com/deltaDNA/ios-smartads-sdk/blob/master/DeltaDNAAds/SmartAds/DDNASmartAds.h) for more details.
 
 ### iOS 10 and ATS Support
 

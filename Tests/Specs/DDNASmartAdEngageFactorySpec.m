@@ -25,7 +25,7 @@
 
 #import "DDNASDK.h"
 #import "DDNAEngagement.h"
-#import "DDNAEngageFactory+SmartAds.h"
+#import "DDNASmartAdEngageFactory.h"
 #import "DDNAInterstitialAd.h"
 #import "DDNARewardedAd.h"
 
@@ -36,12 +36,12 @@ SpecBegin(DDNAEngageFactory)
 describe(@"engage factory", ^{
     
     __block DDNASDK *mockSdk;
-    __block DDNAEngageFactory *engageFactory;
+    __block DDNASmartAdEngageFactory *engageFactory;
     __block DDNAEngagement *fakeEngagement;
     
     beforeEach(^{
         mockSdk = mock([DDNASDK class]);
-        engageFactory = [[DDNAEngageFactory alloc] initWithDDNASDK:mockSdk];
+        engageFactory = [[DDNASmartAdEngageFactory alloc] initWithDDNASDK:mockSdk];
         
         [[DDNAFakeSmartAds sharedInstance] reset];
         [DDNAFakeSmartAds sharedInstance].allowInterstitial = YES;

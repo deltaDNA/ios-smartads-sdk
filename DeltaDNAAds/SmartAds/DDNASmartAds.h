@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<DDNASmartAdsInterstitialDelegate> interstitialDelegate;
 @property (nonatomic, weak, nullable) id<DDNASmartAdsRewardedDelegate> rewardedDelegate;
 
+/// The @c DDNASmartAdEngageFactory  helps making Engage requests.
 @property (nonatomic, strong, readonly) DDNASmartAdEngageFactory *engageFactory;
 
 /**

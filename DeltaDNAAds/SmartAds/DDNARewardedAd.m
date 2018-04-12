@@ -171,7 +171,7 @@
     self.showObserverId = [center addObserverForName:kDDNAShowingAd object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
         NSString *adType = note.userInfo[kDDNAAdType];
         NSString *decisionPoint = note.userInfo[kDDNAAdPoint];
-        if ([adType isEqualToString:AD_TYPE_REWARDED] && ![decisionPoint isEqualToString:weakSelf.decisionPoint] && [[DDNASmartAds sharedInstance] isRewardedAdAllowed:weakSelf.engagement checkTime:NO] && !weakSelf.waitingToLoad && [weakSelf.delegate respondsToSelector:@selector(didLoadRewardedAd:)]) {
+        if ([adType isEqualToString:AD_TYPE_REWARDED] && ![decisionPoint isEqualToString:weakSelf.decisionPoint] && [[DDNASmartAds sharedInstance] isRewardedAdAllowed:weakSelf.engagement checkTime:NO] && !weakSelf.waitingToLoad && [weakSelf.delegate respondsToSelector:@selector(didExpireRewardedAd:)]) {
             [weakSelf.delegate didExpireRewardedAd:weakSelf];
         }
     }];

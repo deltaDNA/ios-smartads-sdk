@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-#import "DDNAEngageFactory+SmartAds.h"
+#import "DDNASmartAdEngageFactory.h"
 #import "DDNAEngagement.h"
 #import "DDNAParams.h"
 #import "DDNASDK.h"
@@ -22,7 +22,21 @@
 #import "DDNARewardedAd.h"
 #import "DDNASmartAds.h"
 
-@implementation DDNAEngageFactory (DDNASmartAds)
+@interface DDNASmartAdEngageFactory ()
+
+@property (nonatomic, weak) DDNASDK *sdk;
+
+@end
+
+@implementation DDNASmartAdEngageFactory
+
+- (instancetype)initWithDDNASDK:(id)sdk
+{
+    if ((self = [super init])) {
+        self.sdk = sdk;
+    }
+    return self;
+}
 
 - (void)requestInterstitialAdForDecisionPoint:(NSString *)decisionPoint
                                       handler:(InterstitialAdHandler)handler

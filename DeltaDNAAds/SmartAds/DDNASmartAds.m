@@ -18,6 +18,7 @@
 #import "DDNASmartAdFactory.h"
 #import "DDNASmartAdService.h"
 #import "DDNADebugListener.h"
+#import "DDNASmartAdEngageFactory.h"
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNA/DDNALog.h>
 #import <DeltaDNA/NSString+DeltaDNA.h>
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) DDNASmartAdFactory *factory;
 @property (nonatomic, strong) DDNASmartAdService *adService;
 @property (nonatomic, strong) DDNADebugListener *debugListener;
+@property (nonatomic, strong) DDNASmartAdEngageFactory *engageFactory;
 
 @end
 
@@ -54,6 +56,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAdsInternal) name:@"DDNASDKNewSession" object:nil];
 
         [self registerForAdsInternal];
+        
+        self.engageFactory = [[DDNASmartAdEngageFactory alloc] initWithDDNASDK:[DDNASDK sharedInstance]];
     }
     return self;
 }
