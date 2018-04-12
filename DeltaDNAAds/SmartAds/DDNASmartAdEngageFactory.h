@@ -15,17 +15,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <DeltaDNA/DDNAEngageFactory.h>
 
 @class DDNAInterstitialAd;
 @class DDNARewardedAd;
+@class DDNAParams;
+@class DDNASDK;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  Extends the @c DDNAEngageFactory to create @InterstitialAd and @RewardedAd object with Engage.
  */
-@interface DDNAEngageFactory (DDNASmartAds)
+@interface DDNASmartAdEngageFactory : NSObject
 
 typedef void (^InterstitialAdHandler)(DDNAInterstitialAd * interstitialAd);
 typedef void (^RewardedAdHandler)(DDNARewardedAd * rewardedAd);
@@ -55,6 +56,8 @@ typedef void (^RewardedAdHandler)(DDNARewardedAd * rewardedAd);
 - (void)requestRewardedAdForDecisionPoint:(NSString *)decisionPoint
                                parameters:(nullable DDNAParams *)parameters
                                   handler:(RewardedAdHandler)handler;
+
+- (instancetype)initWithDDNASDK:(DDNASDK *)sdk;
 
 @end
 

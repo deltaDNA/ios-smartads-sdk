@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Swift_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Swift_SmartAds_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sdk Version" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8z-Bz-5Pg">
-                                <rect key="frame" x="254.5" y="120" width="91" height="21"/>
+                                <rect key="frame" x="142" y="120" width="91" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewarded Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3x-4s-ki2">
-                                <rect key="frame" x="244.5" y="362" width="111" height="21"/>
+                                <rect key="frame" x="132" y="362" width="111" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGz-Dw-tdi">
-                                <rect key="frame" x="245" y="232" width="110" height="30"/>
+                                <rect key="frame" x="132.5" y="232" width="110" height="30"/>
                                 <state key="normal" title="Show Interstitial"/>
                                 <connections>
                                     <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mrV-sw-fZy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cI9-19-Ihc">
-                                <rect key="frame" x="176.5" y="282" width="247" height="30"/>
+                                <rect key="frame" x="64" y="282" width="247" height="30"/>
                                 <state key="normal" title="Show Interstitial With Decision Point"/>
                                 <connections>
-                                    <action selector="showInterstitialAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ljd-U5-cUd"/>
+                                    <action selector="showInterstitialAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ALw-Li-baW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-AU-uhv">
-                                <rect key="frame" x="244.5" y="403" width="111" height="30"/>
+                                <rect key="frame" x="132" y="403" width="111" height="30"/>
                                 <state key="normal" title="Show Rewarded"/>
                                 <connections>
-                                    <action selector="showRewardedAd1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xy8-dj-agI"/>
+                                    <action selector="showRewardedAd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RnC-4v-NIG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6P-Wl-6Xx">
-                                <rect key="frame" x="176" y="453" width="248" height="30"/>
+                                <rect key="frame" x="63.5" y="453" width="248" height="30"/>
                                 <state key="normal" title="Show Rewarded With Decision Point"/>
                                 <connections>
-                                    <action selector="showRewardedAd1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5dc-Dh-6hr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cL-Qs-ed1">
-                                <rect key="frame" x="178.5" y="503" width="243" height="30"/>
-                                <state key="normal" title="Show Rewarded Or Image Message"/>
-                                <connections>
-                                    <action selector="showRewardedAdOrImageMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kHQ-dd-ie5"/>
+                                    <action selector="showRewardedAdWithDecisionPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ufe-A8-LFj"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bEk-sN-sES">
@@ -69,13 +66,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interstitial Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="823-Pe-Aoz">
-                                <rect key="frame" x="245.5" y="191" width="109" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tYz-pW-ylS">
-                                <rect key="frame" x="271" y="553" width="58" height="21"/>
+                                <rect key="frame" x="133" y="191" width="109" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -84,7 +75,6 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="823-Pe-Aoz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1jJ-Bf-lrW"/>
-                            <constraint firstItem="6cL-Qs-ed1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2Ey-FB-Zi8"/>
                             <constraint firstItem="yGz-Dw-tdi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="68z-E8-Oot"/>
                             <constraint firstItem="AgJ-AU-uhv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9sl-EN-kis"/>
                             <constraint firstItem="AgJ-AU-uhv" firstAttribute="top" secondItem="w3x-4s-ki2" secondAttribute="bottom" constant="20" id="NvB-tm-gyq"/>
@@ -94,19 +84,15 @@
                             <constraint firstItem="823-Pe-Aoz" firstAttribute="top" secondItem="z8z-Bz-5Pg" secondAttribute="bottom" constant="50" id="fvF-R7-E1C"/>
                             <constraint firstItem="cI9-19-Ihc" firstAttribute="top" secondItem="yGz-Dw-tdi" secondAttribute="bottom" constant="20" id="hf1-ZG-Emx"/>
                             <constraint firstItem="O6P-Wl-6Xx" firstAttribute="top" secondItem="AgJ-AU-uhv" secondAttribute="bottom" constant="20" id="lQ2-Yj-LbY"/>
-                            <constraint firstItem="tYz-pW-ylS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="m1E-1V-yir"/>
                             <constraint firstItem="z8z-Bz-5Pg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="m6F-G7-nFw"/>
                             <constraint firstItem="yGz-Dw-tdi" firstAttribute="top" secondItem="823-Pe-Aoz" secondAttribute="bottom" constant="20" id="n59-kH-j9d"/>
-                            <constraint firstItem="tYz-pW-ylS" firstAttribute="top" secondItem="6cL-Qs-ed1" secondAttribute="bottom" constant="20" id="su9-XE-jnR"/>
                             <constraint firstItem="w3x-4s-ki2" firstAttribute="top" secondItem="cI9-19-Ihc" secondAttribute="bottom" constant="50" id="tRj-CP-lgr"/>
-                            <constraint firstItem="6cL-Qs-ed1" firstAttribute="top" secondItem="O6P-Wl-6Xx" secondAttribute="bottom" constant="20" id="u0h-zR-iWv"/>
                             <constraint firstItem="z8z-Bz-5Pg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="umB-Q8-RuV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="interstitialAdLabel" destination="823-Pe-Aoz" id="0yD-cZ-79y"/>
                         <outlet property="logoImageView" destination="bEk-sN-sES" id="KI3-yB-X5b"/>
-                        <outlet property="rewardLabel" destination="tYz-pW-ylS" id="kof-15-ZkE"/>
                         <outlet property="rewardedAdLabel" destination="w3x-4s-ki2" id="mxG-wa-lnW"/>
                         <outlet property="sdkVersionLabel" destination="z8z-Bz-5Pg" id="v77-W2-LIA"/>
                     </connections>

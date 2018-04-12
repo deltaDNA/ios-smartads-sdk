@@ -39,11 +39,11 @@ class ViewController: UIViewController {
         DDNASDK.setLogLevel(DDNALogLevel.debug)
         DDNASDK.sharedInstance().clientVersion = "1.0.0"
         DDNASDK.sharedInstance().hashSecret = "KmMBBcNwStLJaq6KsEBxXc6HY3A4bhGw"
+        DDNASmartAds.sharedInstance().registrationDelegate = self
+        
         DDNASDK.sharedInstance().start(withEnvironmentKey: "55822530117170763508653519413932",
                                        collectURL: "https://collect2010stst.deltadna.net/collect/api",
                                        engageURL: "https://engage2010stst.deltadna.net")
-        
-        DDNASmartAds.sharedInstance().registrationDelegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,20 +59,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showInterstitialAdWithDecisionPoint(_ sender: AnyObject) {
-        let engagement = DDNAEngagement(decisionPoint: "showInterstitial")
-        DDNASDK.sharedInstance().request(engagement, engagementHandler: {
-            (response: DDNAEngagement?) -> Void in
-            if (response != nil) {
-                if let interstitialAd = DDNAInterstitialAd(engagement: response, delegate: self) {
-                    interstitialAd.show(fromRootViewController: self)
-                    self.interstitialAd?.delegate = nil
-                    self.interstitialAd = interstitialAd
-                } else {
-                    print("Engage prevented you showing an ad at this time.")
-                }
-            } else {
-                print("Engage didn't respond, no campaign set up so move on.")
-            }
+        DDNASmartAds.sharedInstance().engageFactory.requestInterstitialAd(forDecisionPoint: "interstitialAd", handler: {
+            (interstitialAd: DDNAInterstitialAd) -> Void in
+            interstitialAd.delegate = self
+            interstitialAd.show(fromRootViewController: self)
         })
     }
     
@@ -84,67 +74,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showRewardedAdWithDecisionPoint(_ sender: AnyObject) {
-        let engagement = DDNAEngagement(decisionPoint: "showRewarded")
-        DDNASDK.sharedInstance().request(engagement, engagementHandler: {
-            (response: DDNAEngagement?) -> Void in
-            if (response != nil) {
-                if let rewardedAd = DDNARewardedAd(engagement: response, delegate: self) {
-                    rewardedAd.show(fromRootViewController: self)
-                    self.rewardedAd?.delegate = nil
-                    self.rewardedAd = rewardedAd
-                } else {
-                    print("Engage prevented you showing an ad at this time.")
-                }
-            } else {
-                print("Engage didn't respond, no campaign set up so move on.")
-            }
+        DDNASmartAds.sharedInstance().engageFactory.requestRewardedAd(forDecisionPoint: "rewardedAd1", handler: {
+            (rewardedAd: DDNARewardedAd) -> Void in
+            rewardedAd.delegate = self
+            rewardedAd.show(fromRootViewController: self)
+            
+            self.rewardedAd = rewardedAd
         })
-    }
-    
-    @IBAction func showRewardedAdOrImageMessage(_ sender: AnyObject) {
-        print("Show rewarded ad or image message.")
-        // make request to engage
-        let engagement = DDNAEngagement(decisionPoint: "rewardOrImage")
-        DDNASDK.sharedInstance().request(engagement) { (response: DDNAEngagement?) in
-            // get the response
-            if let response = response {
-                print("Got a response from engage: \(response.raw).")
-                
-                // try and build a rewarded ad
-                let rewardedAd: DDNARewardedAd? = DDNARewardedAd(engagement: response, delegate: self)
-                
-                // try and build an image message
-                let imageMessage: DDNAImageMessage? = DDNAImageMessage(engagement: response, delegate: self)
-                
-                // ad will succeed if engagement contains no ad related parameters, so see if image message is valid, else show the ad...
-                if let imageMessage = imageMessage {
-                    print("Got an image message!")
-                    // we got an image message to show, fetch it's resources
-                    imageMessage.fetchResources()
-                } else if let rewardedAd = rewardedAd {
-                    print("Got a rewarded ad!")
-                    if let rewardAmount = rewardedAd.parameters["rewardAmount"] {
-                        self.rewardLabel.text = String(format: "Reward for watching $\(rewardAmount).")
-                    } else {
-                        self.rewardLabel.text = "No reward available 😢."
-                    }
-                    
-                    // make offer to player... this like it so show the ad
-                    
-                    if (rewardedAd.isReady()) {
-                        print("Showing the rewarded ad.")
-                        rewardedAd.show(fromRootViewController: self)
-                    } else {
-                        print("Rewarded ad not ready.")
-                    }
-                } else {
-                    print("Engage didn't give us anything so move on.")
-                    self.rewardLabel.text = "No reward available 😢."
-                }
-            } else {
-                print("Engage didn't respond, no campaign set up so move on.")
-            }
-        }
     }
 }
 
@@ -153,7 +89,7 @@ extension ViewController: DDNASmartAdsRegistrationDelegate {
         print("Registered for interstitial ads.")
         self.interstitialAdLabel.text = "Registered for interstitial ads."
     }
-    func didFailToRegisterForInterstitialAds(withReason reason: String!) {
+    func didFailToRegisterForInterstitialAds(withReason reason: String) {
         print("Failed to register for interstitial ads: \(reason).")
         self.interstitialAdLabel.text = "Failed to register for interstitial ads."
     }
@@ -161,7 +97,7 @@ extension ViewController: DDNASmartAdsRegistrationDelegate {
         print("Registered for rewarded ads.")
         self.rewardedAdLabel.text = "Registered for rewarded ads."
     }
-    func didFailToRegisterForRewardedAds(withReason reason: String!) {
+    func didFailToRegisterForRewardedAds(withReason reason: String) {
         print("Failed to register for rewarded ads: \(reason).")
         self.rewardedAdLabel.text = "Failed to register for rewarded ads."
     }
@@ -180,6 +116,12 @@ extension ViewController: DDNAInterstitialAdDelegate {
 }
 
 extension ViewController: DDNARewardedAdDelegate {
+    func didLoad(_ rewardedAd: DDNARewardedAd!) {
+        print("Loaded rewarded ad.")
+    }
+    func didExpire(_ rewardedAd: DDNARewardedAd!) {
+        print("Expired rewarded ad.")
+    }
     func didOpen(_ rewardedAd: DDNARewardedAd!) {
         print("Opened rewarded ad.")
     }
