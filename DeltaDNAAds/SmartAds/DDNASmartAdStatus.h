@@ -39,15 +39,16 @@ typedef NS_OPTIONS(NSUInteger, DDNASmartAdRequestResultCode) {
 
 typedef NS_ENUM(NSInteger, DDNASmartAdShowResultCode) {
     DDNASmartAdShowResultCodeFulfilled,
-    DDNASmartAdShowResultCodeNoAdAvailable,
     DDNASmartAdShowResultCodeAdShowPoint,
     DDNASmartAdShowResultCodeAdSessionLimitReached,
     DDNASmartAdShowResultCodeAdSessionDecisionPointLimitReached,
     DDNASmartAdShowResultCodeAdDailyDecisionPointLimitReached,
     DDNASmartAdShowResultCodeMinTimeNotElapsed,
     DDNASmartAdShowResultCodeMinTimeDecisionPointNotElapsed,
-    DDNASmartAdShowResultCodeNotReady,
-    DDNASmartAdShowResultCodeEngageFailed
+    DDNASmartAdShowResultCodeEngageFailed,
+    DDNASmartAdShowResultCodeNotLoaded,
+    DDNASmartAdShowResultCodeExpired,
+    DDNASmartAdShowResultCodeError
 };
 
 @interface DDNASmartAdShowResult : NSObject
@@ -59,19 +60,4 @@ typedef NS_ENUM(NSInteger, DDNASmartAdShowResultCode) {
 
 @end
 
-typedef NS_ENUM(NSInteger, DDNASmartAdClosedResultCode) {
-    DDNASmartAdClosedResultCodeSuccess,
-    DDNASmartAdClosedResultCodeExpired,
-    DDNASmartAdClosedResultCodeError,
-    DDNASmartAdClosedResultCodeNotReady
-};
-
-@interface DDNASmartAdClosedResult : NSObject
-
-@property (nonatomic, assign, readonly) DDNASmartAdClosedResultCode code;
-@property (nonatomic, copy, readonly) NSString *desc;
-
-+ (instancetype)resultWith: (DDNASmartAdClosedResultCode)code;
-
-@end
 

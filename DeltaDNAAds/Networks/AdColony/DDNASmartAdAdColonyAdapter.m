@@ -142,18 +142,11 @@
 
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
-    if (self.ad != nil) {
-        if (!self.ad.expired) {
-            [self.ad showWithPresentingViewController:viewController];
-        } else {
-            [self.delegate adapterDidFailToShowAd:self
-                                       withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeExpired]];
-        }
+    if (self.ad != nil && !self.ad.expired) {
+        [self.ad showWithPresentingViewController:viewController];
     } else {
-        [self.delegate adapterDidFailToShowAd:self
-                                   withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
-    
 }
 
 - (int)resultCodeFromError:(NSError *)error

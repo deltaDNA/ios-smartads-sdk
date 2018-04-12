@@ -1257,7 +1257,7 @@ describe(@"allowed to show interstitial", ^{
             @"adProvider": @"DUMMY",
             @"adProviderVersion": @"1.0.0",
             @"adType": @"INTERSTITIAL",
-            @"adStatus": @"adShowPoint was false",
+            @"adStatus": @"Engage disallowed the ad",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
             @"adPoint": @"testDecisionPoint"
         };
@@ -1430,7 +1430,7 @@ describe(@"allowed to show interstitial minimal time", ^{
             @"adProvider": @"DUMMY",
             @"adProviderVersion": @"1.0.0",
             @"adType": @"INTERSTITIAL",
-            @"adStatus": @"Minimum time between ads not elapsed",
+            @"adStatus": @"Minimum time not elapsed",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
             @"adPoint": @"testDecisionPoint"
         };
@@ -1531,7 +1531,7 @@ describe(@"allowed to show rewarded", ^{
             @"adProvider": @"DUMMY",
             @"adProviderVersion": @"1.0.0",
             @"adType": @"REWARDED",
-            @"adStatus": @"adShowPoint was false",
+            @"adStatus": @"Engage disallowed the ad",
             @"adSdkVersion": [DDNASmartAds sdkVersion],
             @"adPoint": @"testDecisionPoint"
         };

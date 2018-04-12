@@ -89,7 +89,7 @@
         [self.interstitialAd showOver:[[UIApplication sharedApplication] keyWindow] andRender:self.ad];
     }
     else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

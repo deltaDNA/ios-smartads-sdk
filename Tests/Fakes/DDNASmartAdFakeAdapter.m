@@ -105,7 +105,7 @@
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     if (self.failToShow) {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
     } else {
         self.showing = YES;
         [self.delegate adapterIsShowingAd:self];

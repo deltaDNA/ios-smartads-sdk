@@ -106,7 +106,7 @@
     if (self.loaded) {
         [self.interstitial displayAd];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -121,7 +121,7 @@
 {
     if (videoAd == self.interstitial) {
         if (self.loaded) {
-            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
         } else {
             DDNASmartAdRequestResultCode code = DDNASmartAdRequestResultCodeError;
             DDNASmartAdRequestResult *result = [DDNASmartAdRequestResult resultWith:code];
@@ -161,7 +161,7 @@
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_PLAYER_ERROR]) {
             self.loaded = NO;
             [self deleteInterstitial];
-            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_CLICKTHRU]) {
             [self.delegate adapterWasClicked:self];
         } else if ([eventName isEqualToString:TPR_EVENT_NAME_AD_LEFT_APPLICATION]) {

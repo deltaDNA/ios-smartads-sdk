@@ -172,7 +172,10 @@ describe(@"ad agent", ^{
         expect(agent.currentAdapter).to.equal(adapters[1]);
         
         [[verifyCount(delegate, times(1)) withMatcher:anything() forArgument:2] adAgent:agent didLoadAdWithAdapter:adapters[1] requestTime:0];
-        [verifyCount(delegate, times(1)) adAgent:agent didFailToOpenAdWithAdapter:adapters[0] closedResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
+        [verifyCount(delegate, times(1)) adAgent:agent didFailToOpenAdWithAdapter:adapters[0] showResult:(id)argument];
+        DDNASmartAdShowResult *result = argument.value;
+        expect(result.code).to.equal(DDNASmartAdShowResultCodeError);
     });
     
     it(@"reports when ad ad was clicked", ^{
@@ -400,9 +403,9 @@ describe(@"ad agent", ^{
         // confirm got the failed to open callback when we tried to show an ad
         // (This fails with OCMockito 5.1)
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() closedResult:(id)argument];
-        DDNASmartAdClosedResult *result = argument.value;
-        expect(result.code).to.equal(DDNASmartAdClosedResultCodeNotReady);
+        [verify(delegate) adAgent:agent didFailToOpenAdWithAdapter:nilValue() showResult:(id)argument];
+        DDNASmartAdShowResult *result = argument.value;
+        expect(result.code).to.equal(DDNASmartAdShowResultCodeNotLoaded);
         
     });
     

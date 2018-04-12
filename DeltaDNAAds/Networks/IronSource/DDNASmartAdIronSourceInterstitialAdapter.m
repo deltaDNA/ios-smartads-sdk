@@ -62,7 +62,7 @@
     if ([[DDNASmartAdIronSourceHelper sharedInstance] hasInterstitial]) {
         [[DDNASmartAdIronSourceHelper sharedInstance] showInterstitialWithViewController:viewController placement:self.placementName];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -80,7 +80,7 @@
 
 - (void)interstitialDidFailToShowWithError:(NSError *)error
 {
-    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
 }
 
 - (void)didClickInterstitial

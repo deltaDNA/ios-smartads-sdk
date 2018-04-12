@@ -121,8 +121,8 @@ extension AdNetwork : DDNASmartAdAdapterDelegate {
         self.delegate?.update()
     }
     
-    func adapterDidFail(toShowAd adapter: DDNASmartAdAdapter!, with result: DDNASmartAdClosedResult!) {
-        print("Failed to show \(self.name) ad: \(result.description)")
+    func adapterDidFail(toShowAd adapter: DDNASmartAdAdapter!, with result: DDNASmartAdShowResult!) {
+        print("Failed to show \(self.name) ad: \(result.desc!)")
         self.showedAd = false
         self.delegate?.update()
     }

@@ -86,7 +86,7 @@
         [self.interstitial presentWithViewController:viewController];
     }
     else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -139,7 +139,7 @@
     
     switch (adError) {
         case FLURRY_AD_ERROR_DID_FAIL_TO_RENDER: {
-            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+            [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
             break;
         }
         case FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD: {

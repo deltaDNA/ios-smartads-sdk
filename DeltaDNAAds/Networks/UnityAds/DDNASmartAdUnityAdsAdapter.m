@@ -100,7 +100,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
         self.state = kUnityAdsStateShowing;
         [UnityAds show:viewController placementId:self.placementId];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 
@@ -142,7 +142,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
                 break;
             }
             case kUnityAdsStateShowing: {
-                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
                 break;
             }
             default:
@@ -225,7 +225,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
                  *  A state that indicates that the ad did not successfully display.
                  */
                 case kUnityAdsFinishStateError : {
-                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
                     break;
                 }
                 /**
@@ -243,7 +243,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
                     break;
                 }
                 default : {
-                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeError]];
+                    [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeError]];
                     break;
                 }
             }

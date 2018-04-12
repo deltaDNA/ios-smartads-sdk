@@ -69,7 +69,7 @@
     if ([[DDNASmartAdChartboostHelper sharedInstance] hasInterstitial:self.location]) {
         [[DDNASmartAdChartboostHelper sharedInstance] showInterstitial:self.location];
     } else {
-        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdClosedResult resultWith:DDNASmartAdClosedResultCodeNotReady]];
+        [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
 }
 

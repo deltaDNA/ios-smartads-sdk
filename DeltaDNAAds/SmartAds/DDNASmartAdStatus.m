@@ -86,88 +86,31 @@
     switch (resultCode) {
         case DDNASmartAdShowResultCodeFulfilled:
             return @"Fulfilled";
-        case DDNASmartAdShowResultCodeNoAdAvailable:
-            return @"No ad was available";
         case DDNASmartAdShowResultCodeAdShowPoint:
-            return @"adShowPoint was false";
+            return @"Engage disallowed the ad";
         case DDNASmartAdShowResultCodeAdSessionLimitReached:
             return @"Session limit reached";
         case DDNASmartAdShowResultCodeAdSessionDecisionPointLimitReached:
-            return @"Session limit for decision point reached";
+            return @"Session decision point limit reached";
         case DDNASmartAdShowResultCodeAdDailyDecisionPointLimitReached:
-            return @"Daily limit for decision point reached";
+            return @"Daily decision point limit reached";
         case DDNASmartAdShowResultCodeMinTimeNotElapsed:
-            return @"Minimum time between ads not elapsed";
+            return @"Minimum time not elapsed";
         case DDNASmartAdShowResultCodeMinTimeDecisionPointNotElapsed:
-            return @"Minimum time between ads not elapsed for decision point";
-        case DDNASmartAdShowResultCodeNotReady:
-            return @"Not ready";
+            return @"Minimum decision point time not elapsed";
         case DDNASmartAdShowResultCodeEngageFailed:
-            return @"Enage hit failed, showing ad anyway";
-        default:
-            return nil;
-    }
-}
-
-@end
-
-@interface DDNASmartAdClosedResult ()
-
-@property (nonatomic, assign) DDNASmartAdClosedResultCode code;
-@property (nonatomic, copy) NSString *desc;
-
-@end
-
-@implementation DDNASmartAdClosedResult
-
-+ (instancetype)resultWith:(DDNASmartAdClosedResultCode)code
-{
-    DDNASmartAdClosedResult *result = [[DDNASmartAdClosedResult alloc] init];
-    result.code = code;
-    result.desc = [DDNASmartAdClosedResult stringFromResultCode:code];
-    return result;
-}
-
-+ (NSString *)stringFromResultCode: (DDNASmartAdClosedResultCode)resultCode
-{
-    switch (resultCode) {
-        case DDNASmartAdClosedResultCodeSuccess:
-            return @"Success";
-        case DDNASmartAdClosedResultCodeExpired:
+            return @"Engage failed";
+        case DDNASmartAdShowResultCodeNotLoaded:
+            return @"Not loaded";
+        case DDNASmartAdShowResultCodeExpired:
             return @"Expired";
-        case DDNASmartAdClosedResultCodeError:
+        case DDNASmartAdShowResultCodeError:
             return @"Error";
-        case DDNASmartAdClosedResultCodeNotReady:
-            return @"Not Ready";
         default:
             return nil;
     }
 }
 
-- (BOOL)isEqualToClosedResult:(DDNASmartAdClosedResult *)closedResult
-{
-    if (!closedResult) return NO;
-    
-    BOOL haveEqualCodes = self.code == closedResult.code;
-    
-    return haveEqualCodes;
-}
-
-- (BOOL)isEqual:(id)object
-{
-    if (self == object) return YES;
-    
-    if (![object isKindOfClass:[DDNASmartAdClosedResult class]]) return NO;
-    
-    return [self isEqualToClosedResult:(DDNASmartAdClosedResult *)object];
-}
-
-- (NSUInteger)hash
-{
-    return [self.desc hash];
-}
-
-
-
 @end
+
 
