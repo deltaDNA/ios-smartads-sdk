@@ -23,7 +23,7 @@
 #import "SmartAds/DDNAAd.h"
 #import "SmartAds/DDNAInterstitialAd.h"
 #import "SmartAds/DDNARewardedAd.h"
-#import "SmartAds/DDNAEngageFactory+SmartAds.h"
+#import "SmartAds/DDNASmartAdEngageFactory.h"
 #import "SmartAds/DDNADebugListener.h"
 
 #endif /* _DELTADNA_ADS_ */
