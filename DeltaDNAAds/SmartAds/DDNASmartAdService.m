@@ -176,6 +176,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
                                     userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
                 [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
             }
+            [self.metrics newSessionWithDate:[NSDate date]];
         }
     }];
 }

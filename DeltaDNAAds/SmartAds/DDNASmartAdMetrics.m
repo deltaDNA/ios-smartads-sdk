@@ -35,7 +35,6 @@ NSString * const kDDNACollectedDecisionPoints = @"com.deltadna.ads.metrics.Colle
 {
     if ((self = [super init])) {
         self.userDefaults = userDefaults;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newSession) name:@"DDNASDKNewSession" object:nil];
     }
     return self;
 }
@@ -174,11 +173,5 @@ NSString * const kDDNACollectedDecisionPoints = @"com.deltadna.ads.metrics.Colle
         [self.userDefaults setObject:mutableCollectedDecisionPoints forKey:kDDNACollectedDecisionPoints];
     }
 }
-
-- (void)newSession
-{
-    [self newSessionWithDate:[NSDate date]];
-}
-
 
 @end
