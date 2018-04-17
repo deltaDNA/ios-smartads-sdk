@@ -17,7 +17,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.7.2'
+    pod 'DeltaDNAAds', '~> 1.8.0'
 end
 ```
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.7.2', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.8.0', :subspecs => ['AdMob','MoPub']
 end
 ```
 The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.
@@ -72,7 +72,7 @@ if (interstitialAd != nil) {
 }
 ```
 
-The example assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNAInterstitialAdDelegate`.  It's important to test the `interstitialAd` is not nil, you will only get a real object back if you are allowed to show an ad at this time.  The initialisation checks session limits, time limits and that an ad has loaded and is available to display.  An *adShow* event is recorded whenever you try to create an ad, this reports the reason for not creating an ad so the ad performance can be accurately tracked.  Don't repeatedly try to create an ad until you get one, you should try once and move on if none was available.
+The example assumes you're in a `UIViewController` and you've implemented the delegate methods of `DDNAInterstitialAdDelegate`.  Although there is an `isReady` method, we recommend not checking that and showing the interstitial whenever the game requires on as that will allow our platform to reports the game's fill rate.
 
 The following callbacks are provided by `DDNAInterstitialAdDelegate`:
 
@@ -88,7 +88,13 @@ A rewarded ad is a short video, typically 30 seconds in length that the player m
 
 ```objective-c
 DDNARewardedAd *rewardedAd = [DDNARewardedAd rewardedAdWithDelegate:self];
-if (rewardedAd != nil) {
+self.rewardedAd = rewardedAd;
+
+// wait for an ad to be loaded in the delegate
+
+- (void)didLoadRewardedAd:(DDNARewardedAd *)rewardedAd
+{
+    // If they choose to watch the ad
     [rewardedAd showFromRootViewController:self];
 }
 ```
@@ -97,6 +103,8 @@ The example again assumes you're in a `UIViewController` and you've implemented 
 
 The following callbacks are provided by `DDNARewardedAdDelegate`:
 
+* `-didLoadRewardedAd:` - Called when an ad loads and is ready to view.
+* `-didExpireRewardedAd:` - Called when a previously loaded ad is no longer available to view.
 * `-didOpenRewardedAd:` - Called when the ad is showing on screen.
 * `-didFailToOpenRewardedAd:withReason:` - Called if the ad fails to open for some reason.
 * `-didCloseRewardedAd:withReward:` - Called when the ad is finished, the reward flag indicates if the ad was watched enough that you can reward the player.
@@ -130,7 +138,7 @@ Checkout the included example project for more details.
 
 ### iOS 10 and ATS Support
 
-The following table is a list of considerations when integrating our library.  Many of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry and ThirdPresence work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. This library hasn't been written to support dynamic frameworks either so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.
+The following table is a list of considerations when integrating our library.  Many of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry and ThirdPresence work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. The library does not support dynamic frameworks, so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.
 
 | Ad Network      | ATS Support  | Bitcode | Frameworks | Notes |
 |-----------------|--------------|---------|------------|-------|
@@ -162,3 +170,7 @@ More details on what ads are being loaded and shown can be enabled by adding deb
 ## License
 
 The sources are available under the Apache 2.0 license.
+
+## Contact Us
+
+For more information, please visit [deltadna.com](https://deltadna.com/). For questions or assistance, please email us at [support@deltadna.com](mailto:support@deltadna.com).
