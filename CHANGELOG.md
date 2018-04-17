@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.8.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(YYYY-MM-DD)
+## [1.8.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(2018-04-17)
 ### Added
 - Automatic registration for ads.
 - Improvements for controlling ads with decision points.

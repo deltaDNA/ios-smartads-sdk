@@ -17,7 +17,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.7.2'
+    pod 'DeltaDNAAds', '~> 1.8.0'
 end
 ```
 
@@ -30,7 +30,7 @@ source 'https://github.com/deltaDNA/CocoaPods.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'MyApp' do
-    pod 'DeltaDNAAds', '~> 1.7.2', :subspecs => ['AdMob','MoPub']
+    pod 'DeltaDNAAds', '~> 1.8.0', :subspecs => ['AdMob','MoPub']
 end
 ```
 The list of available subspecs can be found in `DeltaDNAAds.podspec` at the root of this project.
@@ -162,3 +162,7 @@ More details on what ads are being loaded and shown can be enabled by adding deb
 ## License
 
 The sources are available under the Apache 2.0 license.
+
+## Contact Us
+
+For more information, please visit [deltadna.com](https://deltadna.com/). For questions or assistance, please email us at [support@deltadna.com](mailto:support@deltadna.com).
