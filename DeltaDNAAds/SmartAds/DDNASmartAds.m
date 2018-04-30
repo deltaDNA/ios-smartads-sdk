@@ -50,6 +50,9 @@
     if ((self = [super init])) {
         self.factory = [DDNASmartAdFactory sharedInstance];
         self.debugListener = [DDNADebugListener sharedInstance];
+        #if !DDNA_DEBUG_NOTIFICATIONS
+        [self.debugListener disableNotifications];
+        #endif
         [self.debugListener registerListeners];
 
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
@@ -79,7 +82,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.8.0";
+    return @"SmartAds v1.8.1";
 }
 
 - (void)registerForAds
