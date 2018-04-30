@@ -165,7 +165,7 @@ The following table is a list of considerations when integrating our library.  M
 Facebook Audience Network integration needs you to manage the account and create suitable placements for our mediation to use.  Contact support for more information.
 
 ### Diagnostics
-More details on what ads are being loaded and shown can be enabled by adding debug notifications to your project. Follow the instructions for the project [here](https://github.com/deltaDNA/ios-debug-sdk) to find out more details.
+More details on what ads are being loaded and shown can be enabled by adding debug notifications to your project. Follow the instructions for the project [here](https://github.com/deltaDNA/ios-debug-sdk) to find out more details.  The DDNA_DEBUG_NOTIFICATIONS preprocessor flag must be set to enable the local notifications.
 
 ## License
 
