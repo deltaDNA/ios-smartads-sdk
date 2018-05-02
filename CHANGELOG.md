@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.8.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(2018-04-30)
+### Fixed
+- Debug notifications being triggered by other libraries.
+
 ## [1.8.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(2018-04-17)
 ### Added
 - Automatic registration for ads.
