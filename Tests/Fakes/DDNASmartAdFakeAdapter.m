@@ -60,7 +60,7 @@
 
 - (instancetype)initWithName:(NSString *)name resultCodes:(NSArray *)resultCodes failToShow:(BOOL)failToShow
 {
-    if ((self = [super initWithName:name version:@"1.0.0" eCPM:150 waterfallIndex:1])) {
+    if ((self = [super initWithName:name version:@"1.0.0" eCPM:150 privacy:nil waterfallIndex:1])) {
         self.showing = NO;
         self.failToShow = failToShow;
         self.resultCodes = [NSMutableArray arrayWithArray:resultCodes];

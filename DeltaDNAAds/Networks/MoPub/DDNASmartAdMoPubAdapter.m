@@ -27,11 +27,12 @@
 
 @implementation DDNASmartAdMoPubAdapter
 
-- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"MOPUB"
                             version:[MoPub sharedInstance].version
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         self.adUnitId = adUnitId;
         self.testMode = testMode;
@@ -52,13 +53,14 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex: (NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"adUnitId"]) return nil;
     
     return [self initWithAdUnitId:configuration[@"adUnitId"]
                          testMode:[configuration[@"testMode"] boolValue]
                              eCPM:[configuration[@"eCPM"] integerValue]
+                          privacy:privacy
                    waterfallIndex:waterfallIndex];
 }
 

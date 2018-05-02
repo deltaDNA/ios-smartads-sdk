@@ -33,8 +33,7 @@ describe(@"LoopMe adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
@@ -50,8 +49,7 @@ describe(@"LoopMe adapter", ^{
             @"adProvider": @"LOOPME"
         };
         
-        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -64,8 +62,7 @@ describe(@"LoopMe adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test_interstitial_p");
@@ -73,6 +70,20 @@ describe(@"LoopMe adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"LOOPME",
+            @"appKey": @"test-app-key",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdLoopMeAdapter *adapter = [[DDNASmartAdLoopMeAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
 });
 

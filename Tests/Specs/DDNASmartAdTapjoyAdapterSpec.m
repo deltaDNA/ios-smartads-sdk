@@ -34,8 +34,7 @@ describe(@"Tapjoy adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
@@ -52,8 +51,7 @@ describe(@"Tapjoy adapter", ^{
             @"adProvider": @"TAPJOY"
         };
         
-        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -67,8 +65,7 @@ describe(@"Tapjoy adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
@@ -77,6 +74,21 @@ describe(@"Tapjoy adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"TAPJOY",
+            @"sdkKey": @"test-sdk-key",
+            @"placementName": @"test-placement-name",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdTapjoyAdapter *adapter = [[DDNASmartAdTapjoyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
 });
 

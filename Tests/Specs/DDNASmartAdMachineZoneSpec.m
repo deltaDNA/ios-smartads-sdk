@@ -35,8 +35,7 @@ describe(@"MachineZone interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                       waterfallIndex:1];
+        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
@@ -51,8 +50,7 @@ describe(@"MachineZone interstitial adapter", ^{
             @"adProvider": @"MACHINEZONE"
         };
         
-        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                       waterfallIndex:1];
+        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -65,8 +63,7 @@ describe(@"MachineZone interstitial adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                       waterfallIndex:1];
+        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"ignored-ad-unit-id");
@@ -74,6 +71,20 @@ describe(@"MachineZone interstitial adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"MACHINEZONE",
+            @"adUnitId": @"test-ad-unit-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdMachineZoneInterstitialAdapter *adapter = [[DDNASmartAdMachineZoneInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });
@@ -88,8 +99,7 @@ describe(@"MachineZone rewarded adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                               waterfallIndex:1];
+        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
@@ -105,8 +115,7 @@ describe(@"MachineZone rewarded adapter", ^{
             @"adProvider": @"MACHINEZONE"
         };
         
-        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                               waterfallIndex:1];
+        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -119,8 +128,7 @@ describe(@"MachineZone rewarded adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                               waterfallIndex:1];
+        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"ignored-ad-unit-id");
@@ -128,6 +136,20 @@ describe(@"MachineZone rewarded adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"MACHINEZONE",
+            @"adUnitId": @"test-ad-unit-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdMachineZoneRewardedAdapter *adapter = [[DDNASmartAdMachineZoneRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

@@ -28,30 +28,30 @@
 
 @implementation DDNASmartAdMachineZoneInterstitialAdapter
     
-- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAdUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM                          privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"MACHINEZONE"
                             version:[DDNASmartAdMachineZoneHelper sdkVersion]
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         
         self.adUnitId = adUnitId;
         self.testMode = testMode;
-        
-        [[DDNASmartAdMachineZoneHelper sharedInstance] startAdZone];
     }
     return self;
 }
     
 #pragma mark - DDNASmartAdAdapter
     
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"adUnitId"]) return nil;
     
     return [self initWithAdUnitId:configuration[@"adUnitId"]
                          testMode:[configuration[@"testMode"] boolValue]
                              eCPM:[configuration[@"eCPM"] integerValue]
+                          privacy:privacy
                    waterfallIndex:waterfallIndex];
 }
     
@@ -63,6 +63,7 @@
         [DDNASmartAdMachineZoneHelper sharedInstance].requestInterstitial = ^{
             [self requestAd];
         };
+        [[DDNASmartAdMachineZoneHelper sharedInstance] startAdZone];
     }
 }
     

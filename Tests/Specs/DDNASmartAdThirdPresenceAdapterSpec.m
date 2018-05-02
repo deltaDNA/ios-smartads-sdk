@@ -34,8 +34,7 @@ describe(@"ThirdPresence adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration
-                                                                                                   waterfallIndex:1];
+        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.accountName).to.equal(@"test-account-name");
@@ -52,8 +51,7 @@ describe(@"ThirdPresence adapter", ^{
             @"adProvider": @"THIRDPRESENCE"
         };
         
-        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration
-                                                                                                   waterfallIndex:1];
+        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -67,8 +65,7 @@ describe(@"ThirdPresence adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration
-                                                                                                   waterfallIndex:1];
+        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.accountName).to.equal(@"sdk-demo");
@@ -77,6 +74,21 @@ describe(@"ThirdPresence adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"THIRDPRESENCE",
+            @"accountName": @"test-account-name",
+            @"placementId": @"test-placement-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdThirdPresenceAdapter *adapter = [[DDNASmartAdThirdPresenceAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

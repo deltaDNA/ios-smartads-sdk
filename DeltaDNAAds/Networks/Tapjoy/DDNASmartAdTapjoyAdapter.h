@@ -27,6 +27,7 @@
                  placementName:(NSString *)placementName
                       testMode:(BOOL)testMode
                           eCPM:(NSInteger)eCPM
+                       privacy:(DDNASmartAdPrivacy *)privacy
                 waterfallIndex:(NSInteger)waterfallIndex;
 
 @end

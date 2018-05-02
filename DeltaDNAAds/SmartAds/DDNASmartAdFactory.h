@@ -25,6 +25,7 @@
 @protocol DDNASmartAdAdapter;
 
 @class DDNASmartAdWaterfall;
+@class DDNASmartAdPrivacy;
 
 /**
  *  Factory creates components for smart ad library.
@@ -40,9 +41,11 @@
                                             delegate:(id<DDNASmartAdAgentDelegate>)delegate;
 
 - (NSArray *)buildInterstitialAdapterWaterfallWithAdProviders:(NSArray *)adProviders
-                                                   floorPrice:(NSInteger)floorPrice;
+                                                   floorPrice:(NSInteger)floorPrice
+                                                      privacy:(DDNASmartAdPrivacy *)privacy;
 
 - (NSArray *)buildRewardedAdapterWaterfallWithAdProviders:(NSArray *)adProviders
-                                               floorPrice:(NSInteger)floorPrice;
+                                               floorPrice:(NSInteger)floorPrice
+                                                  privacy:(DDNASmartAdPrivacy *)privacy;
 
 @end

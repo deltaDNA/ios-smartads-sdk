@@ -49,7 +49,8 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:YES ageRestricted:NO];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0 privacy:privacy];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(3);
@@ -80,7 +81,8 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:250];
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:YES ageRestricted:NO];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:250 privacy:privacy];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(1);
@@ -106,7 +108,8 @@ describe(@"factory waterfall", ^{
             }
         ];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:YES ageRestricted:NO];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0 privacy:privacy];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(2);
@@ -120,7 +123,8 @@ describe(@"factory waterfall", ^{
         
         NSArray *adProviders = @[];
         
-        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0];
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:YES ageRestricted:NO];
+        NSArray *adapters = [[DDNASmartAdFactory sharedInstance] buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:0 privacy:privacy];
         
         expect(adapters).toNot.beNil();
         expect(adapters.count).to.equal(0);

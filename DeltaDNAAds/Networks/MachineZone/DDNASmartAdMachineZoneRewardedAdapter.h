@@ -25,5 +25,6 @@
 - (instancetype)initWithAdUnitId: (NSString *)adUnitId
                         testMode: (BOOL)testMode
                             eCPM: (NSInteger)eCPM
+                         privacy: (DDNASmartAdPrivacy *)privacy
                   waterfallIndex: (NSInteger)waterfallIndex;
     @end

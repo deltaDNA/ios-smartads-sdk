@@ -42,31 +42,34 @@
 
 @implementation DDNASmartAdLoopMeAdapter
 
-- (instancetype)initWithAppKey:(NSString *)appKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppKey:(NSString *)appKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"LOOPME" version:LOOPME_SDK_VERSION eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"LOOPME"
+                            version:LOOPME_SDK_VERSION
+                               eCPM:eCPM
+                            privacy:privacy
+                     waterfallIndex:waterfallIndex])) {
         
         self.appKey = testMode ? TEST_APP_KEY_INTERSTITIAL_PORTRAIT : appKey;
         self.testMode = testMode;
         self.reward = NO;
-        
-        setLoopMeLogLevel(LoopMeLogLevelDebug);
     }
     return self;
 }
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"appKey"]) return nil;
     
-    return [self initWithAppKey:configuration[@"appKey"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithAppKey:configuration[@"appKey"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
     if (!self.interstitial) {
+        setLoopMeLogLevel(self.testMode ? LoopMeLogLevelDebug : LoopMeLogLevelOff);
         self.interstitial = [LoopMeInterstitial interstitialWithAppKey:self.appKey delegate:self];
     }
     

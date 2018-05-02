@@ -25,6 +25,7 @@
 - (instancetype)initWithAppKey:(NSString *)appKey
                  placementName:(NSString *)placementName
                           eCPM:(NSInteger)eCPM
+                       privacy:(DDNASmartAdPrivacy *)privacy
                 waterfallIndex:(NSInteger)waterfallIndex;
 
 @end

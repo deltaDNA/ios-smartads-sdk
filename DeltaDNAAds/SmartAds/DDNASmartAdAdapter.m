@@ -21,24 +21,26 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *version;
 @property (nonatomic, assign) NSInteger eCPM;
+@property (nonatomic, strong) DDNASmartAdPrivacy *privacy;
 
 @end
 
 @implementation DDNASmartAdAdapter
 
-- (instancetype)initWithName:(NSString *)name version:(NSString *)version eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithName:(NSString *)name version:(NSString *)version eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super init])) {
         self.name = name;
         self.version = version;
         self.eCPM = eCPM;
+        self.privacy = privacy;
         self.waterfallIndex = waterfallIndex;
         self.score = 0;
     }
     return self;
 }
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     [self doesNotRecognizeSelector:_cmd];
     return nil;
@@ -52,6 +54,11 @@
 - (void)showAdFromViewController:(UIViewController *)viewController
 {
     [self doesNotRecognizeSelector:_cmd];
+}
+
+- (BOOL)isGdprCompliant
+{
+    return NO;
 }
 
 - (NSString *)description

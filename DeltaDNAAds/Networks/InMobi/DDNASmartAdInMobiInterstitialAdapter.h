@@ -21,10 +21,13 @@
 
 @property (nonatomic, copy, readonly) NSString *accountId;
 @property (nonatomic, assign, readonly) NSInteger placementId;
+@property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
 - (instancetype)initWithAccountId: (NSString *)accountId
                       placementId: (NSInteger)placementId
                              eCPM: (NSInteger)eCPM
-                   waterfallIndex: (NSInteger)waterfallIndex;
+                          privacy: (DDNASmartAdPrivacy *)privacy
+                   waterfallIndex: (NSInteger)waterfallIndex
+                         testMode: (BOOL)testMode;
 
 @end

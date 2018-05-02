@@ -24,9 +24,10 @@
 @property (nonatomic, assign, readonly) BOOL testMode;
 
 - (instancetype)initWithDistributorId:(NSString *)distributorId
-                 propertyId:(NSString *)propertyId
-                      testMode:(BOOL)testMode
-                          eCPM:(NSInteger)eCPM
-                waterfallIndex:(NSInteger)waterfallIndex;
+                           propertyId:(NSString *)propertyId
+                             testMode:(BOOL)testMode
+                                 eCPM:(NSInteger)eCPM
+                              privacy: (DDNASmartAdPrivacy *)privacy
+                       waterfallIndex:(NSInteger)waterfallIndex;
 
 @end

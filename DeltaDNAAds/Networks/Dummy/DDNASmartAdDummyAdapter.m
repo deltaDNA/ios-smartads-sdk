@@ -20,9 +20,9 @@
 
 #pragma mark - DDNASmartAdsAdapter protocol
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    return [self initWithName:@"DUMMY" version:@"1.0.0" eCPM:100 waterfallIndex:0];
+    return [self initWithName:@"DUMMY" version:@"1.0.0" eCPM:100 privacy:privacy waterfallIndex:0];
 }
 
 - (void)requestAd

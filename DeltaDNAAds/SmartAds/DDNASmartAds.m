@@ -18,7 +18,6 @@
 #import "DDNASmartAdFactory.h"
 #import "DDNASmartAdService.h"
 #import "DDNADebugListener.h"
-#import "DDNASmartAdEngageFactory.h"
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNA/DDNALog.h>
 #import <DeltaDNA/NSString+DeltaDNA.h>
@@ -40,6 +39,7 @@
 @property (nonatomic, strong) DDNASmartAdService *adService;
 @property (nonatomic, strong) DDNADebugListener *debugListener;
 @property (nonatomic, strong) DDNASmartAdEngageFactory *engageFactory;
+@property (nonatomic, strong) DDNASmartAdSettings *settings;
 
 @end
 
@@ -58,9 +58,8 @@
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAdsInternal) name:@"DDNASDKNewSession" object:nil];
 
-        [self registerForAdsInternal];
-        
         self.engageFactory = [[DDNASmartAdEngageFactory alloc] initWithDDNASDK:[DDNASDK sharedInstance]];
+        self.settings = [[DDNASmartAdSettings alloc] init];
     }
     return self;
 }
@@ -82,7 +81,7 @@
 
 + (NSString *)sdkVersion
 {
-    return @"SmartAds v1.8.1";
+    return @"SmartAds v1.9.0-beta.2";
 }
 
 - (void)registerForAds
@@ -95,7 +94,9 @@
     @synchronized(self) {
         @try{
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
-            [self.adService beginSessionWithDecisionPoint:@"advertising"];
+            [self.adService beginSessionWithDecisionPoint:@"advertising"
+                                              userConsent:self.settings.advertiserGdprUserConsent
+                                            ageRestricted:self.settings.advertiserGdprAgeRestrictedUser];
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error registering for ads: %@", exception);

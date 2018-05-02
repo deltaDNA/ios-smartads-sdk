@@ -57,7 +57,11 @@ class AdNetwork : NSObject {
     static func construct(className: String, config: NSDictionary) -> DDNASmartAdAdapter? {
     
         let klass = NSClassFromString(className) as? DDNASmartAdAdapter.Type
-        let adapter = klass?.init(configuration: config as! [AnyHashable: Any], waterfallIndex: 1)
+        let privacy = DDNASmartAdPrivacy()
+        privacy.hasAdvertiserGdprUserConsent = true
+        privacy.isAdvertiserGdprAgeRestrictedUser = true
+        //let adapter = klass?.init(_ config as! [AnyHashable: Any], _ nil, _ 1)
+        let adapter = klass?.init(configuration: config as! [AnyHashable: Any], privacy: privacy, waterfallIndex: 1)
         if adapter == nil {
             print("Failed to initialise adapter for \(className)")
         }

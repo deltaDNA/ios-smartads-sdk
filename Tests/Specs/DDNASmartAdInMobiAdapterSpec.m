@@ -36,8 +36,7 @@ describe(@"InMobi interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.accountId).to.equal(@"test-account-id");
@@ -53,10 +52,24 @@ describe(@"InMobi interstitial adapter", ^{
             @"adProvider": @"INMOBI"
         };
         
-        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"INMOBI",
+            @"accountId": @"test-account-id",
+            @"placementId": @12345,
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });
@@ -72,8 +85,7 @@ describe(@"InMobi rewarded adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                     waterfallIndex:1];
+        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.accountId).to.equal(@"test-account-id");
@@ -89,10 +101,24 @@ describe(@"InMobi rewarded adapter", ^{
             @"adProvider": @"INMOBI-REWARDED"
         };
         
-        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                     waterfallIndex:1];
+        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"INMOBI-REWARDED",
+            @"accountId": @"test-account-id",
+            @"placementId": @12345,
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

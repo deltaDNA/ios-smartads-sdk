@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.9.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.9.0)(2018-??-??)
+### Changed
+- Minimum required os version now iOS 9.
+
+### Added
+- Added `advertiserGdprUserConsent` and `advertiserGdprAgeRestrictedUser` flags for GDPR.  User consent passed to AppLovin, Vungle, Ironsource and Chartboost.  See README for details on our GDPR support.
+
+### Fixed
+- Updated AppLovin, Vungle, TapJoy, InMobi, MobFox, Chartboost, Facebook, AdMob, Flurry, Ironsource and LoopMe.
+
 ## [1.8.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.8.0)(2018-04-30)
 ### Fixed
 - Debug notifications being triggered by other libraries.

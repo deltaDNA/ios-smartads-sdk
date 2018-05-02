@@ -24,23 +24,24 @@
 @property (nonatomic, copy) NSString *appId;
 @property (nonatomic, copy) NSString *adUnitId;
 @property (nonatomic, assign) BOOL testMode;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdAdMobInterstitialAdapter
 
-- (instancetype)initWithAppId:(NSString *)appId adUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppId:(NSString *)appId adUnitId:(NSString *)adUnitId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"ADMOB"
                             version:[DDNASmartAdAdMobHelper sdkVersion]
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         
         self.appId = testMode ? @"ca-app-pub-3940256099942544~1458002511" : appId;
         self.adUnitId = testMode ? @"ca-app-pub-3940256099942544/4411468910" : adUnitId;
         self.testMode = testMode;
-        
-        [DDNASmartAdAdMobHelper configureWithAppId:self.appId];
+        self.initialised = NO;
     }
     return self;
 }
@@ -56,19 +57,24 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"adUnitId"] || !configuration[@"appId"]) return nil;
     
     return [self initWithAppId:configuration[@"appId"]
                       adUnitId:configuration[@"adUnitId"]
-                         testMode:[configuration[@"testMode"] boolValue]
-                             eCPM:[configuration[@"eCPM"] integerValue]
+                      testMode:[configuration[@"testMode"] boolValue]
+                          eCPM:[configuration[@"eCPM"] integerValue]
+                       privacy:privacy
                    waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (self.initialised) {
+        [DDNASmartAdAdMobHelper configureWithAppId:self.appId];
+        self.initialised = YES;
+    }
     self.interstitial = [self createAndLoadInterstitial];
 }
 

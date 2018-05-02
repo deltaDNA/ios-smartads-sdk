@@ -73,7 +73,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     return self;
 }
 
-- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint
+- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint userConsent:(BOOL)userConsent ageRestricted:(BOOL)ageRestricted
 {
     [self.delegate requestEngagementWithDecisionPoint:decisionPoint
                                               flavour:@"internal"
@@ -87,7 +87,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
                                                   REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
-                [self beginSessionWithDecisionPoint:decisionPoint];
+                [self beginSessionWithDecisionPoint:decisionPoint userConsent:userConsent ageRestricted:ageRestricted];
             });
         }
         else {
@@ -118,9 +118,10 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             NSUInteger demoteCode = [self.adConfiguration[@"adDemoteOnRequestCode"] unsignedIntegerValue];
             
             NSArray *adProviders = self.adConfiguration[@"adProviders"];
+            DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:userConsent ageRestricted:ageRestricted];
             
             if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
-                NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice];
+                NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice privacy:privacy];
                 if (adapters == nil || adapters.count == 0) {
                     DDNALogWarn(@"No interstitial ad networks enabled");
                     
@@ -150,7 +151,7 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
             NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
             
             if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
-                NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice];
+                NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice privacy:privacy];
                 if (adapters == nil || adapters.count == 0) {
                     DDNALogWarn(@"No rewarded ad networks enabled");
                     

@@ -38,7 +38,7 @@
 
 - (instancetype)init
 {
-    self.dummyAdapter = [[DDNASmartAdDummyAdapter alloc] initWithName:@"DUMMY" version:@"1.0.0" eCPM:100 waterfallIndex:1];
+    self.dummyAdapter = [[DDNASmartAdDummyAdapter alloc] initWithName:@"DUMMY" version:@"1.0.0" eCPM:100 privacy:nil  waterfallIndex:1];
     
     DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:@[self.dummyAdapter] demoteOnOptions:0 maxRequests:0];
     if ((self = [super initWithWaterfall:waterfall])) {

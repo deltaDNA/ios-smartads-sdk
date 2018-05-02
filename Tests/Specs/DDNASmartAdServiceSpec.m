@@ -53,7 +53,7 @@ describe(@"registering for ads", ^{
     
     it(@"retries with connection error", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -73,7 +73,7 @@ describe(@"registering for ads", ^{
     
     it(@"no ad available with engage non 200 response", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -91,7 +91,7 @@ describe(@"registering for ads", ^{
     
     it(@"no ad available with empty engage response", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -115,7 +115,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -141,7 +141,7 @@ describe(@"registering for ads", ^{
         };
         
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -167,7 +167,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -195,7 +195,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -234,7 +234,7 @@ describe(@"registering for ads", ^{
         
         fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
 
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -300,7 +300,7 @@ describe(@"interstitial ads", ^{
     
     it(@"shows an interstitial ad using an Engagement", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -345,7 +345,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"does not show an interstitial with an invalid Engagement", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -371,7 +371,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"does not show an interstitial with an Engagement when adShowPoint is false", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -397,7 +397,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max session is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -435,7 +435,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max session for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -471,7 +471,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max daily for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -506,7 +506,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"doesn't show an ad with an Engagement before the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -533,7 +533,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"shows an ad with an Engagement after the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -614,7 +614,7 @@ describe(@"rewarded ads", ^{
     
     it(@"shows a rewarded ad using an Engagement", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -660,7 +660,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"does not show a rewarded ad with an invalid Engagement", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -687,7 +687,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"does not show a rewarded ad with an Engagement when adShowPoint is false", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -714,7 +714,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max session is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -756,7 +756,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max session for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -795,7 +795,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max daily for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -833,7 +833,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"doesn't show a rewarded ad with an Engagement before the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -862,7 +862,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"shows a rewarded ad with an Engagement after the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -949,7 +949,7 @@ describe(@"interstitial ads respect session minimum ad interval", ^{
     });
 
     it(@"doesn't show an interstitial ad with an Engagement before the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -976,7 +976,7 @@ describe(@"interstitial ads respect session minimum ad interval", ^{
     });
     
     it(@"shows an interstitial ad with an Engagement after the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1056,7 +1056,7 @@ describe(@"rewarded ads respect session minimum ad interval", ^{
     });
     
     it(@"doesn't show a rewarded ad with an Engagement before the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1083,7 +1083,7 @@ describe(@"rewarded ads respect session minimum ad interval", ^{
     });
     
     it(@"shows a rewarded ad with an Engagement after the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1162,7 +1162,7 @@ describe(@"respects adRequest flag", ^{
     
     it(@"doesn't post adRequest when disabled", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1229,7 +1229,7 @@ describe(@"allowed to show interstitial", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1381,7 +1381,7 @@ describe(@"allowed to show interstitial minimal time", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1502,7 +1502,7 @@ describe(@"allowed to show rewarded", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1654,7 +1654,7 @@ describe(@"allowed to show rewarded minimal time", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1751,7 +1751,7 @@ describe(@"respects adShowSession for a session", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1823,7 +1823,7 @@ describe(@"respect null session and time limits", ^{
     
     it(@"doesn't stop showing ads when no session limit", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1917,7 +1917,7 @@ describe(@"time until ad is allowed", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -1951,7 +1951,7 @@ describe(@"time until ad is allowed", ^{
     
     it(@"reports the remaining decision point time", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -2003,7 +2003,7 @@ describe(@"time until ad is allowed", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
@@ -2037,7 +2037,7 @@ describe(@"time until ad is allowed", ^{
     
     it(@"reports when no wait time", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising"];
+        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
         
         HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
         [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"

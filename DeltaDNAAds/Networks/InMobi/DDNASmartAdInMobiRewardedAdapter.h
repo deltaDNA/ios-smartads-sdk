@@ -25,6 +25,8 @@
 - (instancetype)initWithAccountId: (NSString *)accountId
                       placementId: (NSInteger)placementId
                              eCPM: (NSInteger)eCPM
-                   waterfallIndex: (NSInteger)waterfallIndex;
+                          privacy: (DDNASmartAdPrivacy *)privacy
+                   waterfallIndex: (NSInteger)waterfallIndex
+                         testMode: (BOOL)testMode;
 
 @end

@@ -25,23 +25,23 @@
 @property (nonatomic, strong) AmazonAdInterstitial *interstitial;
 @property (nonatomic, copy) NSString *appKey;
 @property (nonatomic, assign) BOOL testMode;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdAmazonAdapter
 
-- (instancetype)initWithAppKey:(NSString *)appKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppKey:(NSString *)appKey testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"AMAZON"
                             version:[AmazonAdRegistration sharedRegistration].sdkVersion
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         
         self.appKey = appKey;
         self.testMode = testMode;
-        
-        [[AmazonAdRegistration sharedRegistration] setAppKey:self.appKey];
-        [[AmazonAdRegistration sharedRegistration] setLogging:self.testMode];
+        self.initialised = NO;
     }
     return self;
 }
@@ -64,18 +64,25 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"appKey"]) return nil;
     
     return [self initWithAppKey:configuration[@"appKey"]
                        testMode:[configuration[@"testMode"] boolValue]
                            eCPM:[configuration[@"eCPM"] integerValue]
+                        privacy:privacy
                  waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (!self.initialised) {
+        [[AmazonAdRegistration sharedRegistration] setAppKey:self.appKey];
+        [[AmazonAdRegistration sharedRegistration] setLogging:self.testMode];
+        self.initialised = YES;
+    }
+    
     if (self.interstitial) {
         self.interstitial.delegate = nil;
         self.interstitial = nil;

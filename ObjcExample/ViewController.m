@@ -37,12 +37,8 @@
     
     self.logoImageView.image = [UIImage imageNamed:@"Logo.png"];
     self.sdkVersion.text = [NSString stringWithFormat:@"smartads %@", [[DDNASmartAds sdkVersion] substringFromIndex:9]];
-    self.showInterstitialAd.enabled = NO;
-    self.interstitialMessage.text = @"";
-    self.showRewardedAd1.enabled = NO;
-    self.rewardedMessage1.text = @"";
-    self.showRewardedAd2.enabled = NO;
-    self.rewardedMessage2.text = @"";
+    [self resetUI];
+    self.gdprConsentSwitch.on = [DDNASmartAds sharedInstance].settings.advertiserGdprUserConsent;
     
     [DDNASDK setLogLevel:DDNALogLevelDebug];
     [DDNASDK sharedInstance].clientVersion = @"1.0.0";
@@ -95,8 +91,16 @@
     }
 }
 
+- (IBAction)setGdprConsent:(id)sender
+{
+    [DDNASmartAds sharedInstance].settings.advertiserGdprUserConsent = self.gdprConsentSwitch.on;
+    [self resetUI];
+    [[DDNASDK sharedInstance] newSession];
+}
+
 - (IBAction)newSession:(id)sender
 {
+    [self resetUI];
     [[DDNASDK sharedInstance] newSession];
 }
 
@@ -162,11 +166,17 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
     [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd1" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
         rewardedAd.delegate = self;
         self.rewardedAd1 = rewardedAd;
+        if ([rewardedAd isReady]) {
+            [self didLoadRewardedAd:rewardedAd];
+        }
     }];
     
     [[DDNASmartAds sharedInstance].engageFactory requestRewardedAdForDecisionPoint:@"rewardedAd2" parameters:nil handler:^(DDNARewardedAd * _Nonnull rewardedAd) {
         rewardedAd.delegate = self;
         self.rewardedAd2 = rewardedAd;
+        if ([rewardedAd isReady]) {
+            [self didLoadRewardedAd:rewardedAd];
+        }
     }];
     
 }
@@ -297,6 +307,16 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
     [self updateStatsWithAd:self.interstitialAd label:self.interstitialStats];
     [self updateStatsWithAd:self.rewardedAd1 label:self.rewardedStats1];
     [self updateStatsWithAd:self.rewardedAd2 label:self.rewardedStats2];
+}
+
+- (void)resetUI
+{
+    self.showInterstitialAd.enabled = NO;
+    self.interstitialMessage.text = @"";
+    self.showRewardedAd1.enabled = NO;
+    self.rewardedMessage1.text = @"";
+    self.showRewardedAd2.enabled = NO;
+    self.rewardedMessage2.text = @"";
 }
 
 @end

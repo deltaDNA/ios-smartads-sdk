@@ -31,11 +31,12 @@
 
 @implementation DDNASmartAdFlurryInterstitialAdapter
 
-- (instancetype)initWithApiKey:(NSString *)apiKey adSpace:(NSString *)adSpace testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithApiKey:(NSString *)apiKey adSpace:(NSString *)adSpace testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"FLURRY"
                             version:[[DDNASmartAdFlurryHelper sharedInstance] getFlurryAgentVersion]
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         
         self.apiKey = apiKey;
@@ -50,6 +51,10 @@
     FlurryAdInterstitial *interstitial = [[FlurryAdInterstitial alloc]  initWithSpace:self.adSpace];
     interstitial.adDelegate = self;
     
+    FlurryAdTargeting* adTargeting = [FlurryAdTargeting targeting];
+    adTargeting.testAdsEnabled = self.testMode;
+    interstitial.targeting = adTargeting;
+    
     [interstitial fetchAd];
     
     return interstitial;
@@ -57,7 +62,7 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"apiKey"] || !configuration[@"adSpace"]) return nil;
     
@@ -65,6 +70,7 @@
                         adSpace:configuration[@"adSpace"]
                        testMode:[configuration[@"testMode"] boolValue]
                            eCPM:[configuration[@"eCPM"] integerValue]
+                        privacy:privacy
                  waterfallIndex:waterfallIndex];
 }
 

@@ -34,8 +34,7 @@ describe(@"MobFox adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdMobFoxAdapter *adapter = [[DDNASmartAdMobFoxAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdMobFoxAdapter *adapter = [[DDNASmartAdMobFoxAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.publicationId).to.equal(@"test-publication-id");
@@ -50,10 +49,24 @@ describe(@"MobFox adapter", ^{
             @"adProvider": @"MOBFOX"
         };
         
-        DDNASmartAdMobFoxAdapter *adapter = [[DDNASmartAdMobFoxAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdMobFoxAdapter *adapter = [[DDNASmartAdMobFoxAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+       
+        NSDictionary *configuration = @{
+            @"adProvider": @"MOBFOX",
+            @"publicationId": @"test-publication-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdMobFoxAdapter *adapter = [[DDNASmartAdMobFoxAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
+        
     });
     
 });

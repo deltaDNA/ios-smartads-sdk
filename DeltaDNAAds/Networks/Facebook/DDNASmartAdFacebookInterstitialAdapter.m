@@ -23,6 +23,7 @@
 @property (nonatomic, copy, readwrite) NSString *placementId;
 @property (nonatomic, strong) FBInterstitialAd *interstitialAd;
 @property (nonatomic, assign) BOOL testMode;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
@@ -31,13 +32,13 @@
 - (instancetype)initWithPlacementId:(NSString *)placementId
                            testMode:(BOOL)testMode
                                eCPM:(NSInteger)eCPM
+                            privacy:(DDNASmartAdPrivacy *)privacy
                      waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"FACEBOOK" version:[[DDNASmartAdFacebookHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"FACEBOOK" version:[[DDNASmartAdFacebookHelper sharedInstance] getSDKVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.placementId = placementId;
-        
-        [[DDNASmartAdFacebookHelper sharedInstance] setTestMode:testMode];
         self.testMode = testMode;
+        self.initialised = NO;
     }
     return self;
 }
@@ -53,18 +54,25 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"placementId"]) return nil;
     
     return [self initWithPlacementId:configuration[@"placementId"]
                             testMode:[configuration[@"testMode"] boolValue]
                                 eCPM:[configuration[@"eCPM"] integerValue]
+                             privacy:privacy
                       waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (!self.initialised) {
+        [[DDNASmartAdFacebookHelper sharedInstance] setTestMode:self.testMode];
+        [FBAdSettings setMediationService:@"deltaDNA"];
+        self.initialised = YES;
+    }
+    
     self.interstitialAd = [self createAndLoadInterstitial];
 }
 

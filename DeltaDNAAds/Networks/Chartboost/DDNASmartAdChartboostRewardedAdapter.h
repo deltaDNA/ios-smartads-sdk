@@ -27,6 +27,7 @@
                  appSignature:(NSString *)appSignature
                      location:(NSString *)location
                          eCPM:(NSInteger)eCPM
+                      privacy:(DDNASmartAdPrivacy *)privacy
                waterfallIndex:(NSInteger)waterfallIndex;
 
 @end

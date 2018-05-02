@@ -28,31 +28,32 @@
 
 @implementation DDNASmartAdVungleAdapter
 
-- (instancetype)initWithAppId:(NSString *)appId placementId:(NSString *)placementId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAppId:(NSString *)appId placementId:(NSString *)placementId eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"VUNGLE" version:VungleSDKVersion eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"VUNGLE" version:VungleSDKVersion eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.appId = appId;
         self.placementId = placementId;
         self.started = NO;
-        [[VungleSDK sharedSDK] setDelegate:self];
     }
     return self;
 }
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"appId"] || !configuration[@"placementId"]) return nil;
     
-    return [self initWithAppId:configuration[@"appId"] placementId:configuration[@"placementId"] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithAppId:configuration[@"appId"] placementId:configuration[@"placementId"] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
     if (!self.started) {
+        [[VungleSDK sharedSDK] updateConsentStatus:self.privacy.advertiserGdprUserConsent ? VungleConsentAccepted : VungleConsentDenied];
+        [[VungleSDK sharedSDK] setDelegate:self];
         NSError *error;
-        [[VungleSDK sharedSDK] startWithAppId:self.appId placements:@[self.placementId] error:&error];
+        [[VungleSDK sharedSDK] startWithAppId:self.appId error:&error];
         if (error) {
             [self.delegate adapterDidFailToLoadAd:self withResult:[DDNASmartAdRequestResult resultWith:DDNASmartAdRequestResultCodeConfiguration errorDescription:error.localizedDescription]];
         }
@@ -73,6 +74,11 @@
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - VungleSDKDelegate protocol

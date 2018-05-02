@@ -26,21 +26,38 @@ static NSString * const kUserDefaultsUserIDKey = @"hyprmxUserId";
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, assign) BOOL reward;
 @property (nonatomic, assign) BOOL isOfferReady;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdHyprMXAdapter
 
-- (instancetype)initWithDistributorId:(NSString *)distributorId propertyId:(NSString *)propertyId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithDistributorId:(NSString *)distributorId propertyId:(NSString *)propertyId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"HYPRMX" version:[[HYPRManager sharedManager] versionString] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"HYPRMX" version:[[HYPRManager sharedManager] versionString] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         
         self.distributorId = distributorId;
         self.propertyId = propertyId;
         self.testMode = testMode;
         self.reward = NO;
         self.isOfferReady = NO;
-        
+        self.initialised = NO;
+    }
+    return self;
+}
+
+#pragma mark - DDNASmartAdAdapter
+
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
+{
+    if (!configuration[@"distributorId"] || !configuration[@"propertyId"]) return nil;
+    
+    return [self initWithDistributorId:configuration[@"distributorId"] propertyId:configuration[@"propertyId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
+}
+
+- (void)requestAd
+{
+    if (!self.initialised) {
         // generate and persist a unique userid for device
         NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsUserIDKey];
         
@@ -50,23 +67,11 @@ static NSString * const kUserDefaultsUserIDKey = @"hyprmxUserId";
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
-        [[HYPRManager sharedManager] setLogLevel:HYPRLogLevelDebug];
+        [[HYPRManager sharedManager] setLogLevel: self.testMode ? HYPRLogLevelDebug : HYPRLogLevelError];
         [[HYPRManager sharedManager] initializeWithDistributorId:self.distributorId propertyId:self.propertyId userId:userId];
+        self.initialised = YES;
     }
-    return self;
-}
-
-#pragma mark - DDNASmartAdAdapter
-
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
-{
-    if (!configuration[@"distributorId"] || !configuration[@"propertyId"]) return nil;
     
-    return [self initWithDistributorId:configuration[@"distributorId"] propertyId:configuration[@"propertyId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
-}
-
-- (void)requestAd
-{
     [[HYPRManager sharedManager] checkInventory:^(BOOL isOfferReady) {
         if (isOfferReady) {
             [self.delegate adapterDidLoadAd:self];

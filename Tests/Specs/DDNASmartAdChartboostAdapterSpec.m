@@ -37,8 +37,7 @@ describe(@"Chartboost interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdChartboostInterstitialAdapter *adapter = [[DDNASmartAdChartboostInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                     waterfallIndex:1];
+        DDNASmartAdChartboostInterstitialAdapter *adapter = [[DDNASmartAdChartboostInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appId).to.equal(@"test-app-id");
@@ -55,11 +54,27 @@ describe(@"Chartboost interstitial adapter", ^{
             @"adProvider": @"CHARTBOOST"
         };
         
-        DDNASmartAdChartboostInterstitialAdapter *adapter = [[DDNASmartAdChartboostInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                     waterfallIndex:1];
+        DDNASmartAdChartboostInterstitialAdapter *adapter = [[DDNASmartAdChartboostInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"CHARTBOOST",
+            @"appId": @"test-app-id",
+            @"appSignature": @"test-app-signature",
+            @"location": @"Startup",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdChartboostInterstitialAdapter *adapter = [[DDNASmartAdChartboostInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
+    });
+    
 });
 
 describe(@"Chartboost rewarded video adapter", ^{
@@ -74,8 +89,7 @@ describe(@"Chartboost rewarded video adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdChartboostRewardedAdapter *adapter = [[DDNASmartAdChartboostRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdChartboostRewardedAdapter *adapter = [[DDNASmartAdChartboostRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appId).to.equal(@"test-app-id");
@@ -92,10 +106,25 @@ describe(@"Chartboost rewarded video adapter", ^{
             @"adProvider": @"CHARTBOOST-REWARDED"
         };
         
-        DDNASmartAdChartboostRewardedAdapter *adapter = [[DDNASmartAdChartboostRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdChartboostRewardedAdapter *adapter = [[DDNASmartAdChartboostRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"CHARTBOOST-REWARDED",
+            @"appId": @"test-app-id",
+            @"appSignature": @"test-app-signature",
+            @"location": @"Startup",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdChartboostRewardedAdapter *adapter = [[DDNASmartAdChartboostRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
 });
 

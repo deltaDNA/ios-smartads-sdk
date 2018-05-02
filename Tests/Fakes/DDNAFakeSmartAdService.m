@@ -35,7 +35,7 @@
     return self;
 }
 
-- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint
+- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint userConsent:(BOOL)userConsent ageRestricted:(BOOL)ageRestricted
 {
     self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:nil adLimit:nil delegate:nil];
     self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:nil adLimit:nil delegate:nil];

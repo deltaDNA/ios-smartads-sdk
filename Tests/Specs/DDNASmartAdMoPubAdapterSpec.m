@@ -34,8 +34,7 @@ describe(@"MoPub adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration
-                                                                                   waterfallIndex:1];
+        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
@@ -51,8 +50,7 @@ describe(@"MoPub adapter", ^{
             @"adProvider": @"MOPUB"
         };
         
-        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration
-                                                                                   waterfallIndex:1];
+        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -65,14 +63,28 @@ describe(@"MoPub adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration
-                                                                                   waterfallIndex:1];
+        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.adUnitId).to.equal(@"test-ad-unit-id");
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"MOPUB",
+            @"adUnitId": @"test-ad-unit-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdMoPubAdapter *adapter = [[DDNASmartAdMoPubAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
         
     });
     

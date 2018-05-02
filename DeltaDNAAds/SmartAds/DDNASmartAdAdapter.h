@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "DDNASmartAdStatus.h"
+#import "DDNASmartAdPrivacy.h"
 
 
 @protocol DDNASmartAdAdapterDelegate;
@@ -28,19 +29,38 @@
 @property (nonatomic, copy, readonly) NSString *name;
 @property (nonatomic, copy, readonly) NSString *version;
 @property (nonatomic, assign, readonly) NSInteger eCPM;
+@property (nonatomic, strong, readonly) DDNASmartAdPrivacy *privacy;
 
 @property (nonatomic, assign) NSInteger waterfallIndex;
 @property (nonatomic, assign) NSInteger score;
 @property (nonatomic, assign) NSInteger requestCount;
 
+/**
+ Constructor called from @c initWithConfiguration:privacy:waterfallIndex:.  Don't start the ad network
+ sdk in this constructor, that should be done on the first call to @c requestAd.
+ */
 - (instancetype)initWithName: (NSString *)name
                      version: (NSString *)version
                         eCPM: (NSInteger)eCPM
+                     privacy: (DDNASmartAdPrivacy *)privacy
               waterfallIndex: (NSInteger)waterfallIndex;
 
-- (instancetype)initWithConfiguration: (NSDictionary *)configuration waterfallIndex: (NSInteger)waterfallIndex; // abstract
+/**
+ Constructor called from the SmartAdFactory
+ */
+- (instancetype)initWithConfiguration: (NSDictionary *)configuration
+                              privacy: (DDNASmartAdPrivacy *)privacy
+                       waterfallIndex: (NSInteger)waterfallIndex; // abstract
+
 - (void)requestAd;  // abstract
 - (void)showAdFromViewController:(UIViewController *)viewController; // abstract
+
+/**
+ All adapters default to *not* being GDPR compliant, this means user consent for tracking
+ must be given for the adapter to even start.  Adapters can override this as their
+ ad network provides more subtle control with GDPR compliance.
+ */
+- (BOOL)isGdprCompliant;
 
 @end
 

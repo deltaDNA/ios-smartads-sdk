@@ -52,6 +52,7 @@ describe(@"registers for ads", ^{
         smartAds.factory = fakeFactory;
         
         smartAds.registrationDelegate = mockRegistrationDelegate;
+        smartAds.settings.advertiserGdprUserConsent = YES;
     });
     
     it(@"succeeds with a good response", ^{
