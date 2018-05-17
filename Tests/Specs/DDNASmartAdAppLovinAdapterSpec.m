@@ -20,6 +20,7 @@
 #import <OCMockito/OCMockito.h>
 
 #import <DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h>
+#import <AppLovinSDK/AppLovinSDK.h>
 
 
 SpecBegin(DDNASmartAdAppLovinAdapter)
@@ -35,8 +36,7 @@ describe(@"AppLovin interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
@@ -44,7 +44,6 @@ describe(@"AppLovin interstitial adapter", ^{
         expect(adapter.isTestMode).to.beFalsy();
         expect(adapter.eCPM).to.equal(150);
         expect(adapter.waterfallIndex).to.equal(1);
-        
     });
     
     it(@"placement is optional", ^{
@@ -55,8 +54,7 @@ describe(@"AppLovin interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
@@ -73,8 +71,7 @@ describe(@"AppLovin interstitial adapter", ^{
             @"adProvider": @"APPLOVIN"
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -88,8 +85,7 @@ describe(@"AppLovin interstitial adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.sdkKey).to.equal(@"test-sdk-key");
@@ -98,6 +94,25 @@ describe(@"AppLovin interstitial adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"APPLOVIN",
+            @"sdkKey": @"test-sdk-key",
+            @"zoneId": @"interstitial",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] init];
+        privacy.advertiserGdprUserConsent = YES;
+        privacy.advertiserGdprAgeRestrictedUser = YES;
+        
+        DDNASmartAdAppLovinAdapter *adapter = [[DDNASmartAdAppLovinAdapter alloc] initWithConfiguration:configuration privacy:privacy waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
     
 });

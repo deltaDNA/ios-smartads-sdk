@@ -36,8 +36,7 @@ describe(@"Flurry interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.apiKey).to.equal(@"test-api-key");
@@ -53,8 +52,7 @@ describe(@"Flurry interstitial adapter", ^{
             @"adProvider": @"FLURRY"
         };
         
-        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -68,8 +66,7 @@ describe(@"Flurry interstitial adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.apiKey).to.equal(@"test-api-key");
@@ -77,6 +74,21 @@ describe(@"Flurry interstitial adapter", ^{
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FLURRY",
+            @"apiKey": @"test-api-key",
+            @"adSpace": @"test-ad-space",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdFlurryInterstitialAdapter *adapter = [[DDNASmartAdFlurryInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });
@@ -92,8 +104,7 @@ describe(@"Flurry rewarded adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                     waterfallIndex:1];
+        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.apiKey).to.equal(@"test-api-key");
@@ -109,8 +120,7 @@ describe(@"Flurry rewarded adapter", ^{
             @"adProvider": @"FLURRY-REWARDED"
         };
         
-        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                     waterfallIndex:1];
+        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -124,8 +134,7 @@ describe(@"Flurry rewarded adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                     waterfallIndex:1];
+        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.apiKey).to.equal(@"test-api-key");
@@ -133,6 +142,21 @@ describe(@"Flurry rewarded adapter", ^{
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FLURRY-REWARDED",
+            @"apiKey": @"test-api-key",
+            @"adSpace": @"test-ad-space",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdFlurryRewardedAdapter *adapter = [[DDNASmartAdFlurryRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

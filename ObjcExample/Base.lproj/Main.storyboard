@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Km9-bm-gSq">
-                                <rect key="frame" x="141.5" y="465" width="92" height="30"/>
+                                <rect key="frame" x="141" y="507" width="92" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="New Session"/>
                                 <connections>
@@ -46,7 +46,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THM-ZQ-Jgw">
-                                <rect key="frame" x="84" y="535" width="207" height="30"/>
+                                <rect key="frame" x="84" y="542" width="207" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <state key="normal" title="Request Location Permission"/>
                                 <connections>
@@ -110,15 +110,31 @@
                                     <constraint firstAttribute="height" constant="47" id="y0l-mA-owx"/>
                                 </constraints>
                             </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WAZ-Yw-4cV" userLabel="Privacy Switch">
+                                <rect key="frame" x="224.5" y="468" width="51" height="31"/>
+                                <connections>
+                                    <action selector="setGdprConsent:" destination="BYZ-38-t0r" eventType="valueChanged" id="3m3-pT-gWt"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GDPR Consent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5r-rq-lek">
+                                <rect key="frame" x="102.5" y="473" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="WAZ-Yw-4cV" firstAttribute="leading" secondItem="k5r-rq-lek" secondAttribute="trailing" constant="8" id="1Ac-xz-amL"/>
+                            <constraint firstItem="WAZ-Yw-4cV" firstAttribute="top" secondItem="GWB-qe-72H" secondAttribute="bottom" constant="43" id="1Vb-F2-3au"/>
                             <constraint firstItem="3dQ-0t-JwA" firstAttribute="top" secondItem="bMb-BW-757" secondAttribute="bottom" constant="30" id="1Ye-sw-Eo6"/>
                             <constraint firstItem="1Tg-1v-7qj" firstAttribute="top" secondItem="YKR-n5-iP6" secondAttribute="bottom" constant="8" id="2G0-6J-D2l"/>
                             <constraint firstItem="a43-ew-hhp" firstAttribute="top" secondItem="fMi-Vc-Zqq" secondAttribute="bottom" constant="6" id="39J-Qd-Bqj"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4NT-ce-cp1"/>
                             <constraint firstItem="1Tg-1v-7qj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6bh-VB-oLi"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="PSl-qz-JTH" secondAttribute="bottom" id="DHz-Nl-Rr9"/>
+                            <constraint firstItem="k5r-rq-lek" firstAttribute="top" secondItem="GWB-qe-72H" secondAttribute="bottom" constant="48" id="E5k-ij-V2O"/>
+                            <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="WAZ-Yw-4cV" secondAttribute="bottom" constant="8" id="Eea-S4-m9W"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="top" secondItem="1Tg-1v-7qj" secondAttribute="bottom" constant="40" id="N06-zQ-yNc"/>
                             <constraint firstItem="2KG-4M-Ait" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P0P-Dk-VFR"/>
                             <constraint firstItem="KbQ-8G-8Aq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P63-ow-10x"/>
@@ -127,25 +143,26 @@
                             <constraint firstItem="Md8-As-Iw6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RIY-Xg-eCr"/>
                             <constraint firstItem="2KG-4M-Ait" firstAttribute="top" secondItem="KbQ-8G-8Aq" secondAttribute="bottom" constant="40" id="RmO-ul-fdl"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tj1-8j-4qx"/>
-                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="top" secondItem="Km9-bm-gSq" secondAttribute="bottom" constant="40" id="TvL-Se-mla"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Udz-7o-0AU"/>
                             <constraint firstItem="GWB-qe-72H" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="X2d-bG-OOu"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XO6-6m-gkf"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZeP-T0-9Wy"/>
                             <constraint firstItem="Md8-As-Iw6" firstAttribute="top" secondItem="2KG-4M-Ait" secondAttribute="bottom" constant="6" id="aXr-hj-csA"/>
+                            <constraint firstItem="k5r-rq-lek" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-28" id="cwT-Wf-ojS"/>
                             <constraint firstItem="a43-ew-hhp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dNB-ct-kTv"/>
                             <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dp9-4b-sl4"/>
                             <constraint firstItem="PSl-qz-JTH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="esZ-4w-E7S"/>
                             <constraint firstItem="YKR-n5-iP6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hf0-Bz-fbw"/>
-                            <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="GWB-qe-72H" secondAttribute="bottom" constant="40" id="iIA-ol-1mz"/>
                             <constraint firstItem="GWB-qe-72H" firstAttribute="top" secondItem="Md8-As-Iw6" secondAttribute="bottom" constant="8" id="j6X-Gw-d0v"/>
                             <constraint firstItem="KbQ-8G-8Aq" firstAttribute="top" secondItem="a43-ew-hhp" secondAttribute="bottom" constant="8" id="l3Z-Tc-dra"/>
                             <constraint firstItem="YKR-n5-iP6" firstAttribute="top" secondItem="3dQ-0t-JwA" secondAttribute="bottom" constant="6" id="nWt-Jy-sLT"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
                             <constraint firstItem="3dQ-0t-JwA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tNE-cq-JKe"/>
+                            <constraint firstItem="THM-ZQ-Jgw" firstAttribute="top" secondItem="Km9-bm-gSq" secondAttribute="bottom" constant="5" id="zFA-Pa-Egt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="gdprConsentSwitch" destination="WAZ-Yw-4cV" id="nr3-PG-ppy"/>
                         <outlet property="interstitialMessage" destination="YKR-n5-iP6" id="M32-ZP-Rm5"/>
                         <outlet property="interstitialStats" destination="1Tg-1v-7qj" id="lwW-xV-a3y"/>
                         <outlet property="logoImageView" destination="PSl-qz-JTH" id="WEQ-au-qcY"/>

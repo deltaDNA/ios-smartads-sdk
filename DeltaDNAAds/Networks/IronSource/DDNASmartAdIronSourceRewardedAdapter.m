@@ -32,10 +32,11 @@
 
 - (instancetype)initWithAppKey:(NSString *)appKey
                  placementName:(NSString *)placementName
-                         eCPM:(NSInteger)eCPM
-               waterfallIndex:(NSInteger)waterfallIndex
+                          eCPM:(NSInteger)eCPM
+                       privacy:(DDNASmartAdPrivacy *)privacy
+                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"IRONSOURCE" version:[[DDNASmartAdIronSourceHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"IRONSOURCE" version:[[DDNASmartAdIronSourceHelper sharedInstance] getSDKVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdIronSourceHelper sharedInstance] setRewardedDelegate:self];
         self.appKey = appKey;
         self.placementName = placementName;
@@ -46,20 +47,21 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"appKey"]) return nil;
     
     return [self initWithAppKey:configuration[@"appKey"]
                   placementName:configuration[@"placementName"]
-                          eCPM:[configuration[@"eCPM"] integerValue]
-                waterfallIndex:waterfallIndex];
+                           eCPM:[configuration[@"eCPM"] integerValue]
+                        privacy:privacy
+                 waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
     self.reward = NO;
-    [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey];
+    [[DDNASmartAdIronSourceHelper sharedInstance] startWithAppKey:self.appKey privacy:self.privacy];
     
     if ([[DDNASmartAdIronSourceHelper sharedInstance] hasRewardedVideo]) {
         [self.delegate adapterDidLoadAd:self];
@@ -92,6 +94,11 @@
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - DDNASmartAdIronSourceRewardedDelegate

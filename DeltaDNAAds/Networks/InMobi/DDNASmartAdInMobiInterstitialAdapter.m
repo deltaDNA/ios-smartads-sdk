@@ -25,20 +25,23 @@
 
 @property (nonatomic, copy) NSString *accountId;
 @property (nonatomic, assign) NSInteger placementId;
+@property (nonatomic, assign) BOOL testMode;
 
 @end
 
 @implementation DDNASmartAdInMobiInterstitialAdapter
 
-- (instancetype)initWithAccountId:(NSString *)accountId placementId:(NSInteger)placementId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAccountId:(NSString *)accountId placementId:(NSInteger)placementId eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex testMode:(BOOL)testMode
 {
     if ((self = [super initWithName:@"INMOBI"
                             version:[[DDNASmartAdInMobiHelper sharedInstance] getVersion]
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
         
         self.accountId = accountId;
         self.placementId = placementId;
+        self.testMode = testMode;
     }
     return self;
 }
@@ -55,19 +58,21 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"accountId"] || !configuration[@"placementId"]) return nil;
     
     return [self initWithAccountId:configuration[@"accountId"]
                        placementId:[configuration[@"placementId"] integerValue]
                               eCPM:[configuration[@"eCPM"] integerValue]
-                    waterfallIndex:waterfallIndex];
+                           privacy:privacy
+                    waterfallIndex:waterfallIndex
+                          testMode:[configuration[@"testMode"] boolValue]];
 }
 
 - (void)requestAd
 {
-    [[DDNASmartAdInMobiHelper sharedInstance] startWithAccountID:self.accountId];
+    [[DDNASmartAdInMobiHelper sharedInstance] startWithAccountID:self.accountId privacy:self.privacy testMode:self.testMode];
     
     self.interstitial = [self createAndLoadInterstitial];
 }
@@ -81,6 +86,11 @@
         [self.delegate adapterDidFailToShowAd:self
                                    withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return NO;
 }
 
 #pragma mark - IMInterstitialDelegate

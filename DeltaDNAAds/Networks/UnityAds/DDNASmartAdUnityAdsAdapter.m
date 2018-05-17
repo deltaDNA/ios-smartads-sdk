@@ -38,41 +38,46 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
 @property (nonatomic, assign) UnityAdsState state;
 @property (nonatomic, strong) NSString *errorMessage;
 @property (nonatomic, assign) UnityAdsPlacementState placementState;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdUnityAdsAdapter
 
-- (instancetype)initWithGameId:(NSString *)gameId placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithGameId:(NSString *)gameId placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"UNITY" version:[UnityAds getVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"UNITY" version:[UnityAds getVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.gameId = gameId;
         self.placementId = placementId;
         self.testMode = testMode;
         self.state = kUnityAdsStateInitialising;
         self.placementState = kUnityAdsPlacementStateNotAvailable;
-        
-        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setName:@"deltaDNA"];
-        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
-        [mediationMetaData commit];
-
-        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
+        self.initialised = NO;
     }
     return self;
 }
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"gameId"] || !configuration[@"placementId"]) return nil;
     
-    return [self initWithGameId:configuration[@"gameId"] placementId:configuration[@"placementId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithGameId:configuration[@"gameId"] placementId:configuration[@"placementId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (!self.initialised) {
+        id mediationMetaData = [[UADSMediationMetaData alloc] init];
+        [mediationMetaData setName:@"deltaDNA"];
+        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+        [mediationMetaData commit];
+        
+        [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
+        self.initialised = YES;
+    }
+    
     if ([UnityAds isInitialized] && self.state == kUnityAdsStateInitialising) {
         self.state = kUnityAdsStateWaiting;
     }

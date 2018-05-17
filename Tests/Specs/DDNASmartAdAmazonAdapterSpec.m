@@ -34,8 +34,7 @@ describe(@"Amazon adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
@@ -51,8 +50,7 @@ describe(@"Amazon adapter", ^{
             @"adProvider": @"AMAZON"
         };
         
-        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -65,8 +63,7 @@ describe(@"Amazon adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
@@ -74,6 +71,20 @@ describe(@"Amazon adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"AMAZON",
+            @"appKey": @"test-app-key",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdAmazonAdapter *adapter = [[DDNASmartAdAmazonAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

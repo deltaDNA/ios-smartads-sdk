@@ -27,6 +27,7 @@
                        adSpace: (NSString *)adSpace
                       testMode: (BOOL)testMode
                           eCPM: (NSInteger)eCPM
+                       privacy: (DDNASmartAdPrivacy *)privacy
                 waterfallIndex: (NSInteger)waterfallIndex;
 
 @end

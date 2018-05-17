@@ -33,9 +33,10 @@
                  appSignature:(NSString *)appSignature
                      location:(NSString *)location
                          eCPM:(NSInteger)eCPM
+                      privacy:(DDNASmartAdPrivacy *)privacy
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"CHARTBOOST" version:[[DDNASmartAdChartboostHelper sharedInstance] getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"CHARTBOOST" version:[[DDNASmartAdChartboostHelper sharedInstance] getSDKVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         [[DDNASmartAdChartboostHelper sharedInstance] setRewardedDelegate:self];
         self.appId = appId;
         self.appSignature = appSignature;
@@ -46,7 +47,7 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"appId"] && !configuration[@"appSignature"]) return nil;
     
@@ -56,12 +57,13 @@
                   appSignature:configuration[@"appSignature"]
                       location:location
                           eCPM:[configuration[@"eCPM"] integerValue]
+                       privacy:privacy
                 waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
-    [[DDNASmartAdChartboostHelper sharedInstance] startWithAppId:self.appId appSignature:self.appSignature];
+    [[DDNASmartAdChartboostHelper sharedInstance] startWithAppId:self.appId appSignature:self.appSignature privacy:self.privacy];
     [[DDNASmartAdChartboostHelper sharedInstance] cacheRewardedVideo:self.location];
 }
 
@@ -72,6 +74,11 @@
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - DDNASmartAdChartboostHelperRewardedDelegate

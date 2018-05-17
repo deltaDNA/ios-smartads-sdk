@@ -15,6 +15,7 @@
 //
 
 #import "DDNASmartAdChartboostHelper.h"
+#import "DDNASmartAdPrivacy.h"
 #import <Chartboost/Chartboost.h>
 #import <DeltaDNA/DDNALog.h>
 
@@ -43,10 +44,11 @@
     return [Chartboost getSDKVersion];
 }
 
-- (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature
+- (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature privacy:(DDNASmartAdPrivacy *)privacy
 {
     @synchronized(self) {
         if (!self.started) {
+            [Chartboost restrictDataCollection:!privacy.advertiserGdprUserConsent];
             [Chartboost setAutoCacheAds:NO];
             [Chartboost startWithAppId:appId
                           appSignature:appSignature

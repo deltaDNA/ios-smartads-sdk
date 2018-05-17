@@ -21,6 +21,7 @@
 @interface DDNASmartAdMachineZoneHelper() <FMAdZoneDelegate>
     
 @property (nonatomic, assign) BOOL adZoneStarted;
+@property (nonatomic, assign) BOOL adZoneInitialised;
 
 @end
 
@@ -46,7 +47,10 @@
     
 - (void)startAdZone
 {
-    [[FMAdZone sharedAdZone] startWithOptions:nil delegate:self];
+    if (!self.adZoneInitialised) {
+        [[FMAdZone sharedAdZone] startWithOptions:nil delegate:self];
+        self.adZoneInitialised = YES;
+    }
 }
     
 + (NSString *)sdkVersion

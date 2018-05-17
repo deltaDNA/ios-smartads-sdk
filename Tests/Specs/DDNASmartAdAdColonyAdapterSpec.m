@@ -35,8 +35,7 @@ describe(@"AdColony adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appId).to.equal(@"test-app-id");
@@ -52,10 +51,24 @@ describe(@"AdColony adapter", ^{
             @"adProvider": @"ADCOLONY"
         };
         
-        DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"ADCOLONY",
+            @"appId": @"test-app-id",
+            @"zoneId": @"test-zone-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
     
 });

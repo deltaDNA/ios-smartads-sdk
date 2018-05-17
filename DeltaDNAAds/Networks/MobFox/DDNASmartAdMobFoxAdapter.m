@@ -23,21 +23,22 @@
 @property (nonatomic, strong) MobFoxInterstitialAd *interstitial;
 
 @property (nonatomic, copy) NSString *publicationId;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdMobFoxAdapter
 
-- (instancetype)initWithPublicationId:(NSString *)publicationId eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithPublicationId:(NSString *)publicationId eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if ((self = [super initWithName:@"MOBFOX"
                             version:SDK_VERSION
                                eCPM:eCPM
+                            privacy:privacy
                      waterfallIndex:waterfallIndex])) {
 
         self.publicationId = publicationId;
-        // Not sure if this is still required, it doesn't seem to be triggering the location permission anymore.
-        [[MFLocationServicesManager sharedInstance] stopFindingLocation];
+        self.initialised = NO;
     }
     return self;
 }
@@ -54,17 +55,23 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"publicationId"]) return nil;
 
     return [self initWithPublicationId:configuration[@"publicationId"]
                                   eCPM:[configuration[@"eCPM"] integerValue]
+                               privacy:privacy
                         waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (!self.initialised) {
+        // Not sure if this is still required, it doesn't seem to be triggering the location permission anymore.
+        [[MFLocationServicesManager sharedInstance] stopFindingLocation];
+        self.initialised = YES;
+    }
     self.interstitial = [self createAndLoadInterstitial];
 }
 

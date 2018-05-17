@@ -20,6 +20,7 @@
 #import <OCMockito/OCMockito.h>
 
 #import <DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h>
+#import <VungleSDK/VungleSDK.h>
 
 
 SpecBegin(DDNASmartAdVungleAdapter)
@@ -35,8 +36,7 @@ describe(@"Vungle adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdVungleAdapter *adapter = [[DDNASmartAdVungleAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdVungleAdapter *adapter = [[DDNASmartAdVungleAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appId).to.equal(@"test-app-id");
@@ -52,10 +52,28 @@ describe(@"Vungle adapter", ^{
             @"adProvider": @"VUNGLE"
         };
         
-        DDNASmartAdVungleAdapter *adapter = [[DDNASmartAdVungleAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdVungleAdapter *adapter = [[DDNASmartAdVungleAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"VUNGLE",
+            @"appId": @"test-app-id",
+            @"placementId": @"test-placement-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] init];
+        privacy.advertiserGdprUserConsent = YES;
+        privacy.advertiserGdprAgeRestrictedUser = YES;
+        
+        DDNASmartAdVungleAdapter *adapter = [[DDNASmartAdVungleAdapter alloc] initWithConfiguration:configuration privacy:privacy waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
     
 });

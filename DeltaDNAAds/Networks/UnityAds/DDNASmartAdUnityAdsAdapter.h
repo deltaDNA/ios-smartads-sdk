@@ -24,9 +24,10 @@
 @property (nonatomic, assign, readonly, getter=isTestMode) BOOL testMode;
 
 - (instancetype)initWithGameId:(NSString *)gameId
-                          placementId:(NSString *)placementId
+                   placementId:(NSString *)placementId
                       testMode:(BOOL)testMode
-                         eCPM:(NSInteger)eCPM
-               waterfallIndex:(NSInteger)waterfallIndex;
+                          eCPM:(NSInteger)eCPM
+                       privacy:(DDNASmartAdPrivacy *)privacy
+                waterfallIndex:(NSInteger)waterfallIndex;
 
 @end

@@ -16,7 +16,7 @@
 
 #import "DDNASmartAdAgent.h"
 #import "DDNASmartAdWaterfall.h"
-#import <DeltaDNA/DDNALog.h>
+#import <DeltaDNA/DeltaDNA.h>
 
 static long const AD_WATERFALL_RESTART_DELAY_SECONDS = 60;
 static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
@@ -232,7 +232,6 @@ static long const AD_NETWORK_TIMEOUT_SECONDS = 15;
 {
     return self.adNetworkTimeoutSeconds;
 }
-
 
 #pragma mark - Private Methods
 

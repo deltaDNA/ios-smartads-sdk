@@ -24,6 +24,7 @@
 @property (nonatomic, assign) BOOL testMode;
 @property (nonatomic, strong) TJPlacement *placement;
 @property (nonatomic, assign) BOOL reward;
+@property (nonatomic, assign) BOOL connecting;
 @property (nonatomic, assign) BOOL connected;
 @property (nonatomic, assign) BOOL requested;
 
@@ -31,14 +32,15 @@
 
 @implementation DDNASmartAdTapjoyAdapter
 
-- (instancetype)initWithSdkKey:(NSString *)sdkKey placementName:(NSString *)placementName testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithSdkKey:(NSString *)sdkKey placementName:(NSString *)placementName testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"TAPJOY" version:[Tapjoy getVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"TAPJOY" version:[Tapjoy getVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         
         self.sdkKey = sdkKey;
         self.placementName = placementName;
         self.testMode = testMode;
         self.reward = NO;
+        self.connecting = NO;
         self.connected = NO;
         self.requested = NO;
         
@@ -50,28 +52,17 @@
                                                  selector:@selector(tjcConnectFail:)
                                                      name:TJC_CONNECT_FAILED
                                                    object:nil];
-        
-        [Tapjoy setDebugEnabled:testMode];
-        [Tapjoy enableLogging:testMode];
-        
-        NSDictionary *options = @{
-            TJC_MEDIATION_NETWORK_NAME : @"deltaDNA"
-        };
-        
-        if (![sdkKey isEqualToString:@"test-sdk-key"]) {
-            [Tapjoy connect:sdkKey options:options];
-        }
     }
     return self;
 }
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"sdkKey"] || !configuration[@"placementName"]) return nil;
     
-    return [self initWithSdkKey:configuration[@"sdkKey"] placementName:configuration[@"placementName"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithSdkKey:configuration[@"sdkKey"] placementName:configuration[@"placementName"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
@@ -82,9 +73,22 @@
         [p requestContent];
         self.placement = p;
         self.reward = NO;
-    } else {
-        self.requested = YES;
+    } else if (!self.connecting) {
+        [Tapjoy setDebugEnabled:self.testMode];
+        [Tapjoy enableLogging:self.testMode];
+        
+        NSDictionary *options = @{
+            @"TJC_MEDIATION_NETWORK_NAME" : @"deltaDNA"
+        };
+        
+        if (![self.sdkKey isEqualToString:@"test-sdk-key"]) {
+            [Tapjoy connect:self.sdkKey options:options];
+        }
+        
+        self.connecting = YES;
     }
+    
+    self.requested = YES;
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
@@ -141,6 +145,7 @@
 - (void)tjcConnectSuccess:(NSNotification*)notifyObj
 {
     self.connected = YES;
+    self.connecting = NO;
     
     if (self.requested) {
         [self requestAd];
@@ -151,6 +156,7 @@
 - (void)tjcConnectFail:(NSNotification*)notifyObj
 {
     self.connected = NO;
+    self.connecting = NO;
 }
 
 

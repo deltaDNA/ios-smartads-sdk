@@ -34,8 +34,7 @@ describe(@"HyprMX adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.distributorId).to.equal(@"test-distributor-id");
@@ -52,8 +51,7 @@ describe(@"HyprMX adapter", ^{
             @"adProvider": @"HYPRMX"
         };
         
-        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -67,8 +65,7 @@ describe(@"HyprMX adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration
-                                                                                     waterfallIndex:1];
+        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.distributorId).to.equal(@"test-distributor-id");
@@ -76,6 +73,22 @@ describe(@"HyprMX adapter", ^{
         expect(adapter.testMode).to.beTruthy();
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
+        
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"HYPRMX",
+            @"distributorId": @"test-distributor-id",
+            @"propertyId": @"test-property-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdHyprMXAdapter *adapter = [[DDNASmartAdHyprMXAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
         
     });
 });

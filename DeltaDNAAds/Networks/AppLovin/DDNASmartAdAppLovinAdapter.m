@@ -27,44 +27,49 @@
 @property (nonatomic, strong) ALInterstitialAd *interstitialAd;
 @property (nonatomic, strong) ALAd *ad;
 @property (nonatomic, strong) NSNumber *reward;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
 @implementation DDNASmartAdAppLovinAdapter
 
-- (instancetype)initWithSdkKey:(NSString *)sdkKey zoneId:(NSString *)zoneId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithSdkKey:(NSString *)sdkKey zoneId:(NSString *)zoneId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"APPLOVIN" version:[ALSdk version] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"APPLOVIN" version:[ALSdk version] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.sdkKey = sdkKey;
         self.zoneId = zoneId;
         self.testMode = testMode;
-        
-        ALSdkSettings *settings = [[ALSdkSettings alloc] init];
-        settings.isVerboseLogging = testMode;
-        settings.isTestAdsEnabled = testMode;
-        ALSdk *alSdk = [ALSdk sharedWithKey:sdkKey settings:settings];
-        [alSdk setMediationProvider:@"deltaDNA"];
-        [alSdk setPluginVersion:[DDNASmartAds sdkVersion]];
-        [alSdk initializeSdk];
-        
-        self.alSdk = alSdk;
-        
+        self.initialised = NO;
     }
     return self;
 }
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"sdkKey"]) return nil;
     // ZoneId is optional
     
-    return [self initWithSdkKey:configuration[@"sdkKey"] zoneId:configuration[@"zoneId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithSdkKey:configuration[@"sdkKey"] zoneId:configuration[@"zoneId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd
 {
+    if (!self.initialised) {
+        [ALPrivacySettings setHasUserConsent:self.privacy.advertiserGdprUserConsent];
+        [ALPrivacySettings setIsAgeRestrictedUser:self.privacy.advertiserGdprAgeRestrictedUser];
+        ALSdkSettings *settings = [[ALSdkSettings alloc] init];
+        settings.isVerboseLogging = self.testMode;
+        settings.isTestAdsEnabled = self.testMode;
+        ALSdk *alSdk = [ALSdk sharedWithKey:self.sdkKey settings:settings];
+        [alSdk setMediationProvider:@"deltaDNA"];
+        [alSdk setPluginVersion:[DDNASmartAds sdkVersion]];
+        [alSdk initializeSdk];
+        self.alSdk = alSdk;
+        self.initialised = YES;
+    }
+    
     if (self.interstitialAd && self.ad) {
         [self.delegate adapterDidLoadAd:self];
     }
@@ -96,6 +101,11 @@
 - (BOOL)isReady
 {
     return self.ad != nil;
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - ALAdLoadDelegate

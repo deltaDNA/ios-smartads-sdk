@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 
 @class ISPlacementInfo;
+@class DDNASmartAdPrivacy;
 
 @protocol DDNASmartAdIronSourceInterstitialDelegate;
 @protocol DDNASmartAdIronSourceRewardedDelegate;
@@ -31,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)getSDKVersion;
 
-- (void)startWithAppKey:(NSString *)appKey;
+- (void)startWithAppKey:(NSString *)appKey privacy:(DDNASmartAdPrivacy *)privacy;
 
 - (BOOL)hasRewardedVideo;
 

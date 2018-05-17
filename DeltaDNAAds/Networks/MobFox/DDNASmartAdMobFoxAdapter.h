@@ -23,6 +23,7 @@
 
 - (instancetype)initWithPublicationId: (NSString *)publicationId
                                  eCPM: (NSInteger)eCPM
+                              privacy: (DDNASmartAdPrivacy *)privacy
                        waterfallIndex: (NSInteger)waterfallIndex;
 
 @end

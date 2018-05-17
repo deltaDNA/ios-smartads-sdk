@@ -41,19 +41,41 @@
                        zoneId:(NSString *)zoneId
                      testMode:(BOOL)testMode
                          eCPM:(NSInteger)eCPM
+                      privacy:(DDNASmartAdPrivacy *)privacy
                waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"ADCOLONY" version:[AdColony getSDKVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"ADCOLONY" version:[AdColony getSDKVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.appId = appId;
         self.zoneId = zoneId;
         self.testMode = testMode;
         self.requestPostConfigure = NO;
         self.rewardCallbackTriggered = NO;
         self.closedCallbackTriggered = NO;
+    }
+    return self;
+}
+
+#pragma mark - DDNASmartAdAdapter
+
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
+{
+    if (!configuration[@"appId"] || !configuration[@"zoneId"]) return nil;
+    
+    return [self initWithAppId:configuration[@"appId"]
+                        zoneId:configuration[@"zoneId"]
+                      testMode:[configuration[@"testMode"] boolValue]
+                          eCPM:[configuration[@"eCPM"] integerValue]
+                       privacy:privacy
+                waterfallIndex:waterfallIndex];
+}
+
+- (void)requestAd
+{
+    if (!self.configured) {
         
         AdColonyAppOptions *options = [[AdColonyAppOptions alloc] init];
-        options.testMode = testMode;
-        options.disableLogging = !testMode;
+        options.testMode = self.testMode;
+        options.disableLogging = !self.testMode;
         options.mediationNetwork = @"DeltaDNA";
         options.mediationNetworkVersion = [DDNASmartAds sdkVersion];
         options.adOrientation = AdColonyOrientationAll;
@@ -64,7 +86,7 @@
             /* Set the zone's reward handler block */
             zone.reward = ^(BOOL success, NSString* name, int amount) {
                 self.watchedVideo = success;
-
+                
                 if (self.closedCallbackTriggered) {
                     [self.delegate adapterDidCloseAd:self canReward:self.watchedVideo];
                 } else {
@@ -78,26 +100,7 @@
                 [self requestAd];
             }
         }];
-    }
-    return self;
-}
-
-#pragma mark - DDNASmartAdAdapter
-
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
-{
-    if (!configuration[@"appId"] || !configuration[@"zoneId"]) return nil;
-    
-    return [self initWithAppId:configuration[@"appId"]
-                        zoneId:configuration[@"zoneId"]
-                      testMode:[configuration[@"testMode"] boolValue]
-                          eCPM:[configuration[@"eCPM"] integerValue]
-                waterfallIndex:waterfallIndex];
-}
-
-- (void)requestAd
-{
-    if (!self.configured) {
+        
         self.requestPostConfigure = YES;
         return;
     }

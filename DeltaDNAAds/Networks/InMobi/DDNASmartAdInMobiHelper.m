@@ -15,6 +15,7 @@
 //
 
 #import "DDNASmartAdInMobiHelper.h"
+#import "DDNASmartAdPrivacy.h"
 #import <DeltaDNA/DDNALog.h>
 #import <InMobiSDK/InMobiSDK.h>
 
@@ -38,16 +39,21 @@
     return _sharedObject;
 }
 
-- (void)startWithAccountID:(NSString *)accountID
+- (void)startWithAccountID:(NSString *)accountID privacy:(DDNASmartAdPrivacy *)privacy testMode:(BOOL)testMode
 {
     if (!_started) {
-//        [IMSdk setLogLevel:kIMSDKLogLevelDebug];
-        [IMSdk initWithAccountID:accountID];
+        if (testMode) {
+            [IMSdk setLogLevel:kIMSDKLogLevelDebug];
+        }
+        NSDictionary *consent = @{
+            IM_GDPR_CONSENT_AVAILABLE: privacy.hasAdvertiserGdprUserConsent ? @"true" : @"false"
+        };
+        [IMSdk initWithAccountID:accountID consentDictionary:consent];
         self.accountID = accountID;
         self.started = YES;
     } else {
         if (![self.accountID isEqualToString:accountID]) {
-            DDNALogWarn(@"InMobi already started with appId='%@'", self.accountID);
+            DDNALogWarn(@"InMobi already started with accountId='%@'", self.accountID);
         }
     }
 }

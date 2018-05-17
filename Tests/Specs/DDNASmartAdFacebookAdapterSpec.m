@@ -35,8 +35,7 @@ describe(@"Facebook interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.placementId).to.equal(@"test-placement-id");
@@ -51,8 +50,7 @@ describe(@"Facebook interstitial adapter", ^{
             @"adProvider": @"FACEBOOK"
         };
         
-        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -65,8 +63,7 @@ describe(@"Facebook interstitial adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                         waterfallIndex:1];
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.placementId).to.equal(@"test-placement-id");
@@ -76,6 +73,20 @@ describe(@"Facebook interstitial adapter", ^{
         
     });
 
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FACEBOOK",
+            @"placementId": @"test-placement-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdFacebookInterstitialAdapter *adapter = [[DDNASmartAdFacebookInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
+        
+    });
     
 });
 
@@ -89,8 +100,7 @@ describe(@"Facebook rewarded adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                                 waterfallIndex:1];
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.placementId).to.equal(@"test-placement-id");
@@ -105,8 +115,7 @@ describe(@"Facebook rewarded adapter", ^{
             @"adProvider": @"FACEBOOK"
         };
         
-        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                                 waterfallIndex:1];
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
     });
@@ -119,8 +128,7 @@ describe(@"Facebook rewarded adapter", ^{
             @"testMode": @YES
         };
         
-        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                                 waterfallIndex:1];
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.placementId).to.equal(@"test-placement-id");
@@ -128,6 +136,20 @@ describe(@"Facebook rewarded adapter", ^{
         expect(adapter.eCPM).to.equal(0);
         expect(adapter.waterfallIndex).to.equal(1);
         
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"FACEBOOK",
+            @"placementId": @"test-placement-id",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdFacebookRewardedAdapter *adapter = [[DDNASmartAdFacebookRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beFalsy();
     });
 });
 

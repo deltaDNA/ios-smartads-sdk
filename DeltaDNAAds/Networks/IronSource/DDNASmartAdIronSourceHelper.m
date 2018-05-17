@@ -15,7 +15,8 @@
 //
 
 #import "DDNASmartAdIronSourceHelper.h"
-#import "DeltaDNAAds/SmartAds/DDNASmartAdStatus.h"
+#import "DDNASmartAdStatus.h"
+#import "DDNASmartAdPrivacy.h"
 #import <IronSource/IronSource.h>
 #import <DeltaDNA/DDNALog.h>
 
@@ -43,10 +44,11 @@
     return [IronSource sdkVersion];
 }
 
-- (void)startWithAppKey:(NSString *)appKey
+- (void)startWithAppKey:(NSString *)appKey privacy:(nonnull DDNASmartAdPrivacy *)privacy
 {
     @synchronized(self) {
         if (!self.started) {
+            [IronSource setConsent:privacy.hasAdvertiserGdprUserConsent];
             [IronSource setInterstitialDelegate:self];
             [IronSource setRewardedVideoDelegate:self];
             [IronSource setMediationType:@"DeltaDNA"];

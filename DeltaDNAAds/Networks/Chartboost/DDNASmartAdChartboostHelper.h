@@ -18,6 +18,7 @@
 #import <UIKit/UIKit.h>
 #import <Chartboost/Chartboost.h>
 
+@class DDNASmartAdPrivacy;
 @protocol DDNASmartAdChartboostInterstitialDelegate;
 @protocol DDNASmartAdChartboostRewardedDelegate;
 
@@ -30,7 +31,7 @@
 
 - (NSString *)getSDKVersion;
 
-- (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature;
+- (void)startWithAppId:(NSString *)appId appSignature:(NSString *)appSignature privacy:(DDNASmartAdPrivacy *)privacy;
 
 - (void)cacheInterstitial:(CBLocation)location;
 

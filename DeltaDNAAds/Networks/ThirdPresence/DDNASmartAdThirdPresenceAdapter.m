@@ -32,9 +32,9 @@
 
 @implementation DDNASmartAdThirdPresenceAdapter
 
-- (instancetype)initWithAccountName:(NSString *)accountName placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithAccountName:(NSString *)accountName placementId:(NSString *)placementId testMode:(BOOL)testMode eCPM:(NSInteger)eCPM privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
-    if ((self = [super initWithName:@"THIRDPRESENCE" version:[DDNASmartAdThirdPresenceAdapter getSdkVersion] eCPM:eCPM waterfallIndex:waterfallIndex])) {
+    if ((self = [super initWithName:@"THIRDPRESENCE" version:[DDNASmartAdThirdPresenceAdapter getSdkVersion] eCPM:eCPM privacy:privacy waterfallIndex:waterfallIndex])) {
         self.accountName = testMode ? @"sdk-demo" : accountName;
         self.placementId = testMode ? @"sa7nvltbrn" : placementId;
         self.testMode = testMode;
@@ -88,12 +88,12 @@
 
 #pragma mark - DDNASmartAdAdapter
 
-- (instancetype)initWithConfiguration:(NSDictionary *)configuration waterfallIndex:(NSInteger)waterfallIndex
+- (instancetype)initWithConfiguration:(NSDictionary *)configuration privacy:(DDNASmartAdPrivacy *)privacy waterfallIndex:(NSInteger)waterfallIndex
 {
     if (!configuration[@"accountName"]) return nil;
     if (!configuration[@"placementId"]) return nil;
     
-    return [self initWithAccountName:configuration[@"accountName"] placementId:configuration[@"placementId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] waterfallIndex:waterfallIndex];
+    return [self initWithAccountName:configuration[@"accountName"] placementId:configuration[@"placementId"] testMode:[configuration[@"testMode"] boolValue] eCPM:[configuration[@"eCPM"] integerValue] privacy:privacy waterfallIndex:waterfallIndex];
 }
 
 - (void)requestAd

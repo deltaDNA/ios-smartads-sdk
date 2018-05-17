@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
     s.name = 'DeltaDNAAds'
-    s.version = '1.8.1'
+    s.version = '1.9.0-beta.2'
     s.license = { :type => 'APACHE', :file => 'LICENSE' }
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
-    s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
-    s.platform = :ios, '8.0'
+    s.source = { :git => 'git@corp-vm-gitlab:gamesanalytics/ios-smartads-sdk.git', :tag => s.version.to_s }
+    s.platform = :ios, '9.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'AdMob' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.29.0'
+        ss.dependency 'Google-Mobile-Ads-SDK', '~>7.31.0'
         ss.source_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdMob/DDNASmartAdAdMob*.h'
         ss.frameworks = ['AdSupport','SafariServices']
@@ -48,21 +48,21 @@ Pod::Spec.new do |s|
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.4.0'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.6.1'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>7.0.0'
+        ss.dependency 'InMobiSDK', '~>7.1.1'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '~>3.2'
+        ss.dependency 'MobFoxSDK', '3.4.4-b'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
@@ -76,14 +76,14 @@ Pod::Spec.new do |s|
 
     s.subspec 'Chartboost' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'ChartboostSDK', '~>7.1.0'
+        ss.dependency 'ChartboostSDK', '~>7.2.0'
         ss.source_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Chartboost/DDNASmartAdChartboost*.h'
     end
 
     s.subspec 'Vungle' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'VungleSDK-iOS', '~>5.4.0'
+        ss.dependency 'VungleSDK-iOS', '~>6.2.0'
         ss.source_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Vungle/DDNASmartAdVungleAdapter.h'
     end
@@ -104,28 +104,28 @@ Pod::Spec.new do |s|
 
     s.subspec 'AppLovin' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AppLovinSDK', '~>4.8.4'
+        ss.dependency 'AppLovinSDK', '~>5.0.1'
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.7.6.0'
+        ss.dependency 'IronSourceSDK', '~>6.7.9.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '~>4.27.1'
+        ss.dependency 'FBAudienceNetwork', '~>4.28.1'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.h'
     end
 
     s.subspec 'Tapjoy' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'TapjoySDK', '~>11.11.0'
+        ss.dependency 'TapjoySDK', '~>11.12.1'
         ss.source_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.h'
     end
@@ -139,7 +139,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'LoopMe' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'LoopMeSDK', '~>6.0'
+        ss.dependency 'LoopMeSDK', '~>6.4.5'
         ss.source_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.h'
     end

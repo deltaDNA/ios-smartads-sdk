@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016 deltaDNA Ltd. All rights reserved.
+// Copyright (c) 2018 deltaDNA Ltd. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,16 +14,18 @@
 // limitations under the License.
 //
 
-#import <Foundation/Foundation.h>
+#import "DDNASmartAdPrivacy.h"
 
-@class DDNASmartAdPrivacy;
+@implementation DDNASmartAdPrivacy
 
-@interface DDNASmartAdInMobiHelper : NSObject
-
-+ (instancetype)sharedInstance;
-
-- (void)startWithAccountID:(NSString *)accountID privacy:(DDNASmartAdPrivacy *)privacy testMode:(BOOL)testMode;
-
-- (NSString *)getVersion;
+- (instancetype)initWithUserConsent:(BOOL)userConsent ageRestricted:(BOOL)ageRestricted
+{
+    self = [super init];
+    if (self) {
+        _advertiserGdprUserConsent = userConsent;
+        _advertiserGdprAgeRestrictedUser = ageRestricted;
+    }
+    return self;
+}
 
 @end

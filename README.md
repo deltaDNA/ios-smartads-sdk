@@ -136,6 +136,10 @@ To fully take advantage of deltaDNA's SmartAds you want to work with our Engage 
 
 Checkout the included example project for more details.
 
+### User Consent for Tracking and Age Restriction (GDPR)
+
+By default user consent is not given for advertising user tracking and the user is assumed to not be age restricted (16 and over). These settings can be changed through the `DDNASmartAdsSettings` class by changing `[DDNASmartAds sharedInstance].settings.advertiserGdprUserConsent` and or `[DDNASmartAds sharedInstance].settings.advertiserGdprAgeRestrictedUser`.  Where supported these changes are passed to the 3rd party ad sdks.  If no GDPR support is available, the ad network sdk will only be started if user consent is true. Changes to either of the values while SmartAds is running will take effect during the next session.
+
 ### iOS 10 and ATS Support
 
 The following table is a list of considerations when integrating our library.  Many of the ad networks are ATS compliant, the others [recommend](https://firebase.google.com/docs/admob/ios/ios9) setting the `NSArbitararyLoads` key to true.  Most now support bitcode, but currently we don't.  Only MobPub and Flurry and ThirdPresence work with the CocoaPods `use_frameworks!` option, the others will give a transitive dependencies error. The library does not support dynamic frameworks, so avoid that for now.  Remember you can use the subspecs option if you only want certain networks included with SmartAds.  You will also want to consider configuring the privacy controls for iOS 10.

@@ -16,13 +16,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DDNASmartAdSettings.h"
+#import "DDNASmartAdEngageFactory.h"
 
 @protocol DDNASmartAdsRegistrationDelegate;
 @protocol DDNASmartAdsInterstitialDelegate;
 @protocol DDNASmartAdsRewardedDelegate;
 
 @class DDNAEngagement;
-@class DDNASmartAdEngageFactory;
 
 /**
  @c DDNASmartAds provides a service for fetching and showing ads.  It supports showing interstitial and rewarded ad types.
@@ -46,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The @c DDNASmartAdEngageFactory  helps making Engage requests.
 @property (nonatomic, strong, readonly) DDNASmartAdEngageFactory *engageFactory;
+
+/// The @c DDNASmartAdSettings allow the default behaviour of the sdk to be changed.
+@property (nonatomic, strong, readonly) DDNASmartAdSettings *settings;
 
 /**
  Returns the singleton instance.

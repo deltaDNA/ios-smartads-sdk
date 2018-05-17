@@ -35,8 +35,7 @@ describe(@"IronSource interstitial adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdIronSourceInterstitialAdapter *adapter = [[DDNASmartAdIronSourceInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                     waterfallIndex:1];
+        DDNASmartAdIronSourceInterstitialAdapter *adapter = [[DDNASmartAdIronSourceInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
@@ -52,10 +51,25 @@ describe(@"IronSource interstitial adapter", ^{
             @"adProvider": @"IRONSOURCE"
         };
         
-        DDNASmartAdIronSourceInterstitialAdapter *adapter = [[DDNASmartAdIronSourceInterstitialAdapter alloc] initWithConfiguration:configuration
-                                                                                                                     waterfallIndex:1];
+        DDNASmartAdIronSourceInterstitialAdapter *adapter = [[DDNASmartAdIronSourceInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"IRONSOURCE",
+            @"appKey": @"test-app-key",
+            @"placementName": @"test-placement-name",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdIronSourceInterstitialAdapter *adapter = [[DDNASmartAdIronSourceInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
+        
     });
 });
 
@@ -70,8 +84,7 @@ describe(@"IronSource rewarded adapter", ^{
             @"eCPM": @150
         };
         
-        DDNASmartAdIronSourceRewardedAdapter *adapter = [[DDNASmartAdIronSourceRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdIronSourceRewardedAdapter *adapter = [[DDNASmartAdIronSourceRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
         expect(adapter.appKey).to.equal(@"test-app-key");
@@ -87,10 +100,25 @@ describe(@"IronSource rewarded adapter", ^{
             @"adProvider": @"IRONSOURCE"
         };
         
-        DDNASmartAdIronSourceRewardedAdapter *adapter = [[DDNASmartAdIronSourceRewardedAdapter alloc] initWithConfiguration:configuration
-                                                                                                             waterfallIndex:1];
+        DDNASmartAdIronSourceRewardedAdapter *adapter = [[DDNASmartAdIronSourceRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).to.beNil();
+    });
+    
+    it(@"respects privacy settings", ^{
+        
+        NSDictionary *configuration = @{
+            @"adProvider": @"IRONSOURCE",
+            @"appKey": @"test-app-key",
+            @"placementName": @"test-placement-name",
+            @"eCPM": @150
+        };
+        
+        DDNASmartAdIronSourceRewardedAdapter *adapter = [[DDNASmartAdIronSourceRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
+        
+        expect(adapter).toNot.beNil();
+        expect(adapter.isGdprCompliant).to.beTruthy();
+        
     });
 });
 
