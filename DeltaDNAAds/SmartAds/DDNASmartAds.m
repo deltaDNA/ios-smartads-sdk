@@ -56,8 +56,17 @@
         #endif
         [self.debugListener registerListeners];
 
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DDNASDKNewSession" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerForAdsInternal) name:@"DDNASDKNewSession" object:nil];
+        __weak typeof(self) weakSelf = self;
+        NSNotificationCenter * __weak center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:@"DDNASDKSessionConfig" object:DDNASDK.sharedInstance queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+            DDNALogDebug(@"SmartAds received updated session configuration.");
+            NSDictionary *config = note.userInfo[@"config"];
+            if (config) {
+                [weakSelf registerForAdsInternalWithConfig:config];
+            } else {
+                DDNALogWarn(@"Config missing from session config notification.");
+            }
+        }];
 
         self.engageFactory = [[DDNASmartAdEngageFactory alloc] initWithDDNASDK:[DDNASDK sharedInstance]];
         self.settings = [[DDNASmartAdSettings alloc] init];
@@ -90,14 +99,14 @@
 
 }
 
-- (void)registerForAdsInternal
+- (void)registerForAdsInternalWithConfig:(nonnull NSDictionary *)config
 {
     @synchronized(self) {
         @try{
             self.adService = [self.factory buildSmartAdServiceWithDelegate:self];
-            [self.adService beginSessionWithDecisionPoint:@"advertising"
-                                              userConsent:self.settings.advertiserGdprUserConsent
-                                            ageRestricted:self.settings.advertiserGdprAgeRestrictedUser];
+            [self.adService beginSessionWithConfig:config
+                                       userConsent:self.settings.advertiserGdprUserConsent
+                                     ageRestricted:self.settings.advertiserGdprAgeRestrictedUser];
         }
         @catch (NSException *exception) {
             DDNALogWarn(@"Error registering for ads: %@", exception);

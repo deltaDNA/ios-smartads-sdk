@@ -47,64 +47,14 @@ describe(@"registering for ads", ^{
         
         fakeFactory = [[DDNAFakeSmartAdFactory alloc] init];
         adService.factory = fakeFactory;
-        
-        
     });
-    
-    it(@"retries with connection error", ^{
-        
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler(nil, -1, [NSError errorWithDomain:NSURLErrorDomain code:-1009 userInfo:nil]);
-        
-        [verifyCount(mockDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:@"Engage returned: -1 The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
-        [verifyCount(mockDelegate, never()) didFailToRegisterForRewardedAdsWithReason:@"Engage returned: -1 The operation couldn’t be completed. (NSURLErrorDomain error -1009.)"];
-        expect([adService hasLoadedInterstitialAd]).to.beFalsy();
-        expect([adService hasLoadedRewardedAd]).to.beFalsy();
-        
-    });
-    
-    it(@"no ad available with engage non 200 response", ^{
-        
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler(@"Unknown decision point", 400, nil);
-        
-        expect([adService hasLoadedInterstitialAd]).to.beFalsy();
-        expect([adService hasLoadedRewardedAd]).to.beFalsy();
-        
-    });
-    
+
     it(@"no ad available with empty engage response", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler(@"{}", 200, nil);
+        [adService beginSessionWithConfig:@{} userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedInterstitialAd]).to.beFalsy();
         expect([adService hasLoadedRewardedAd]).to.beFalsy();
-        
     });
     
     it(@"fails when 'asShowSession' is missing", ^{
@@ -115,16 +65,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
@@ -140,17 +81,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
@@ -167,16 +98,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks configured"];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
@@ -195,16 +117,7 @@ describe(@"registering for ads", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         [verify(mockDelegate) didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks enabled"];
         [verify(mockDelegate) didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks enabled"];
@@ -234,16 +147,7 @@ describe(@"registering for ads", ^{
         
         fakeFactory.fakeSmartAdAgent = [[DDNAFakeSmartAdAgent alloc] init];
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         [verify(mockDelegate) didRegisterForInterstitialAds];
 
@@ -300,16 +204,7 @@ describe(@"interstitial ads", ^{
     
     it(@"shows an interstitial ad using an Engagement", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedInterstitialAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
@@ -345,16 +240,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"does not show an interstitial with an invalid Engagement", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedInterstitialAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
@@ -371,16 +257,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"does not show an interstitial with an Engagement when adShowPoint is false", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
 
         expect([adService hasLoadedInterstitialAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForInterstitialAds];
@@ -397,16 +274,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max session is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -435,16 +303,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max session for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdSessionCount":@2};
@@ -471,16 +330,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"stops showing interstitial ads when max daily for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdDailyCount":@2};
@@ -506,16 +356,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"doesn't show an ad with an Engagement before the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdShowWaitSecs":@4};
@@ -533,16 +374,7 @@ describe(@"interstitial ads", ^{
     });
     
     it(@"shows an ad with an Engagement after the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdShowWaitSecs":@4};
@@ -614,16 +446,7 @@ describe(@"rewarded ads", ^{
     
     it(@"shows a rewarded ad using an Engagement", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
@@ -660,16 +483,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"does not show a rewarded ad with an invalid Engagement", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
@@ -687,16 +501,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"does not show a rewarded ad with an Engagement when adShowPoint is false", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         [verify(mockDelegate) didRegisterForRewardedAds];
@@ -714,16 +519,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max session is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -756,16 +552,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max session for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdSessionCount":@2};
@@ -795,16 +582,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"stops showing rewarded ads when max daily for decision point is reached", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdDailyCount": @2};
@@ -833,16 +611,7 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"doesn't show a rewarded ad with an Engagement before the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdShowWaitSecs":@4};
@@ -862,17 +631,8 @@ describe(@"rewarded ads", ^{
     });
     
     it(@"shows a rewarded ad with an Engagement after the minimum interval for a decision point", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
-        
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
+
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{@"ddnaAdShowWaitSecs":@4};
         
@@ -949,16 +709,7 @@ describe(@"interstitial ads respect session minimum ad interval", ^{
     });
 
     it(@"doesn't show an interstitial ad with an Engagement before the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -976,16 +727,7 @@ describe(@"interstitial ads respect session minimum ad interval", ^{
     });
     
     it(@"shows an interstitial ad with an Engagement after the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -1056,16 +798,7 @@ describe(@"rewarded ads respect session minimum ad interval", ^{
     });
     
     it(@"doesn't show a rewarded ad with an Engagement before the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -1083,16 +816,7 @@ describe(@"rewarded ads respect session minimum ad interval", ^{
     });
     
     it(@"shows a rewarded ad with an Engagement after the minimum interval", ^{
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -1162,16 +886,7 @@ describe(@"respects adRequest flag", ^{
     
     it(@"doesn't post adRequest when disabled", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};
@@ -1229,16 +944,7 @@ describe(@"allowed to show interstitial", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
     });
     
@@ -1381,16 +1087,7 @@ describe(@"allowed to show interstitial minimal time", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
     });
     
@@ -1502,16 +1199,7 @@ describe(@"allowed to show rewarded", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
     });
 
@@ -1654,16 +1342,7 @@ describe(@"allowed to show rewarded minimal time", ^{
         
         mockViewController = mock([UIViewController class]);
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
     });
     
@@ -1751,16 +1430,7 @@ describe(@"respects adShowSession for a session", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         // The session won't have started, so no ads are being fetched.  We don't log anything in that case.
         
@@ -1823,16 +1493,7 @@ describe(@"respect null session and time limits", ^{
     
     it(@"doesn't stop showing ads when no session limit", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         for (int i = 0; i < 100; ++i) {
         
@@ -1917,16 +1578,7 @@ describe(@"time until ad is allowed", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         
@@ -1951,16 +1603,7 @@ describe(@"time until ad is allowed", ^{
     
     it(@"reports the remaining decision point time", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         
@@ -2003,16 +1646,7 @@ describe(@"time until ad is allowed", ^{
             }
         };
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         expect([adService hasLoadedRewardedAd]).will.beTruthy();
         
@@ -2037,16 +1671,7 @@ describe(@"time until ad is allowed", ^{
     
     it(@"reports when no wait time", ^{
         
-        [adService beginSessionWithDecisionPoint:@"advertising" userConsent:YES ageRestricted:NO];
-        
-        HCArgumentCaptor *argument = [[HCArgumentCaptor alloc] init];
-        [verify(mockDelegate) requestEngagementWithDecisionPoint:@"advertising"
-                                                         flavour:@"internal"
-                                                      parameters:@{@"adSdkVersion":[DDNASmartAds sdkVersion]}
-                                               completionHandler:(id)argument];
-        
-        void (^completionHandler)(NSString *response, NSInteger statusCode, NSError *connectionError) = argument.value;
-        completionHandler([NSString stringWithContentsOfDictionary:response], 200, nil);
+        [adService beginSessionWithConfig:response userConsent:YES ageRestricted:NO];
         
         NSString *decisionPoint = @"testDecisionPoint";
         NSDictionary *engageParams = @{};

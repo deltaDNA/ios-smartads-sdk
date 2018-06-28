@@ -47,9 +47,9 @@ extern NSString * const kDDNAFullyWatched;
 
 - (instancetype)init;
 
-- (void)beginSessionWithDecisionPoint:(nonnull NSString *)decisionPoint
-                          userConsent:(BOOL)userConsent
-                        ageRestricted:(BOOL)ageRestricted;
+- (void)beginSessionWithConfig:(nonnull NSDictionary *)config
+                   userConsent:(BOOL)userConsent
+                 ageRestricted:(BOOL)ageRestricted;
 
 - (BOOL)isInterstitialAdAllowedForDecisionPoint:(nullable NSString *)decisionPoint
                                      parameters:(nullable NSDictionary *)parameters

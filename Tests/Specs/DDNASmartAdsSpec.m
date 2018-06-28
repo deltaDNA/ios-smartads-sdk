@@ -29,7 +29,7 @@
 
 @property (strong, nonatomic) DDNASmartAdFactory *factory;
 
-- (void)registerForAdsInternal;
+- (void)registerForAdsInternalWithConfig:(nonnull NSDictionary *)config;
 
 @end
 
@@ -57,7 +57,7 @@ describe(@"registers for ads", ^{
     
     it(@"succeeds with a good response", ^{
 
-        [smartAds registerForAdsInternal];
+        [smartAds registerForAdsInternalWithConfig:@{}];
         
         [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
         [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];
@@ -68,7 +68,7 @@ describe(@"registers for ads", ^{
     
     it(@"allows an interstitial ad with a null engagement", ^{
         
-        [smartAds registerForAdsInternal];
+        [smartAds registerForAdsInternalWithConfig:@{}];
         
         [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
         [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];
@@ -81,7 +81,7 @@ describe(@"registers for ads", ^{
     
     it(@"allows a rewarded ad with a null engagement", ^{
         
-        [smartAds registerForAdsInternal];
+        [smartAds registerForAdsInternalWithConfig:@{}];
         
         [verify(mockRegistrationDelegate) didRegisterForInterstitialAds];
         [verifyCount(mockRegistrationDelegate, never()) didFailToRegisterForInterstitialAdsWithReason:anything()];

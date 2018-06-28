@@ -30,7 +30,6 @@ NSString * const AD_TYPE_UNKNOWN = @"UNKNOWN";
 NSString * const AD_TYPE_INTERSTITIAL = @"INTERSTITIAL";
 NSString * const AD_TYPE_REWARDED = @"REWARDED";
 
-static const NSInteger REGISTER_FOR_ADS_RETRY_SECONDS = 60;
 static const NSInteger MAX_ERROR_STRING_LENGTH = 512;
 
 NSString * const kDDNAAdsDisabledEngage = @"com.deltadna.AdsDisabledEngage";
@@ -73,113 +72,100 @@ NSString * const kDDNAFullyWatched = @"com.deltadna.FullyWatched";
     return self;
 }
 
-- (void)beginSessionWithDecisionPoint:(NSString *)decisionPoint userConsent:(BOOL)userConsent ageRestricted:(BOOL)ageRestricted
+- (void)beginSessionWithConfig:(nonnull NSDictionary *)responseDict userConsent:(BOOL)userConsent ageRestricted:(BOOL)ageRestricted
 {
-    [self.delegate requestEngagementWithDecisionPoint:decisionPoint
-                                              flavour:@"internal"
-                                           parameters:@{@"adSdkVersion" : [DDNASmartAds sdkVersion]}
-                                    completionHandler:^(NSString *response, NSInteger statusCode, NSError *connectionError){
-                                        
-        NSDictionary *responseDict = [NSDictionary dictionaryWithJSONString:response];
-        if (!responseDict || !responseDict[@"parameters"]) {
-            DDNALogWarn(@"No SmartAds configuration returned by Engage due to missing 'parameters' key, trying again in %ld seconds.", (long)REGISTER_FOR_ADS_RETRY_SECONDS);
-            
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
-                                                  REGISTER_FOR_ADS_RETRY_SECONDS*NSEC_PER_SEC);
-            dispatch_after(delay, dispatch_get_main_queue(), ^{
-                [self beginSessionWithDecisionPoint:decisionPoint userConsent:userConsent ageRestricted:ageRestricted];
-            });
+    if (!responseDict || !responseDict[@"parameters"]) {
+        DDNALogWarn(@"No SmartAds configuration found.");
+    }
+    else {
+        if (responseDict[@"isCachedResponse"] && [responseDict[@"isCachedResponse"] boolValue]) {
+            DDNALogDebug(@"Using cached SmartAds configuration");
+        } else {
+            DDNALogDebug(@"Using live SmartAds configuration");
         }
-        else {
-            if (responseDict[@"isCachedResponse"] && [responseDict[@"isCachedResponse"] boolValue]) {
-                DDNALogDebug(@"Using cached SmartAds configuration");
-            } else {
-                DDNALogDebug(@"Using live SmartAds configuration");
-            }
-            
-            self.adConfiguration = responseDict[@"parameters"];
-            
-            if (!self.adConfiguration[@"adShowSession"] || (![self.adConfiguration[@"adShowSession"] boolValue])) {
-                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-                [center postNotificationName:kDDNAAdsDisabledEngage
-                                      object:self
-                                    userInfo:nil];
-                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
-                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
-                return;
-            }
-            
-            NSNumber *maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
-            self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
-            self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
-            
-            NSInteger floorPrice = [self.adConfiguration[@"adFloorPrice"] integerValue];
-            NSInteger maxRequests = [self.adConfiguration[@"adMaxPerNetwork"] integerValue];
-            NSUInteger demoteCode = [self.adConfiguration[@"adDemoteOnRequestCode"] unsignedIntegerValue];
-            
-            NSArray *adProviders = self.adConfiguration[@"adProviders"];
-            DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:userConsent ageRestricted:ageRestricted];
-            
-            if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
-                NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice privacy:privacy];
-                if (adapters == nil || adapters.count == 0) {
-                    DDNALogWarn(@"No interstitial ad networks enabled");
-                    
-                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-                    [center postNotificationName:kDDNAAdsDisabledNoNetworks
-                                          object:self
-                                        userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
-                    [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks enabled"];
-                } else {
-                    DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
-                    [self.interstitialAgent requestAd];
-                    
-                    [self.delegate didRegisterForInterstitialAds];
-                }
-            }
-            else {
-                DDNALogWarn(@"No interstitial ad networks configured");
+        
+        self.adConfiguration = responseDict[@"parameters"];
+        
+        if (!self.adConfiguration[@"adShowSession"] || (![self.adConfiguration[@"adShowSession"] boolValue])) {
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:kDDNAAdsDisabledEngage
+                                  object:self
+                                userInfo:nil];
+            [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"Ads disabled for this session by Engage."];
+            [self.delegate didFailToRegisterForRewardedAdsWithReason:@"Ads disabled for this session by Engage."];
+            return;
+        }
+        
+        NSNumber *maxAdsPerSession = self.adConfiguration[@"adMaxPerSession"];
+        self.adMinimumInterval = [self.adConfiguration[@"adMinimumInterval"] integerValue];
+        self.recordAdRequests = self.adConfiguration[@"adRecordAdRequests"] ? [self.adConfiguration[@"adRecordAdRequests"] boolValue] : YES;
+        
+        NSInteger floorPrice = [self.adConfiguration[@"adFloorPrice"] integerValue];
+        NSInteger maxRequests = [self.adConfiguration[@"adMaxPerNetwork"] integerValue];
+        NSUInteger demoteCode = [self.adConfiguration[@"adDemoteOnRequestCode"] unsignedIntegerValue];
+        
+        NSArray *adProviders = self.adConfiguration[@"adProviders"];
+        DDNASmartAdPrivacy *privacy = [[DDNASmartAdPrivacy alloc] initWithUserConsent:userConsent ageRestricted:ageRestricted];
+        
+        if (adProviders != nil && [adProviders isKindOfClass:[NSArray class]] && adProviders.count > 0) {
+            NSArray *adapters = [self.factory buildInterstitialAdapterWaterfallWithAdProviders:adProviders floorPrice:floorPrice privacy:privacy];
+            if (adapters == nil || adapters.count == 0) {
+                DDNALogWarn(@"No interstitial ad networks enabled");
                 
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                       object:self
                                     userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
-                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks configured"];
+                [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks enabled"];
+            } else {
+                DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
+                self.interstitialAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
+                [self.interstitialAgent requestAd];
+                
+                [self.delegate didRegisterForInterstitialAds];
             }
+        }
+        else {
+            DDNALogWarn(@"No interstitial ad networks configured");
             
-            NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
-            
-            if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
-                NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice privacy:privacy];
-                if (adapters == nil || adapters.count == 0) {
-                    DDNALogWarn(@"No rewarded ad networks enabled");
-                    
-                    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-                    [center postNotificationName:kDDNAAdsDisabledNoNetworks
-                                          object:self
-                                        userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
-                    [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks enabled"];
-                } else {
-                    DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
-                    self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
-                    [self.rewardedAgent requestAd];
-                    
-                    [self.delegate didRegisterForRewardedAds];
-                }
-            }
-            else {
-                DDNALogWarn(@"No rewarded ad networks configured");
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                  object:self
+                                userInfo:@{kDDNAAdType: AD_TYPE_INTERSTITIAL}];
+            [self.delegate didFailToRegisterForInterstitialAdsWithReason:@"No interstitial ad networks configured"];
+        }
+        
+        NSArray *adRewardedProviders = self.adConfiguration[@"adRewardedProviders"];
+        
+        if (adRewardedProviders != nil && [adRewardedProviders isKindOfClass:[NSArray class]] && adRewardedProviders.count > 0) {
+            NSArray *adapters = [self.factory buildRewardedAdapterWaterfallWithAdProviders:adRewardedProviders floorPrice:floorPrice privacy:privacy];
+            if (adapters == nil || adapters.count == 0) {
+                DDNALogWarn(@"No rewarded ad networks enabled");
                 
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center postNotificationName:kDDNAAdsDisabledNoNetworks
                                       object:self
                                     userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
-                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
+                [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks enabled"];
+            } else {
+                DDNASmartAdWaterfall *waterfall = [[DDNASmartAdWaterfall alloc] initWithAdapters:adapters demoteOnOptions:demoteCode maxRequests:maxRequests];
+                self.rewardedAgent = [self.factory buildSmartAdAgentWithWaterfall:waterfall adLimit:maxAdsPerSession delegate:self];
+                [self.rewardedAgent requestAd];
+                
+                [self.delegate didRegisterForRewardedAds];
             }
-            [self.metrics newSessionWithDate:[NSDate date]];
         }
-    }];
+        else {
+            DDNALogWarn(@"No rewarded ad networks configured");
+            
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            [center postNotificationName:kDDNAAdsDisabledNoNetworks
+                                  object:self
+                                userInfo:@{kDDNAAdType: AD_TYPE_REWARDED}];
+            [self.delegate didFailToRegisterForRewardedAdsWithReason:@"No rewarded ad networks configured"];
+        }
+        [self.metrics newSessionWithDate:[NSDate date]];
+    }
 }
 
 - (BOOL)isInterstitialAdAllowedForDecisionPoint:(nullable NSString *)decisionPoint
