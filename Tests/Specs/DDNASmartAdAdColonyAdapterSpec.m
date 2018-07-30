@@ -68,7 +68,7 @@ describe(@"AdColony adapter", ^{
         DDNASmartAdAdColonyAdapter *adapter = [[DDNASmartAdAdColonyAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.isGdprCompliant).to.beFalsy();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
     
 });
