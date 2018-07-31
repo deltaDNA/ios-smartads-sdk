@@ -118,7 +118,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '~>4.99.1'
+        ss.dependency 'FBAudienceNetwork', '~>4.99.2'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.h'
     end
