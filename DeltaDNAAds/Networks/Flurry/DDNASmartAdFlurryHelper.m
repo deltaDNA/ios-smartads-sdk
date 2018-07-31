@@ -18,7 +18,7 @@
 #import <Flurry.h>
 #import <DeltaDNA/DDNALog.h>
 
-@interface DDNASmartAdFlurryHelper ()
+@interface DDNASmartAdFlurryHelper () <FlurryDelegate>
 
 @property (nonatomic, assign) BOOL started;
 @property (nonatomic, copy) NSString *apiKey;
@@ -40,6 +40,7 @@
 - (void)startSessionWithApiKey:(NSString *)apiKey testMode:(BOOL)testMode
 {
     if (!self.started) {
+        [Flurry setDelegate:self];
         FlurryLogLevel logLevel = testMode ? FlurryLogLevelDebug : FlurryLogLevelNone;
         [Flurry startSession:apiKey
          withSessionBuilder:[[[FlurrySessionBuilder new]
@@ -57,6 +58,13 @@
 - (NSString *)getFlurryAgentVersion
 {
     return [Flurry getFlurryAgentVersion];
+}
+
+#pragma mark - FlurryDelegate
+
+- (void)flurrySessionDidCreateWithInfo:(nonnull NSDictionary*)info
+{
+    DDNALogDebug(@"Flurry session started with: %@", info);
 }
 
 @end

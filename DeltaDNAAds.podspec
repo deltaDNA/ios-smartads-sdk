@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.6.1'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>9.0.0'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
