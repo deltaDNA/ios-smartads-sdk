@@ -46,6 +46,8 @@
 - (MobFoxInterstitialAd *)createAndLoadInterstitial
 {
     MobFoxInterstitialAd *interstitial = [[MobFoxInterstitialAd alloc] init:self.publicationId];
+    interstitial.gdpr = YES;
+    interstitial.gdpr_consent = self.privacy.advertiserGdprUserConsent ? @"1" : nil;
     interstitial.delegate = self;
 
     [interstitial loadAd];
@@ -85,6 +87,11 @@
         [self.delegate adapterDidFailToShowAd:self
                                    withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - MobFoxInterstitialDelegate
