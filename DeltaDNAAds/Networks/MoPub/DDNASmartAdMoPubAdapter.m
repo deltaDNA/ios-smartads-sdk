@@ -22,6 +22,7 @@
 @property (nonatomic, strong) MPInterstitialAdController *interstitial;
 @property (nonatomic, copy) NSString *adUnitId;
 @property (nonatomic, assign) BOOL testMode;
+@property (nonatomic, assign) BOOL initialised;
 
 @end
 
@@ -36,6 +37,7 @@
                      waterfallIndex:waterfallIndex])) {
         self.adUnitId = adUnitId;
         self.testMode = testMode;
+        self.initialised = NO;
     }
     return self;
 }
@@ -45,7 +47,7 @@
     MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:self.adUnitId];
     interstitial.delegate = self;
     
-    interstitial.testing = self.testMode;
+    //interstitial.testing = self.testMode;
     
     [interstitial loadAd];
     return interstitial;
@@ -66,7 +68,22 @@
 
 - (void)requestAd
 {
-    self.interstitial = [self createAndLoadInterstitial];
+    if (!self.initialised) {
+        MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:self.adUnitId];
+        sdkConfig.globalMediationSettings = @[];
+        
+        [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:^{
+            self.initialised = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Apparently only works if we're on an approved list, else it will assume no consent.
+                // See. https://developers.mopub.com/docs/ios/gdpr/#publisher-owned-consent
+                self.privacy.advertiserGdprUserConsent ? [[MoPub sharedInstance] grantConsent] : [[MoPub sharedInstance] revokeConsent];
+                [self requestAd];
+            });
+        }];
+    } else {
+        self.interstitial = [self createAndLoadInterstitial];
+    }
 }
 
 - (void)showAdFromViewController:(UIViewController *)viewController
@@ -78,6 +95,11 @@
         [self.delegate adapterDidFailToShowAd:self
                                    withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - MPInterstitialAdControllerDelegate

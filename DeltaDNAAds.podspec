@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk/Core', '~>4.20.1'
+        ss.dependency 'mopub-ios-sdk', '~>5.2.0'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end
