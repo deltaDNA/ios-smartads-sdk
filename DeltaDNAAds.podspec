@@ -125,7 +125,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Tapjoy' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'TapjoySDK', '~>11.12.1'
+        ss.dependency 'TapjoySDK', '~>12.0.0'
         ss.source_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.h'
     end
