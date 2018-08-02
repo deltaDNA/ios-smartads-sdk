@@ -91,7 +91,7 @@
 
 - (BOOL)isGdprCompliant
 {
-    return NO;
+    return YES;
 }
 
 #pragma mark - IMInterstitialDelegate

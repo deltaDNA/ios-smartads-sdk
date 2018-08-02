@@ -69,7 +69,7 @@ describe(@"InMobi interstitial adapter", ^{
         DDNASmartAdInMobiInterstitialAdapter *adapter = [[DDNASmartAdInMobiInterstitialAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.isGdprCompliant).to.beFalsy();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
     
 });
@@ -118,7 +118,7 @@ describe(@"InMobi rewarded adapter", ^{
         DDNASmartAdInMobiRewardedAdapter *adapter = [[DDNASmartAdInMobiRewardedAdapter alloc] initWithConfiguration:configuration privacy:[[DDNASmartAdPrivacy alloc] init] waterfallIndex:1];
         
         expect(adapter).toNot.beNil();
-        expect(adapter.isGdprCompliant).to.beFalsy();
+        expect(adapter.isGdprCompliant).to.beTruthy();
     });
     
 });

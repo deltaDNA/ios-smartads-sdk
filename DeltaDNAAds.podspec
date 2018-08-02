@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>7.1.1'
+        ss.dependency 'InMobiSDK', '~>7.1.2'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
