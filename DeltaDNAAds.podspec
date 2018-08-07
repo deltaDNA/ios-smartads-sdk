@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UnityAds' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'UnityAds', '~>2.2.0'
+        ss.dependency 'UnityAds', '~>2.3.0'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
     end
