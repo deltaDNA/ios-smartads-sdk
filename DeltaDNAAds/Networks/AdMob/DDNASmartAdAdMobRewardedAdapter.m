@@ -55,7 +55,14 @@
         self.initialised = YES;
     }
     self.reward = NO;
-    [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request]
+    
+    GADRequest *request = [GADRequest request];
+    if (!self.privacy.advertiserGdprUserConsent) {
+        GADExtras *extras = [[GADExtras alloc] init];
+        extras.additionalParameters = @{@"npa": @"1"};
+        [request registerAdNetworkExtras:extras];
+    }
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:request
                                            withAdUnitID:self.adUnitId];
 }
     
@@ -92,6 +99,10 @@
     }
 }
 
+- (BOOL)isGdprCompliant
+{
+    return YES;
+}
     
 #pragma mark - GADRewardBasedVideoAdDelegate
     
