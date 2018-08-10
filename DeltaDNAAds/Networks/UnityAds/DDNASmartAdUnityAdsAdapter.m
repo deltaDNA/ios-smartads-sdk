@@ -38,7 +38,6 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
 @property (nonatomic, assign) UnityAdsState state;
 @property (nonatomic, strong) NSString *errorMessage;
 @property (nonatomic, assign) UnityAdsPlacementState placementState;
-@property (nonatomic, assign) BOOL initialised;
 
 @end
 
@@ -52,7 +51,6 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
         self.testMode = testMode;
         self.state = kUnityAdsStateInitialising;
         self.placementState = kUnityAdsPlacementStateNotAvailable;
-        self.initialised = NO;
     }
     return self;
 }
@@ -68,14 +66,17 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
 
 - (void)requestAd
 {
-    if (!self.initialised) {
-        id mediationMetaData = [[UADSMediationMetaData alloc] init];
-        [mediationMetaData setName:@"deltaDNA"];
-        [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
-        [mediationMetaData commit];
-        
+    UADSMetaData *gdprConsentMetaData = [[UADSMetaData alloc] init];
+    [gdprConsentMetaData set:@"gdpr.consent" value:[NSNumber numberWithBool:self.privacy.advertiserGdprUserConsent]];
+    [gdprConsentMetaData commit];
+    
+    id mediationMetaData = [[UADSMediationMetaData alloc] init];
+    [mediationMetaData setName:@"deltaDNA"];
+    [mediationMetaData setVersion:[DDNASmartAds sdkVersion]];
+    [mediationMetaData commit];
+    
+    if (![UnityAds isInitialized] && self.state != kUnityAdsStateError) {
         [UnityAds initialize:self.gameId delegate:self testMode:self.testMode];
-        self.initialised = YES;
     }
     
     if ([UnityAds isInitialized] && self.state == kUnityAdsStateInitialising) {
@@ -109,6 +110,11 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
     }
 }
 
+- (BOOL)isGdprCompliant
+{
+    return YES;
+}
+
 #pragma mark - UnityAdsDelegate
 
 /**
@@ -136,6 +142,10 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
  */
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
 {
+    // All the errors are bad so let's give up.
+    self.errorMessage = message;
+    self.state = kUnityAdsStateError;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         
         NSString * errorMessage = [NSString stringWithFormat:@"UnityAdsError %@ - %@", [DDNASmartAdUnityAdsAdapter stringFromUnityAdsError:error], message];
@@ -153,10 +163,6 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
             default:
                 DDNALogWarn(@"UnityAds initialising error: %@", errorMessage);
         }
-        
-        // All the errors are bad so let's give up.
-        self.errorMessage = message;
-        self.state = kUnityAdsStateError;
     });
 }
 

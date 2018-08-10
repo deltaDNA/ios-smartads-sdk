@@ -34,42 +34,42 @@ Pod::Spec.new do |s|
 
     s.subspec 'Amazon' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AmazonAds', '2.2.15.1'
+        ss.dependency 'AmazonAds', '2.2.17.0'
         ss.source_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Amazon/DDNASmartAdAmazonAdapter.h'
     end
 
     s.subspec 'MoPub' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'mopub-ios-sdk/Core', '~>4.20.1'
+        ss.dependency 'mopub-ios-sdk', '~>5.2.0'
         ss.source_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MoPub/DDNASmartAdMoPubAdapter.h'
     end
 
     s.subspec 'Flurry' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>8.6.1'
+        ss.dependency 'Flurry-iOS-SDK/FlurryAds', '~>9.0.0'
         ss.source_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Flurry/DDNASmartAdFlurry*.h'
     end
 
     s.subspec 'InMobi' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'InMobiSDK', '~>7.1.1'
+        ss.dependency 'InMobiSDK', '~>7.1.2'
         ss.source_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/InMobi/DDNASmartAdInMobi*.h'
     end
 
     s.subspec 'MobFox' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'MobFoxSDK', '3.4.4-b'
+        ss.dependency 'MobFoxSDK', '3.5.1'
         ss.source_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/MobFox/DDNASmartAdMobFoxAdapter.h'
     end
 
     s.subspec 'AdColony' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AdColony', '~>3.3.0'
+        ss.dependency 'AdColony', '~>3.3.5'
         ss.source_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AdColony/DDNASmartAdAdColonyAdapter.h'
     end
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'UnityAds' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'UnityAds', '~>2.2.0'
+        ss.dependency 'UnityAds', '~>2.3.0'
         ss.source_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/UnityAds/DDNASmartAdUnityAdsAdapter.h'
     end
@@ -104,28 +104,28 @@ Pod::Spec.new do |s|
 
     s.subspec 'AppLovin' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'AppLovinSDK', '~>5.0.1'
+        ss.dependency 'AppLovinSDK', '~>5.1.0'
         ss.source_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/AppLovin/DDNASmartAdAppLovinAdapter.h'
     end
 
     s.subspec 'IronSource' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'IronSourceSDK', '~>6.7.9.0'
+        ss.dependency 'IronSourceSDK', '~>6.7.10.0'
         ss.source_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/IronSource/DDNASmartAdIronSource*.h'
     end
 
     s.subspec 'Facebook' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FBAudienceNetwork', '~>4.28.1'
+        ss.dependency 'FBAudienceNetwork', '~>4.99.2'
         ss.source_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Facebook/DDNASmartAdFacebook*.h'
     end
 
     s.subspec 'Tapjoy' do |ss|
         ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'TapjoySDK', '~>11.12.1'
+        ss.dependency 'TapjoySDK', '~>12.0.0'
         ss.source_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/Tapjoy/DDNASmartAdTapjoyAdapter.h'
     end

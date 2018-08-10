@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "AmazonAds"
-    s.version      = "2.2.15.1"
+    s.version      = "2.2.17.0"
     s.summary      = "Amazon Ads iOS SDK"
 
     s.description  = <<-DESC

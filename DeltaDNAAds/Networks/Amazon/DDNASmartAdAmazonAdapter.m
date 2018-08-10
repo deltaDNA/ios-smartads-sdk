@@ -101,6 +101,11 @@
     }
 }
 
+- (BOOL)isGdprCompliant
+{
+    return YES;
+}
+
 #pragma mark - AmazonAdInterstitial protocol
 
 // Sent when load has succeeded and the interstitial isReady for display at the appropriate moment.

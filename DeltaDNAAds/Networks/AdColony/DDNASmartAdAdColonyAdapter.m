@@ -79,6 +79,8 @@
         options.mediationNetwork = @"DeltaDNA";
         options.mediationNetworkVersion = [DDNASmartAds sdkVersion];
         options.adOrientation = AdColonyOrientationAll;
+        options.gdprRequired = YES;
+        options.gdprConsentString = self.privacy.advertiserGdprUserConsent ? @"1" : @"0";
         
         [AdColony configureWithAppID:self.appId zoneIDs:@[self.zoneId] options:options completion:^(NSArray<AdColonyZone*>* zones) {
             AdColonyZone* zone = [zones firstObject];
@@ -167,5 +169,9 @@
     }
 }
 
+- (BOOL)isGdprCompliant
+{
+    return YES;
+}
 
 @end

@@ -51,6 +51,11 @@
     interstitial.delegate = self;
     
     GADRequest *request = [GADRequest request];
+    if (!self.privacy.advertiserGdprUserConsent) {
+        GADExtras *extras = [[GADExtras alloc] init];
+        extras.additionalParameters = @{@"npa": @"1"};
+        [request registerAdNetworkExtras:extras];
+    }
     [interstitial loadRequest:request];
     return interstitial;
 }
@@ -86,6 +91,11 @@
     else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - GADInterstitialDelegate protocol

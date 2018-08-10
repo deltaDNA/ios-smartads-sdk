@@ -15,6 +15,7 @@
 //
 
 import UIKit
+import DeltaDNAAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         detailViewController.navigationItem.leftItemsSupplementBackButton = true
         detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        
+        DDNALog.setLogLevel(.debug)
         
         return true
     }

@@ -46,7 +46,8 @@
             [IMSdk setLogLevel:kIMSDKLogLevelDebug];
         }
         NSDictionary *consent = @{
-            IM_GDPR_CONSENT_AVAILABLE: privacy.hasAdvertiserGdprUserConsent ? @"true" : @"false"
+            IM_GDPR_CONSENT_AVAILABLE: privacy.hasAdvertiserGdprUserConsent ? @"true" : @"false",
+            @"gdpr": @1
         };
         [IMSdk initWithAccountID:accountID consentDictionary:consent];
         self.accountID = accountID;

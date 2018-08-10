@@ -76,6 +76,8 @@
     } else if (!self.connecting) {
         [Tapjoy setDebugEnabled:self.testMode];
         [Tapjoy enableLogging:self.testMode];
+        [Tapjoy subjectToGDPR:YES];
+        [Tapjoy setUserConsent:self.privacy.advertiserGdprUserConsent ? @"1" : @"0"];
         
         NSDictionary *options = @{
             @"TJC_MEDIATION_NETWORK_NAME" : @"deltaDNA"
@@ -98,6 +100,11 @@
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
     }
+}
+
+- (BOOL)isGdprCompliant
+{
+    return YES;
 }
 
 #pragma mark - TJPlacementDelegate
