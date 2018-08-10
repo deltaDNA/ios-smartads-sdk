@@ -41,7 +41,7 @@ end
 
 target 'Integration Tester' do
     use_frameworks!
-    pod 'SwiftyJSON', '~> 4.0.0'
+    pod 'SwiftyJSON', '~> 4.1.0'
 end
 
 post_install do |installer|
