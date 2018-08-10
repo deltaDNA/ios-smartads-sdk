@@ -1,6 +1,9 @@
 # Change Log
 
 ## [1.10.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.0)(????-??-??)
+### Fixed
+- Updated AdColony, AppLovin, Facebook, Flurry, IronSource, Mobfox, MoPub, TapJoy, InMobi, UnityAds and Amazon to latest version.
+- Passes GDPR consent to AdMob, InMobi, MoPub, MobFox, TapJoy and UnityAds.
 
 ## [1.9.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.9.0)(2018-05-18)
 ### Changed
