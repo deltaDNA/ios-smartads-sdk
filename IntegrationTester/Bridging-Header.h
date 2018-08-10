@@ -20,6 +20,6 @@
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNAAds/DeltaDNAAds.h>
 
-#import <DeltaDNAAds/DDNASmartAdAdapter.h>
+#import <DeltaDNAAds/SmartAds/DDNASmartAdAdapter.h>
 
 #endif /* Bridging_Header_h */
