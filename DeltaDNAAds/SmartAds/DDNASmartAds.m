@@ -21,6 +21,7 @@
 #import <DeltaDNA/DeltaDNA.h>
 #import <DeltaDNA/DDNALog.h>
 #import <DeltaDNA/NSString+DeltaDNA.h>
+#import <AdSupport/AdSupport.h>
 
 
 
@@ -239,6 +240,7 @@
 - (void)didRegisterForInterstitialAds
 {
     DDNALogDebug(@"Registered for interstitial ads.");
+    [self recordIdfa];
     if ([self.registrationDelegate respondsToSelector:@selector(didRegisterForInterstitialAds)]) {
         [self.registrationDelegate didRegisterForInterstitialAds];
     }
@@ -294,6 +296,7 @@
 - (void)didRegisterForRewardedAds
 {
     DDNALogDebug(@"Registered for rewarded ads.");
+    [self recordIdfa];
     if ([self.registrationDelegate respondsToSelector:@selector(didRegisterForRewardedAds)]) {
         [self.registrationDelegate didRegisterForRewardedAds];
     }
@@ -333,6 +336,13 @@
     DDNALogDebug(@"Closed rewarded ad with reward %@", reward ? @"YES" : @"NO");
     if ([self.rewardedDelegate respondsToSelector:@selector(didCloseRewardedAdWithReward:)]) {
         [self.rewardedDelegate didCloseRewardedAdWithReward:reward];
+    }
+}
+
+- (void)recordIdfa
+{
+    if ([ASIdentifierManager sharedManager].advertisingTrackingEnabled) {
+        [[NSUserDefaults standardUserDefaults] setObject:[ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString forKey:@"com.deltadna.advertisingId"];
     }
 }
 
