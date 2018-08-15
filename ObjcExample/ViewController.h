@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *showRewardedAd1;
 @property (weak, nonatomic) IBOutlet UIButton *showRewardedAd2;
 @property (weak, nonatomic) IBOutlet UISwitch *gdprConsentSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *forgetMe;
 
 
 - (IBAction)showInterstitialAd:(id)sender;
@@ -38,6 +39,8 @@
 - (IBAction)setGdprConsent:(id)sender;
 - (IBAction)newSession:(id)sender;
 - (IBAction)getGpsPosition:(id)sender;
+- (IBAction)forgetMe:(id)sender;
+- (IBAction)restart:(id)sender;
 
 @end
 

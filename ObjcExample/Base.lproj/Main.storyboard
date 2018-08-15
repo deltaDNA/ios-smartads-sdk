@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -51,6 +51,14 @@
                                 <state key="normal" title="Request Location Permission"/>
                                 <connections>
                                     <action selector="getGpsPosition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xf8-c5-JMZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hY-2F-lpC" userLabel="Forget Me">
+                                <rect key="frame" x="151" y="577" width="73" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Forget Me"/>
+                                <connections>
+                                    <action selector="forgetMe:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tTu-NY-QJO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interstitial Stats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Tg-1v-7qj">
@@ -122,6 +130,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nmw-MR-hZk">
+                                <rect key="frame" x="161" y="612" width="53" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="Restart"/>
+                                <connections>
+                                    <action selector="getGpsPosition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jos-H9-Is1"/>
+                                    <action selector="restart:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pbq-Uo-0tF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -135,10 +152,12 @@
                             <constraint firstItem="bMb-BW-757" firstAttribute="top" secondItem="PSl-qz-JTH" secondAttribute="bottom" id="DHz-Nl-Rr9"/>
                             <constraint firstItem="k5r-rq-lek" firstAttribute="top" secondItem="GWB-qe-72H" secondAttribute="bottom" constant="48" id="E5k-ij-V2O"/>
                             <constraint firstItem="Km9-bm-gSq" firstAttribute="top" secondItem="WAZ-Yw-4cV" secondAttribute="bottom" constant="8" id="Eea-S4-m9W"/>
+                            <constraint firstItem="Nmw-MR-hZk" firstAttribute="top" secondItem="3hY-2F-lpC" secondAttribute="bottom" constant="5" id="KJQ-IZ-edF"/>
                             <constraint firstItem="fMi-Vc-Zqq" firstAttribute="top" secondItem="1Tg-1v-7qj" secondAttribute="bottom" constant="40" id="N06-zQ-yNc"/>
                             <constraint firstItem="2KG-4M-Ait" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P0P-Dk-VFR"/>
                             <constraint firstItem="KbQ-8G-8Aq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="P63-ow-10x"/>
                             <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PgL-Qk-vnb"/>
+                            <constraint firstItem="3hY-2F-lpC" firstAttribute="top" secondItem="THM-ZQ-Jgw" secondAttribute="bottom" constant="5" id="QTp-9j-cf5"/>
                             <constraint firstItem="PSl-qz-JTH" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="30" id="QeO-Un-J1j"/>
                             <constraint firstItem="Md8-As-Iw6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RIY-Xg-eCr"/>
                             <constraint firstItem="2KG-4M-Ait" firstAttribute="top" secondItem="KbQ-8G-8Aq" secondAttribute="bottom" constant="40" id="RmO-ul-fdl"/>
@@ -151,9 +170,11 @@
                             <constraint firstItem="k5r-rq-lek" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-28" id="cwT-Wf-ojS"/>
                             <constraint firstItem="a43-ew-hhp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dNB-ct-kTv"/>
                             <constraint firstItem="THM-ZQ-Jgw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dp9-4b-sl4"/>
+                            <constraint firstItem="3hY-2F-lpC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eco-nZ-fXF"/>
                             <constraint firstItem="PSl-qz-JTH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="esZ-4w-E7S"/>
                             <constraint firstItem="YKR-n5-iP6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hf0-Bz-fbw"/>
                             <constraint firstItem="GWB-qe-72H" firstAttribute="top" secondItem="Md8-As-Iw6" secondAttribute="bottom" constant="8" id="j6X-Gw-d0v"/>
+                            <constraint firstItem="Nmw-MR-hZk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jvE-Dk-oAc"/>
                             <constraint firstItem="KbQ-8G-8Aq" firstAttribute="top" secondItem="a43-ew-hhp" secondAttribute="bottom" constant="8" id="l3Z-Tc-dra"/>
                             <constraint firstItem="YKR-n5-iP6" firstAttribute="top" secondItem="3dQ-0t-JwA" secondAttribute="bottom" constant="6" id="nWt-Jy-sLT"/>
                             <constraint firstItem="bMb-BW-757" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sk0-lH-33h"/>
@@ -162,6 +183,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="forgetMe" destination="3hY-2F-lpC" id="yJ6-ML-67T"/>
                         <outlet property="gdprConsentSwitch" destination="WAZ-Yw-4cV" id="nr3-PG-ppy"/>
                         <outlet property="interstitialMessage" destination="YKR-n5-iP6" id="M32-ZP-Rm5"/>
                         <outlet property="interstitialStats" destination="1Tg-1v-7qj" id="lwW-xV-a3y"/>

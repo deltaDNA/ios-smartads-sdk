@@ -30,6 +30,10 @@
 
 @end
 
+static NSString *kEnvironmentKey = @"55822530117170763508653519413932";
+static NSString *kCollectUrl = @"https://collect2010stst.deltadna.net/collect/api";
+static NSString *kEngageUrl = @"https://engage2010stst.deltadna.net";
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -45,9 +49,9 @@
     [DDNASDK sharedInstance].hashSecret = @"KmMBBcNwStLJaq6KsEBxXc6HY3A4bhGw";
     [DDNASmartAds sharedInstance].registrationDelegate = self;
     
-    [[DDNASDK sharedInstance] startWithEnvironmentKey:@"55822530117170763508653519413932"
-                                           collectURL:@"https://collect2010stst.deltadna.net/collect/api"
-                                            engageURL:@"https://engage2010stst.deltadna.net"];
+    [[DDNASDK sharedInstance] startWithEnvironmentKey:kEnvironmentKey
+                                           collectURL:kCollectUrl
+                                            engageURL:kEngageUrl];
     
     
     // Prepare CoreLocation
@@ -109,6 +113,24 @@
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
         [self.locationManager requestWhenInUseAuthorization];
     }
+}
+
+- (IBAction)forgetMe:(id)sender
+{
+    [self resetUI];
+    [[DDNASDK sharedInstance] forgetMe];
+}
+
+- (IBAction)restart:(id)sender
+{
+    [self resetUI];
+    if ([DDNASDK sharedInstance].hasStarted) {
+        [[DDNASDK sharedInstance] stop];
+    }
+    [[DDNASDK sharedInstance] clearPersistentData];
+    [[DDNASDK sharedInstance] startWithEnvironmentKey:kEnvironmentKey
+                                           collectURL:kCollectUrl
+                                            engageURL:kEngageUrl];
 }
 
 #pragma mark - CLLocationManagerDelegate

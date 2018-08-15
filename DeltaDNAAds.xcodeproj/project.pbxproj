@@ -1074,7 +1074,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Swift SmartAds Example/Pods-Swift SmartAds Example-resources.sh",
-				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
+				"${PODS_ROOT}/../../ios-sdk-v4/DeltaDNA/Resources/iso_4217.xml",
 				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
@@ -1175,7 +1175,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example-resources.sh",
-				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
+				"${PODS_ROOT}/../../ios-sdk-v4/DeltaDNA/Resources/iso_4217.xml",
 				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
@@ -1262,7 +1262,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Integration Tester/Pods-Integration Tester-resources.sh",
-				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
+				"${PODS_ROOT}/../../ios-sdk-v4/DeltaDNA/Resources/iso_4217.xml",
 				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
