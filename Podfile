@@ -1,3 +1,4 @@
+source 'git@corp-vm-gitlab:gamesanalytics/CocoaPods.git'
 source 'https://github.com/deltaDNA/CocoaPods'
 source 'https://github.com/CocoaPods/Specs'
 
