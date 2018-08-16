@@ -143,11 +143,4 @@ Pod::Spec.new do |s|
         ss.source_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.{h,m}'
         ss.public_header_files = 'DeltaDNAAds/Networks/LoopMe/DDNASmartAdLoopMeAdapter.h'
     end
-
-    s.subspec 'MachineZone' do |ss|
-        ss.dependency 'DeltaDNAAds/SmartAds'
-        ss.dependency 'FMAdZone', '1.3.0'
-        ss.source_files = 'DeltaDNAAds/Networks/MachineZone/DDNASmartAdMachineZone*.{h,m}'
-        ss.public_header_files = 'DeltaDNAAds/Networks/MachineZone/DDNASmartAdMachineZone*.h'
-    end
 end

@@ -102,10 +102,6 @@
 		63BE8222206D373B00CB2F13 /* DDNASmartAdMetricsSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BE8216206D361900CB2F13 /* DDNASmartAdMetricsSpec.m */; };
 		63BE8224206D375100CB2F13 /* DDNAFakeSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BE821E206D362500CB2F13 /* DDNAFakeSDK.m */; };
 		63BF38BF209B1AF9000EA523 /* DDNASmartAdPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BF38BE209B1AF9000EA523 /* DDNASmartAdPrivacy.m */; };
-		63CC159B1FD065F800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC15961FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m */; };
-		63CC159C1FD065FD00B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC15931FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m */; };
-		63CC159D1FD0660200B992DD /* DDNASmartAdMachineZoneHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC15901FD0161300B992DD /* DDNASmartAdMachineZoneHelper.m */; };
-		63CC15A01FD069AA00B992DD /* DDNASmartAdMachineZoneSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */; };
 		63CC15A11FD06BE700B992DD /* DDNADebugListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 632FE0741FC5A38A0002145B /* DDNADebugListener.m */; };
 		63D207E7206E8EBF00095001 /* DDNASmartAdEngageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D207E6206E8EBF00095001 /* DDNASmartAdEngageFactory.m */; };
 		63D207EA20722F9B00095001 /* DDNAAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D207E920722F9B00095001 /* DDNAAd.m */; };
@@ -321,13 +317,6 @@
 		63BE821E206D362500CB2F13 /* DDNAFakeSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNAFakeSDK.m; sourceTree = "<group>"; };
 		63BF38BD209B1AF9000EA523 /* DDNASmartAdPrivacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdPrivacy.h; sourceTree = "<group>"; };
 		63BF38BE209B1AF9000EA523 /* DDNASmartAdPrivacy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdPrivacy.m; sourceTree = "<group>"; };
-		63CC158F1FD0161300B992DD /* DDNASmartAdMachineZoneHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMachineZoneHelper.h; sourceTree = "<group>"; };
-		63CC15901FD0161300B992DD /* DDNASmartAdMachineZoneHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneHelper.m; sourceTree = "<group>"; };
-		63CC15931FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneInterstitialAdapter.m; sourceTree = "<group>"; };
-		63CC15941FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMachineZoneRewardedAdapter.h; sourceTree = "<group>"; };
-		63CC15951FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdMachineZoneInterstitialAdapter.h; sourceTree = "<group>"; };
-		63CC15961FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneRewardedAdapter.m; sourceTree = "<group>"; };
-		63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdMachineZoneSpec.m; sourceTree = "<group>"; };
 		63D207E5206E8EBF00095001 /* DDNASmartAdEngageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDNASmartAdEngageFactory.h; sourceTree = "<group>"; };
 		63D207E6206E8EBF00095001 /* DDNASmartAdEngageFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNASmartAdEngageFactory.m; sourceTree = "<group>"; };
 		63D207E920722F9B00095001 /* DDNAAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDNAAd.m; sourceTree = "<group>"; };
@@ -461,7 +450,6 @@
 			isa = PBXGroup;
 			children = (
 				63BE8216206D361900CB2F13 /* DDNASmartAdMetricsSpec.m */,
-				63CC159E1FD0672900B992DD /* DDNASmartAdMachineZoneSpec.m */,
 				63047F1D1F45F6C800282267 /* DDNASmartAdLoopMeAdapterSpec.m */,
 				63E088351E424F5A009173CC /* DDNASmartAdThirdPresenceAdapterSpec.m */,
 				63FC968C1E409D970066972D /* DDNASmartAdAppLovinAdapterSpec.m */,
@@ -504,7 +492,6 @@
 		636A41051E93A724002BC4E9 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
-				63CC158E1FD0161300B992DD /* MachineZone */,
 				63047F1F1F45F6D700282267 /* LoopMe */,
 				631D9FCC1F3DF68600F54F0A /* HyprMX */,
 				637752471EE9A8500066EABB /* Tapjoy */,
@@ -800,19 +787,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63CC158E1FD0161300B992DD /* MachineZone */ = {
-			isa = PBXGroup;
-			children = (
-				63CC15951FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.h */,
-				63CC15931FD018B800B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m */,
-				63CC15941FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.h */,
-				63CC15961FD018B800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m */,
-				63CC158F1FD0161300B992DD /* DDNASmartAdMachineZoneHelper.h */,
-				63CC15901FD0161300B992DD /* DDNASmartAdMachineZoneHelper.m */,
-			);
-			path = MachineZone;
-			sourceTree = "<group>";
-		};
 		D1FA90A14136E0817FDFECE8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1075,7 +1049,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Swift SmartAds Example/Pods-Swift SmartAds Example-resources.sh",
 				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
-				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
@@ -1105,7 +1078,6 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iso_4217.xml",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FMAdZoneResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LoopMeResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPAdBrowserController.nib",
@@ -1176,7 +1148,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ObjC SmartAds Example/Pods-ObjC SmartAds Example-resources.sh",
 				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
-				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
@@ -1206,7 +1177,6 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iso_4217.xml",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FMAdZoneResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LoopMeResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPAdBrowserController.nib",
@@ -1263,7 +1233,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Integration Tester/Pods-Integration Tester-resources.sh",
 				"${PODS_ROOT}/DeltaDNA/DeltaDNA/Resources/iso_4217.xml",
-				"${PODS_ROOT}/FMAdZone/FMAdZoneResources.bundle",
 				"${PODS_ROOT}/LoopMeSDK/LoopMeSDK.embeddedframework/Resources/LoopMeResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.0.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
@@ -1293,7 +1262,6 @@
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/iso_4217.xml",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FMAdZoneResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LoopMeResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPAdBrowserController.nib",
@@ -1358,8 +1326,6 @@
 				6340D0561E96858C00786346 /* DDNASmartAdFacebookAdapterSpec.m in Sources */,
 				636A417E1E93ABC6002BC4E9 /* DDNASmartAdInMobiInterstitialAdapter.m in Sources */,
 				6342F73E1DCCCB7C0058BABC /* DDNAInterstitialAdSpec.m in Sources */,
-				63CC159D1FD0660200B992DD /* DDNASmartAdMachineZoneHelper.m in Sources */,
-				63CC159B1FD065F800B992DD /* DDNASmartAdMachineZoneRewardedAdapter.m in Sources */,
 				6342F74C1DCCCB7C0058BABC /* DDNASmartAdUnityAdsAdapterSpec.m in Sources */,
 				6343D585207E473E00CC5A46 /* DDNASmartAdMetrics.m in Sources */,
 				6342F73C1DCCCB7C0058BABC /* DDNAFakeSmartAdService.m in Sources */,
@@ -1373,7 +1339,6 @@
 				636A418A1E93ABF7002BC4E9 /* DDNASmartAdAdapter.m in Sources */,
 				6342F74A1DCCCB7C0058BABC /* DDNASmartAdServiceSpec.m in Sources */,
 				6342F74E1DCCCB7C0058BABC /* DDNASmartAdWaterfallSpec.m in Sources */,
-				63CC15A01FD069AA00B992DD /* DDNASmartAdMachineZoneSpec.m in Sources */,
 				6342F7391DCCCB7C0058BABC /* DDNAFakeSmartAdAgent.m in Sources */,
 				631D9FD31F3DFE7400F54F0A /* DDNASmartAdHyprMXAdapterSpec.m in Sources */,
 				6342F74B1DCCCB7C0058BABC /* DDNASmartAdsSpec.m in Sources */,
@@ -1410,7 +1375,6 @@
 				636A418F1E93ABF7002BC4E9 /* DDNASmartAdStatus.m in Sources */,
 				63047F251F45F76B00282267 /* DDNASmartAdLoopMeAdapterSpec.m in Sources */,
 				636A41741E93ABA4002BC4E9 /* DDNASmartAdAmazonAdapter.m in Sources */,
-				63CC159C1FD065FD00B992DD /* DDNASmartAdMachineZoneInterstitialAdapter.m in Sources */,
 				6342F7401DCCCB7C0058BABC /* DDNASmartAdAdColonyAdapterSpec.m in Sources */,
 				63BAF1E120A0897900F4205B /* DDNASmartAdSettings.m in Sources */,
 				636A41721E93AB97002BC4E9 /* DDNASmartAdAdColonyAdapter.m in Sources */,
