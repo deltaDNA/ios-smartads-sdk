@@ -5,13 +5,13 @@ Pod::Spec.new do |s|
     s.summary = 'Smart advertising mediation from deltaDNA.'
     s.homepage = 'https://www.deltadna.com'
     s.authors = { 'David White' => 'david.white@deltadna.com' }
-    s.source = { :git => 'https://github.com/deltaDNA/ios-smartads-sdk.git', :tag => s.version.to_s }
+    s.source = { :git => 'git@corp-vm-gitlab:gamesanalytics/ios-smartads-sdk.git', :tag => s.version.to_s }
     s.platform = :ios, '9.0'
     s.requires_arc = true
 
     s.header_mappings_dir = 'DeltaDNAAds'
 
-    s.dependency 'DeltaDNA', '~> 4.10.0'
+    s.dependency 'DeltaDNA', '~> 4.10.0-beta.1'
 
     s.subspec 'SmartAds' do |ss|
         ss.source_files = 'DeltaDNAAds/DeltaDNAAds.{h,m}', 'DeltaDNAAds/SmartAds/**/*.{h,m}'
