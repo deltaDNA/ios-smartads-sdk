@@ -8,6 +8,9 @@
 - Updated AdColony, AppLovin, Facebook, Flurry, IronSource, Mobfox, MoPub, TapJoy, InMobi, UnityAds and Amazon to latest version.
 - Passes GDPR consent to AdMob, InMobi, MoPub, MobFox, TapJoy and UnityAds.
 
+### Removed
+- Support for MachineZone. 
+
 ## [1.9.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.9.0)(2018-05-18)
 ### Changed
 - Minimum required os version now iOS 9.
