@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.10.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.0)(????-??-??)
+## [1.10.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.0)(2018-08-22)
 ### Added
 - Saves IDFA for use with the ForgetMe API.
 
