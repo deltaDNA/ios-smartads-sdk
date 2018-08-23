@@ -15,9 +15,9 @@
 //
 
 #import "DDNASmartAdAdColonyAdapter.h"
+#import "DDNASmartAds.h"
 #import <AdColony/AdColony.h>
 #import <DeltaDNA/DDNALog.h>
-#import <DeltaDNAAds/DDNASmartAds.h>
 
 @interface DDNASmartAdAdColonyAdapter ()
 
