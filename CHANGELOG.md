@@ -1,6 +1,6 @@
 # Change Log
 
-## [1.10.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.1) (YYYY-MM-DD)
+## [1.10.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.1) (2018-11-19)
 ### Changed
 - Use 4.10.2 version of analytics SDK.
 
