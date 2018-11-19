@@ -1,6 +1,9 @@
 # Change Log
 
 ## [1.10.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.1) (YYYY-MM-DD)
+### Changed
+- Use 4.10.2 version of analytics SDK.
+
 ### Fixed
 - Occasional freeze when closing a Unity ad under the Unity SDK.
 
