@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.10.1](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.1) (YYYY-MM-DD)
+### Fixed
+- Occasional freeze when closing a Unity ad under the Unity SDK.
+
 ## [1.10.0](https://github.com/deltaDNA/ios-smartads-sdk/releases/tag/1.10.0)(2018-08-22)
 ### Added
 - Saves IDFA for use with the ForgetMe API.

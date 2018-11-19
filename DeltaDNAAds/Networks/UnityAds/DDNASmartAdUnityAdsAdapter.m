@@ -103,7 +103,6 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
         id mediationMetaData = [[UADSMediationMetaData alloc] init];
         [mediationMetaData setOrdinal:(int)(self.delegate.sessionAdCount+1)];
         [mediationMetaData commit];
-        self.state = kUnityAdsStateShowing;
         [UnityAds show:viewController placementId:self.placementId];
     } else {
         [self.delegate adapterDidFailToShowAd:self withResult:[DDNASmartAdShowResult resultWith:DDNASmartAdShowResultCodeExpired]];
@@ -147,7 +146,6 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
     self.state = kUnityAdsStateError;
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        
         NSString * errorMessage = [NSString stringWithFormat:@"UnityAdsError %@ - %@", [DDNASmartAdUnityAdsAdapter stringFromUnityAdsError:error], message];
         
         switch (self.state) {
@@ -177,6 +175,7 @@ typedef NS_ENUM(NSInteger, UnityAdsState) {
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.placementId isEqualToString:placementId]) {
+            self.state = kUnityAdsStateShowing;
             [self.delegate adapterIsShowingAd:self];
         }
     });
